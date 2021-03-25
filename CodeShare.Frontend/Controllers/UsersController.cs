@@ -157,6 +157,26 @@ namespace CodeShare.Frontend.Controllers
             
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ResetPassword(ViewResetPasword resetPasword)
+        {
+            FunctionsController functions = new FunctionsController();
+            var cookie = functions.CookieID();
+            if (cookie == null)
+            {
+                return RedirectToAction("Login");
+            }
+            if (ModelState.IsValid)
+            {
+                if(cookie.user_pass == resetPasword.OldPassword)
+                {
+                    usersDAO.ResetPassword(cookie.user_id, resetPasword.NewPassword);
+                    return Redirect("/");
+                }
+            }
+            TempData["noti_resetpass"] = "Mật khẩu không đúng!";
+            return View(resetPasword);
+        }
         
     }
 }

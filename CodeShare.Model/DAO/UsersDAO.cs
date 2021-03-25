@@ -150,5 +150,21 @@ namespace CodeShare.Model.DAO
                 return false;
             }
         }
+
+        // Reset password
+        public bool ResetPassword(int? id, string password)
+        {
+            try
+            {
+                db.Users.Find(id).user_pass = password;
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
