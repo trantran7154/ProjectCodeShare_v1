@@ -1,6 +1,6 @@
 ﻿@using CodeShare.Model.EF;
 @using CodeShare.Frontend.Functions;
-@model List<Denominations>
+@model List<Pakage>
 @{
     DataShareCodeEntities db = new DataShareCodeEntities();
     ViewBag.Title = "Index";
@@ -29,7 +29,7 @@
                             <i class="fa fa-user">&nbsp;</i> @id.user_name [Mã USER-@id.user_id] &nbsp;&nbsp;
                             <i class="fa fa-envelope">&nbsp;</i> @id.user_email &nbsp;&nbsp;
                             <i class="fa fa-bitcoin">&nbsp;</i> Tài khoản: @id.user_coin xu &nbsp;&nbsp;
-                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @(int.Parse(id.user_coin) * 1000) VNĐ &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @(id.user_coin * 1000) VNĐ &nbsp;&nbsp;
                         </center>
                     </div>
                     <nav class="mt-3">
@@ -48,14 +48,15 @@
                                     <!-- Trending Item -->
                                     @foreach (var item in Model)
                                     {
+                                        var sum = item.pakage_coin * 1000;
                                         <div class="col-lg-3 col-sm-6">
                                             <div class="trending_item clearfix border shadow">
                                                 <div style="padding: 10px">
                                                     <div class="trending_image"><img src="https://developers.momo.vn/images/logo.png" alt=""></div>
                                                     <div class="trending_content">
-                                                        <div class="trending_title"><a href="#">@int.Parse(item.denomination_price).ToString("#,###") vnđ</a></div>
-                                                        <div class="trending_price">@item.denomination_coin Xu</div>
-                                                        <div style="cursor: pointer" onclick="window.location.href = '@Url.Action("Details","Pays", new { id = item.denomination_id })'" class="trending_location text-danger">Nạp ngay</div>
+                                                        <div class="trending_title"><a href="#">@sum.Value.ToString("#,###") vnđ</a></div>
+                                                        <div class="trending_price">@item.pakage_coin Xu</div>
+                                                        <div style="cursor: pointer" onclick="window.location.href = '@Url.Action("Details","Pays", new { id = item.pakege_id })'" class="trending_location text-danger">Nạp ngay</div>
                                                     </div>
                                                 </div>
                                             </div>
