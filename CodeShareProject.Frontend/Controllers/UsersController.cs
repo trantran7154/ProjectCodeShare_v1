@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using CodeShare.Model.EF;
 using CodeShare.Model.DAO;
 using CodeShare.Model;
-using CodeShare.Frontend.Models;
+using CodeShareProject.Frontend.Models;
 using CodeShare.Frontend.Functions;
 
 namespace CodeShare.Frontend.Controllers
@@ -16,7 +16,7 @@ namespace CodeShare.Frontend.Controllers
         // GET: Users
 
         DataShareCodeEntities db = new DataShareCodeEntities();
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDao usersDAO = new UsersDao();
 
         public ActionResult Index()
         {
