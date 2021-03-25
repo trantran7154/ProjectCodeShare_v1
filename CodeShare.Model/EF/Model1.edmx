@@ -49,6 +49,7 @@
           <Property Name="code_pass" Type="nvarchar(max)" />
           <Property Name="category_id" Type="int" />
           <Property Name="user_id" Type="int" />
+          <Property Name="code_img" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -380,6 +381,7 @@
           <NavigationProperty Name="Category" Relationship="Self.FK_Codes_Categorys" FromRole="Codes" ToRole="Categorys" />
           <NavigationProperty Name="User" Relationship="Self.FK_Codes_Users" FromRole="Codes" ToRole="Users" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Codes" FromRole="Codes" ToRole="Tools" />
+          <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -699,6 +701,7 @@
           <EntitySetMapping Name="Codes">
             <EntityTypeMapping TypeName="DataShareCodeModel.Code">
               <MappingFragment StoreEntitySet="Codes">
+                <ScalarProperty Name="code_img" ColumnName="code_img" />
                 <ScalarProperty Name="code_id" ColumnName="code_id" />
                 <ScalarProperty Name="code_title" ColumnName="code_title" />
                 <ScalarProperty Name="code_coin" ColumnName="code_coin" />

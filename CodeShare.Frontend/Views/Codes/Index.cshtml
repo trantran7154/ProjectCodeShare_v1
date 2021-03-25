@@ -40,14 +40,14 @@
                             <td>Tùy chọn</td>
                         </tr>
                         <tr ng-show="(list | filter: txtSearch).length == 0">
-                            <td colspan="6">
+                            <td colspan="7">
                                 <h4>Không có kết quả?</h4>
                             </td>
                         </tr>
                         <tr ng-repeat="list in list | filter: txtSearch">
                             <td>{{list.id}}</td>
                             <td><img src="~/Images/Codes/{{list.img}}" style="width: 50px; height: 50px" /></td>
-                            <td>{{list.name}}</td>
+                            <td>{{list.title}}</td>
                             <td>{{list.view}}</td>
                             <td>{{list.coin}} xu</td>
                             <td>{{list.coin * 1000}} VNĐ</td>
