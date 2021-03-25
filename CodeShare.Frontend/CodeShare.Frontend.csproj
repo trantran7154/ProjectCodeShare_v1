@@ -1038,14 +1038,12 @@
     <Content Include="Content\Layout\styles\contact_styles.css" />
     <Content Include="Content\Layout\styles\elements_responsive.css" />
     <Content Include="Content\Layout\styles\elements_styles.css" />
+    <Content Include="Content\Layout\styles\main_styles.css" />
     <Content Include="Content\Layout\styles\offers_responsive.css" />
     <Content Include="Content\Layout\styles\offers_styles.css" />
     <Content Include="Content\Layout\styles\responsive.css" />
     <Content Include="Content\Layout\styles\single_listing_responsive.css" />
     <Content Include="Content\Layout\styles\single_listing_styles.css" />
-    <Content Include="Content\Layout\styles\style - Copy - Copy.css" />
-    <Content Include="Content\Layout\styles\style - Copy.css" />
-    <Content Include="Content\Layout\styles\style.css" />
     <Content Include="Content\Layout\Users\CSS\style-users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

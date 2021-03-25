@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -16,7 +16,7 @@
 	4.1 Home Slider
 	4.2 Home Slider Nav
 	4.3 Home Slider Dots
-5. searcha
+5. Search
 6. Section Title
 7. Intro
 8. CTA
@@ -313,12 +313,12 @@ section
 {
 	position: fixed;
 	width: 100%;
-	background: rgba(10,159,38,1);
+	background: rgba(54, 19, 84, 0.6);
 	z-index: 12;
 }
 .header.scrolled
 {
-	background: rgba(11,156,49,0.9);
+	background: rgba(54, 19, 84, 0.85);
 }
 
 /*********************************
@@ -328,8 +328,8 @@ section
 .top_bar
 {
 	width: 100%;
-	height: 42px;
-	background: rgba(7,111,26,1);
+	height: 36px;
+	background: #350a4e;
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
 	-ms-transition: all 400ms ease;
@@ -457,7 +457,7 @@ section
 {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 30px;
-	color: white;
+	color: #f4f4f8;
 	font-weight: 800;
 	text-transform: uppercase;
 }
@@ -494,8 +494,8 @@ section
 .main_nav_item a
 {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
-	font-weight: 700;
+	font-size: 13px;
+	font-weight: 600;
 	color: #FFFFFF;
 	text-transform: uppercase;
 	padding-bottom: 10px;
@@ -522,7 +522,7 @@ section
 {
 	opacity: 1;
 }
-.content_searcha
+.content_search
 {
 	-webkit-transform: translateY(-1px);
 	-moz-transform: translateY(-1px);
@@ -531,7 +531,7 @@ section
 	transform: translateY(-1px);
 	cursor: pointer;
 }
-.header.scrolled .content_searcha
+.header.scrolled .content_search
 {
 	-webkit-transform: none;
 	-moz-transform: none;
@@ -547,16 +547,16 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.content_searcha img
+.content_search img
 {
 	width: 17px;
 	height: 17px;
 }
-.content_searcha:hover .mag_glass
+.content_search:hover .mag_glass
 {
 	fill: #fa9e1c;
 }
-.searcha_form
+.search_form
 {
 	position: absolute;
 	right: 15px;
@@ -566,13 +566,13 @@ section
 	visibility: hidden;
 	opacity: 0;
 }
-.searcha_form.active
+.search_form.active
 {
 	top: 105px;
 	visibility: visible;
 	opacity: 1;
 }
-.searcha_content_input
+.search_content_input
 {
 	width: 100%;
 	height: 100%;
@@ -928,28 +928,28 @@ section
 }
 
 /*********************************
-5. searcha
+5. Search
 *********************************/
 
-.searcha
+.search
 {
 	width: 100%;
 	height: 192px;
 	background: linear-gradient(to right, #fa9e1b, #8d4fff);
 	z-index: 10;
 }
-.searcha_tabs_container
+.search_tabs_container
 {
 	position: absolute;
 	bottom: 100%;
 	left: 15px;
 	width: calc(100% - 30px);
 }
-.searcha_tabs
+.search_tabs
 {
 	height: 94px;
 }
-.searcha_tab
+.search_tab
 {
 	font-size: 14px;
 	font-weight: 700;
@@ -966,7 +966,7 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.searcha_tab img
+.search_tab img
 {
 	margin-right: 10px;
 	-webkit-transition: all 200ms ease;
@@ -975,22 +975,22 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.searcha_tab:first-child
+.search_tab:first-child
 {
 	border-top-left-radius: 94px;
 	padding-left: 7px;
 }
-.searcha_tab:last-child
+.search_tab:last-child
 {
 	border-top-right-radius: 94px;
 	padding-right: 7px;
 }
-.searcha_tab.active
+.search_tab.active
 {
 	background: #fa9e1b;
 	color: #FFFFFF;
 }
-.searcha_tab.active img
+.search_tab.active img
 {
 	-webkit-filter: brightness(200%) grayscale(100%);
 	-moz-filter: brightness(200%) grayscale(100%);
@@ -998,12 +998,12 @@ section
 	-o-filter: brightness(200%) grayscale(100%);
   	filter: brightness(200%) grayscale(100%);
 }
-.searcha_tab:hover
+.search_tab:hover
 {
 	background: #fa9e1b;
 	color: #FFFFFF;
 }
-.searcha_tab:hover img
+.search_tab:hover img
 {
 	-webkit-filter: brightness(200%) grayscale(100%);
 	-moz-filter: brightness(200%) grayscale(100%);
@@ -1011,7 +1011,7 @@ section
 	-o-filter: brightness(200%) grayscale(100%);
   	filter: brightness(200%) grayscale(100%);
 }
-.searcha_panel
+.search_panel
 {
 	display: none !important;
 	width: 100%;
@@ -1019,7 +1019,7 @@ section
 	-webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
 }
-.searcha_panel.active
+.search_panel.active
 {
 	display: flex!important;
 }
@@ -1033,12 +1033,12 @@ section
     from {opacity: 0;}
     to {opacity: 1;}
 }
-.searcha_panel_content
+.search_panel_content
 {
 	width: 100%;
 	height: 100%;
 }
-.searcha_input
+.search_input
 {
 	width: 100%;
 	height: 46px;
@@ -1050,27 +1050,27 @@ section
 	font-weight: 600;
 	color: #929191;
 }
-.searcha_item:first-child
+.search_item:first-child
 {
 	width: 30.453%;
 }
-.searcha_item:nth-child(2)
+.search_item:nth-child(2)
 {
 	width: 13.961%;
 }
-.searcha_item:nth-child(3)
+.search_item:nth-child(3)
 {
 	width: 13.961%;
 }
-.searcha_item:nth-child(4)
+.search_item:nth-child(4)
 {
 	width: 9.947%;
 }
-.searcha_item:nth-child(5)
+.search_item:nth-child(5)
 {
 	width: 9.947%;
 }
-.searcha_item div
+.search_item div
 {
 	font-size: 13px;
 	font-weight: 700;
@@ -1078,8 +1078,38 @@ section
 	text-transform: uppercase;
 	margin-bottom: 14px;
 }
-
-.searcha_button
+.dropdown_item_select
+{
+	-webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    -o-appearance:none;
+    appearance:none;
+	-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+	-webkit-user-select: none;
+	background-image: url(../images/dropdown.png);
+	background-position: center right;
+	background-repeat: no-repeat;
+	border: solid 1px #FFFFFF;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.dropdown_item_select::-ms-expand
+{
+    display: none;
+}
+.dropdown_item_select:hover
+{
+	border: solid 1px #fa9e1c;
+}
+.dropdown_item_select:focus
+{
+	outline-color: #fa9e1c;
+}
+.search_button
 {
 	font-size: 13px;
 	font-weight: 700;
@@ -1098,7 +1128,7 @@ section
 	outline: none;
 	cursor: pointer;
 }
-.searcha_button:hover
+.search_button:hover
 {
 	opacity: 0.8;
 }
@@ -1864,7 +1894,7 @@ section
 	width: 100%;
 	padding-top: 113px;
 	padding-bottom: 104px;
-	background: rgba(10,159,38,1);
+	background: #31124b;
 }
 .footer_title
 {
@@ -2078,7 +2108,7 @@ section
 
 .copyright
 {
-	background: rgba(7,111,26,1);
+	background: #1f0733;
 }
 .copyright_content
 {
@@ -2088,7 +2118,7 @@ section
 {
 	font-size: 12px;
 	font-weight: 600;
-	color: white;
+	color: #685677;
 }
 .footer_nav_container
 {
@@ -2111,7 +2141,7 @@ section
 {
 	font-size: 12px;
 	font-weight: 600;
-	color: white;
+	color: #685677;
 	text-transform: uppercase;
 	line-height: 2;
 	-webkit-transition: all 200ms ease;
