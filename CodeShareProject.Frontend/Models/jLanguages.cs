@@ -7,5 +7,8 @@ namespace CodeShareProject.Frontend.Models
 {
     public class jLanguages
     {
+        public int id { get; set; }
+        public string name { get; set; }
+        public int active { get; set; }
     }
 }
