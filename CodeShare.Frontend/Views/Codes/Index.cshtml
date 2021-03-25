@@ -3,12 +3,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="home" style="height: 100px">
-    <!-- Home Slider -->
-    <div class="home_slider_container">
-    </div>
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
-<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;" ng-app="myApp">
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
     <div class="test_border"></div>
     <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
         <div class="row">
@@ -74,7 +72,7 @@
             url: "/Json/Codes"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
-            $scope.count = $scope.list.length; 
+            $scope.count = $scope.list.length;
         }, function myError(response) {
             $scope.list = response.statusText;
         });

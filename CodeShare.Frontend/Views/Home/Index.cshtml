@@ -4,6 +4,7 @@
     DataShareCodeEntities db = new DataShareCodeEntities();
     List<Code> codes = db.Codes.ToList();
     List<Category> categories = db.Categorys.ToList();
+    List<Language> languages = db.Languages.ToList();
     //List<Event> events = db.Events.ToList();
     //List<Knowledge_Categorys> knowledges = db.Knowledge_Categorys.ToList();
     //List<Programming_Knowledges> programming_Knowledges = db.Programming_Knowledges.ToList();
@@ -22,6 +23,11 @@
             <div class="owl-item home_slider_item">
                 <div class="home_slider_background" style="background-image: url('../../Images/Codes/top10.jpg'); background-size: cover"></div>
                 <div class="home_slider_content text-center">
+                    <marquee>
+                        <b class="text-white">Bảo trân</b> đã nạp <b class="text-white">20 xu</b> thành công &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b class="text-white">Bảo trân</b> đã nạp <b class="text-white">20 xu</b> thành công &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b class="text-white">Bảo trân</b> đã mua <b class="text-white">Code website</b> thành công
+                    </marquee>
                     <div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
                         <h1 style="font-size: 79px" class="mt-5">TÌM VÀ CHIA SẺ SOURCE CODES NHANH NHẤT</h1>
                         <div class="button home_slider_button"><div class="button_bcg"></div><a href="#">Xem ngay<span></span><span></span><span></span></a></div>
@@ -324,6 +330,33 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="trending bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="section_title">Chuyên mục ngôn ngữ lập trình??</h2>
+            </div>
+        </div>
+        <div class="row trending_container">
+
+            <!-- Trending Item -->
+            @foreach (var item in languages.Where(n => n.language_active == 1).OrderByDescending(n => n.language_view).Take(12))
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="trending_item clearfix">
+                        <div class="trending_image"><img style="height: 80px; width: 100%; border-radius: 50%" src="~/Images/Languages/@item.language_img" alt=""></div>
+                        <div class="trending_content">
+                            <div class="trending_title"><a href="#">@item.language_name</a></div>
+                            <div class="trending_price">100 Code</div>
+                            <div class="trending_location">Xem ngay</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
     </div>
 </div>

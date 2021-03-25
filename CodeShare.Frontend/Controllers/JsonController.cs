@@ -75,7 +75,8 @@ namespace CodeShare.Frontend.Controllers
                 tag = n.code_tag,
                 title = n.code_title,
                 view = (int)n.code_view,
-                viewdown = (int)n.code_viewdown
+                viewdown = (int)n.code_viewdown,
+                img = n.code_img
 
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);

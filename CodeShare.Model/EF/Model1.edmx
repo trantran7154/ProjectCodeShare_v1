@@ -24,6 +24,7 @@
           <Property Name="category_name" Type="nvarchar(max)" />
           <Property Name="category_active" Type="bit" />
           <Property Name="category_item" Type="int" />
+          <Property Name="category_img" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -70,6 +71,8 @@
           <Property Name="language_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="language_name" Type="nvarchar" MaxLength="300" />
           <Property Name="language_active" Type="int" />
+          <Property Name="language_img" Type="nvarchar(max)" />
+          <Property Name="language_view" Type="int" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -354,6 +357,7 @@
           <Property Name="category_item" Type="Int32" />
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Categorys" FromRole="Categorys" ToRole="Codes" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Categorys" FromRole="Categorys" ToRole="Groups" />
+          <Property Name="category_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Code">
           <Key>
@@ -406,6 +410,8 @@
           <Property Name="language_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="language_active" Type="Int32" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Languages" FromRole="Languages" ToRole="Groups" />
+          <Property Name="language_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="language_view" Type="Int32" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -694,6 +700,7 @@
           <EntitySetMapping Name="Categorys">
             <EntityTypeMapping TypeName="DataShareCodeModel.Category">
               <MappingFragment StoreEntitySet="Categorys">
+                <ScalarProperty Name="category_img" ColumnName="category_img" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="category_active" ColumnName="category_active" />
@@ -744,6 +751,8 @@
           <EntitySetMapping Name="Languages">
             <EntityTypeMapping TypeName="DataShareCodeModel.Language">
               <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="language_view" ColumnName="language_view" />
+                <ScalarProperty Name="language_img" ColumnName="language_img" />
                 <ScalarProperty Name="language_id" ColumnName="language_id" />
                 <ScalarProperty Name="language_name" ColumnName="language_name" />
                 <ScalarProperty Name="language_active" ColumnName="language_active" />

@@ -1,17 +1,15 @@
 ﻿@using CodeShare.Model.EF;
 @using CodeShare.Frontend.Functions;
-@model List<Bill>  
+@model List<Bill>
 @{
     DataShareCodeEntities db = new DataShareCodeEntities();
     ViewBag.Title = "History";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="home" style="height: 100px">
-    <!-- Home Slider -->
-    <div class="home_slider_container">
-    </div>
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
-<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;" ng-app="myApp">
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
     <div class="test_border"></div>
     <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
         <div class="row">
@@ -20,7 +18,7 @@
                     <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Lịch sử đơn hàng</h6>
                     <p class="text-dark font-weight-bold float-left">
                         <b>Có tổng cộng @Model.Count đơn hàng</b> <br />
-                        <span class="text-danger">Sau 10 ngày đơn thất bại tự động xóa</span> 
+                        <span class="text-danger">Sau 10 ngày đơn thất bại tự động xóa</span>
                     </p>
                     <div class="ui float-right">
                         <div class="ui icon input">
