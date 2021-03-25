@@ -50,23 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\BannersDAO.cs" />
-    <Compile Include="DAO\CategoryGroupDAO.cs" />
-    <Compile Include="DAO\CategorysDAO.cs" />
-    <Compile Include="DAO\ChatsDAO.cs" />
-    <Compile Include="DAO\CodesDAO.cs" />
-    <Compile Include="DAO\CoursesDAO.cs" />
-    <Compile Include="DAO\CustomersDAO.cs" />
-    <Compile Include="DAO\DenominationsDAO.cs" />
-    <Compile Include="DAO\EventsDAO.cs" />
-    <Compile Include="DAO\FavouritesDAO.cs" />
-    <Compile Include="DAO\FormsDAO.cs" />
-    <Compile Include="DAO\HCDAO.cs" />
-    <Compile Include="DAO\KCDAO.cs" />
-    <Compile Include="DAO\PKDAO.cs" />
-    <Compile Include="DAO\TagsDAO.cs" />
-    <Compile Include="DAO\UsersDAO.cs" />
-    <Compile Include="DAO\WithdrawalsDAO.cs" />
+    <Compile Include="DAO\BillsDao.cs" />
+    <Compile Include="DAO\CategorysDao.cs" />
+    <Compile Include="DAO\GroupDao.cs" />
+    <Compile Include="DAO\LanguagesDao.cs" />
+    <Compile Include="DAO\NewsDao.cs" />
+    <Compile Include="DAO\Pakages.cs" />
+    <Compile Include="DAO\TakePricesDao.cs" />
+    <Compile Include="DAO\ToolsDao.cs" />
+    <Compile Include="DAO\UsersDao.cs" />
     <Compile Include="EF\Bill.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeShare.Model.DAO
 {
-    class UsersDao
+    class LanguagesDao
     {
     }
 }

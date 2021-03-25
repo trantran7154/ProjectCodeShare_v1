@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeShare.Common
 {
-    class Common
+    public class Common
     {
         // phan quyen nguoi dung
         public static int USER_MEMBER = 1;
@@ -14,5 +14,10 @@ namespace CodeShare.Common
 
         // tags
         public static int CODE_TAG = 1;
+
+
+        //ACTIVE
+        public static int ACTIVE_HD = 1;
+        public static int ACTIVE_KHD = 2;
     }
 }

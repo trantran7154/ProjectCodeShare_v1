@@ -195,6 +195,16 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\jBills.cs" />
+    <Compile Include="Models\jCategorys.cs" />
+    <Compile Include="Models\jCodes.cs" />
+    <Compile Include="Models\jGroups.cs" />
+    <Compile Include="Models\jLanguages.cs" />
+    <Compile Include="Models\jNews.cs" />
+    <Compile Include="Models\jPakages.cs" />
+    <Compile Include="Models\jTakePrices.cs" />
+    <Compile Include="Models\jTools.cs" />
+    <Compile Include="Models\jUsers.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Momo\MoMoSecurity.cs" />
     <Compile Include="Momo\PaymentRequest.cs" />
@@ -2044,6 +2054,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeShare.Common\CodeShare.Common.csproj">
+      <Project>{102f2e4b-a5bc-42ee-9880-434c4482246a}</Project>
+      <Name>CodeShare.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeShare.Model\CodeShare.Model.csproj">
+      <Project>{c7497295-d5b0-40e4-9376-e7622f9fc3fe}</Project>
+      <Name>CodeShare.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeShare.Service\CodeShare.Service.csproj">
+      <Project>{7a1fc61c-5ea3-4bdd-aea8-ab362684541b}</Project>
+      <Name>CodeShare.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
