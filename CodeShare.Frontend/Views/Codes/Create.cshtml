@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Thêm code";
 }
+<style>
+    .menu {
+        opacity: inherit;
+    }
+    .ui.multiple.search.dropdown > input.search {
+        height: 21px;
+    }
+</style>
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
@@ -52,7 +60,7 @@
                             </style>
 
                             <label>Danh mục code: <b class="text-danger">*</b></label>
-                            <select class="ui fluid dropdown" multiple="" name="category">
+                            <select class="ui fluid search dropdown" multiple="" name="category">
                                 <option value="">Chọn danh mục</option>
                                 @*@Html.Action("GetCategoryList", "Codes")*@
                                 <option value="2">2</option>
@@ -102,6 +110,33 @@
                                         console.error(error);
                                     });
                             </script>
+                        </div>
+                        <div class="field">
+                            <style>
+                                .ui.form .field > .selection.dropdown {
+                                    height: 0px;
+                                }
+
+                                .ck.ck-editor__editable_inline > :last-child {
+                                    height: 200px;
+                                }
+                            </style>
+
+                            <label>Tag: <b class="text-danger">*</b></label>
+                            <select class="ui fluid search dropdown" multiple="" name="">
+                                <option value="">Chọn danh mục</option>
+                                <option value="2">2</option>
+
+                            </select>
+                            <script>
+                                $("input.myClass:search").keyup(function (key) {
+                                    debugger
+                                    if (key.keyCode == "13") {
+                                        alert("ok");
+                                    }
+                                })
+                            </script>
+                            <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <style>
                             #cr {
