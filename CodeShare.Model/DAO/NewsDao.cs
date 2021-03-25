@@ -18,6 +18,10 @@ namespace CodeShare.Model.DAO
             {
                 //Mac dinh
                 news.news_datecreate = DateTime.Now;
+                news.news_active = 2;
+                news.news_del = false;
+                news.news_option = true;
+                news.news_view = 0;
 
                 db.News.Add(news);
                 db.SaveChanges();

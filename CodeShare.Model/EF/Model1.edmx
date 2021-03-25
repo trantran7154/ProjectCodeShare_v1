@@ -84,6 +84,7 @@
           <Property Name="news_active" Type="int" />
           <Property Name="news_option" Type="bit" />
           <Property Name="news_del" Type="bit" />
+          <Property Name="news_img" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Pakages">
           <Key>
@@ -418,6 +419,7 @@
           <Property Name="news_option" Type="Boolean" />
           <Property Name="news_del" Type="Boolean" />
           <NavigationProperty Name="User" Relationship="Self.FK_News_Users" FromRole="News" ToRole="Users" />
+          <Property Name="news_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Pakage">
           <Key>
@@ -745,6 +747,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="DataShareCodeModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_img" ColumnName="news_img" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="news_name" ColumnName="news_name" />
                 <ScalarProperty Name="news_view" ColumnName="news_view" />

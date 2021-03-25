@@ -65,5 +65,90 @@ namespace CodeShare.Model.DAO
                 return false;
             }
         }
+        //Hàm sửa
+        public bool Edit(User user)
+        {
+            try
+            {
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        //Hàm xoá
+        public bool Delete(int? id)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        //Option
+        public bool Option(int? id)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                user.user_option = !user.user_option;
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        //Thùng rác
+        public bool Del(int? id)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                user.user_del = true;
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        //Khôi Phục
+        public bool Restore(int? id)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                user.user_del = false;
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
