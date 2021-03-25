@@ -2,12 +2,12 @@
 @{
     ViewBag.Title = "ShareThis";
     DataShareCodeEntities db = new DataShareCodeEntities();
-    List<Codes> codes = db.Codes.ToList();
-    List<Categorys> categories = db.Categorys.ToList();
-    List<Events> events = db.Events.ToList();
-    List<Knowledge_Categorys> knowledges = db.Knowledge_Categorys.ToList();
-    List<Programming_Knowledges> programming_Knowledges = db.Programming_Knowledges.ToList();
-    List<CategoryGroup> categoryGroup = db.CategoryGroup.ToList();
+    List<Code> codes = db.Codes.ToList();
+    List<Category> categories = db.Categorys.ToList();
+    //List<Event> events = db.Events.ToList();
+    //List<Knowledge_Categorys> knowledges = db.Knowledge_Categorys.ToList();
+    //List<Programming_Knowledges> programming_Knowledges = db.Programming_Knowledges.ToList();
+    //List<CategoryGroup> categoryGroup = db.CategoryGroup.ToList();
 }
 
 <link href="~/Content/Layout/Codes/CSS/cards-hover.css" rel="stylesheet" />
@@ -521,7 +521,7 @@
             </div>
         </section>
         <div class="row" id="list">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -536,10 +536,10 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
         <div class="row" id="gird" style="display: none">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
             {
                 <div class="container-fluid mb-3">
                     <div class="d-flex justify-content-center row">
@@ -566,7 +566,7 @@
                         </div>
                     </div>
                 </div>
-            }
+            }*@
         </div>
         <script>
             function List() {
@@ -593,7 +593,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false).OrderByDescending(n => n.code_view))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false).OrderByDescending(n => n.code_view))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -608,7 +608,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -621,7 +621,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin < 99).OrderByDescending(n => n.code_coin))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin < 99).OrderByDescending(n => n.code_coin))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -636,7 +636,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -649,7 +649,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && n.code_coin > 100 ).OrderByDescending(n => n.code_coin))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && n.code_coin > 100 ).OrderByDescending(n => n.code_coin))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -664,7 +664,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -677,7 +677,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin == 0).OrderByDescending(n => n.code_datecreate))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin == 0).OrderByDescending(n => n.code_datecreate))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -692,7 +692,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -704,10 +704,10 @@
             </div>
         </div>
         <div class="row trending_container">
-            @foreach (var item in categories.Where(n => n.category_active == true && n.category_option == true && n.category_bin == false).OrderByDescending(n => n.category_datecreate))
-            {
+            @*@foreach (var item in categories.Where(n => n.category_active == true && n.category_option == true && n.category_bin == false).OrderByDescending(n => n.category_datecreate))
+            {-->
                 <!-- Trending Item -->
-                <div class="col-lg-3 col-sm-6">
+                <!--<div class="col-lg-3 col-sm-6">
                     <div class="trending_item clearfix">
                         <div class="trending_image"><img src="~/Content/Layout/images/trend_1.png" alt=""></div>
                         <div class="trending_content">
@@ -717,7 +717,7 @@
                         </div>
                     </div>
                 </div>
-            }
+            }-->*@
         </div>
     </div>
 </div>
@@ -730,7 +730,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
+            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -745,7 +745,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -758,7 +758,7 @@
             </div>
         </div>
         <div class="row">
-            @for (int i = 0; i < 16; i++)
+            @*@for (int i = 0; i < 16; i++)
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -773,7 +773,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -786,7 +786,7 @@
             </div>
         </div>
         <div class="row">
-            @for (int i = 0; i < 16; i++)
+            @*@for (int i = 0; i < 16; i++)
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -801,7 +801,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -814,7 +814,7 @@
             </div>
         </div>
         <div class="row">
-            @for (int i = 0; i < 16; i++)
+            @*@for (int i = 0; i < 16; i++)
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -829,7 +829,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -842,7 +842,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in events.Where(n => n.event_active == true && n.event_bin == false && n.event_option == true).OrderByDescending(n => n.event_datecreate))
+            @*@foreach (var item in events.Where(n => n.event_active == true && n.event_bin == false && n.event_option == true).OrderByDescending(n => n.event_datecreate))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -857,7 +857,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -870,7 +870,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in programming_Knowledges.Where(n => n.pk_active == true && n.pk_option == true && n.pk_bin == false).OrderByDescending(n => n.pk_datecreate))
+            @*@foreach (var item in programming_Knowledges.Where(n => n.pk_active == true && n.pk_option == true && n.pk_bin == false).OrderByDescending(n => n.pk_datecreate))
             {
                 <div class="col-md-3 mt-5">
                     <figure class="snip1208">
@@ -885,7 +885,7 @@
                         </figcaption><a href="#"></a>
                     </figure>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>

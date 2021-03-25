@@ -42,25 +42,25 @@
                         <main>
                             <span id="exit" title="Exit Button">&times;</span>
                         </main>
-                        <form class="ui form" method="post">
+                        <form class="ui form" action="@Url.Action("SignUp", "Users")" method="post">
                             <h3 class="text-center">ĐĂNG KÝ</h3>
                             <p class="text-center">Đăng ký ngay để nhận được nhiều ưu đãi hấp dẫn.</p>
                             <div class="container" style="width: 600px">
                                 <div class="field">
-                                    <label><i class="fa fa-user font-weight-bold"></i> Tên đăng nhập</label>
-                                    <input placeholder="Tran..." name="user_name" type="text">
+                                    <label><i class="fa fa-user font-weight-bold"></i> Tên hiển thị</label>
+                                    <input placeholder="Tran..." name="DisplayName" type="text">
                                 </div>
                                 <div class="field">
                                     <label><i class="fa fa-envelope-o font-weight-bold"></i> Email/Gmail</label>
-                                    <input placeholder="vuongbaot@gmail.com" name="user_email" type="text">
+                                    <input placeholder="vuongbaot@gmail.com" name="Email" type="text">
                                 </div>
                                 <div class="field">
                                     <label><i class="fa fa-lock font-weight-bold"></i> Mật khẩu</label>
-                                    <input type="password" name="user_pass" placeholder="******">
+                                    <input type="password" name="Password" placeholder="******">
                                 </div>
                                 <div class="field">
                                     <label><i class="fa fa-lock font-weight-bold"></i> Nhập lại mật khẩu</label>
-                                    <input type="password" name="user_repass" placeholder="******">
+                                    <input type="password" name="ConfirmPassword" placeholder="******">
                                 </div>
                             </div>
                             <input class="mt-4" type="submit" value="ĐĂNG KÝ">

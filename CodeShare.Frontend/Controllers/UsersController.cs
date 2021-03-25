@@ -8,6 +8,7 @@ using CodeShare.Model.DAO;
 using CodeShare.Model;
 using CodeShare.Frontend.Models;
 using CodeShare.Frontend.Functions;
+using CodeShare.Frontend.ViewModels;
 
 namespace CodeShare.Frontend.Controllers
 {
@@ -17,6 +18,7 @@ namespace CodeShare.Frontend.Controllers
 
         DataShareCodeEntities db = new DataShareCodeEntities();
         UsersDao usersDAO = new UsersDao();
+        FunctionsController function = new FunctionsController();
 
         public ActionResult Index()
         {
@@ -30,25 +32,38 @@ namespace CodeShare.Frontend.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(FormCollection f)
+        public ActionResult Login(ViewLogin login)
         {
-            String sEmail = f["user_email"].ToString();
-            String sPass = f["user_pass"].ToString();
-
-            User users = db.Users.Where(n => n.user_option == true).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
-           
-            if (users != null)
+            if (function.CookieID() != null)
             {
-                HttpCookie cookie = new HttpCookie("user_id", users.user_id.ToString());
-                cookie.Expires.AddDays(10);
-                Response.Cookies.Set(cookie);
                 return Redirect("/");
             }
-            else
+            if (ModelState.IsValid)
             {
-                ViewBag.Check = "Sai tài khoản hoặc mật khẩu!";
+                int status = usersDAO.Login(login.Email, login.Password);
+                switch (status)
+                {
+                    case 1:
+                        var user = db.Users.FirstOrDefault(t => t.user_email == login.Email);
+                        HttpCookie cookie = new HttpCookie("user_id", user.user_id.ToString());
+                        cookie.Expires.AddDays(10);
+                        Response.Cookies.Set(cookie);
+                        return Redirect("/");
+                    case -1:
+                        TempData["noti_login"] = "Sai tài khoản hoặc mật khẩu!";
+                        break;
+                    case -2:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị xóa!";
+                        break;
+                    case -3:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị khóa!";
+                        break;
+                    default:
+                        TempData["noti_login"] = "Tài khoản của bạn không tồn tại!";
+                        break;
+                }
             }
-            return View(users);
+            return View(login);
         }
 
         // SignUp
@@ -58,21 +73,26 @@ namespace CodeShare.Frontend.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(User users, FormCollection f)
+        public ActionResult SignUp(ViewRegister register)
         {
-            String sEmail = f["user_email"].ToString();
-
-            if (sEmail != null)
+            if (ModelState.IsValid)
             {
-                
+                if (db.Users.SingleOrDefault(t => t.user_email == register.Email) != null)
+                {
+                    TempData["noti_register"] = "Email đã tồn tại!";
+                    return View(register);
+                }
+                var user = new User()
+                {
+                    user_email = register.Email,
+                    user_pass = register.Password,
+                    user_name = register.DisplayName
+                };
+                usersDAO.Add(user);
 
-                
+                return RedirectToAction("Login");
             }
-            else
-            {
-                ViewBag.Check = "Email đã tồn tại!";
-            }
-            return View(users);
+            return View(register);
         }
 
         public RedirectResult CreateCode(int? id)
