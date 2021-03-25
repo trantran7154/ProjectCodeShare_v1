@@ -20,27 +20,27 @@ namespace CodeShare.Frontend.Controllers
         }
         public ActionResult Details(int ? id)
         {
-            return View(db.Denominations.Find(id));
+            return View(db.Pakages.Find(id));
         }
         public ActionResult PayMoMo(int? id)
         {
             var coo = new FunctionsController();
             var idus = coo.CookieID();
 
-            Denominations pakage = db.Denominations.Find(id);
+            Pakage pakage = db.Pakages.Find(id);
 
-            var money = pakage.denomination_price;
+            var money = pakage.pakage_coin * 1000;
 
             //request params need to request to MoMo system
             string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
             string partnerCode = "MOMO5RGX20191128";
             string accessKey = "M8brj9K6E22vXoDB";
             string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
-            string orderInfo = "Nạp " + pakage.denomination_coin + " vào tài khoản " + idus.user_email;
+            string orderInfo = "Nạp " + pakage.pakage_coin + " vào tài khoản " + idus.user_email;
             string returnUrl = "https://localhost:44365/Pays/ReturnUrl";
             string notifyurl = "https://localhost:44365/Pays/NotifyUrl";
 
-            string amount = money;
+            string amount = money.ToString();
             string orderid = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
             string extraData = "";
@@ -106,7 +106,7 @@ namespace CodeShare.Frontend.Controllers
                     bill_active = true,
                     user_id = id.user_id,
                     pakege_id = pakage.pakege_id,
-                    billdeadline = DateTime.Now
+                    bill_dealine = DateTime.Now
                 };
                 db.Bills.Add(bills);
                 db.SaveChanges();
@@ -115,13 +115,13 @@ namespace CodeShare.Frontend.Controllers
             }
             else
             {
-                Bills bills = new Bills
+                Bill bills = new Bill
                 {
-                    billdate = DateTime.Now,
-                    active = false,
+                    bill_datecreate = DateTime.Now,
+                    bill_active = false,
                     user_id = id.user_id,
-                    denomination_id = denominations.denomination_id,
-                    billdeadline = DateTime.Now
+                    pakege_id = pakage.pakege_id,
+                    bill_dealine = DateTime.Now
                 };
                 db.Bills.Add(bills);
                 db.SaveChanges();

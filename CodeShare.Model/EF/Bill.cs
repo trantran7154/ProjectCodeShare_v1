@@ -19,6 +19,7 @@ namespace CodeShare.Model.EF
         public Nullable<int> pakege_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public Nullable<bool> bill_active { get; set; }
+        public Nullable<System.DateTime> bill_dealine { get; set; }
     
         public virtual Pakage Pakage { get; set; }
         public virtual User User { get; set; }

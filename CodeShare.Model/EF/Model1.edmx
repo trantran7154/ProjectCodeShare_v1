@@ -14,6 +14,7 @@
           <Property Name="pakege_id" Type="int" />
           <Property Name="user_id" Type="int" />
           <Property Name="bill_active" Type="bit" />
+          <Property Name="bill_dealine" Type="datetime" />
         </EntityType>
         <EntityType Name="Categorys">
           <Key>
@@ -341,6 +342,7 @@
           <Property Name="bill_active" Type="Boolean" />
           <NavigationProperty Name="Pakage" Relationship="Self.FK_Bills_Pakeges" FromRole="Bills" ToRole="Pakages" />
           <NavigationProperty Name="User" Relationship="Self.FK_Bills_Users" FromRole="Bills" ToRole="Users" />
+          <Property Name="bill_dealine" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -680,6 +682,7 @@
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="DataShareCodeModel.Bill">
               <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="bill_dealine" ColumnName="bill_dealine" />
                 <ScalarProperty Name="bill_id" ColumnName="bill_id" />
                 <ScalarProperty Name="bill_datecreate" ColumnName="bill_datecreate" />
                 <ScalarProperty Name="pakege_id" ColumnName="pakege_id" />
