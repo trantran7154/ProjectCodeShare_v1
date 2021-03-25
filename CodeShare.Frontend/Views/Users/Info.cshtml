@@ -1,0 +1,246 @@
+﻿@model CodeShare.Model.EF.Users
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="home" style="height: 100px">
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+    </div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow">
+                <form action="@Url.Action("Edit", "Users")" method="post" enctype="multipart/form-data" style="padding: 10px">
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(x => x.user_id)
+                    @Html.HiddenFor(x => x.user_active)
+                    @Html.HiddenFor(x => x.user_option)
+                    @Html.HiddenFor(x => x.user_bin)
+                    @Html.HiddenFor(x => x.user_datecreate)
+                    @Html.HiddenFor(x => x.user_datelogin)
+                    @Html.HiddenFor(x => x.user_code)
+                    @Html.HiddenFor(x => x.user_coin)
+                    @Html.HiddenFor(x => x.user_pass)
+                    @Html.HiddenFor(x => x.user_token)
+                    @Html.HiddenFor(x => x.user_email)
+
+                    <h6 class="" style="color: black; font-size: 25px">Thông tin cá nhân</h6>
+                    <p>
+                        Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của ShareThis.
+                    </p>
+                    <table class="table" style="color: #5f6368; font-size: 16px; cursor: pointer" ng-repeat="list in list">
+                        <tr>
+                            <td>
+                                ẢNH
+                            </td>
+                            <td>
+                                Một bức ảnh tuyệt vời
+                            </td>
+                            <td class="text-right" width="20%">
+                                <style>
+                                    .hv:hover {
+                                        border: 1px dashed green;
+                                    }
+                                </style>
+                                <img src="~/Images/Users/notimg.png" style="width: 35px; height: 35px; border-radius: 50%" class="hv" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EMAIL
+                            </td>
+                            <td>
+                                vuongbaot@gmail.com
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập ảnh:</label>
+                                <input name="IMG" value="{{list.img}}" type="file" class="btn btn-danger" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                TÊN
+                            </td>
+                            <td>
+                                Bảo Trân
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập tên:</label>
+                                <input name="user_name" value="{{list.name}}" type="text" class="form-control" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                NGÀY SINH
+                            </td>
+                            <td>
+                                <span>{{list.dateofbirth}}</span>
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập ngày sinh :</label>
+                                <input name="user_dateofbirth" value="{{list.date}}" type="text" class="form-control" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                GIỚI TÍNH
+                            </td>
+                            <td>
+                                <div ng-show="list.sex == true">
+                                    <span>Nam</span>
+                                </div>
+                                <div ng-show="list.sex == false">
+                                    <span>Nữ</span>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Chọn giới tính :</label>
+                                <select name="user_sex" class="form-control">
+                                    <option value="true">Nam</option>
+                                    <option value="false">Nữ</option>
+                                </select>
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                SỐ ĐIỆN THOẠI
+                            </td>
+                            <td>
+                                {{list.phone}}
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập số điện thoại :</label>
+                                <input name="user_phone" value="{{list.phone}}" type="text" class="form-control" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                MẬT KHẨU
+                            </td>
+                            <td>
+                                •••••••• <br />
+                                <p>Thay đổi lần gần đây: {{list.update}}</p>
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div style="padding: 10px">
+                    <h6 class="" style="color: black; font-size: 25px">Thông tin khác</h6>
+                    <p>
+                        Các thông tin về bạn
+                    </p>
+                    <table class="table" style="color: #5f6368; font-size: 16px">
+                        <tr>
+                            <td>
+                                SỞ THÍCH
+                            </td>
+                            <td>
+                                {{list.favorite}}
+                            </td>
+                            <td class="text-right" width="20%">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập yêu thích :</label>
+                                <input name="user_favorite" value="{{list.favorite}}" type="text" class="form-control" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CODE YÊU THÍCH
+                            </td>
+                            <td>
+                                {{list.codefavorite}}
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label>Nhập yêu thích :</label>
+                                <input name="user_codefavorite" value="{{list.codefavorite}}" type="text" class="form-control" />
+                                <br />
+                                <button class="btn btn-primary">Lưu</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                THÔNG TIN KHÁC
+                            </td>
+                            <td>
+                                Cập nhật ngay
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/Users"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
