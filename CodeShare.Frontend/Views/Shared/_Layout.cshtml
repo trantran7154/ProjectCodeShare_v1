@@ -1,0 +1,182 @@
+﻿@using CodeShare.Model.EF
+@{ 
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    List<Category> categorys = db.Categorys.ToList();
+    List<News> events = db.News.ToList();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Travelix Project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Sematic -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/Layout/Semantic-UI-CSS-master/semantic.min.js"></script>
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <!-- Layout -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/Layout/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Layout/styles/responsive.css">
+    <!-- Favicon -->
+    <link rel="icon" href="~/Content/Layout/images/share.png" sizes="39x39" type="image/png">
+
+    <link href="~/Content/Layout/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <link href="~/Content/Layout/styles/style - Copy.css" rel="stylesheet" />
+    <link href="~/Content/Layout/styles/style - Copy - Copy.css" rel="stylesheet" />
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="super_container">
+        <!-- Header -->
+        <header class="header">
+            @Html.Action("Header", "View")
+            <!-- Main Navigation -->
+            @Html.Action("Menu", "View")
+        </header>
+        <div class="menu trans_500">
+            <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
+                <div class="menu_close_container"><div class="menu_close"></div></div>
+                <div class="logo menu_logo"><a href="#"><img src="~/Content/Layout/images/logo.png" alt=""></a></div>
+                <ul>
+                    <li class="menu_item"><a href="/">home</a></li>
+                    <li class="menu_item"><a href="about.html">about us</a></li>
+                    <li class="menu_item"><a href="offers.html">offers</a></li>
+                    <li class="menu_item"><a href="blog.html">news</a></li>
+                    <li class="menu_item"><a href="contact.html">contact</a></li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Column -->
+                    <div class="col-lg-3 footer_column">
+                        <div class="footer_col">
+                            <div class="footer_content footer_about">
+                                <div class="logo_container footer_logo">
+                                    <div class="logo"><a href="#" class="text-capitalize"><svg id="color_line" height="30" viewBox="0 0 74 74" width="30" xmlns="http://www.w3.org/2000/svg" data-name="color line"><path d="m18.036 23.162h35.927v5h-35.927z" fill="#e1e6e9" transform="matrix(.898 -.441 .441 .898 -7.625 18.488)" /><path d="m20.975 36.321a.5.5 0 0 1 -.45-.28l-2.2-4.488a.511.511 0 0 1 -.024-.382.5.5 0 0 1 .253-.287l32.246-15.829a.5.5 0 0 1 .67.229l2.2 4.488a.511.511 0 0 1 .024.382.5.5 0 0 1 -.253.287l-32.241 15.829a.509.509 0 0 1 -.225.051zm-1.535-4.76 1.76 3.591 31.358-15.388-1.758-3.591z" fill="#323c6b" /><path d="m33.499 30.374h5v35.927h-5z" fill="#e1e6e9" transform="matrix(.441 -.898 .898 .441 -23.255 59.354)" /><path d="m51.023 59a.5.5 0 0 1 -.22-.051l-32.252-15.833a.5.5 0 0 1 -.253-.287.511.511 0 0 1 .024-.382l2.2-4.488a.5.5 0 0 1 .67-.229l32.255 15.829a.5.5 0 0 1 .253.287.511.511 0 0 1 -.024.382l-2.2 4.488a.5.5 0 0 1 -.453.284zm-31.583-16.561 31.36 15.388 1.763-3.591-31.363-15.388z" fill="#323c6b" /><circle cx="12.987" cy="37" fill="#27ccbc" r="9.987" /><circle cx="60.054" cy="16.44" fill="#05afd6" r="9.987" /><circle cx="60.054" cy="57.56" fill="#fcd462" r="9.987" /><path d="m22.97 37a9.956 9.956 0 0 1 -4.11 8.07 9.985 9.985 0 0 0 -8.87-14.56 9.9 9.9 0 0 0 -5.88 1.92 9.982 9.982 0 0 1 18.86 4.57z" fill="#21b3a9" /><path d="m70.04 16.44a9.956 9.956 0 0 1 -4.11 8.07 9.979 9.979 0 0 0 -14.75-12.64 9.982 9.982 0 0 1 18.86 4.57z" fill="#27a2db" /><path d="m70.04 57.56a9.956 9.956 0 0 1 -4.11 8.07 9.979 9.979 0 0 0 -14.75-12.64 9.982 9.982 0 0 1 18.86 4.57z" fill="#f7be56" /><g fill="#323c6b"><path d="m6.083 26.517a.5.5 0 0 1 -.267-.924c.2-.125.4-.249.606-.364a.5.5 0 0 1 .49.872c-.191.107-.377.222-.562.339a.5.5 0 0 1 -.267.077z" /><path d="m18.583 25.8a.512.512 0 0 1 -.217-.049 12.335 12.335 0 0 0 -8.891-.725.5.5 0 0 1 -.284-.959 13.341 13.341 0 0 1 9.609.782.5.5 0 0 1 -.217.951z" /><path d="m64.688 70.184a.5.5 0 0 1 -.18-.967 12.527 12.527 0 0 0 6.6-5.886.5.5 0 0 1 .887.463 13.526 13.526 0 0 1 -7.131 6.356.494.494 0 0 1 -.176.034z" /><path d="m61.312 70.974a.5.5 0 0 1 -.05-1l.134-.014c.137-.013.275-.026.41-.045a.5.5 0 1 1 .138.99c-.149.021-.3.036-.451.05l-.13.014z" /><path d="m12.465 47.487a10.487 10.487 0 1 1 10.487-10.487 10.5 10.5 0 0 1 -10.487 10.487zm0-19.974a9.487 9.487 0 1 0 9.487 9.487 9.5 9.5 0 0 0 -9.487-9.487z" /><path d="m59.533 26.927a10.487 10.487 0 1 1 10.487-10.487 10.5 10.5 0 0 1 -10.487 10.487zm0-19.973a9.487 9.487 0 1 0 9.487 9.486 9.5 9.5 0 0 0 -9.487-9.486z" /><path d="m59.533 68.046a10.487 10.487 0 1 1 10.487-10.486 10.5 10.5 0 0 1 -10.487 10.486zm0-19.973a9.487 9.487 0 1 0 9.487 9.487 9.5 9.5 0 0 0 -9.487-9.487z" /></g></svg> ShareThis</a></div>
+                                </div>
+                                <p class="footer_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vu lputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer eleme ntum orci eu vehicula pretium.</p>
+                                <ul class="footer_social_list">
+                                    <li class="footer_social_item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li class="footer_social_item"><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li class="footer_social_item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="footer_social_item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li class="footer_social_item"><a href="#"><i class="fa fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer Column -->
+                    <div class="col-lg-3 footer_column">
+                        <div class="footer_col">
+                            <div class="footer_title">Sự Kiện Nổi Bật</div>
+                            <div class="footer_content footer_blog">
+                                <!-- Footer blog item -->
+                                @foreach (var item in events.Where(n => n.news_active == 1 && n.news_del == false).OrderByDescending(n => n.news_datecreate).Take(3))
+                                {
+                                    @*<div class="footer_blog_item clearfix">
+                                        <div class="footer_blog_image"><img src="~/Images/Events/@item.event_img" style="width: 60px; height: 60px" alt="@item.event_name"></div>
+                                        <div class="footer_blog_content">
+                                            <div class="footer_blog_title"><a href="blog.html">@item.event_name</a></div>
+                                            <div class="footer_blog_date">@item.event_datecreate.Value.ToShortDateString()</div>
+                                        </div>
+                                    </div>*@
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer Column -->
+                    <div class="col-lg-3 footer_column">
+                        <div class="footer_col">
+                            <div class="footer_title">Danh Mục</div>
+                            <div class="footer_content footer_tags">
+                                <ul class="tags_list clearfix">
+                                    @foreach (var item in categorys.Where(n => n.category_active == true).Take(10))
+                                    {
+                                        <li class="tag_item"><a href="#">@item.category_name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer Column -->
+                    <div class="col-lg-3 footer_column">
+                        <div class="footer_col">
+                            <div class="footer_title">contact info</div>
+                            <div class="footer_content footer_contact">
+                                <ul class="contact_info_list">
+                                    <li class="contact_info_item d-flex flex-row">
+                                        <div><div class="contact_info_icon"><img src="~/Content/Layout/images/placeholder.svg" alt=""></div></div>
+                                        <div class="contact_info_text">06 Trần Văn Ơn, Phú Hoà, Thủ Dầu Một, Bình Dương</div>
+                                    </li>
+                                    <li class="contact_info_item d-flex flex-row">
+                                        <div><div class="contact_info_icon"><img src="~/Content/Layout/images/phone-call.svg" alt=""></div></div>
+                                        <a href="tel:+84 869 139 879" class="contact_info_text">+84 869 139 879</a>
+                                    </li>
+                                    <li class="contact_info_item d-flex flex-row">
+                                        <div><div class="contact_info_icon"><img src="~/Content/Layout/images/message.svg" alt=""></div></div>
+                                        <div class="contact_info_text"><a href="mailto: vuongbaot1905@gmail.com" target="_top">vuongbaot1905@gmail.com</a></div>
+                                    </li>
+                                    <li class="contact_info_item d-flex flex-row">
+                                        <div><div class="contact_info_icon"><img src="~/Content/Layout/images/planet-earth.svg" alt=""></div></div>
+                                        <div class="contact_info_text"><a href="mailto: 1724801030160@student.tdmu.edu.vn">1724801030160@student.tdmu.edu.vn</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright -->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 order-lg-1 order-2  ">
+                        <div class="copyright_content d-flex flex-row align-items-center">
+                            <div>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 order-lg-2 order-1">
+                        <div class="footer_nav_container d-flex flex-row align-items-center justify-content-lg-end">
+                            <div class="footer_nav">
+                                <ul class="footer_nav_list">
+                                    <li class="footer_nav_item"><a href="#">home</a></li>
+                                    <li class="footer_nav_item"><a href="about.html">about us</a></li>
+                                    <li class="footer_nav_item"><a href="offers.html">offers</a></li>
+                                    <li class="footer_nav_item"><a href="blog.html">news</a></li>
+                                    <li class="footer_nav_item"><a href="contact.html">contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/Layout/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/Layout/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/Layout/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/Layout/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/Layout/plugins/easing/easing.js"></script>
+    <script src="~/Content/Layout/js/custom.js"></script>
+</body>
+</html>

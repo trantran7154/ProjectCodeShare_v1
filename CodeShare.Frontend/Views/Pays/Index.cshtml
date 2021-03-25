@@ -1,0 +1,113 @@
+﻿@using CodeShare.Model.EF;
+@using CodeShare.Frontend.Functions;
+@model List<Denominations>
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var co = new FunctionsController();
+    var id = co.CookieID();
+
+}
+
+<div class="home" style="height: 100px">
+    <!-- Home Slider -->
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+    </div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">NẠP TIỀN VÀO TÀI KHOẢN</h6>
+                    <div class="border">
+                        <center style="padding: 20px">
+                            <i class="fa fa-user">&nbsp;</i> @id.user_name [Mã USER-@id.user_id] &nbsp;&nbsp;
+                            <i class="fa fa-envelope">&nbsp;</i> @id.user_email &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Tài khoản: @id.user_coin xu &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @(int.Parse(id.user_coin) * 1000) VNĐ &nbsp;&nbsp;
+                        </center>
+                    </div>
+                    <nav class="mt-3">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">VÍ ĐIỆN TỬ</a>
+                            <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Thanh toán chuyển khoản</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <p class="mt-3 text-danger font-weight-bold">
+                                <b><i class="fa fa-bell">&nbsp;</i>Xu là gì: </b> <b>Xu dùng để giao dịch mua code và có thể rút tiền lại khi buôn bán có xu thành công. Xu không lạm phát và tương ứng với mức 1000 vnđ 1 xu.</b>
+                            </p>
+                            <div class="mt-4">
+                                <div class="row">
+                                    <!-- Trending Item -->
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="trending_item clearfix border shadow">
+                                                <div style="padding: 10px">
+                                                    <div class="trending_image"><img src="https://developers.momo.vn/images/logo.png" alt=""></div>
+                                                    <div class="trending_content">
+                                                        <div class="trending_title"><a href="#">@int.Parse(item.denomination_price).ToString("#,###") vnđ</a></div>
+                                                        <div class="trending_price">@item.denomination_coin Xu</div>
+                                                        <div style="cursor: pointer" onclick="window.location.href = '@Url.Action("Details","Pays", new { id = item.denomination_id })'" class="trending_location text-danger">Nạp ngay</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="trending_item clearfix border shadow">
+                                            <div style="padding: 10px">
+                                                <div class="trending_image"><img src="https://developers.momo.vn/images/logo.png" alt=""></div>
+                                                <div class="trending_content">
+                                                    <div class="trending_title"><a href="#">Nạp xu tùy chọn</a></div>
+                                                    <div class="trending_price"></div>
+                                                    <div class="trending_location text-danger">Nạp ngay</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="mt-3 alert alert-success">
+                                1. Chọn số xu muốn nạp. (Chọn các mức nạp, nếu mún nạp tùy ý có thể chọn hình thức cuối cùng) <br />
+                                2. Xác nhận thanh toán. (Xem đơn hàng và giá tiền để xác nhận thanh toán) <br />
+                                3. Quét QR Code Momo. (Tải app MOMO và tiến thành quét Qr)<br />
+                                4. Xác nhận thanh toán. (Xác nhận số tiền từ app và thanh toán)<br />
+                                5. Cộng xu thành công. (Thành công nạp xu)<br />
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            a
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/Codes"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+

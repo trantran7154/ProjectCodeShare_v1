@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeShareProject.Frontend", "CodeShareProject.Frontend\CodeShareProject.Frontend.csproj", "{5FF22F49-2B18-493B-9154-867229A9E4A6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeShare.Common", "CodeShare.Common\CodeShare.Common.csproj", "{102F2E4B-A5BC-42EE-9880-434C4482246A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeShare.Model", "CodeShare.Model\CodeShare.Model.csproj", "{C7497295-D5B0-40E4-9376-E7622F9FC3FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeShare.Service", "CodeShare.Service\CodeShare.Service.csproj", "{7A1FC61C-5EA3-4BDD-AEA8-AB362684541B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeShare.Frontend", "CodeShare.Frontend\CodeShare.Frontend.csproj", "{D3883153-AEA6-4E73-8554-88F46B96239E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5FF22F49-2B18-493B-9154-867229A9E4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FF22F49-2B18-493B-9154-867229A9E4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FF22F49-2B18-493B-9154-867229A9E4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FF22F49-2B18-493B-9154-867229A9E4A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{102F2E4B-A5BC-42EE-9880-434C4482246A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{102F2E4B-A5BC-42EE-9880-434C4482246A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102F2E4B-A5BC-42EE-9880-434C4482246A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{7A1FC61C-5EA3-4BDD-AEA8-AB362684541B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A1FC61C-5EA3-4BDD-AEA8-AB362684541B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A1FC61C-5EA3-4BDD-AEA8-AB362684541B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3883153-AEA6-4E73-8554-88F46B96239E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3883153-AEA6-4E73-8554-88F46B96239E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3883153-AEA6-4E73-8554-88F46B96239E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3883153-AEA6-4E73-8554-88F46B96239E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,84 @@
+﻿@using CodeShare.Model.EF
+@using CodeShare.Frontend.Functions
+@{ 
+    var coo = new FunctionsController();
+    var user = coo.CookieID();  
+
+}
+<div style="padding: 10px">
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="~/Images/Users/notimg.png" style="width: 60px; height: 60px; border-radius: 50%" class="hv" />
+            <p class="text-success">Cập nhật</p>
+        </div>
+        <div class="col-lg-9 text-dark">
+            <h3 style="color: black" class="font-weight-bold">Chào bạn trở lại, <br /> <span class="text-danger">@user.user_name</span></h3>
+            <hr />
+            <b class="text-success">Xu hiện tại: </b> @user.user_coin &nbsp;
+            <b class="text-danger">Số xu đã nạp: </b> 0 &nbsp; <br />
+            <b class="text-secondary">Số xu nhận: </b> 0 &nbsp;
+            <b class="text-info">Số xu đã bán: </b> 0 &nbsp;
+        </div>
+        <div class="col-lg-12">
+            <hr />
+            <div class="ui form">
+                <div class="inline field">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden" @(user.user_option == true ? "checked" : "")>
+                        <label class="text-danger" style="font-size: 20px">Trạng thái bật code</label>
+                    </div>
+                </div>
+            </div>
+
+            <p>Sau khi bật, mọi trạng thái code của bạn sẽ được thành viên khác nhìn thấy</p>
+            <div class="ui form">
+                <div class="inline field">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden" checked>
+                        <label class="text-danger" style="font-size: 20px">Liên hệ</label>
+                    </div>
+                </div>
+            </div>
+
+            <p>Sau khi bật, mọi thành viên có thể liên hệ bạn qua chat,thông tin điễn thoại email.</p>
+            <script>
+                                $('.ui.checkbox')
+                                    .checkbox()
+                                    ;
+            </script>
+            <hr />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã đăng
+                    <span class="badge badge-primary badge-pill">@user.Codes.Count()</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã tải
+                    <span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã bán được
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã mua
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã thích
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Code đã đánh giá
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

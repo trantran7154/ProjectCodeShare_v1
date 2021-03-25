@@ -1,0 +1,373 @@
+﻿body {
+	padding: 0;
+	font-family: "Open Sans", open-sans, sans-serif;
+	background-color: #6a7686;
+	background-image: url("https://a.top4top.net/p_889vkmla1.png")
+}
+
+svg {
+	transform: translate(2px, 5px);
+}
+
+div#show {
+	padding: 10px;
+	background-color: #1d8bb8;
+	display: none;
+	border-radius: 5px;
+	color: #FFF;
+	font-size: 22px;
+	font-weight: bold;
+	text-shadow: 3px 3px 6px #222;
+	transition: all .5s ease-in-out;
+	cursor: pointer
+}
+
+div#show:hover {
+	background-color: #ff751a;
+	color: #000;
+	text-shadow: 3px 3px 6px #a6a6a6
+}
+
+.panda {
+  margin: auto;
+  top: -24%;
+  left: 39px;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  display: flex
+}
+
+.panda-signup {
+	margin: auto;
+	top: -23%;
+	left: 22px;
+	right: 0;
+	width: 200px;
+	height: 23px;
+	display: flex
+}
+
+.panda, .ear, .head, .patch, .eye, .pupil, .nose, .bridge, .mouth, .hand {
+  position: absolute
+}
+
+.head {
+  background: #fff;
+  width: 80%;
+  border-radius: 50% 50% 44% 44%;
+	border: 8px solid #000
+}
+
+.ear {
+  background: #000;
+  width: 30%;
+  border-radius: 100%;
+	top: -11px;
+  left: -13px
+}
+
+.ear.right {
+    transform: translateX(119px)
+}
+
+.patch {
+  background: #000;
+  height: 50px;
+  width: 36px;
+  border-radius: 50% 50% 44% 44%;
+  left: 21px;
+  top: 44px
+}
+
+.patch.right {
+  transform: translateX(85px)
+}
+
+.eye {
+  background: #fff;
+  top: 62px;
+  left: 35px;
+  border-radius: 50% 50% 44% 44%;
+  height: 15px;
+  width: 10px
+}
+
+.eye.right {
+  transform: translateX(85px)
+}
+
+.nose {
+  background: #000;
+  top: 110px;
+  left: 70px;
+  height: 12px;
+  width: 30px;
+  border-radius: 100%
+}
+
+.bridge {
+  top: 120px;
+  left: 84px;
+  background: #000;
+  height: 15px;
+  width: 4px
+}
+
+.mouth {
+  top: 130px;
+  left: 78px;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  border: 4px solid;
+  border-color: transparent transparent #000 #000;
+  transform: rotate(-40deg)
+}
+
+.mouth.right {
+  transform: translateX(6px) rotate(-50deg)
+}
+
+.hand {
+	background: #000;
+	top: 130px;
+	left: -13px;
+	height: 30px;
+	width: 45px;
+	border-radius: 40% 40%
+}
+
+.hand.right {
+  transform: translateX(141px)
+}
+
+/* End Drawing The Panda */
+
+/* Starting The Main Panel */
+
+header.main-panel {
+	width: 60%;
+	background-color: #FFF;
+	margin: auto;
+	margin-top: 11%;
+	border-radius: 4px
+}
+
+header main {
+	color: #999;
+	font-weight: bold;
+	font-size: 30px;
+	text-align: right;
+	margin: 0;
+	height: 41px
+}
+
+header main span {
+	padding: 0 10px;
+	transition: all .4s ease-in-out;
+	cursor: pointer
+}
+
+header main span:hover {
+	color: #F00;
+	background-color: #03a9f4;
+	width: 20px;
+	max-height: 20px;
+	margin-right: 0;
+}
+
+header form {
+	height: auto
+}
+
+header form h3 {
+	font-weight: bold;
+	padding: 0 0 15px 0;
+	font-size: 22px
+}
+
+header form p {
+	font-weight: 800;
+	color: #666;
+	padding-bottom: 20px
+}
+
+header form input {
+	width: 85%;
+	display: block;
+	margin: auto;
+	border-radius: 5px
+}
+
+header form input[type="text"]:hover, header form input[type="text"]:focus {
+	opacity: .9;
+	border: 1px solid #CCC
+}
+
+header form input[type="password"]:hover, header form input[type="password"]:focus {
+	opacity: .9;
+	border: 1px solid #CCC
+}
+
+header form input:not([type="submit"]) {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #CCC;
+	padding: 13px 13px 13px 10%
+}
+
+header form input:not([type="submit"])::placeholder {
+	font-weight: 600
+}
+
+header form span {
+	float: right;
+	padding-right: calc((100% - 85%) / 2);
+	font-size: 14px;
+	font-weight: 800;
+	color: #777;
+	cursor: pointer;
+	margin-bottom: 10px
+}
+
+header form span:hover {
+	color: #444
+}
+
+header form input[type="submit"] {
+	background-color: #32d14c;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	color: #FFF;
+	font-weight: 700;
+	padding: 13px
+}
+
+/* Ending The Main Panel */
+
+/* Start Styling Footer */
+
+header footer {
+	padding: 0 0 10px 0
+}
+
+header footer fieldset {
+	border: none;
+	border-top: 1.5px solid #CCC;
+	width: 85%;
+	margin: auto;
+	display: block
+}
+
+header footer fieldset legend {
+	padding: 20px 10px;
+	opacity: .9
+}
+
+header footer fieldset div {
+	width: 30%;
+	display: inline-block;
+	cursor: pointer
+}
+
+header footer fieldset div:hover {
+	opacity: .9
+}
+
+header footer fieldset div:first-of-type {
+	background-color: #1678f0;
+	border-radius: 5px;
+	padding: 10px
+}
+
+header footer fieldset div:nth-of-type(2) {
+	background-color: #4eb9ff;
+	border-radius: 5px;
+	padding: 10px
+}
+
+header footer fieldset div:last-of-type {
+	background-color: #da4f34;
+	border-radius: 5px;
+	padding: 10px
+}
+
+/* End Styling Footer */
+
+/* Start Styling Sign Up Button */
+
+header footer p {
+	color: #888;
+	font-size: 14px;
+	display: inline-block
+}
+
+header footer span {
+	color: #32d14c;
+	font-size: 15px;
+	opacity: .8;
+	font-weight: 600;
+	cursor: pointer
+}
+
+header footer span:hover {
+	opacity: 1
+}
+
+/* End Styling Sign Up Button */
+
+/* Start Styling The Responsive Design */
+
+
+@media only screen and (max-width: 575px)  { /* xs Screens */
+	div.panda {
+		display: none
+	}
+	header.main-panel {
+		width: 99%
+	}
+}
+
+@media (min-width: 576px) and (max-width: 767px) { /* sm Screens */
+	div.panda {
+		transform: scale(.5, .5);
+		top: -8%
+	}
+	header.main-panel {
+	width: 85%
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) { /* md Screens */
+	div.panda {
+		transform: scale(.6, .6);
+		top: -3%
+	}
+	header.main-panel {
+		width: 75%
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1200px) { /* ld Screens */
+	div.panda {
+		transform: scale(.7, .7);
+		top: -4%
+	}
+	header.main-panel {
+		width: 65%
+	}
+}
+
+@media (min-width: 1201px) and (max-width: 1399px) { /* xl Screens */
+	div.panda {
+		transform: scale(.8, .8);
+		top: 0%
+	}
+	header.main-panel {
+		width: 50%
+	}
+}
+
+/* End Styling The Responsive Design */

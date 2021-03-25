@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CodeShare.Model.EF.Categorys>
+
+@foreach(var item in Model)
+{
+    if(ViewBag.codeid != null && item.CategoryGroup.Select(t => t.Codes).Where(t => t.code_id == ViewBag.codeid) != null)
+    {
+        <option value="@item.category_id" selected>@item.category_name</option>
+    }
+    else
+    {
+        <option value="@item.category_id">@item.category_name</option>
+    }
+}

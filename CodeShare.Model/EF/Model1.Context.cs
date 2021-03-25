@@ -30,11 +30,11 @@ namespace CodeShare.Model.EF
         public virtual DbSet<Code> Codes { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Pakage> Pakages { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<TakePrice> TakePrices { get; set; }
         public virtual DbSet<Tool> Tools { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<TakePrice> TakePrices { get; set; }
     }
 }

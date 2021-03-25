@@ -1,0 +1,246 @@
+﻿@using CodeShare.Model.EF;
+@model Codes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="home" style="height: 100px">
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+    </div>
+</div>
+
+<div class="testimonials bg-white" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1500px; font-size: 16px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-9 bg-white border shadow text-dark">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div style="padding: 10px">
+                            <img src="~/Images/Codes/@Model.code_img" style="width: 100%; height: 280px" />
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div style="padding: 10px">
+                            <h3>@Model.code_name [Mã code: CODE-@Model.code_id]</h3>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div style="font-size: 20px"><b class="text-dark">Phí tải:</b> <b class="text-danger">@Model.code_coin XU</b></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button class="btn btn-danger float-right"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div>
+                                        <b>Danh mục: </b> C#,C++
+                                    </div>
+                                    <div>
+                                        <b>Thể loại: </b> Website
+                                    </div>
+                                    <div>
+                                        <b>Nhóm code: </b> Code chất lượng
+                                    </div>
+                                    <div>
+                                        <b>Ngày đăng: </b> @Model.code_datecreate
+                                    </div>
+                                    <div>
+                                        <b>Dung lượng: </b> @Model.code_capacity MB
+                                    </div>
+                                    <div>
+                                        <b>Đánh giá: </b> 10 điểm
+                                    </div>
+                                    <div>
+                                        <b>Lượt xem: </b> 10
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <button class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                    <button class="btn btn-default float-right font-weight-bold mt-3 w-100" style="font-size: 20px; height: 70px">DEMO</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <div style="border: 1px dashed green">
+                            <div style="padding: 10px">
+                                <center>
+                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                </center>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="alert alert-success">
+                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng.
+                        </div>
+                        <hr />
+                        <h3>Mô tả chi tiết</h3>
+                        <p style="color: #7e592a">
+                            1.Giới thiệu
+
+                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
+                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
+                            2.Chức năng
+
+                            Một số chức năng chính:
+
+                            Quản lý tin tức, chuyên mục tin tức
+                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
+                            Quản lý slide, liên kết.
+                            Quản lý người dùng
+                            Responsive
+                            Chuẩn SEO
+                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                        </p>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <h3>Hướng dẫn cài đặt</h3>
+                        <p style="color: #7e592a">
+                            1.Giới thiệu
+
+                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
+                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
+                            2.Chức năng
+
+                            Một số chức năng chính:
+
+                            Quản lý tin tức, chuyên mục tin tức
+                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
+                            Quản lý slide, liên kết.
+                            Quản lý người dùng
+                            Responsive
+                            Chuẩn SEO
+                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                        </p>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <h3>Thông số code</h3>
+                        <p style="color: #7e592a">
+                            1.Giới thiệu
+
+                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
+                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
+                            2.Chức năng
+
+                            Một số chức năng chính:
+
+                            Quản lý tin tức, chuyên mục tin tức
+                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
+                            Quản lý slide, liên kết.
+                            Quản lý người dùng
+                            Responsive
+                            Chuẩn SEO
+                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                        </p>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <div style="padding: 10px">
+                            <div class="row border">
+                                <div class="col-lg-6">
+                                    <h3>LINK DOWNLOAD</h3>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div style="padding: 20px">
+                                        Pass giải nén (Nếu có): baotran99 <br />
+                                        <button class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <div class="card shadow">
+                        <div style="padding: 10px">
+                            <h4>NGƯỜI BÁN</h4>
+                            <table>
+                                <tr>
+                                    <td width="20%">
+                                        <div style="padding: 10px">
+                                            <img src="~/Images/Codes/notimg.png" style="width: 100px; height: 100px" />
+                                        </div>
+                                    </td>
+                                    <td width="80%">
+                                        <h5 class="font-weight-bold text-danger">@Model.Users.user_name</h5>
+                                        <hr />
+                                        <b>Code miển phí: </b> 0 <br />
+                                        <b>Code có phí: </b> 0 <br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card shadow mt-3">
+                        <div style="padding: 10px">
+                            <h4>Chia sẻ</h4>
+                            <table>
+                                <tr>
+                                    <td width="20%">
+                                        <div style="padding: 10px">
+                                            <img src="~/Images/Codes/notimg.png" style="width: 100px; height: 100px" />
+                                        </div>
+                                    </td>
+                                    <td width="80%">
+                                        <h5 class="font-weight-bold text-danger">@Model.Users.user_name</h5>
+                                        <hr />
+                                        <b>Code miển phí: </b> 0 <br />
+                                        <b>Code có phí: </b> 0 <br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-white fixed-bottom border">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-lg-3">
+                <b class="text-dark">Tên code:</b> <br />
+                <b class="text-danger"> @Model.code_name</b>
+            </div>
+            <div class="col-lg-3">
+                <b class="text-dark"> Danh mục:</b>
+                <p>
+                    C#,C++
+                </p>
+            </div>
+            <div class="col-lg-3">
+                <b class="text-dark"> Thê loại:</b>
+                <p>
+                    Website
+                </p>
+            </div>
+            <div class="col-lg-3">
+                <button class="btn btn-danger w-100">Tải code ngay</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/Codes"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
