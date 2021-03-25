@@ -1,5 +1,5 @@
 ﻿@using CodeShare.Model.EF;
-@model Codes
+@model Code
 
 @{
     ViewBag.Title = "Details";
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-lg-8">
                         <div style="padding: 10px">
-                            <h3>@Model.code_name [Mã code: CODE-@Model.code_id]</h3>
+                            <h3>@Model.code_title [Mã code: @Model.code_code]</h3>
                             <hr />
                             <div class="row">
                                 <div class="col-lg-6">
@@ -50,7 +50,7 @@
                                         <b>Ngày đăng: </b> @Model.code_datecreate
                                     </div>
                                     <div>
-                                        <b>Dung lượng: </b> @Model.code_capacity MB
+                                        <b>Dung lượng: </b> @Model.code_disk MB
                                     </div>
                                     <div>
                                         <b>Đánh giá: </b> 10 điểm
@@ -172,7 +172,7 @@
                                         </div>
                                     </td>
                                     <td width="80%">
-                                        <h5 class="font-weight-bold text-danger">@Model.Users.user_name</h5>
+                                        <h5 class="font-weight-bold text-danger">@Model.User.user_name</h5>
                                         <hr />
                                         <b>Code miển phí: </b> 0 <br />
                                         <b>Code có phí: </b> 0 <br />
@@ -192,7 +192,7 @@
                                         </div>
                                     </td>
                                     <td width="80%">
-                                        <h5 class="font-weight-bold text-danger">@Model.Users.user_name</h5>
+                                        <h5 class="font-weight-bold text-danger">@Model.User.user_name</h5>
                                         <hr />
                                         <b>Code miển phí: </b> 0 <br />
                                         <b>Code có phí: </b> 0 <br />
@@ -211,7 +211,7 @@
         <div class="row mt-2">
             <div class="col-lg-3">
                 <b class="text-dark">Tên code:</b> <br />
-                <b class="text-danger"> @Model.code_name</b>
+                <b class="text-danger"> @Model.code_title</b>
             </div>
             <div class="col-lg-3">
                 <b class="text-dark"> Danh mục:</b>

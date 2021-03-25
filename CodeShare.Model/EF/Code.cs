@@ -41,6 +41,7 @@ namespace CodeShare.Model.EF
         public string code_pass { get; set; }
         public Nullable<int> category_id { get; set; }
         public Nullable<int> user_id { get; set; }
+        public string code_img { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }

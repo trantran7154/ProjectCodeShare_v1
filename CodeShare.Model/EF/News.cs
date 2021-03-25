@@ -25,6 +25,7 @@ namespace CodeShare.Model.EF
         public Nullable<int> news_active { get; set; }
         public Nullable<bool> news_option { get; set; }
         public Nullable<bool> news_del { get; set; }
+        public string news_img { get; set; }
     
         public virtual User User { get; set; }
     }
