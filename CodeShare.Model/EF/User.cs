@@ -20,6 +20,8 @@ namespace CodeShare.Model.EF
             this.Bills = new HashSet<Bill>();
             this.Codes = new HashSet<Code>();
             this.Tools = new HashSet<Tool>();
+            this.News = new HashSet<News>();
+            this.TakePrices = new HashSet<TakePrice>();
         }
     
         public int user_id { get; set; }
@@ -48,5 +50,9 @@ namespace CodeShare.Model.EF
         public virtual ICollection<Code> Codes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tool> Tools { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News> News { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TakePrice> TakePrices { get; set; }
     }
 }

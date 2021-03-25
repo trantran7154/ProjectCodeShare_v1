@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bills">
           <Key>
             <PropertyRef Name="bill_id" />
@@ -69,6 +69,22 @@
           <Property Name="language_name" Type="nvarchar" MaxLength="300" />
           <Property Name="language_active" Type="int" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="news_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="news_view" Type="int" />
+          <Property Name="news_content" Type="nvarchar(max)" />
+          <Property Name="news_tag" Type="nvarchar(max)" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="news_datecreate" Type="datetime" />
+          <Property Name="news_dateupdate" Type="datetime" />
+          <Property Name="news_active" Type="int" />
+          <Property Name="news_option" Type="bit" />
+          <Property Name="news_del" Type="bit" />
+        </EntityType>
         <EntityType Name="Pakages">
           <Key>
             <PropertyRef Name="pakege_id" />
@@ -87,6 +103,17 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TakePrices">
+          <Key>
+            <PropertyRef Name="tp_id" />
+          </Key>
+          <Property Name="tp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="tp_coin" Type="int" />
+          <Property Name="tp_datecreate" Type="datetime" />
+          <Property Name="tp_note" Type="nvarchar(max)" />
+          <Property Name="tp_active" Type="int" />
         </EntityType>
         <EntityType Name="Tools">
           <Key>
@@ -195,6 +222,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_News_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakePrices_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="TakePrices" Type="Self.TakePrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="TakePrices">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tools_Codes">
           <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
           <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
@@ -225,8 +276,10 @@
           <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TakePrices" EntityType="Self.TakePrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Bills_Pakeges" Association="Self.FK_Bills_Pakeges">
@@ -253,6 +306,14 @@
             <End Role="Languages" EntitySet="Languages" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
+          <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakePrices_Users" Association="Self.FK_TakePrices_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TakePrices" EntitySet="TakePrices" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tools_Codes" Association="Self.FK_Tools_Codes">
             <End Role="Codes" EntitySet="Codes" />
             <End Role="Tools" EntitySet="Tools" />
@@ -262,8 +323,7 @@
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -400,6 +460,8 @@
           <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Users" FromRole="Users" ToRole="Bills" />
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Users" FromRole="Users" ToRole="Codes" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
+          <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_News_Users" FromRole="User" ToRole="News" />
+          <NavigationProperty Name="TakePrices" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="User" ToRole="TakePrice" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -539,7 +601,70 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
+          <EntitySet Name="News" EntityType="DataShareCodeModel.News" />
+          <EntitySet Name="TakePrices" EntityType="DataShareCodeModel.TakePrice" />
+          <AssociationSet Name="FK_News_Users" Association="DataShareCodeModel.FK_News_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakePrices_Users" Association="DataShareCodeModel.FK_TakePrices_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TakePrice" EntitySet="TakePrices" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="news_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="news_view" Type="Int32" />
+          <Property Name="news_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_tag" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="news_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="news_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="news_active" Type="Int32" />
+          <Property Name="news_option" Type="Boolean" />
+          <Property Name="news_del" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_News_Users" FromRole="News" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TakePrice">
+          <Key>
+            <PropertyRef Name="tp_id" />
+          </Key>
+          <Property Name="tp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="tp_coin" Type="Int32" />
+          <Property Name="tp_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="tp_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tp_active" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="TakePrice" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_News_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakePrices_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.TakePrice" Role="TakePrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="TakePrice">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -670,6 +795,35 @@
                 <ScalarProperty Name="user_none" ColumnName="user_none" />
                 <ScalarProperty Name="user_view" ColumnName="user_view" />
                 <ScalarProperty Name="user_facode" ColumnName="user_facode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="DataShareCodeModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_del" ColumnName="news_del" />
+                <ScalarProperty Name="news_option" ColumnName="news_option" />
+                <ScalarProperty Name="news_active" ColumnName="news_active" />
+                <ScalarProperty Name="news_dateupdate" ColumnName="news_dateupdate" />
+                <ScalarProperty Name="news_datecreate" ColumnName="news_datecreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="news_tag" ColumnName="news_tag" />
+                <ScalarProperty Name="news_content" ColumnName="news_content" />
+                <ScalarProperty Name="news_view" ColumnName="news_view" />
+                <ScalarProperty Name="news_name" ColumnName="news_name" />
+                <ScalarProperty Name="news_id" ColumnName="news_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TakePrices">
+            <EntityTypeMapping TypeName="DataShareCodeModel.TakePrice">
+              <MappingFragment StoreEntitySet="TakePrices">
+                <ScalarProperty Name="tp_active" ColumnName="tp_active" />
+                <ScalarProperty Name="tp_note" ColumnName="tp_note" />
+                <ScalarProperty Name="tp_datecreate" ColumnName="tp_datecreate" />
+                <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="tp_id" ColumnName="tp_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
