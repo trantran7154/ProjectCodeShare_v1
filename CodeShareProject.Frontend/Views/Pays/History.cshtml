@@ -1,0 +1,84 @@
+﻿@using CodeShare.Model.EF;
+@using CodeShare.Frontend.Functions;
+@model List<Bills>  
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="home" style="height: 100px">
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+    </div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Lịch sử đơn hàng</h6>
+                    <p class="text-dark font-weight-bold float-left">
+                        <b>Có tổng cộng @Model. code</b> <br />
+                        <span class="text-danger">Sau 10 ngày đơn thất bại tự động xóa</span> 
+                    </p>
+                    <div class="ui float-right">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <table class="table table-striped table-bordered">
+                        <tr class="bg-danger text-white">
+                            <td>Mã thanh toán</td>
+                            <td>Số xu nạp</td>
+                            <td>Số tiền tương đương</td>
+                            <td>Ngày thanh toán</td>
+                            <td>Tình trạng</td>
+                        </tr>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6">
+                                    <h4>Không có đơn hàng nào</h4>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>DH-@item.bill_id</td>
+                                    <td>@item.Denominations.denomination_coin Xu</td>
+                                    <td>@int.Parse(item.Denominations.denomination_price).ToString("#,###") VNĐ</td>
+                                    <td>@item.billdate</td>
+                                    <td>
+                                        @if (item.active == true)
+                                        {
+                                            <b class="text-success"><i class="fa fa-check-circle">&nbsp;</i>Thành công</b>
+                                        }
+                                        else
+                                        {
+                                            <b class="text-danger"><i class="fa fa-times-circle">&nbsp;</i>Thành công</b>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+

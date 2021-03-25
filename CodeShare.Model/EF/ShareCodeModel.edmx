@@ -1,0 +1,1182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CodeShareDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banners">
+          <Key>
+            <PropertyRef Name="banner_id" />
+          </Key>
+          <Property Name="banner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="banner_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="banner_svg" Type="nvarchar(max)" />
+          <Property Name="banner_datecreate" Type="datetime" />
+          <Property Name="banner_update" Type="datetime" />
+          <Property Name="banner_active" Type="bit" />
+          <Property Name="banner_bin" Type="bit" />
+          <Property Name="banner_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="CategoryGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="code_id" Type="int" />
+          <Property Name="post_id" Type="int" />
+          <Property Name="datecreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categorys">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="category_datecreate" Type="datetime" />
+          <Property Name="category_update" Type="datetime" />
+          <Property Name="category_bin" Type="bit" />
+          <Property Name="category_active" Type="bit" />
+          <Property Name="category_option" Type="bit" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="chat_content" Type="nvarchar(max)" />
+          <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="chat_update" Type="datetime" />
+          <Property Name="chat_active" Type="bit" />
+          <Property Name="chat_bin" Type="bit" />
+          <Property Name="chat_option" Type="bit" />
+          <Property Name="chat_idtake" Type="int" />
+          <Property Name="chat_send" Type="int" />
+          <Property Name="chat_stt" Type="int" />
+        </EntityType>
+        <EntityType Name="Codes">
+          <Key>
+            <PropertyRef Name="code_id" />
+          </Key>
+          <Property Name="code_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="code_img" Type="nvarchar(max)" />
+          <Property Name="code_description" Type="nvarchar(max)" />
+          <Property Name="code_capacity" Type="varchar" MaxLength="10" />
+          <Property Name="code_link" Type="nvarchar(max)" />
+          <Property Name="code_coin" Type="int" />
+          <Property Name="code_view" Type="int" />
+          <Property Name="code_active" Type="bit" />
+          <Property Name="code_bin" Type="bit" />
+          <Property Name="code_option" Type="bit" />
+          <Property Name="code_datecreate" Type="datetime" />
+          <Property Name="code_update" Type="datetime" />
+          <Property Name="code_introduce" Type="nvarchar" MaxLength="500" />
+          <Property Name="code_down" Type="nvarchar(max)" />
+          <Property Name="code_browser_demo" Type="bit" />
+          <Property Name="code_demo" Type="nvarchar(max)" />
+          <Property Name="code_point_refer" Type="int" />
+          <Property Name="code_point_quality" Type="int" />
+          <Property Name="code_browser_downoad" Type="bit" />
+          <Property Name="code_browser_error" Type="bit" />
+          <Property Name="code_browser_quality" Type="bit" />
+          <Property Name="banner_id" Type="int" />
+          <Property Name="form_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="course_img" Type="nvarchar(max)" />
+          <Property Name="course_content" Type="nvarchar(max)" />
+          <Property Name="course_view" Type="int" />
+          <Property Name="course_datecreate" Type="datetime" />
+          <Property Name="course_update" Type="datetime" />
+          <Property Name="course_active" Type="bit" />
+          <Property Name="course_bin" Type="bit" />
+          <Property Name="course_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_phone" Type="varchar" MaxLength="12" />
+          <Property Name="customer_favourite" Type="nvarchar" MaxLength="200" />
+          <Property Name="customer_birth" Type="datetime" />
+          <Property Name="customer_note" Type="nvarchar" MaxLength="200" />
+          <Property Name="customer_address" Type="nvarchar" MaxLength="200" />
+          <Property Name="customer_view" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="customer_bin" Type="bit" />
+          <Property Name="customer_active" Type="bit" />
+          <Property Name="customer_option" Type="bit" />
+          <Property Name="customer_datecreate" Type="datetime" />
+          <Property Name="customer_update" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Denominations">
+          <Key>
+            <PropertyRef Name="denomination_id" />
+          </Key>
+          <Property Name="denomination_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="denomination_price" Type="varchar" MaxLength="300" />
+          <Property Name="denomination_coin" Type="int" />
+          <Property Name="denomination_content" Type="nvarchar(max)" />
+          <Property Name="denomination_active" Type="bit" />
+          <Property Name="denomination_option" Type="bit" />
+          <Property Name="denomination_bin" Type="bit" />
+          <Property Name="denomination_datecreate" Type="datetime" />
+          <Property Name="denomination_update" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="event_img" Type="nvarchar(max)" />
+          <Property Name="event_content" Type="nvarchar(max)" />
+          <Property Name="event_slogan" Type="nvarchar" MaxLength="500" />
+          <Property Name="event_datecreate" Type="datetime" />
+          <Property Name="event_update" Type="datetime" />
+          <Property Name="event_active" Type="bit" />
+          <Property Name="event_bin" Type="bit" />
+          <Property Name="event_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Favourites">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="favourite_datecreate" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="code_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="form_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="form_datecreate" Type="datetime" />
+          <Property Name="form_update" Type="datetime" />
+          <Property Name="form_active" Type="bit" />
+          <Property Name="form_bin" Type="bit" />
+          <Property Name="form_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="History_Chats">
+          <Key>
+            <PropertyRef Name="hc_id" />
+          </Key>
+          <Property Name="hc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hc_datecreate" Type="datetime" />
+          <Property Name="hc_idtake" Type="int" />
+          <Property Name="hc_idsend" Type="int" />
+        </EntityType>
+        <EntityType Name="Knowledge_Categorys">
+          <Key>
+            <PropertyRef Name="kc_id" />
+          </Key>
+          <Property Name="kc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kc_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="kc_datecreate" Type="datetime" />
+          <Property Name="kc_update" Type="datetime" />
+          <Property Name="kc_active" Type="bit" />
+          <Property Name="kc_bin" Type="bit" />
+          <Property Name="kc_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Programming_Knowledges">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pk_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="pk_img" Type="nvarchar(max)" />
+          <Property Name="pk_content" Type="nvarchar(max)" />
+          <Property Name="pk_datecreate" Type="datetime" />
+          <Property Name="pk_update" Type="datetime" />
+          <Property Name="pk_active" Type="bit" />
+          <Property Name="pk_bin" Type="bit" />
+          <Property Name="pk_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="tag_id" />
+          </Key>
+          <Property Name="tag_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tag_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="tag_datecreate" Type="datetime" />
+          <Property Name="tag_update" Type="datetime" />
+          <Property Name="tag_active" Type="bit" />
+          <Property Name="tag_bin" Type="bit" />
+          <Property Name="tag_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="user_img" Type="nvarchar(max)" />
+          <Property Name="user_email" Type="varchar" MaxLength="200" />
+          <Property Name="user_pass" Type="nvarchar(max)" />
+          <Property Name="user_coin" Type="varchar" MaxLength="300" />
+          <Property Name="user_token" Type="nvarchar(max)" />
+          <Property Name="user_datecreate" Type="datetime" />
+          <Property Name="user_update" Type="datetime" />
+          <Property Name="user_datelogin" Type="datetime" />
+          <Property Name="user_code" Type="nvarchar" MaxLength="200" />
+          <Property Name="user_active" Type="bit" />
+          <Property Name="user_option" Type="bit" />
+          <Property Name="user_bin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Withdrawals">
+          <Key>
+            <PropertyRef Name="withdrawal_id" />
+          </Key>
+          <Property Name="withdrawal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="withdrawal_coin" Type="int" />
+          <Property Name="withdrawal_datecreate" Type="datetime" />
+          <Property Name="withdrawal_update" Type="datetime" />
+          <Property Name="withdrawal_email" Type="varchar" MaxLength="200" />
+          <Property Name="withdrawal_tel" Type="varchar" MaxLength="12" />
+          <Property Name="withdrawal_active" Type="bit" />
+          <Property Name="withdrawal_bin" Type="bit" />
+          <Property Name="withdrawal_option" Type="bit" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_CategoryGroup_Categorys">
+          <End Role="Categorys" Type="Self.Categorys" Multiplicity="0..1" />
+          <End Role="CategoryGroup" Type="Self.CategoryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="CategoryGroup">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryGroup_Codes">
+          <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
+          <End Role="CategoryGroup" Type="Self.CategoryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="CategoryGroup">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categorys_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Categorys" Type="Self.Categorys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Categorys">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Codes_Banners">
+          <End Role="Banners" Type="Self.Banners" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Codes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banners">
+              <PropertyRef Name="banner_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="banner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Codes_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Codes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Codes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Codes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourites_Codes">
+          <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
+          <End Role="Favourites" Type="Self.Favourites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Favourites">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourites_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Favourites" Type="Self.Favourites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Favourites">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Withdrawals_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Withdrawals" Type="Self.Withdrawals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Withdrawals">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeShareDataModelStoreContainer">
+          <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryGroup" EntityType="Self.CategoryGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Denominations" EntityType="Self.Denominations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favourites" EntityType="Self.Favourites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History_Chats" EntityType="Self.History_Chats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Knowledge_Categorys" EntityType="Self.Knowledge_Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programming_Knowledges" EntityType="Self.Programming_Knowledges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Withdrawals" EntityType="Self.Withdrawals" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CategoryGroup_Categorys" Association="Self.FK_CategoryGroup_Categorys">
+            <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="CategoryGroup" EntitySet="CategoryGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryGroup_Codes" Association="Self.FK_CategoryGroup_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="CategoryGroup" EntitySet="CategoryGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categorys_Users" Association="Self.FK_Categorys_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Categorys" EntitySet="Categorys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Codes_Banners" Association="Self.FK_Codes_Banners">
+            <End Role="Banners" EntitySet="Banners" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Codes_Forms" Association="Self.FK_Codes_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Codes_Users" Association="Self.FK_Codes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_Users" Association="Self.FK_Customers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Codes" Association="Self.FK_Favourites_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Users" Association="Self.FK_Favourites_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Withdrawals_Users" Association="Self.FK_Withdrawals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Withdrawals" EntitySet="Withdrawals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CodeShareDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="banner_id" />
+          </Key>
+          <Property Name="banner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="banner_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="banner_svg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="banner_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="banner_update" Type="DateTime" Precision="3" />
+          <Property Name="banner_active" Type="Boolean" />
+          <Property Name="banner_bin" Type="Boolean" />
+          <Property Name="banner_option" Type="Boolean" />
+          <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Banners" FromRole="Banners" ToRole="Codes" />
+        </EntityType>
+        <EntityType Name="CategoryGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="code_id" Type="Int32" />
+          <Property Name="post_id" Type="Int32" />
+          <Property Name="datecreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_CategoryGroup_Categorys" FromRole="CategoryGroup" ToRole="Categorys" />
+          <NavigationProperty Name="Code" Relationship="Self.FK_CategoryGroup_Codes" FromRole="CategoryGroup" ToRole="Codes" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="category_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="category_update" Type="DateTime" Precision="3" />
+          <Property Name="category_bin" Type="Boolean" />
+          <Property Name="category_active" Type="Boolean" />
+          <Property Name="category_option" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="CategoryGroups" Relationship="Self.FK_CategoryGroup_Categorys" FromRole="Categorys" ToRole="CategoryGroup" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Categorys_Users" FromRole="Categorys" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="chat_update" Type="DateTime" Precision="3" />
+          <Property Name="chat_active" Type="Boolean" />
+          <Property Name="chat_bin" Type="Boolean" />
+          <Property Name="chat_option" Type="Boolean" />
+          <Property Name="chat_idtake" Type="Int32" />
+          <Property Name="chat_send" Type="Int32" />
+          <Property Name="chat_stt" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Code">
+          <Key>
+            <PropertyRef Name="code_id" />
+          </Key>
+          <Property Name="code_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_capacity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="code_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_coin" Type="Int32" />
+          <Property Name="code_view" Type="Int32" />
+          <Property Name="code_active" Type="Boolean" />
+          <Property Name="code_bin" Type="Boolean" />
+          <Property Name="code_option" Type="Boolean" />
+          <Property Name="code_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="code_update" Type="DateTime" Precision="3" />
+          <Property Name="code_introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="code_down" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_browser_demo" Type="Boolean" />
+          <Property Name="code_demo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_point_refer" Type="Int32" />
+          <Property Name="code_point_quality" Type="Int32" />
+          <Property Name="code_browser_downoad" Type="Boolean" />
+          <Property Name="code_browser_error" Type="Boolean" />
+          <Property Name="code_browser_quality" Type="Boolean" />
+          <Property Name="banner_id" Type="Int32" />
+          <Property Name="form_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="Banner" Relationship="Self.FK_Codes_Banners" FromRole="Codes" ToRole="Banners" />
+          <NavigationProperty Name="CategoryGroups" Relationship="Self.FK_CategoryGroup_Codes" FromRole="Codes" ToRole="CategoryGroup" />
+          <NavigationProperty Name="Form" Relationship="Self.FK_Codes_Forms" FromRole="Codes" ToRole="Forms" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Codes_Users" FromRole="Codes" ToRole="Users" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourites_Codes" FromRole="Codes" ToRole="Favourites" />
+        </EntityType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="course_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="course_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="course_view" Type="Int32" />
+          <Property Name="course_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="course_update" Type="DateTime" Precision="3" />
+          <Property Name="course_active" Type="Boolean" />
+          <Property Name="course_bin" Type="Boolean" />
+          <Property Name="course_option" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="customer_favourite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="customer_birth" Type="DateTime" Precision="3" />
+          <Property Name="customer_note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="customer_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="customer_view" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="customer_bin" Type="Boolean" />
+          <Property Name="customer_active" Type="Boolean" />
+          <Property Name="customer_option" Type="Boolean" />
+          <Property Name="customer_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="customer_update" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Customers_Users" FromRole="Customers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Denomination">
+          <Key>
+            <PropertyRef Name="denomination_id" />
+          </Key>
+          <Property Name="denomination_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="denomination_price" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="denomination_coin" Type="Int32" />
+          <Property Name="denomination_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="denomination_active" Type="Boolean" />
+          <Property Name="denomination_option" Type="Boolean" />
+          <Property Name="denomination_bin" Type="Boolean" />
+          <Property Name="denomination_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="denomination_update" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="event_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="event_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="event_slogan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="event_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="event_update" Type="DateTime" Precision="3" />
+          <Property Name="event_active" Type="Boolean" />
+          <Property Name="event_bin" Type="Boolean" />
+          <Property Name="event_option" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="favourite_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="code_id" Type="Int32" />
+          <NavigationProperty Name="Code" Relationship="Self.FK_Favourites_Codes" FromRole="Favourites" ToRole="Codes" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Favourites_Users" FromRole="Favourites" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="form_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="form_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="form_update" Type="DateTime" Precision="3" />
+          <Property Name="form_active" Type="Boolean" />
+          <Property Name="form_bin" Type="Boolean" />
+          <Property Name="form_option" Type="Boolean" />
+          <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Forms" FromRole="Forms" ToRole="Codes" />
+        </EntityType>
+        <EntityType Name="History_Chats">
+          <Key>
+            <PropertyRef Name="hc_id" />
+          </Key>
+          <Property Name="hc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hc_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="hc_idtake" Type="Int32" />
+          <Property Name="hc_idsend" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Knowledge_Categorys">
+          <Key>
+            <PropertyRef Name="kc_id" />
+          </Key>
+          <Property Name="kc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kc_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="kc_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="kc_update" Type="DateTime" Precision="3" />
+          <Property Name="kc_active" Type="Boolean" />
+          <Property Name="kc_bin" Type="Boolean" />
+          <Property Name="kc_option" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Programming_Knowledges">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pk_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="pk_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pk_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pk_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="pk_update" Type="DateTime" Precision="3" />
+          <Property Name="pk_active" Type="Boolean" />
+          <Property Name="pk_bin" Type="Boolean" />
+          <Property Name="pk_option" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="tag_id" />
+          </Key>
+          <Property Name="tag_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tag_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tag_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="tag_update" Type="DateTime" Precision="3" />
+          <Property Name="tag_active" Type="Boolean" />
+          <Property Name="tag_bin" Type="Boolean" />
+          <Property Name="tag_option" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="user_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_coin" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="user_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="user_update" Type="DateTime" Precision="3" />
+          <Property Name="user_datelogin" Type="DateTime" Precision="3" />
+          <Property Name="user_code" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="user_active" Type="Boolean" />
+          <Property Name="user_option" Type="Boolean" />
+          <Property Name="user_bin" Type="Boolean" />
+          <NavigationProperty Name="Categorys" Relationship="Self.FK_Categorys_Users" FromRole="Users" ToRole="Categorys" />
+          <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Users" FromRole="Users" ToRole="Codes" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_Users" FromRole="Users" ToRole="Customers" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourites_Users" FromRole="Users" ToRole="Favourites" />
+          <NavigationProperty Name="Withdrawals" Relationship="Self.FK_Withdrawals_Users" FromRole="Users" ToRole="Withdrawals" />
+        </EntityType>
+        <EntityType Name="Withdrawal">
+          <Key>
+            <PropertyRef Name="withdrawal_id" />
+          </Key>
+          <Property Name="withdrawal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="withdrawal_coin" Type="Int32" />
+          <Property Name="withdrawal_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="withdrawal_update" Type="DateTime" Precision="3" />
+          <Property Name="withdrawal_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="withdrawal_tel" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="withdrawal_active" Type="Boolean" />
+          <Property Name="withdrawal_bin" Type="Boolean" />
+          <Property Name="withdrawal_option" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Withdrawals_Users" FromRole="Withdrawals" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Codes_Banners">
+          <End Role="Banners" Type="Self.Banner" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banners">
+              <PropertyRef Name="banner_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="banner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryGroup_Categorys">
+          <End Role="Categorys" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CategoryGroup" Type="Self.CategoryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="CategoryGroup">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryGroup_Codes">
+          <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
+          <End Role="CategoryGroup" Type="Self.CategoryGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="CategoryGroup">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categorys_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Categorys" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Categorys">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Codes_Forms">
+          <End Role="Forms" Type="Self.Form" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Codes_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Codes" Type="Self.Code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Codes">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourites_Codes">
+          <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
+          <End Role="Favourites" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Favourites">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourites_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Favourites" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Favourites">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Withdrawals_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Withdrawals" Type="Self.Withdrawal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Withdrawals">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeShareDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
+          <EntitySet Name="CategoryGroups" EntityType="Self.CategoryGroup" />
+          <EntitySet Name="Categorys" EntityType="Self.Category" />
+          <EntitySet Name="Chats" EntityType="Self.Chat" />
+          <EntitySet Name="Codes" EntityType="Self.Code" />
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Denominations" EntityType="Self.Denomination" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Favourites" EntityType="Self.Favourite" />
+          <EntitySet Name="Forms" EntityType="Self.Form" />
+          <EntitySet Name="History_Chats" EntityType="Self.History_Chats" />
+          <EntitySet Name="Knowledge_Categorys" EntityType="Self.Knowledge_Categorys" />
+          <EntitySet Name="Programming_Knowledges" EntityType="Self.Programming_Knowledges" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Withdrawals" EntityType="Self.Withdrawal" />
+          <AssociationSet Name="FK_Codes_Banners" Association="Self.FK_Codes_Banners">
+            <End Role="Banners" EntitySet="Banners" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryGroup_Categorys" Association="Self.FK_CategoryGroup_Categorys">
+            <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="CategoryGroup" EntitySet="CategoryGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryGroup_Codes" Association="Self.FK_CategoryGroup_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="CategoryGroup" EntitySet="CategoryGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categorys_Users" Association="Self.FK_Categorys_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Categorys" EntitySet="Categorys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Codes_Forms" Association="Self.FK_Codes_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Codes_Users" Association="Self.FK_Codes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Codes" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Codes" Association="Self.FK_Favourites_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_Users" Association="Self.FK_Customers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourites_Users" Association="Self.FK_Favourites_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourites" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Withdrawals_Users" Association="Self.FK_Withdrawals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Withdrawals" EntitySet="Withdrawals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeShareDataModelStoreContainer" CdmEntityContainer="CodeShareDataEntities">
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Banner">
+              <MappingFragment StoreEntitySet="Banners">
+                <ScalarProperty Name="banner_id" ColumnName="banner_id" />
+                <ScalarProperty Name="banner_name" ColumnName="banner_name" />
+                <ScalarProperty Name="banner_svg" ColumnName="banner_svg" />
+                <ScalarProperty Name="banner_datecreate" ColumnName="banner_datecreate" />
+                <ScalarProperty Name="banner_update" ColumnName="banner_update" />
+                <ScalarProperty Name="banner_active" ColumnName="banner_active" />
+                <ScalarProperty Name="banner_bin" ColumnName="banner_bin" />
+                <ScalarProperty Name="banner_option" ColumnName="banner_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryGroups">
+            <EntityTypeMapping TypeName="CodeShareDataModel.CategoryGroup">
+              <MappingFragment StoreEntitySet="CategoryGroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="datecreate" ColumnName="datecreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorys">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Category">
+              <MappingFragment StoreEntitySet="Categorys">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="category_datecreate" ColumnName="category_datecreate" />
+                <ScalarProperty Name="category_update" ColumnName="category_update" />
+                <ScalarProperty Name="category_bin" ColumnName="category_bin" />
+                <ScalarProperty Name="category_active" ColumnName="category_active" />
+                <ScalarProperty Name="category_option" ColumnName="category_option" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chats">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Chat">
+              <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="chat_id" ColumnName="chat_id" />
+                <ScalarProperty Name="chat_content" ColumnName="chat_content" />
+                <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
+                <ScalarProperty Name="chat_update" ColumnName="chat_update" />
+                <ScalarProperty Name="chat_active" ColumnName="chat_active" />
+                <ScalarProperty Name="chat_bin" ColumnName="chat_bin" />
+                <ScalarProperty Name="chat_option" ColumnName="chat_option" />
+                <ScalarProperty Name="chat_idtake" ColumnName="chat_idtake" />
+                <ScalarProperty Name="chat_send" ColumnName="chat_send" />
+                <ScalarProperty Name="chat_stt" ColumnName="chat_stt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Codes">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Code">
+              <MappingFragment StoreEntitySet="Codes">
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="code_name" ColumnName="code_name" />
+                <ScalarProperty Name="code_img" ColumnName="code_img" />
+                <ScalarProperty Name="code_description" ColumnName="code_description" />
+                <ScalarProperty Name="code_capacity" ColumnName="code_capacity" />
+                <ScalarProperty Name="code_link" ColumnName="code_link" />
+                <ScalarProperty Name="code_coin" ColumnName="code_coin" />
+                <ScalarProperty Name="code_view" ColumnName="code_view" />
+                <ScalarProperty Name="code_active" ColumnName="code_active" />
+                <ScalarProperty Name="code_bin" ColumnName="code_bin" />
+                <ScalarProperty Name="code_option" ColumnName="code_option" />
+                <ScalarProperty Name="code_datecreate" ColumnName="code_datecreate" />
+                <ScalarProperty Name="code_update" ColumnName="code_update" />
+                <ScalarProperty Name="code_introduce" ColumnName="code_introduce" />
+                <ScalarProperty Name="code_down" ColumnName="code_down" />
+                <ScalarProperty Name="code_browser_demo" ColumnName="code_browser_demo" />
+                <ScalarProperty Name="code_demo" ColumnName="code_demo" />
+                <ScalarProperty Name="code_point_refer" ColumnName="code_point_refer" />
+                <ScalarProperty Name="code_point_quality" ColumnName="code_point_quality" />
+                <ScalarProperty Name="code_browser_downoad" ColumnName="code_browser_downoad" />
+                <ScalarProperty Name="code_browser_error" ColumnName="code_browser_error" />
+                <ScalarProperty Name="code_browser_quality" ColumnName="code_browser_quality" />
+                <ScalarProperty Name="banner_id" ColumnName="banner_id" />
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="course_img" ColumnName="course_img" />
+                <ScalarProperty Name="course_content" ColumnName="course_content" />
+                <ScalarProperty Name="course_view" ColumnName="course_view" />
+                <ScalarProperty Name="course_datecreate" ColumnName="course_datecreate" />
+                <ScalarProperty Name="course_update" ColumnName="course_update" />
+                <ScalarProperty Name="course_active" ColumnName="course_active" />
+                <ScalarProperty Name="course_bin" ColumnName="course_bin" />
+                <ScalarProperty Name="course_option" ColumnName="course_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_favourite" ColumnName="customer_favourite" />
+                <ScalarProperty Name="customer_birth" ColumnName="customer_birth" />
+                <ScalarProperty Name="customer_note" ColumnName="customer_note" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_view" ColumnName="customer_view" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="customer_bin" ColumnName="customer_bin" />
+                <ScalarProperty Name="customer_active" ColumnName="customer_active" />
+                <ScalarProperty Name="customer_option" ColumnName="customer_option" />
+                <ScalarProperty Name="customer_datecreate" ColumnName="customer_datecreate" />
+                <ScalarProperty Name="customer_update" ColumnName="customer_update" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Denominations">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Denomination">
+              <MappingFragment StoreEntitySet="Denominations">
+                <ScalarProperty Name="denomination_id" ColumnName="denomination_id" />
+                <ScalarProperty Name="denomination_price" ColumnName="denomination_price" />
+                <ScalarProperty Name="denomination_coin" ColumnName="denomination_coin" />
+                <ScalarProperty Name="denomination_content" ColumnName="denomination_content" />
+                <ScalarProperty Name="denomination_active" ColumnName="denomination_active" />
+                <ScalarProperty Name="denomination_option" ColumnName="denomination_option" />
+                <ScalarProperty Name="denomination_bin" ColumnName="denomination_bin" />
+                <ScalarProperty Name="denomination_datecreate" ColumnName="denomination_datecreate" />
+                <ScalarProperty Name="denomination_update" ColumnName="denomination_update" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="event_img" ColumnName="event_img" />
+                <ScalarProperty Name="event_content" ColumnName="event_content" />
+                <ScalarProperty Name="event_slogan" ColumnName="event_slogan" />
+                <ScalarProperty Name="event_datecreate" ColumnName="event_datecreate" />
+                <ScalarProperty Name="event_update" ColumnName="event_update" />
+                <ScalarProperty Name="event_active" ColumnName="event_active" />
+                <ScalarProperty Name="event_bin" ColumnName="event_bin" />
+                <ScalarProperty Name="event_option" ColumnName="event_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Favourite">
+              <MappingFragment StoreEntitySet="Favourites">
+                <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
+                <ScalarProperty Name="favourite_datecreate" ColumnName="favourite_datecreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Form">
+              <MappingFragment StoreEntitySet="Forms">
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="form_name" ColumnName="form_name" />
+                <ScalarProperty Name="form_datecreate" ColumnName="form_datecreate" />
+                <ScalarProperty Name="form_update" ColumnName="form_update" />
+                <ScalarProperty Name="form_active" ColumnName="form_active" />
+                <ScalarProperty Name="form_bin" ColumnName="form_bin" />
+                <ScalarProperty Name="form_option" ColumnName="form_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History_Chats">
+            <EntityTypeMapping TypeName="CodeShareDataModel.History_Chats">
+              <MappingFragment StoreEntitySet="History_Chats">
+                <ScalarProperty Name="hc_id" ColumnName="hc_id" />
+                <ScalarProperty Name="hc_datecreate" ColumnName="hc_datecreate" />
+                <ScalarProperty Name="hc_idtake" ColumnName="hc_idtake" />
+                <ScalarProperty Name="hc_idsend" ColumnName="hc_idsend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Knowledge_Categorys">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Knowledge_Categorys">
+              <MappingFragment StoreEntitySet="Knowledge_Categorys">
+                <ScalarProperty Name="kc_id" ColumnName="kc_id" />
+                <ScalarProperty Name="kc_name" ColumnName="kc_name" />
+                <ScalarProperty Name="kc_datecreate" ColumnName="kc_datecreate" />
+                <ScalarProperty Name="kc_update" ColumnName="kc_update" />
+                <ScalarProperty Name="kc_active" ColumnName="kc_active" />
+                <ScalarProperty Name="kc_bin" ColumnName="kc_bin" />
+                <ScalarProperty Name="kc_option" ColumnName="kc_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programming_Knowledges">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Programming_Knowledges">
+              <MappingFragment StoreEntitySet="Programming_Knowledges">
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+                <ScalarProperty Name="pk_name" ColumnName="pk_name" />
+                <ScalarProperty Name="pk_img" ColumnName="pk_img" />
+                <ScalarProperty Name="pk_content" ColumnName="pk_content" />
+                <ScalarProperty Name="pk_datecreate" ColumnName="pk_datecreate" />
+                <ScalarProperty Name="pk_update" ColumnName="pk_update" />
+                <ScalarProperty Name="pk_active" ColumnName="pk_active" />
+                <ScalarProperty Name="pk_bin" ColumnName="pk_bin" />
+                <ScalarProperty Name="pk_option" ColumnName="pk_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="tag_id" ColumnName="tag_id" />
+                <ScalarProperty Name="tag_name" ColumnName="tag_name" />
+                <ScalarProperty Name="tag_datecreate" ColumnName="tag_datecreate" />
+                <ScalarProperty Name="tag_update" ColumnName="tag_update" />
+                <ScalarProperty Name="tag_active" ColumnName="tag_active" />
+                <ScalarProperty Name="tag_bin" ColumnName="tag_bin" />
+                <ScalarProperty Name="tag_option" ColumnName="tag_option" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CodeShareDataModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_img" ColumnName="user_img" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_pass" ColumnName="user_pass" />
+                <ScalarProperty Name="user_coin" ColumnName="user_coin" />
+                <ScalarProperty Name="user_token" ColumnName="user_token" />
+                <ScalarProperty Name="user_datecreate" ColumnName="user_datecreate" />
+                <ScalarProperty Name="user_update" ColumnName="user_update" />
+                <ScalarProperty Name="user_datelogin" ColumnName="user_datelogin" />
+                <ScalarProperty Name="user_code" ColumnName="user_code" />
+                <ScalarProperty Name="user_active" ColumnName="user_active" />
+                <ScalarProperty Name="user_option" ColumnName="user_option" />
+                <ScalarProperty Name="user_bin" ColumnName="user_bin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Withdrawals">
+            <EntityTypeMapping TypeName="CodeShareDataModel.Withdrawal">
+              <MappingFragment StoreEntitySet="Withdrawals">
+                <ScalarProperty Name="withdrawal_id" ColumnName="withdrawal_id" />
+                <ScalarProperty Name="withdrawal_coin" ColumnName="withdrawal_coin" />
+                <ScalarProperty Name="withdrawal_datecreate" ColumnName="withdrawal_datecreate" />
+                <ScalarProperty Name="withdrawal_update" ColumnName="withdrawal_update" />
+                <ScalarProperty Name="withdrawal_email" ColumnName="withdrawal_email" />
+                <ScalarProperty Name="withdrawal_tel" ColumnName="withdrawal_tel" />
+                <ScalarProperty Name="withdrawal_active" ColumnName="withdrawal_active" />
+                <ScalarProperty Name="withdrawal_bin" ColumnName="withdrawal_bin" />
+                <ScalarProperty Name="withdrawal_option" ColumnName="withdrawal_option" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

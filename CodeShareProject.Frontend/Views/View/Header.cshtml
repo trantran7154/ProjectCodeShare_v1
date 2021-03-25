@@ -1,0 +1,78 @@
+﻿@using CodeShare.Model.EF
+@model Users
+
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+
+    HttpCookie cookie = Request.Cookies["user_id"];
+}
+
+@if (cookie != null)
+{
+
+    Users users = db.Users.Find(int.Parse(cookie.Value.ToString()));
+
+    <!-- Top Bar -->        
+    <div class="top_bar">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex flex-row">
+                    <div class="phone">+84 869 139 879</div>
+                    <div class="social">
+                        <ul class="social_list">
+                            <li class="social_list_item"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="user_box ml-auto mt-2">
+                        <div class="dropdown text-white">
+                            <div class="dropdown-toggle user_box_link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @users.user_name &nbsp;<img src="~/Images/Users/notimg.png" style="border-radius: 50%; height: 25px; width: 25px" />
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="@Url.Action("Info","Users")"><i class="fa fa-user"></i> Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="@Url.Action("Index","Pays")"><i class="fa fa-bitcoin"></i> Nạp xu</a>
+                                <a class="dropdown-item" href="@Url.Action("Index","Codes")"><i class="fa fa-code"></i> Quản lý code</a>
+                                <a class="dropdown-item" href="@Url.Action("Create","Codes")"><i class="fa fa-upload"></i> Đăng code</a>
+                                <a class="dropdown-item" href="@Url.Action("Info","Users")"><i class="fa fa-history"></i> Lịch sử thanh toán</a>
+                                <a class="dropdown-item" href="@Url.Action("Info","Users")"><i class="fa fa-user"></i> Đổi mật khẩu</a>
+                                <a class="dropdown-item" href="@Url.Action("LogOut","Users")"><i class="sign out alternate icon"></i>Đăng xuất</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Top Bar -->
+    <div class="top_bar">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex flex-row">
+                    <div class="phone">+84 869 139 879</div>
+                    <div class="social">
+                        <ul class="social_list">
+                            <li class="social_list_item"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                            <li class="social_list_item"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="user_box ml-auto">
+                        <div class="user_box_login user_box_link"><a href="/Users/Login">đăng nhập</a></div>
+                        <div class="user_box_register user_box_link"><a href="/Users/SignUp">đăng ký</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
