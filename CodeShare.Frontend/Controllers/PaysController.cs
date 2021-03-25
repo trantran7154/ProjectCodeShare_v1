@@ -37,8 +37,8 @@ namespace CodeShare.Frontend.Controllers
             string accessKey = "M8brj9K6E22vXoDB";
             string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
             string orderInfo = "Nạp " + pakage.pakage_coin + " vào tài khoản " + idus.user_email;
-            string returnUrl = "https://localhost:44365/Pays/ReturnUrl";
-            string notifyurl = "https://localhost:44365/Pays/NotifyUrl";
+            string returnUrl = "https://localhost:44327/Pays/ReturnUrl";
+            string notifyurl = "https://localhost:44327/Pays/NotifyUrl";
 
             string amount = money.ToString();
             string orderid = Guid.NewGuid().ToString();
@@ -121,7 +121,7 @@ namespace CodeShare.Frontend.Controllers
                     bill_active = false,
                     user_id = id.user_id,
                     pakege_id = pakage.pakege_id,
-                    bill_dealine = DateTime.Now
+                    bill_dealine = DateTime.Now.AddDays(10)
                 };
                 db.Bills.Add(bills);
                 db.SaveChanges();
