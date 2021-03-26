@@ -1,7 +1,10 @@
-﻿@model CodeShare.Model.EF.Code
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Code
 
 @{
+    DataShareCodeEntities db = new DataShareCodeEntities();
     ViewBag.Title = "Thêm code";
+
 }
 <style>
     .menu {
@@ -10,6 +13,115 @@
     .ui.multiple.search.dropdown > input.search {
         height: 21px;
     }
+</style>
+<style>
+    .file-upload {
+        background-color: #ffffff;
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-btn {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        background: #1FB264;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #15824B;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .file-upload-btn:hover {
+            background: #1AA059;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+    .file-upload-content {
+        display: none;
+        text-align: center;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 4px dashed #1FB264;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            background-color: #1FB264;
+            border: 4px dashed #ffffff;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: #222;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: #15824B;
+            padding: 60px 0;
+        }
+
+    .file-upload-image {
+    }
+
+    .remove-image {
+        width: 200px;
+        margin: 0;
+        color: #fff;
+        background: #cd4535;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #b02818;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .remove-image:hover {
+            background: #c13b2a;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .remove-image:active {
+            border: 0;
+            transition: all .2s ease;
+        }
 </style>
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
@@ -33,7 +145,7 @@
                                         border: 1px dashed green;
                                     }
                                 </style>
-                                <img src="~/Images/Codes/notimg.png" style="width: 100%; height: 250px; cursor: pointer" class="hv" />
+                                <img data-toggle="modal" class="hv file-upload-image" data-target="#img" src="~/Images/Codes/notimg.png" style="width: 100%; height: 250px; cursor: pointer" />
                             </div>
                             <div class="field">
                                 <br />
@@ -59,11 +171,9 @@
                                 }
                             </style>
 
-                            <label>Danh mục code: <b class="text-danger">*</b></label>
+                            <label>Phân loại code: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown" multiple="" name="category">
-                                <option value="">Chọn danh mục</option>
-                                @*@Html.Action("GetCategoryList", "Codes")*@
-                                <option value="2">2</option>
+                                <option value="">Chọn phân loại code</option>
 
                             </select>
                             <script>
@@ -79,6 +189,32 @@
                         <div class="field">
                             <label>Mô tả code: <b class="text-danger">*</b></label>
                             <textarea name="code_introduce" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
+                        </div>
+                        <div class="field">
+                            <style>
+                                .ui.form .field > .selection.dropdown {
+                                    height: 0px;
+                                }
+
+                                .ck.ck-editor__editable_inline > :last-child {
+                                    height: 200px;
+                                }
+                            </style>
+
+                            <label>Danh mục: <b class="text-danger">*</b></label>
+                            <select class="ui fluid search dropdown">
+                                <option value="">Danh mục</option>
+
+                            </select>
+                            <script>
+                                $("input.myClass:search").keyup(function (key) {
+                                    debugger
+                                    if (key.keyCode == "13") {
+                                        alert("ok");
+                                    }
+                                })
+                            </script>
+                            <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <div class="field">
                             <label>Link download: <b class="text-danger">*</b></label>
@@ -124,7 +260,7 @@
 
                             <label>Tag: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown" multiple="" name="">
-                                <option value="">Chọn danh mục</option>
+                                <option value="">Tag</option>
                                 <option value="2">2</option>
 
                             </select>
@@ -169,7 +305,60 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="file-upload">
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
 
+                    <div class="image-upload-wrap">
+                        <input name="img" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                        <div class="drag-text">
+                            <h3>Ảnh code đẹp! SEO TỐT </h3>
+                        </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" style="width: 100%"/>
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh <span class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+                $('.image-title').html(input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            removeUpload();
+        }
+    }
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
 
 
 
