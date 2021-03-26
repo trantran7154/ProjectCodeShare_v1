@@ -38,49 +38,42 @@
                             </p>
                             <div class="mt-4">
                                 <div class="row">
-                                    <form action="@Url.Action("TakePrice", "Pays")" class="col-lg-12">
-                                        @if (TempData["noti_send_request"] != null)
-                                        {
-                                            <p class="text-success">Chào @id.user_name , Yêu cầu của bạn đã được gửi! Yêu cầu sẽ được duyệt trong 4h. Cảm ơn bạn đã chờ!</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="text-success">Chào @id.user_name , bạn có thể rút tiền từ số xu của mình. Số xu phải trên 100 mới rút được. 1 xu bằng 1.000 vnđ.</p>
-                                            <table class="table">
-                                                <tr>
-                                                    <td><b>Email:</b> </td>
-                                                    <td width="50%">
-                                                        <div>@id.user_email</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="50%"><b>Số điện thoại:</b></td>
-                                                    <td width="50%">
-                                                        <div> <span class="text-danger">@(id.user_phone == null ? "Vui lòng cập nhật số điện thoại để rút tiền" : id.user_phone)</span></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Số điện thoại MOMO:</b> </td>
-                                                    <td width="50%">
-                                                        <input type="text" name="" value="@id.user_phone" class="form-control" placeholder="Nhập số điện thoại Momo" />
-                                                        <p class="text-danger" style="font-size: 12px">Nhập đúng sđt MoMo. Dựa vào số, số tiền bạn rút sẽ chuyển về MoMo này.</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Tiền rút:</b> </td>
-                                                    <td width="50%">
-                                                        <input type="number" name="" ng-model="price" class="form-control" placeholder="Số xu" />
-                                                        <p class="text-danger" style="font-size: 12px">Nhập số xu tối thiểu hoặc số tiền thấp nhất là 100 xu</p>
-                                                        <p class="text-success">Số tiền: <span ng-bind="price * 1000"></span> vnđ</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <hr />
-                                            <center>
-                                                <button type="submit" class="btn btn-danger w-25" w>Rút tiền</button>
-                                            </center>
-                                        }
-                                    </form>
+                                    <div class="col-lg-12">
+                                        <p class="text-success">Chào @id.user_name , bạn có thể rút tiền từ số xu của mình. Số xu phải trên 100 mới rút được. 1 xu bằng 1.000 vnđ.</p>
+                                        <table class="table">
+                                            <tr>
+                                                <td><b>Email:</b> </td>
+                                                <td width="50%">
+                                                    <div>@id.user_email</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%"><b>Số điện thoại:</b></td>
+                                                <td width="50%">
+                                                    <div> <span class="text-danger">@(id.user_phone == null ? "Vui lòng cập nhật số điện thoại để rút tiền" : id.user_phone)</span></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Số điện thoại MOMO:</b> </td>
+                                                <td width="50%">
+                                                    <input type="text" name="" value="@id.user_phone" class="form-control" placeholder="Nhập số điện thoại Momo" />
+                                                    <p class="text-danger" style="font-size: 12px">Nhập đúng sđt MoMo. Dựa vào số, số tiền bạn rút sẽ chuyển về MoMo này.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Tiền rút:</b> </td>
+                                                <td width="50%">
+                                                    <input type="number" name="" ng-model="price"  class="form-control" placeholder="Số xu" />
+                                                    <p class="text-danger" style="font-size: 12px">Nhập số xu tối thiểu hoặc số tiền thấp nhất là 100 xu</p>
+                                                    <p class="text-success">Số tiền: <span ng-bind="price * 1000"></span> vnđ</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <hr />
+                                        <center>
+                                            <button class="btn btn-danger w-25" w>Rút tiền</button>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
