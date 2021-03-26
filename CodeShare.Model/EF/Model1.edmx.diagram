@@ -26,6 +26,8 @@
         <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" FillColor="0, 122, 204" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Codes" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

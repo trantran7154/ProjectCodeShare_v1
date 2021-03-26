@@ -19,5 +19,8 @@ namespace CodeShare.Common
         //ACTIVE
         public static int ACTIVE_HD = 1;
         public static int ACTIVE_KHD = 2;
+
+        // group item
+        public static int ITEM_LANGUAGE_CODE = 1;
     }
 }

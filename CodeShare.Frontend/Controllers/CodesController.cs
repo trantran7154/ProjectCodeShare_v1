@@ -1,12 +1,10 @@
-﻿using CodeShare.Model.DAO;
+﻿using CodeShare.Frontend.Functions;
+using CodeShare.Model.DAO;
 using CodeShare.Model.EF;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using CodeShare.Frontend.Functions;
 
 namespace CodeShare.Frontend.Controllers
 {
@@ -14,6 +12,7 @@ namespace CodeShare.Frontend.Controllers
     {
         DataShareCodeEntities db = new DataShareCodeEntities();
         CodesDao codesDAO = new CodesDao();
+        ImagesController images = new ImagesController();
         // GET: Codes
         public PartialViewResult NewSourceCodes()
         {
@@ -33,14 +32,15 @@ namespace CodeShare.Frontend.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Code codes, string [] category)
+        public ActionResult Create(Code codes, string[] language, HttpPostedFileBase img)
         {
             var coo = new FunctionsController();
             var id = coo.CookieID();
 
             if (ModelState.IsValid)
             {
-                
+                codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
+                codesDAO.Create(codes, language);
             }
             return View();
         }
@@ -54,12 +54,12 @@ namespace CodeShare.Frontend.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return HttpNotFound();
             }
             var code = db.Codes.Find(id);
-            if(code == null)
+            if (code == null)
             {
                 return HttpNotFound();
             }
@@ -69,7 +69,7 @@ namespace CodeShare.Frontend.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+
             }
             return View();
         }
