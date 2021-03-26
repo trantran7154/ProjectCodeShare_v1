@@ -142,6 +142,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CodeShare.Common\CodeShare.Common.csproj">
+      <Project>{102f2e4b-a5bc-42ee-9880-434c4482246a}</Project>
+      <Name>CodeShare.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
