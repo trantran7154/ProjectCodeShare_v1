@@ -12,29 +12,25 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class News
+    public partial class Comment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public News()
+        public Comment()
         {
-            this.Comments = new HashSet<Comment>();
+            this.Reps = new HashSet<Rep>();
         }
     
-        public int news_id { get; set; }
-        public string news_name { get; set; }
-        public Nullable<int> news_view { get; set; }
-        public string news_content { get; set; }
-        public string news_tag { get; set; }
+        public int comment_id { get; set; }
         public Nullable<int> user_id { get; set; }
-        public Nullable<System.DateTime> news_datecreate { get; set; }
-        public Nullable<System.DateTime> news_dateupdate { get; set; }
-        public Nullable<int> news_active { get; set; }
-        public Nullable<bool> news_option { get; set; }
-        public Nullable<bool> news_del { get; set; }
-        public string news_img { get; set; }
+        public Nullable<int> code_id { get; set; }
+        public string comment_content { get; set; }
+        public Nullable<System.DateTime> comment_datecreate { get; set; }
+        public Nullable<int> news_id { get; set; }
     
+        public virtual Code Code { get; set; }
+        public virtual News News { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Rep> Reps { get; set; }
     }
 }

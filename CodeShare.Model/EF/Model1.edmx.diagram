@@ -26,9 +26,16 @@
         <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" FillColor="0, 122, 204" />
         <AssociationConnector Association="DataShareCodeModel.FK_Groups_Codes" />
         <AssociationConnector Association="DataShareCodeModel.FK_Groups_Users" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Chat" Width="1.5" PointX="3" PointY="11.75" />
         <EntityTypeShape EntityType="DataShareCodeModel.TakePrice" Width="1.5" PointX="3" PointY="20.375" />
         <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Comment" Width="1.5" PointX="8.25" PointY="12.625" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Rep" Width="1.5" PointX="10.5" PointY="9.875" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Codes" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_News" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Users" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Comment" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Users" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Chat" Width="1.5" PointX="6.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
