@@ -20,6 +20,8 @@ namespace CodeShare.Model.EF
         public Nullable<System.DateTime> tp_datecreate { get; set; }
         public string tp_note { get; set; }
         public Nullable<int> tp_active { get; set; }
+        public string tp_accountnumber { get; set; }
+        public string tp_customer { get; set; }
     
         public virtual User User { get; set; }
     }

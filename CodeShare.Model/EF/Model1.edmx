@@ -120,6 +120,8 @@
           <Property Name="tp_datecreate" Type="datetime" />
           <Property Name="tp_note" Type="nvarchar(max)" />
           <Property Name="tp_active" Type="int" />
+          <Property Name="tp_accountnumber" Type="varchar" MaxLength="50" />
+          <Property Name="tp_customer" Type="nvarchar" MaxLength="225" />
         </EntityType>
         <EntityType Name="Tools">
           <Key>
@@ -487,6 +489,8 @@
           <Property Name="tp_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="tp_active" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK_TakePrices_Users" FromRole="TakePrices" ToRole="Users" />
+          <Property Name="tp_accountnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tp_customer" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tool">
           <Key>
@@ -858,6 +862,8 @@
           <EntitySetMapping Name="TakePrices">
             <EntityTypeMapping TypeName="DataShareCodeModel.TakePrice">
               <MappingFragment StoreEntitySet="TakePrices">
+                <ScalarProperty Name="tp_customer" ColumnName="tp_customer" />
+                <ScalarProperty Name="tp_accountnumber" ColumnName="tp_accountnumber" />
                 <ScalarProperty Name="tp_id" ColumnName="tp_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />
