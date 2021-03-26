@@ -71,7 +71,7 @@ namespace CodeShare.Frontend.Controllers
             }
             return View(code);
         }
-        public ActionResult Edit(Code codes, string[] language, string code_tag, HttpPostedFileBase img)
+        public ActionResult Edit(Code codes, string[] language, string[] code_tag, HttpPostedFileBase img)
         {
             if (ModelState.IsValid)
             {

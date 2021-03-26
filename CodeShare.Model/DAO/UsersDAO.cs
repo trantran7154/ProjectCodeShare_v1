@@ -98,6 +98,23 @@ namespace CodeShare.Model.DAO
             }
         }
 
+        // Status
+        public bool Option(int? id, int status)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                user.user_active = status;
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         //Option
         public bool Option(int? id)
         {
