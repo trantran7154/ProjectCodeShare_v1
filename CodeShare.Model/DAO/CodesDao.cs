@@ -8,5 +8,6 @@ namespace CodeShare.Model.DAO
 {
     public class CodesDao
     {
+
     }
 }

@@ -136,5 +136,10 @@ namespace CodeShare.Frontend.Controllers
 
             return View(db.Bills.Where(n=>n.user_id == id.user_id).ToList());
         }
+        //Rut tien
+        public ActionResult TakePrice()
+        {
+            return View();
+        }
     }
 }

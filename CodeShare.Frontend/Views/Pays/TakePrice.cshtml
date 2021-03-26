@@ -1,0 +1,146 @@
+﻿@using CodeShare.Model.EF;
+@using CodeShare.Frontend.Functions;
+@{
+    ViewBag.Title = "TakePrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var co = new FunctionsController();
+    var id = co.CookieID();
+}
+
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">NẠP TIỀN VÀO TÀI KHOẢN</h6>
+                    <div class="border">
+                        <center style="padding: 20px">
+                            <i class="fa fa-user">&nbsp;</i> @id.user_name [Mã USER-@id.user_id] &nbsp;&nbsp;
+                            <i class="fa fa-envelope">&nbsp;</i> @id.user_email &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Tài khoản: @id.user_coin xu &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @(id.user_coin * 1000) VNĐ &nbsp;&nbsp;
+                        </center>
+                    </div>
+                    <nav class="mt-3">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">RÚT TIỀN VỀ MOMO</a>
+                            <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">RÚT TIỀN VỀ NGÂN HÀNG</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <p class="mt-3 text-danger font-weight-bold">
+                                <b><i class="fa fa-bell">&nbsp;</i>Xu là gì: </b> <b>Xu dùng để giao dịch mua code và có thể rút tiền lại khi buôn bán có xu thành công. Xu không lạm phát và tương ứng với mức 1000 vnđ 1 xu.</b>
+                            </p>
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="text-success">Chào @id.user_name , bạn có thể rút tiền từ số xu của mình. Số xu phải trên 100 mới rút được. 1 xu bằng 1.000 vnđ.</p>
+                                        <table class="table">
+                                            <tr>
+                                                <td><b>Email:</b> </td>
+                                                <td width="50%">
+                                                    <div>@id.user_email</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%"><b>Số điện thoại:</b></td>
+                                                <td width="50%">
+                                                    <div> <span class="text-danger">@(id.user_phone == null ? "Vui lòng cập nhật số điện thoại để rút tiền" : id.user_phone)</span></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Số điện thoại MOMO:</b> </td>
+                                                <td width="50%">
+                                                    <input type="text" name="" value="@id.user_phone" class="form-control" placeholder="Nhập số điện thoại Momo" />
+                                                    <p class="text-danger" style="font-size: 12px">Nhập đúng sđt MoMo. Dựa vào số, số tiền bạn rút sẽ chuyển về MoMo này.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Tiền rút:</b> </td>
+                                                <td width="50%">
+                                                    <input type="number" name="" ng-model="price"  class="form-control" placeholder="Số xu" />
+                                                    <p class="text-danger" style="font-size: 12px">Nhập số xu tối thiểu hoặc số tiền thấp nhất là 100 xu</p>
+                                                    <p class="text-success">Số tiền: <span ng-bind="price * 1000"></span> vnđ</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <hr />
+                                        <center>
+                                            <button class="btn btn-danger w-25" w>Rút tiền</button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <p class="mt-3 text-danger font-weight-bold">
+                                <b><i class="fa fa-bell">&nbsp;</i>Xu là gì: </b> <b>Xu dùng để giao dịch mua code và có thể rút tiền lại khi buôn bán có xu thành công. Xu không lạm phát và tương ứng với mức 1000 vnđ 1 xu.</b>
+                            </p>
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="text-success">Chào @id.user_name , bạn có thể rút tiền từ số xu của mình. Số xu phải trên 100 mới rút được. 1 xu bằng 1.000 vnđ.</p>
+                                        <table class="table">
+                                            <tr>
+                                                <td><b>Email:</b> </td>
+                                                <td width="50%">
+                                                    <div>@id.user_email</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%"><b>Số điện thoại:</b></td>
+                                                <td width="50%">
+                                                    <div> <span class="text-danger">@(id.user_phone == null ? "Vui lòng cập nhật số điện thoại để rút tiền" : id.user_phone)</span></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Số tài khoản:</b> </td>
+                                                <td width="50%">
+                                                    <input type="text" name="" value="" class="form-control" placeholder="Nhập số tài khoản" />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Tên chủ tài khoản</b> </td>
+                                                <td width="50%">
+                                                    <input type="text" name="" value="" class="form-control" placeholder="Nhập tên chủ tài khoản" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Tiền rút:</b> </td>
+                                                <td width="50%">
+                                                    <input type="number" name="" ng-model="price" class="form-control" placeholder="Số xu" />
+                                                    <p class="text-danger" style="font-size: 12px">Nhập số xu tối thiểu hoặc số tiền thấp nhất là 100 xu</p>
+                                                    <p class="text-success">Số tiền: <span ng-bind="price * 1000"></span> vnđ</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <hr />
+                                        <center>
+                                            <button class="btn btn-danger w-25" w>Rút tiền</button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.price = @id.user_coin;
+    });
+</script>
+
