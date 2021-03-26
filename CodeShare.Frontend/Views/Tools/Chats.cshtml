@@ -1,0 +1,72 @@
+﻿@using CodeShare.Model.EF;
+@using CodeShare.Frontend.Functions;
+@{
+    ViewBag.Title = "Chats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var co = new FunctionsController();
+    var id = co.CookieID();
+}
+
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <style>
+                    .menu{
+                        overflow-y: auto;
+                        height: 300px;
+                    }
+                </style>
+                <div id="menu">
+                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <input style="width: 70%" class=""/>
+                        <button style="width: 20%" class="btn btn-danger"><i class="fa fa-send"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        // Proxy created on the fly
+        var cus = $.connection.chatHub;
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayChat = function () {
+            getData();
+        };
+        // Start the connection
+        $.connection.hub.start();
+        getData();
+    });
+    function getData() {
+        var $tbl = $('#tblchat');
+        $.ajax({
+            url: '/Tools/Get',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.listChat, function (i, model) {
+                    $tbl.append
+                        (
+                            'abc'
+                        );
+                });
+            }
+        });
+    }
+</script>
+
+

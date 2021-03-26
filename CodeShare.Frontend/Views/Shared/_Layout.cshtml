@@ -15,10 +15,13 @@
     <!-- Sematic -->
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
+
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="~/Content/Semantic-UI-CSS-master/semantic.css" rel="stylesheet" />
     <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+
 
 
     <script src="~/Scripts/angular.min.js"></script>
@@ -91,12 +94,12 @@
                                 @foreach (var item in events.Where(n => n.news_active == 1 && n.news_del == false).OrderByDescending(n => n.news_datecreate).Take(3))
                                 {
                                     @*<div class="footer_blog_item clearfix">
-                                        <div class="footer_blog_image"><img src="~/Images/Events/@item.event_img" style="width: 60px; height: 60px" alt="@item.event_name"></div>
-                                        <div class="footer_blog_content">
-                                            <div class="footer_blog_title"><a href="blog.html">@item.event_name</a></div>
-                                            <div class="footer_blog_date">@item.event_datecreate.Value.ToShortDateString()</div>
-                                        </div>
-                                    </div>*@
+                                            <div class="footer_blog_image"><img src="~/Images/Events/@item.event_img" style="width: 60px; height: 60px" alt="@item.event_name"></div>
+                                            <div class="footer_blog_content">
+                                                <div class="footer_blog_title"><a href="blog.html">@item.event_name</a></div>
+                                                <div class="footer_blog_date">@item.event_datecreate.Value.ToShortDateString()</div>
+                                            </div>
+                                        </div>*@
                                 }
                             </div>
                         </div>
@@ -176,6 +179,10 @@
         </div>
     </div>
     <script src="~/Content/Layout/js/jquery-3.2.1.min.js"></script>
+
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+
     <script src="~/Content/Layout/styles/bootstrap4/popper.js"></script>
     <script src="~/Content/Layout/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="~/Content/Layout/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
