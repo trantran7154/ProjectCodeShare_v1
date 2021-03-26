@@ -32,13 +32,13 @@ namespace CodeShare.Frontend.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Code codes, string[] language, string[] code_tag, HttpPostedFileBase img)
+        public ActionResult Create(Code codes, string[] language, string[] tags, HttpPostedFileBase img)
         {
             var coo = new FunctionsController();
             var id = coo.CookieID();
 
             var tag = "";
-            foreach (var item in code_tag)
+            foreach (var item in tags)
             {
                 tag += item + ";";
             }

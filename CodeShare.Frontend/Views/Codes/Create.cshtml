@@ -184,14 +184,6 @@
                                     <option value="@item.language_id">@item.language_name</option>
                                 }
                             </select>
-                            <script>
-                                $("input.myClass:search").keyup(function (key) {
-                                    debugger
-                                    if (key.keyCode == "13") {
-                                        alert("ok");
-                                    }
-                                })
-                            </script>
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <div class="field">
@@ -217,14 +209,6 @@
                                     <option value="@item.category_id">@item.category_name</option>
                                 }
                             </select>
-                            <script>
-                                $("input.myClass:search").keyup(function (key) {
-                                    debugger
-                                    if (key.keyCode == "13") {
-                                        alert("ok");
-                                    }
-                                })
-                            </script>
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <div class="field">
@@ -270,7 +254,7 @@
                             </style>
 
                             <label>Tag: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="code_tag">
+                            <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="tags">
                                 <option value="">Tag</option>
 
                             </select>
@@ -374,8 +358,9 @@
 
 <script>
     $(".ui.fluid.search.dropdown.tag.selection.multiple").on("keyup", function (e) {
-        debugger
+        
         var val = $(".ui.fluid.search.dropdown.tag.selection.multiple input.search").val();
+        debugger
         if (e.keyCode == 13) {
             $("input.search").val("");
             $('#code_tag').append('<option value="' + val + '" selected>' + val + '</option>');
