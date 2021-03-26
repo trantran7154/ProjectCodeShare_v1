@@ -136,6 +136,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Script\script.sql" />
+    <Content Include="Script\script11.sql" />
     <Content Include="Script\script2.sql" />
     <Content Include="Script\script3.sql" />
     <Content Include="Script\script4.sql" />
