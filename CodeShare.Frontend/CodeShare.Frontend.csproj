@@ -1581,6 +1581,7 @@
     <Content Include="Views\Users\ResetPassword.cshtml" />
     <Content Include="Views\Pays\TakePrice.cshtml" />
     <Content Include="Views\Tools\Chats.cshtml" />
+    <Content Include="Views\Codes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
