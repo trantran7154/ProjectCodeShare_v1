@@ -8,7 +8,7 @@ using CodeShare.Model.EF;
 
 namespace CodeShare.Model.DAO
 {
-    class TakePricesDao
+    public class TakePricesDao
     {
         private DataShareCodeEntities db = new DataShareCodeEntities();
 
@@ -18,6 +18,7 @@ namespace CodeShare.Model.DAO
             {
                 //Mac dinh
                 takePrice.tp_datecreate = DateTime.Now;
+                takePrice.tp_active = 2;
 
                 db.TakePrices.Add(takePrice);
                 db.SaveChanges();

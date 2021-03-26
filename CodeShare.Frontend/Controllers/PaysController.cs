@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodeShare.Frontend.Functions;
 using CodeShare.Model.EF;
+using CodeShare.Model.DAO;
 using MoMo;
 using Newtonsoft.Json.Linq;
 
@@ -13,6 +14,7 @@ namespace CodeShare.Frontend.Controllers
     public class PaysController : Controller
     {
         DataShareCodeEntities db = new DataShareCodeEntities();
+        TakePricesDao takePricesDao = new TakePricesDao();
         // GET: Pays
         public ActionResult Index()
         {
@@ -139,6 +141,20 @@ namespace CodeShare.Frontend.Controllers
         //Rut tien
         public ActionResult TakePrice()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult TakePrice(TakePrice takePrice)
+        {
+            if (ModelState.IsValid)
+            {
+                var coo = new FunctionsController();
+                var idus = coo.CookieID();
+                takePrice.user_id = idus.user_id;
+                takePricesDao.Create(takePrice);
+                TempData["noti_send_request"] = "success";
+                return View();
+            }
             return View();
         }
     }
