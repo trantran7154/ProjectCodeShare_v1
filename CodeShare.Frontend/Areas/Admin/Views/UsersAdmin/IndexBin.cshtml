@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Thùng Rác";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <div class="clearfix">
+        <div class="pull-right">
+            <a href="/Admin/UsersAdmin/Index" class="btn btn btn-outline-dark btn-sm scroll-click font-weight-bold" style="border: 2px solid black"><i class="icon-copy dw dw-left-arrow font-weight-bold" style="font-size: 18px"></i> Trở Về</a>
+        </div>
+    </div>
+</div>
+<!-- basic table  Start -->
+<div ng-app="myApp">
+    <div class="pd-20 card-box mb-30" ng-controller="myCtrl">
+        <div class="clearfix mb-20">
+            <div class="pull-left">
+                <h4 class="h4">
+                    CÓ TỔNG CỘNG <span style="color: red">{{(list | filter:searchText).length}}</span> NGƯỜI DÙNG
+                </h4>
+            </div>
+        </div>
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th scope="col"><i class="fa fa-image"></i> Ảnh</th>
+                    <th scope="col"><i class="fa fa-user"></i> Người dùng</th>
+                    <th scope="col"><i class="fa fa-calendar"></i> Ngày Tạo</th>
+                    <th scope="col"><i class="fa fa-history"></i> Ngày Cập Nhật</th>
+                    <th scope="col"><i class="fa fa-toggle-on"></i> Hoạt Động</th>
+                    <th scope="col"><i class="fa fa-magic"></i> Tùy Chọn</th>
+                    <th scope="col"><i class="fa fa-cog"></i> Công Cụ</th>
+                </tr>
+            </thead>
+            <tbody ng-show="(list | filter:searchText).length != 0">
+                <tr ng-repeat="list in list | filter: searchText">
+                    <th scope="row">
+                        <img src="~/Images/Users/{{list.img}}" height="60" width="60" />
+                    </th>
+                    <th scope="row">{{list.name}}</th>
+                    <td>{{list.datecreate | date: "dd/MM/yyyy"}}</td>
+                    <td>{{list.update | date: "dd/MM/yyyy"}}</td>
+                    <th scope="col">
+                        <div ng-show="list.active == true">
+                            <span class="badge badge-success" ng-click="active(list.id)" style="cursor: pointer">Hoạt Động</span>
+                        </div>
+                        <div ng-show="list.active == false">
+                            <span class="badge badge-danger" ng-click="active(list.id)" style="cursor: pointer">Không Hoạt Động</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div ng-show="list.option == true">
+                            <span class="badge badge-success" ng-click="option(list.id)" style="cursor: pointer">Hiển Thị</span>
+                        </div>
+                        <div ng-show="list.option == false">
+                            <div class="ui toggle">
+                                <span class="badge badge-danger" ng-click="option(list.id)" style="cursor: pointer">Không Hiển Thị</span>
+                            </div>
+                        </div>
+                    </th>
+                    <td><a ng-click="restore(list.id)"><i class="fa fa-refresh"></i></a> | <a ng-click="delete(list.id)"><i class="fa fa-trash"></i></a></td>
+                </tr>
+            </tbody>
+            <tbody ng-show="(list | filter:searchText).length == 0">
+                <tr>
+                    <th colspan="7" class="text-center font-weight-bolder"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="collapse collapse-box" id="basic-table">
+            <div class="code-box">
+                <div class="clearfix">
+                    <a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left" data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy Code</a>
+                    <a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+                </div>
+                <div>
+                    <div class="xml copy-pre" id="basic-table-code">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div class="modal" tabindex="-1" id="bin">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Xóa Thành Công</h3>
+                <div class="mb-30 text-center"><img src="~/Content/LayoutAdmin/vendors/images/success.png"></div>
+                Dữ liệu đã xóa vĩnh viễn!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div class="modal" tabindex="-1" id="restore">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Khôi Phục Thành Công</h3>
+                <div class="mb-30 text-center"><img src="~/Content/LayoutAdmin/vendors/images/success.png"></div>
+                Dữ liệu đã khôi phục!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/JsonAdmin/Users?del=del"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            // Restore
+            $scope.restore = function (id) {
+                $http.get("/Admin/UsersAdmin/RestoreUser?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                        $(document).ready(function () {
+                            $('#restore').modal('show');
+                        })
+                    });
+            }
+            // Delete
+            $scope.delete = function (id) {
+                $http.get("/Admin/UsersAdmin/DeleteUser?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                        $(document).ready(function () {
+                            $('#bin').modal('show');
+                        })
+                    });
+            }
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+

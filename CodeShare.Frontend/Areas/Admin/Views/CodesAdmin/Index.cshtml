@@ -1,0 +1,684 @@
+﻿@using CodeShare.Model.EF
+@model List<Codes>
+
+@{
+    ViewBag.Title = "DANH SÁCH CODE";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    CodeShareDataEntities db = new CodeShareDataEntities();
+}
+
+@{
+    List<Forms> forms = db.Forms.ToList();
+}
+
+<div class="container-fluid" ng-app="myApp">
+    <div class="min-height-200px" ng-controller="myCtrl">
+        <div class="page-header">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <div class="ui inverted left icon input">
+                        <input type="text" placeholder="Nhập từ khóa cần tìm..." ng-model="searchText.name">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <a href="@Url.Action("IndexBin","CodesAdmin")" class="btn btn btn-outline-success btn-sm scroll-click font-weight-bold" style="border: 2px solid #28a745"><i class="fa fa-trash" style="font-size: 18px"></i></a>
+                    <a href="#" class="btn btn btn-outline-danger btn-sm scroll-click font-weight-bold" data-toggle="modal" data-target="#code_add" style="border: 2px solid #DC3545"><i class="fa fa-plus-circle" style="font-size: 16px"></i> Thêm Bài Viết</a>
+                </div>
+            </div>
+            <div class="mt-3 mb-4" style="border-bottom: 1.5px solid black"></div>
+            <div class="ui">
+                <h5 class="mb-3 text-primary">TÌM KIẾM NÂNG CAO</h5>
+                <div style="padding-left: 23%">
+                    <table>
+                        <tr>
+                            <td class="pl-4">
+                                <select class="ui fluid dropdown" ng-model="searchSort">
+                                    <option value="searchText">Sắp xếp mặc định</option>
+                                    <option value="searchText">Mặc định</option>
+                                    <option value="name">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
+                                </select>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="true">
+                                    <label>Hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="false">
+                                    <label>Ngừng hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="true">
+                                    <label>Hiển thị</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="false">
+                                    <label>Không hiển thị</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- basic table  Start -->
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix mb-20">
+                <div class="pull-left">
+                    <h4 class="h4">
+                        CÓ TỔNG CỘNG <span style="color: red">{{(list | filter:searchText).length}}</span> CODE
+                    </h4>
+                </div>
+            </div>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa fa-image"></i> Ảnh</th>
+                        <th scope="col"><i class="fa fa-code font-weight-bold"></i> Tên Code</th>
+                        <th scope="col"><i class="fa fa-money"></i> Giá</th>
+                        <th scope="col"><i class="fa fa-calendar"></i> Ngày Tạo</th>
+                        <th scope="col"><i class="fa fa-history"></i> Ngày Cập Nhật</th>
+                        <th scope="col"><i class="fa fa-toggle-on"></i> Hoạt Động</th>
+                        <th scope="col"><i class="fa fa-magic"></i> Tùy Chọn</th>
+                        <th scope="col"><i class="fa fa-cog"></i> Công Cụ</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="(list | filter:searchText).length != 0">
+                    <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort">
+                        <th scope="row">
+                            <img src="~/Images/Codes/{{list.img}}" height="80" width="80" />
+                        </th>
+                        <th scope="row">{{list.name}}</th>
+                        <th scope="row">{{list.coin}} Xu</th>
+                        <td>{{list.datecreate | date: "dd/MM/yyyy"}}</td>
+                        <td>{{list.update | date: "dd/MM/yyyy"}}</td>
+                        <th scope="col">
+                            <div ng-show="list.active == true">
+                                <span class="badge badge-success" ng-click="active(list.id)" style="cursor: pointer">Hoạt Động</span>
+                            </div>
+                            <div ng-show="list.active == false">
+                                <span class="badge badge-danger" ng-click="active(list.id)" style="cursor: pointer">Không Hoạt Động</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div ng-show="list.option == true">
+                                <span class="badge badge-success" ng-click="option(list.id)" style="cursor: pointer">Hiển Thị</span>
+                            </div>
+                            <div ng-show="list.option == false">
+                                <div class="ui toggle">
+                                    <span class="badge badge-danger" ng-click="option(list.id)" style="cursor: pointer">Không Hiển Thị</span>
+                                </div>
+                            </div>
+                        </th>
+                        <td><a href="" data-toggle="modal" data-target="#details_{{list.id}}"><i class="fa fa-eye"></i></a> | <a href="" data-toggle="modal" data-target="#edit_{{list.id}}"><i class="fa fa-pencil"></i></a> | <a ng-click="del(list.id)"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="(list | filter:searchText).length == 0">
+                    <tr>
+                        <th colspan="8" class="text-center font-weight-bolder"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- basic table  End -->
+        <!-- Modal thêm -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30">
+                <div class="modal fade bs-example-modal-lg" id="code_add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-plus-circle"></i> THÊM CODE</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <form method="post" action="@Url.Action("CreateCode","CodesAdmin")" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="ui form">
+                                        <div class="fields two">
+                                            <div class="field">
+                                                <label><i class="fa fa-pencil"></i> Tiêu đề</label>
+                                                <input type="text" name="code_name" placeholder="VD: Code game C#" />
+                                            </div>
+                                            <div class="field">
+                                                <label><i class="icon-copy dw dw-pencil-1 font-weight-bold"></i> Mô tả ngắn</label>
+                                                <input type="text" name="code_description" />
+                                            </div>
+                                        </div>
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label><i class="fa fa-th-list"></i> Hình thức</label>
+                                                <select onchange="checkpoint();" id="check" name="form_id" class="ui fluid dropdown">
+                                                    @foreach (var item in forms)
+                                                    {
+                                                        <option value="@item.form_id">@item.form_name</option>
+                                                    }
+                                                </select>
+                                                <script>
+                                                    function checkpoint() {
+                                                        var check = document.getElementById("check").value;
+                                                        if (check == 2) {
+                                                            document.getElementById("changespoint").style = "";
+                                                        }
+                                                        else {
+                                                            document.getElementById("changespoint").style = "display: none";
+                                                        }
+                                                    }
+                                                </script>
+                                            </div>
+                                            <div class="field">
+                                                <label><i class="fa fa-battery"></i> Dung lượng</label>
+                                                <input type="text" name="code_capacity" />
+                                            </div>
+                                        </div>
+                                        <div class="field" id="changespoint" style="display: none">
+                                            <label>Đặt phí tải</label>
+                                            <div class="tabset">
+                                                <!-- Tab 2 -->
+                                                <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier" checked>
+                                                <label for="tab2">Tham khảo (2 - 99 Xu)</label>
+                                                <!-- Tab 3 -->
+                                                <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+                                                <label for="tab3">Chất lượng (>= 100 Xu)</label>
+                                                <div class="tab-panels">
+                                                    <!-- Tab 2 -->
+                                                    <section id="rauchbier" class="tab-panel">
+                                                        <ul class="list-group list-group-horizontal-xl">
+                                                            <li class="list-group-item">
+                                                                <div class="ui buttons">
+                                                                    <div class="ui button">Chọn</div>
+                                                                    <div class="ui floating dropdown icon button">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="menu">
+                                                                            <div class="item">5 Xu</div>
+                                                                            <div class="item">10 Xu</div>
+                                                                            <div class="item">15 Xu</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <input name="code_point_refer" type="text" placeholder="Tự nhập phí tải" />
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="mt-2 text-center">
+                                                                    Xu &nbsp;<i class="info circle icon"></i>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </section>
+                                                    <!-- Tab 3 -->
+                                                    <section id="dunkles" class="tab-panel">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <ul class="list-group list-group-horizontal-xl">
+                                                                    <li class="list-group-item">
+                                                                        <div class="ui buttons">
+                                                                            <div class="ui button">Chọn</div>
+                                                                            <div class="ui floating dropdown icon button">
+                                                                                <i class="dropdown icon"></i>
+                                                                                <div class="menu">
+                                                                                    <div class="item">5 Xu</div>
+                                                                                    <div class="item">10 Xu</div>
+                                                                                    <div class="item">15 Xu</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <input type="text" name="code_point_quality" placeholder="Tự nhập phí tải" />
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <div class="mt-2 text-center" style="width: 45px">
+                                                                            Xu &nbsp;<i class="info circle icon"></i>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="field">
+                                                                <div class="ui checkbox mt-4">
+                                                                    <input type="checkbox" name="example">
+                                                                    <label>Cam kết hỗ trợ người mua</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fields two">
+                                            <div class="field">
+                                                <label><i class="fa fa-download"></i> Link download</label>
+                                                <input type="text" name="code_down" />
+                                            </div>
+                                            <div class="field">
+                                                <label><i class="fa fa-link"></i> Link demo</label>
+                                                <input type="text" name="code_link" />
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="icon-copy dw dw-pen font-weight-bold"></i> Mô tả chi tiết</label>
+                                            <textarea id="editor1" name="code_introduce"></textarea>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-cog"></i> Hướng dẫn</label>
+                                            <textarea id="editor2" name="code_setting"></textarea>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                            <input type="file" name="IMG" />
+                                        </div>
+                                        <div class="ui error message">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions modal-footer">
+                                    <button class="ui black deny button" data-dismiss="modal">
+                                        Hủy
+                                    </button>
+                                    <button type="submit" class="ui positive right labeled icon button">
+                                        Thêm
+                                        <i class="checkmark icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal thêm-->
+        </div>
+        <!-- Modal xem chi tiết -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30" ng-repeat="list in list">
+                <div class="modal fade bs-example-modal-lg" id="details_{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-eye"></i> CHI TIẾT CODE</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="ui form">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-pencil"></i> Tên code</label>
+                                            <input type="text" value="{{list.name}}">
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                            <img src="~/Images/Codes/{{list.img}}" height="80" width="80" />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="icon-copy dw dw-pencil-1 font-weight-bold"></i> Mô tả ngắn</label>
+                                        <input type="text" name="code_description" value="{{list.description}}" />
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-th-list"></i> Hình thức</label>
+                                            <select onchange="checkpoint();" id="check" name="form_id" class="ui fluid dropdown" ng-show="list.form_id == 1">
+                                                <option>Miễn phí</option>
+                                            </select>
+                                            <select onchange="checkpoint();" id="check" name="form_id" class="ui fluid dropdown" ng-show="list.form_id == 2">
+                                                <option>Trả phí</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-battery"></i> Dung lượng</label>
+                                            <input type="text" name="code_capacity" value="{{list.capacity}}" />
+                                        </div>
+                                    </div>
+                                    <div class="fields two">
+                                        <div class="field">
+                                            <label><i class="fa fa-download"></i> Link download</label>
+                                            <input type="text" name="code_down" value="{{list.down}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-link"></i> Link demo</label>
+                                            <input type="text" name="code_link" value="{{list.link}}" />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="icon-copy dw dw-pen font-weight-bold"></i> Mô tả chi tiết</label>
+                                        <textarea id="editor5" name="code_introduce">{{list.introduce}}</textarea>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-cog"></i> Hướng dẫn</label>
+                                        <textarea id="editor6" name="code_setting">{{list.setting}}</textarea>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Tùy Chọn</label>
+                                            <select class="ui fluid dropdown" ng-show="list.option == true">
+                                                <option>Hiển thị</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.option == false">
+                                                <option>Không hiển thị</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Hoạt động</label>
+                                            <select class="ui fluid dropdown" ng-show="list.active == true">
+                                                <option>Hoạt động</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.active == false">
+                                                <option>Không hoạt động</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-calendar"></i> Ngày tạo</label>
+                                            <input type="date" value="{{list.datecreate}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-history"></i> Ngày cập nhật</label>
+                                            <input type="date" value="{{list.update}}" />
+                                        </div>
+                                    </div>
+                                    <div class="ui error message">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="ui black deny button" data-dismiss="modal">
+                                    Đóng
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal xem chi tiết-->
+        </div>
+        <!-- Modal sửa -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30" ng-repeat="list in list">
+                <div class="modal fade bs-example-modal-lg" id="edit_{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <form class="modal-content" method="post" action="@Url.Action("EditCode","CodesAdmin")" enctype="multipart/form-data">
+
+                            <input type="hidden" value="{{list.id}}" name="code_id" />
+                            <input type="hidden" value="{{list.img}}" name="code_img" />
+                            <input type="hidden" value="{{list.datecreate}}" name="code_datecreate" />
+
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-pencil"></i> SỬA CODE</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="ui form">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-pencil"></i> Tên code</label>
+                                            <input name="code_name" type="text" value="{{list.name}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="icon-copy dw dw-pencil-1 font-weight-bold"></i> Mô tả ngắn</label>
+                                            <input type="text" name="code_description" value="{{list.description}}" />
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-th-list"></i> Hình thức</label>
+                                            <select onchange="checkpoint();" id="check" name="form_id" class="ui fluid dropdown">
+                                                <option value="1">Miễn phí</option>
+                                                <option value="2">Trả phí</option>
+                                            </select>
+                                            <script>
+                                                function checkpoint() {
+                                                    var check = document.getElementById("check").value;
+                                                    if (check == 2) {
+                                                        document.getElementById("changespoint").style = "";
+                                                    }
+                                                    else {
+                                                        document.getElementById("changespoint").style = "display: none";
+                                                    }
+                                                }
+                                            </script>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-download"></i> Link download</label>
+                                            <input type="text" name="code_down" value="{{list.down}}" />
+                                        </div>
+                                        <div class="field" id="changespoint" style="display: none">
+                                            <label>Đặt phí tải</label>
+                                            <div class="tabset">
+                                                <!-- Tab 2 -->
+                                                <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier" checked>
+                                                <label for="tab2">Tham khảo (2 - 99 Xu)</label>
+                                                <!-- Tab 3 -->
+                                                <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+                                                <label for="tab3">Chất lượng (>= 100 Xu)</label>
+                                                <div class="tab-panels">
+                                                    <!-- Tab 2 -->
+                                                    <section id="rauchbier" class="tab-panel">
+                                                        <ul class="list-group list-group-horizontal-xl">
+                                                            <li class="list-group-item">
+                                                                <div class="ui buttons">
+                                                                    <div class="ui button">Chọn</div>
+                                                                    <div class="ui floating dropdown icon button">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="menu">
+                                                                            <div class="item">5 Xu</div>
+                                                                            <div class="item">10 Xu</div>
+                                                                            <div class="item">15 Xu</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <input name="code_coin_refer" type="text" placeholder="Tự nhập phí tải" />
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="mt-2 text-center">
+                                                                    Xu &nbsp;<i class="info circle icon"></i>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </section>
+                                                    <!-- Tab 3 -->
+                                                    <section id="dunkles" class="tab-panel">
+                                                        <div class="two fields">
+                                                            <div class="field">
+                                                                <ul class="list-group list-group-horizontal-xl">
+                                                                    <li class="list-group-item">
+                                                                        <div class="ui buttons">
+                                                                            <div class="ui button">Chọn</div>
+                                                                            <div class="ui floating dropdown icon button">
+                                                                                <i class="dropdown icon"></i>
+                                                                                <div class="menu">
+                                                                                    <div class="item">5 Xu</div>
+                                                                                    <div class="item">10 Xu</div>
+                                                                                    <div class="item">15 Xu</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <input type="text" name="code_coin_quality" placeholder="Tự nhập phí tải" />
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <div class="mt-2 text-center" style="width: 45px">
+                                                                            Xu &nbsp;<i class="info circle icon"></i>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="field">
+                                                                <div class="ui checkbox mt-4">
+                                                                    <input type="checkbox" name="example">
+                                                                    <label>Cam kết hỗ trợ người mua</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="icon-copy dw dw-pen font-weight-bold"></i> Mô tả chi tiết</label>
+                                        <textarea id="editor3" name="code_introduce">{{list.introduce}}</textarea>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-cog"></i> Hướng dẫn</label>
+                                        <textarea id="editor4" name="code_setting">{{list.setting}}</textarea>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-link"></i> Link demo</label>
+                                        <input type="text" name="code_link" value="{{list.link}}" />
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                            <input type="file" name="IMG" value="{{list.img}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-battery"></i> Dung lượng</label>
+                                            <input type="text" name="code_capacity" value="{{list.capacity}}" />
+                                        </div>
+                                    </div>
+                                    <div class="ui error message">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="ui black deny button" data-dismiss="modal">
+                                    Hủy
+                                </button>
+                                <button type="submit" class="ui positive right labeled icon button">
+                                    Sửa
+                                    <i class="checkmark icon"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal sửa-->
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div class="modal" tabindex="-1" id="bin">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Xóa Thành Công</h3>
+                <div class="mb-30 text-center"><img src="~/Content/LayoutAdmin/vendors/images/success.png"></div>
+                Dữ liệu đã được chuyển vào thùng rác!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/JsonAdmin/Codes?del="
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            // Edit
+            $scope.edit = function (id) {
+                $http.get("/Admin/CodesAdmin/EditCode?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Bin
+            $scope.del = function (id) {
+                $http.get("/Admin/CodesAdmin/BinCode?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                        $(document).ready(function () {
+                            $('#bin').modal('show');
+                        })
+                    });
+            }
+            // Active
+            $scope.active = function (id) {
+                $http.get("/Admin/CodesAdmin/ActiveCode?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Option
+            $scope.option = function (id) {
+                $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Search
+            $scope.searchSort = "datecreate";
+            $scope.searchSort = "name";
+            $scope.searchSort = "searchText";
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor1'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor3'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor4'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor5'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor6'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+

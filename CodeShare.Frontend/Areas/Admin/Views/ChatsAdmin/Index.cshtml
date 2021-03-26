@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "DANH SÁCH CHAT";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" ng-app="myApp">
+    <div class="min-height-200px" ng-controller="myCtrl">
+        <div class="page-header">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <div class="ui inverted left icon input">
+                        <input type="text" placeholder="Nhập từ khóa cần tìm..." ng-model="searchText.name">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <a href="@Url.Action("IndexBin","ChatsAdmin")" class="btn btn btn-outline-success btn-sm scroll-click font-weight-bold" style="border: 2px solid #28a745"><i class="fa fa-trash" style="font-size: 18px"></i> Thùng Rác</a>
+                </div>
+            </div>
+            <div class="mt-3 mb-4" style="border-bottom: 1.5px solid black"></div>
+            <div class="ui">
+                <h5 class="mb-3 text-primary">TÌM KIẾM NÂNG CAO</h5>
+                <div style="padding-left: 23%">
+                    <table>
+                        <tr>
+                            <td class="pl-4">
+                                <select class="ui fluid dropdown" ng-model="searchSort">
+                                    <option value="searchText">Sắp xếp mặc định</option>
+                                    <option value="searchText">Mặc định</option>
+                                    <option value="name">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
+                                </select>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="true">
+                                    <label>Hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="false">
+                                    <label>Ngừng hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="true">
+                                    <label>Hiển thị</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="false">
+                                    <label>Không hiển thị</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- basic table  Start -->
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix mb-20">
+                <div class="pull-left">
+                    <h4 class="h4">
+                        CÓ TỔNG CỘNG <span style="color: red">{{(list | filter:searchText).length}}</span> CHAT
+                    </h4>
+                </div>
+            </div>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa fa-comments-o"></i> Người Chat</th>
+                        <th scope="col"><i class="fa fa-reply"></i> Người Nhận </th>
+                        <th scope="col"><i class="fa fa-calendar"></i> Ngày Đăng </th>
+                        <th scope="col"><i class="fa fa-history"></i> Ngày Cập Nhật</th>
+                        <th scope="col"><i class="fa fa-toggle-on"></i> Hoạt Động</th>
+                        <th scope="col"><i class="fa fa-magic"></i> Tùy Chọn</th>
+                        <th scope="col"><i class="fa fa-cog"></i> Công Cụ</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="(list | filter:searchText).length != 0">
+                    <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort">
+                        <th scope="row">{{list.send}}</th>
+                        <th scope="row">{{list.idtake}}</th>
+                        <td>{{list.datecreate | date: "dd/MM/yyyy"}}</td>
+                        <td>{{list.update | date: "dd/MM/yyyy"}}</td>
+                        <th scope="col">
+                            <div ng-show="list.active == true">
+                                <span class="badge badge-success" ng-click="active(list.id)" style="cursor: pointer">Hoạt Động</span>
+                            </div>
+                            <div ng-show="list.active == false">
+                                <span class="badge badge-danger" ng-click="active(list.id)" style="cursor: pointer">Không Hoạt Động</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div ng-show="list.option == true">
+                                <span class="badge badge-success" ng-click="option(list.id)" style="cursor: pointer">Hiển Thị</span>
+                            </div>
+                            <div ng-show="list.option == false">
+                                <div class="ui toggle">
+                                    <span class="badge badge-danger" ng-click="option(list.id)" style="cursor: pointer">Không Hiển Thị</span>
+                                </div>
+                            </div>
+                        </th>
+                        <td><a href="" data-toggle="modal" data-target="#details_{{list.id}}"><i class="fa fa-eye"></i></a> | <a href="" ng-click="bin(list.id)"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="(list | filter:searchText).length == 0">
+                    <tr>
+                        <th colspan="7" class="text-center font-weight-bolder"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- basic table  End -->
+        <!-- Modal xem chi tiết -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30" ng-repeat="list in list">
+                <div class="modal fade bs-example-modal-lg" id="details_{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-eye"></i> CHI TIẾT CHAT</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="ui form">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-comments-o"></i> Người chat</label>
+                                            <input type="text" value="{{list.send}}">
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-th-list"></i> Người nhận</label>
+                                            <input type="text" value="{{list.idtake}}">
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-calendar"></i> Ngày tạo</label>
+                                            <input type="date" value="{{list.datecreate}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-history"></i> Ngày cập nhật</label>
+                                            <input type="date" value="{{list.update}}" />
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-comment-o font-weight-bold"></i> Nội dung</label>
+                                            <input type="text" value="{{list.content}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Trạng thái</label>
+                                            <select class="ui fluid dropdown">
+                                                <option>{{list.stt}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Tùy Chọn</label>
+                                            <select class="ui fluid dropdown" ng-show="list.option == true">
+                                                <option>Hiển thị</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.option == false">
+                                                <option>Không hiển thị</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Hoạt động</label>
+                                            <select class="ui fluid dropdown" ng-show="list.active == true">
+                                                <option>Hoạt động</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.active == false">
+                                                <option>Không hoạt động</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="ui error message">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="ui black deny button" data-dismiss="modal">
+                                    Đóng
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal xem chi tiết-->
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div class="modal" tabindex="-1" id="bin">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Xóa Thành Công</h3>
+                <div class="mb-30 text-center"><img src="~/Content/LayoutAdmin/vendors/images/success.png"></div>
+                Dữ liệu đã được chuyển vào thùng rác!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/JsonAdmin/Chats?del="
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            // Active
+            $scope.active = function (id) {
+                $http.get("/Admin/ChatsAdmin/ActiveChat?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Option
+            $scope.option = function (id) {
+                $http.get("/Admin/ChatsAdmin/OptionChat?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Bin
+            $scope.bin = function (id) {
+                $http.get("/Admin/ChatsAdmin/BinChat?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                        $(document).ready(function () {
+                            $('#bin').modal('show');
+                        })
+                    });
+            }
+            // Sort
+            $scope.searchSort = "datecreate";
+            $scope.searchSort = "name";
+            $scope.searchSort = "searchText";
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+

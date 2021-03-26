@@ -1,0 +1,395 @@
+﻿
+@{
+    ViewBag.Title = "DANH SÁCH KIẾN THỨC LẬP TRÌNH";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" ng-app="myApp">
+    <div class="min-height-200px" ng-controller="myCtrl">
+        <div class="page-header">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <div class="ui inverted left icon input">
+                        <input type="text" placeholder="Nhập từ khóa cần tìm..." ng-model="searchText.name">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <a href="@Url.Action("IndexBin","Programming_KnowledgesAdmin")" class="btn btn btn-outline-success btn-sm scroll-click font-weight-bold" style="border: 2px solid #28a745"><i class="fa fa-trash" style="font-size: 18px"></i></a>
+                    <a href="#" class="btn btn btn-outline-danger btn-sm scroll-click font-weight-bold" data-toggle="modal" data-target="#pk_add" style="border: 2px solid #DC3545"><i class="fa fa-plus-circle" style="font-size: 16px"></i> Thêm Bài Viết</a>
+                </div>
+            </div>
+            <div class="mt-3 mb-4" style="border-bottom: 1.5px solid black"></div>
+            <div class="ui">
+                <h5 class="mb-3 text-primary">TÌM KIẾM NÂNG CAO</h5>
+                <div style="padding-left: 23%">
+                    <table>
+                        <tr>
+                            <td class="pl-4">
+                                <select class="ui fluid dropdown" ng-model="searchSort">
+                                    <option value="searchText">Sắp xếp mặc định</option>
+                                    <option value="searchText">Mặc định</option>
+                                    <option value="name">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
+                                </select>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="true">
+                                    <label>Hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_active" ng-model="searchText.active" value="false">
+                                    <label>Ngừng hoạt động</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="true">
+                                    <label>Hiển thị</label>
+                                </div>
+                            </td>
+                            <td class="pl-4">
+                                <div class="ui radio checkbox mt-3">
+                                    <input type="radio" name="course_option" ng-model="searchText.option" value="false">
+                                    <label>Không hiển thị</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- basic table  Start -->
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix mb-20">
+                <div class="pull-left">
+                    <h4 class="h4">
+                        CÓ TỔNG CỘNG <span style="color: red">{{(list | filter:searchText).length}}</span> BÀI VIẾT
+                    </h4>
+                </div>
+            </div>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa fa-image"></i> Ảnh</th>
+                        <th scope="col"><i class="icon-copy dw dw-open-book font-weight-bold"></i> Tên Bài Viết</th>
+                        <th scope="col"><i class="fa fa-calendar"></i> Ngày Tạo</th>
+                        <th scope="col"><i class="fa fa-history"></i> Ngày Cập Nhật</th>
+                        <th scope="col"><i class="fa fa-toggle-on"></i> Hoạt Động</th>
+                        <th scope="col"><i class="fa fa-magic"></i> Tùy Chọn</th>
+                        <th scope="col"><i class="fa fa-cog"></i> Công Cụ</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="(list | filter:searchText).length != 0">
+                    <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort">
+                        <th scope="row">
+                            <img src="~/Images/PKs/{{list.img}}" height="80" width="80" />
+                        </th>
+                        <th scope="row" width="250">{{list.name}}</th>
+                        <td>{{list.datecreate | date: "dd/MM/yyyy"}}</td>
+                        <td>{{list.update | date: "dd/MM/yyyy"}}</td>
+                        <th scope="col">
+                            <div ng-show="list.active == true">
+                                <span class="badge badge-success" ng-click="active(list.id)" style="cursor: pointer">Hoạt Động</span>
+                            </div>
+                            <div ng-show="list.active == false">
+                                <span class="badge badge-danger" ng-click="active(list.id)" style="cursor: pointer">Không Hoạt Động</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div ng-show="list.option == true">
+                                <span class="badge badge-success" ng-click="option(list.id)" style="cursor: pointer">Hiển Thị</span>
+                            </div>
+                            <div ng-show="list.option == false">
+                                <div class="ui toggle">
+                                    <span class="badge badge-danger" ng-click="option(list.id)" style="cursor: pointer">Không Hiển Thị</span>
+                                </div>
+                            </div>
+                        </th>
+                        <td><a href="" data-toggle="modal" data-target="#details_{{list.id}}"><i class="fa fa-eye"></i></a> | <a href="" data-toggle="modal" data-target="#edit_{{list.id}}"><i class="fa fa-pencil"></i></a> | <a ng-click="del(list.id)"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="(list | filter:searchText).length == 0">
+                    <tr>
+                        <th colspan="7" class="text-center font-weight-bolder"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- basic table  End -->
+        <!-- Modal thêm -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30">
+                <div class="modal fade bs-example-modal-lg" id="pk_add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-plus-circle"></i> THÊM BÀI VIẾT</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <form method="post" action="@Url.Action("CreatePK","Programming_KnowledgesAdmin")" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="ui form">
+                                        <div class="fields two">
+                                            <div class="field">
+                                                <label><i class="fa fa-image"></i> Ảnh</label>
+                                                <input type="file" name="IMG" />
+                                            </div>
+                                            <div class="field">
+                                                <label><i class="icon-copy dw dw-open-book font-weight-bold"></i> Tên khóa học</label>
+                                                <input type="text" name="pk_name" />
+                                            </div>
+                                        </div>
+                                        <div class="fields two">
+                                            <div class="field">
+                                                <label><i class="fa fa-pencil"></i> Nội dung</label>
+                                                <textarea id="editor1" name="pk_content"></textarea>
+                                            </div>
+                                            <div class="field">
+                                                <label><i class="fa fa-toggle-on"></i> Hoạt động</label>
+                                                <select class="ui fluid dropdown" name="pk_active">
+                                                    <option value="true">Hoạt động</option>
+                                                    <option value="flase">Không hoạt động</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="ui error message">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions modal-footer">
+                                    <button class="ui black deny button" data-dismiss="modal">
+                                        Hủy
+                                    </button>
+                                    <button type="submit" class="ui positive right labeled icon button">
+                                        Thêm
+                                        <i class="checkmark icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal thêm-->
+        </div>
+        <!-- Modal xem chi tiết -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30" ng-repeat="list in list">
+                <div class="modal fade bs-example-modal-lg" id="details_{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-eye"></i> CHI TIẾT BÀI VIẾT</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="ui form">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-image"></i> Ảnh</label>
+                                            <img src="~/Images/PKs/{{list.img}}" height="80" width="80" />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-code font-weight-bold"></i> Tên khóa học</label>
+                                        <input type="text" value="{{list.name}}">
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-pencil"></i> Nội dung</label>
+                                        <textarea id="editor2">{{list.content}}</textarea>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Hoạt động</label>
+                                            <select class="ui fluid dropdown" ng-show="list.active == true">
+                                                <option value="true">Hoạt động</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.active == false">
+                                                <option value="false">Không hoạt động</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-toggle-on"></i> Tùy Chọn</label>
+                                            <select class="ui fluid dropdown" ng-show="list.option == true">
+                                                <option value="true">Hiển thị</option>
+                                            </select>
+                                            <select class="ui fluid dropdown" ng-show="list.option == false">
+                                                <option value="false">Không hiển thị</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label><i class="fa fa-calendar"></i> Ngày tạo</label>
+                                            <input type="date" value="{{list.datecreate}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="fa fa-history"></i> Ngày cập nhật</label>
+                                            <input type="date" value="{{list.update}}" />
+                                        </div>
+                                    </div>
+                                    <div class="ui error message">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="ui black deny button" data-dismiss="modal">
+                                    Đóng
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal xem chi tiết-->
+        </div>
+        <!-- Modal sửa -->
+        <div class="row clearfix">
+            <!-- Large modal -->
+            <div class="col-md-4 col-sm-12 mb-30" ng-repeat="list in list">
+                <div class="modal fade bs-example-modal-lg" id="edit_{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <form class="modal-content" method="post" action="@Url.Action("EditPK","Programming_KnowledgesAdmin")"  name="pk_content" enctype="multipart/form-data">
+
+                            <input type="hidden" value="{{list.id}}" name="pk_id" />
+                            <input type="hidden" value="{{list.img}}" name="pk_img" />
+                            <input type="hidden" value="{{list.datecreate}}" name="pk_datecreate" />
+
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-pencil"></i> SỬA KHÓA HỌC</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="ui form">
+                                    <div class="fields two">
+                                        <div class="field">
+                                            <label><i class="fa fa-image"></i> Ảnh</label>
+                                            <input type="file" name="IMG" value="{{list.img}}" />
+                                        </div>
+                                        <div class="field">
+                                            <label><i class="icon-copy dw dw-open-book font-weight-bold"></i> Tên khóa học</label>
+                                            <input type="text" name="pk_name" value="{{list.name}}" />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label><i class="fa fa-pencil"></i> Nội dung</label>
+                                        <textarea id="editor3" name="pk_content">{{list.content}}</textarea>
+                                    </div>
+                                    <div class="ui error message">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="ui black deny button" data-dismiss="modal">
+                                    Hủy
+                                </button>
+                                <button type="submit" class="ui positive right labeled icon button">
+                                    Sửa
+                                    <i class="checkmark icon"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- // Modal sửa-->
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div class="modal" tabindex="-1" id="bin">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Xóa Thành Công</h3>
+                <div class="mb-30 text-center"><img src="~/Content/LayoutAdmin/vendors/images/success.png"></div>
+                Dữ liệu đã được chuyển vào thùng rác!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = angular.module('myApp', ['ngSanitize']);
+    var title = $('input[name=TITLE]').val();
+    var desc = $('textarea[name=pk_content]').text();
+    var formdata = 'TITLE=' + title + '&DSC=' + desc;
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/JsonAdmin/Programming_Knowledges?del="
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            // Edit
+            $scope.edit = function (id) {
+                $http.get("/Admin/Programming_KnowledgesAdmin/EditPK?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Bin
+            $scope.del = function (id) {
+                $http.get("/Admin/Programming_KnowledgesAdmin/BinPK?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                        $(document).ready(function () {
+                            $('#bin').modal('show');
+                        })
+                    });
+            }
+            // Active
+            $scope.active = function (id) {
+                $http.get("/Admin/Programming_KnowledgesAdmin/ActivePK?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Option
+            $scope.option = function (id) {
+                $http.get("/Admin/Programming_KnowledgesAdmin/OptionPK?id=" + id)
+                    .then(function (response) {
+                        $scope.list = response.data;
+                    });
+            }
+            // Sort
+            $scope.searchSort = "datecreate";
+            $scope.searchSort = "name";
+            $scope.searchSort = "searchText";
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor1'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor3'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
