@@ -62,6 +62,17 @@
           <Property Name="user_id" Type="int" />
           <Property Name="code_img" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="code_id" Type="int" />
+          <Property Name="comment_content" Type="nvarchar(max)" />
+          <Property Name="comment_datecreate" Type="datetime" />
+          <Property Name="news_id" Type="int" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="group_id" />
@@ -109,6 +120,16 @@
           <Property Name="pakage_money" Type="nvarchar(max)" />
           <Property Name="pakage_active" Type="int" />
         </EntityType>
+        <EntityType Name="Rep">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comment_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="rep_content" Type="nvarchar(max)" />
+          <Property Name="rep_datecreate" Type="datetime" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -129,8 +150,8 @@
           <Property Name="tp_datecreate" Type="datetime" />
           <Property Name="tp_note" Type="nvarchar(max)" />
           <Property Name="tp_active" Type="int" />
-          <Property Name="tp_customer" Type="nvarchar" MaxLength="225" />
           <Property Name="tp_accountnumber" Type="varchar" MaxLength="50" />
+          <Property Name="tp_customer" Type="nvarchar" MaxLength="225" />
         </EntityType>
         <EntityType Name="Tools">
           <Key>
@@ -216,6 +237,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comment_Codes">
+          <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_News">
+          <End Role="News" Type="Self.News" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="News">
+              <PropertyRef Name="news_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="news_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Groups_Categorys">
           <End Role="Categorys" Type="Self.Categorys" Multiplicity="0..1" />
           <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
@@ -225,6 +282,18 @@
             </Principal>
             <Dependent Role="Groups">
               <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Codes">
+          <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="code_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -240,6 +309,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Groups_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_News_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="News" Type="Self.News" Multiplicity="*" />
@@ -248,6 +329,30 @@
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Rep" Type="Self.Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="Rep">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Rep" Type="Self.Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rep">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -293,10 +398,12 @@
           <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rep" EntityType="Self.Rep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TakePrices" EntityType="Self.TakePrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
@@ -317,17 +424,45 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Codes" EntitySet="Codes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_Codes" Association="Self.FK_Comment_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_News" Association="Self.FK_Comment_News">
+            <End Role="News" EntitySet="News" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Groups_Categorys" Association="Self.FK_Groups_Categorys">
             <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Codes" Association="Self.FK_Groups_Codes">
+            <End Role="Codes" EntitySet="Codes" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
           <AssociationSet Name="FK_Groups_Languages" Association="Self.FK_Groups_Languages">
             <End Role="Languages" EntitySet="Languages" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="Self.FK_Groups_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
           <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Comment" Association="Self.FK_Rep_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Rep" EntitySet="Rep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Users" Association="Self.FK_Rep_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rep" EntitySet="Rep" />
           </AssociationSet>
           <AssociationSet Name="FK_TakePrices_Users" Association="Self.FK_TakePrices_Users">
             <End Role="Users" EntitySet="Users" />
@@ -401,6 +536,7 @@
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Codes" FromRole="Codes" ToRole="Tools" />
           <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Groups" Relationship="DataShareCodeModel.FK_Groups_Codes" FromRole="Code" ToRole="Group" />
+          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Codes" FromRole="Code" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -445,6 +581,7 @@
           <Property Name="news_del" Type="Boolean" />
           <NavigationProperty Name="User" Relationship="Self.FK_News_Users" FromRole="News" ToRole="Users" />
           <Property Name="news_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="News" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Pakage">
           <Key>
@@ -499,6 +636,8 @@
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
           <NavigationProperty Name="Groups" Relationship="DataShareCodeModel.FK_Groups_Users" FromRole="User" ToRole="Group" />
           <NavigationProperty Name="TakePrices" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="User" ToRole="TakePrice" />
+          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="User" ToRole="Rep" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -669,6 +808,28 @@
             <End Role="User" EntitySet="Users" />
             <End Role="TakePrice" EntitySet="TakePrices" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="DataShareCodeModel.Comment" />
+          <EntitySet Name="Reps" EntityType="DataShareCodeModel.Rep" />
+          <AssociationSet Name="FK_Comment_Codes" Association="DataShareCodeModel.FK_Comment_Codes">
+            <End Role="Code" EntitySet="Codes" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_News" Association="DataShareCodeModel.FK_Comment_News">
+            <End Role="News" EntitySet="News" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="DataShareCodeModel.FK_Comment_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Comment" Association="DataShareCodeModel.FK_Rep_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Rep" EntitySet="Reps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Users" Association="DataShareCodeModel.FK_Rep_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rep" EntitySet="Reps" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -735,6 +896,93 @@
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="TakePrice">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="code_id" Type="Int32" />
+          <Property Name="comment_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comment_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="news_id" Type="Int32" />
+          <NavigationProperty Name="Code" Relationship="DataShareCodeModel.FK_Comment_Codes" FromRole="Comment" ToRole="Code" />
+          <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="Comment" ToRole="News" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Comment" ToRole="Rep" />
+        </EntityType>
+        <EntityType Name="Rep">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="rep_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rep_datecreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comment" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Rep" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="Rep" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Comment_Codes">
+          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Code">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_News">
+          <End Type="DataShareCodeModel.News" Role="News" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="News">
+              <PropertyRef Name="news_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="news_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Comment">
+          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Rep" Role="Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="Rep">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Rep" Role="Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rep">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -917,6 +1165,29 @@
                 <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="tp_id" ColumnName="tp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="news_id" ColumnName="news_id" />
+                <ScalarProperty Name="comment_datecreate" ColumnName="comment_datecreate" />
+                <ScalarProperty Name="comment_content" ColumnName="comment_content" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reps">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Rep">
+              <MappingFragment StoreEntitySet="Rep">
+                <ScalarProperty Name="rep_datecreate" ColumnName="rep_datecreate" />
+                <ScalarProperty Name="rep_content" ColumnName="rep_content" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

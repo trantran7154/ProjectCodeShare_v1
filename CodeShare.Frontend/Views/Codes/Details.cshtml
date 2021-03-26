@@ -159,7 +159,14 @@
                             <textarea name="bl" class="form-control"></textarea>
                             <input value="Go Go" class="btn btn-danger"/>
                         </form>
-                        @*@foreach(var item in Model)*@
+                        @foreach(var item in Model.Comments) 
+                        { 
+                            <div>
+                                <span>@item.User.user_name</span>
+                                <hr />
+                                <span>@item.comment_content</span>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
