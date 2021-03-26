@@ -10,6 +10,7 @@
     .menu {
         opacity: inherit;
     }
+
     .ui.multiple.search.dropdown > input.search {
         height: 21px;
     }
@@ -157,7 +158,7 @@
                         <div class="field">
                             <label>Tiêu đề chính: <b class="text-danger">*</b></label>
                             <p>Tiêu để để rõ nội dung của code, không được để chung chung. Một tiêu đề hay, tỷ lệ SEO sẽ càng cao. VD: Code game c#, Website wordpress bán điện thoại,...</p>
-                            <input type="text" name="code_name" placeholder="Tiêu để không quá 80 ký tự">
+                            <input type="text" name="code_title" placeholder="Tiêu để không quá 80 ký tự">
                             <p class="text-danger">Quyết định SEO 90%</p>
                         </div>
                         <div class="field">
@@ -174,7 +175,10 @@
                             <label>Phân loại code: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown" multiple="" name="category">
                                 <option value="">Chọn phân loại code</option>
-
+                                @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                {
+                                    <option value="@item.language_id">@item.language_name</option>
+                                }
                             </select>
                             <script>
                                 $("input.myClass:search").keyup(function (key) {
@@ -188,7 +192,7 @@
                         </div>
                         <div class="field">
                             <label>Mô tả code: <b class="text-danger">*</b></label>
-                            <textarea name="code_introduce" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
+                            <textarea name="code_info" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
                         </div>
                         <div class="field">
                             <style>
@@ -204,7 +208,10 @@
                             <label>Danh mục: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown">
                                 <option value="">Danh mục</option>
-
+                                @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                {
+                                    <option value="@item.category_id">@item.category_name</option>
+                                }
                             </select>
                             <script>
                                 $("input.myClass:search").keyup(function (key) {
@@ -218,16 +225,16 @@
                         </div>
                         <div class="field">
                             <label>Link download: <b class="text-danger">*</b></label>
-                            <input type="text" name="code_browser_downoad" placeholder="Link dùng để thành viên khác download code">
+                            <input type="text" name="code_linkdown" placeholder="Link dùng để thành viên khác download code">
                             <p class="text-danger">Khi code có phí, sau khi bán thành công thì mới hiển thị link code này</p>
                         </div>
                         <div class="field">
                             <label>Link Demo:</label>
-                            <input type="text" name="code_demo" placeholder="Link demo nếu có">
+                            <input type="text" name="code_linkdemo" placeholder="Link demo nếu có">
                         </div>
                         <div class="field">
                             <label>Mô tả chi tiết: <b class="text-danger">*</b></label>
-                            <textarea name="code_description" class="form-control" id="mt"></textarea>
+                            <textarea name="code_des" class="form-control" id="mt"></textarea>
                             <script>
                                 ClassicEditor
                                     .create(document.querySelector('#mt'))
@@ -238,7 +245,7 @@
                         </div>
                         <div class="field">
                             <label>Hướng dẫn cài đặt: <b class="text-danger">*</b></label>
-                            <textarea class="form-control" id="cd"></textarea>
+                            <textarea class="form-control" id="cd" name="code_setting"></textarea>
                             <script>
                                 ClassicEditor
                                     .create(document.querySelector('#cd'))
@@ -259,17 +266,14 @@
                             </style>
 
                             <label>Tag: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown" multiple="" name="">
+                            <select class="ui fluid search dropdown" multiple="" id="sele" name="code_tag">
                                 <option value="">Tag</option>
-                                <option value="2">2</option>
 
                             </select>
                             <script>
-                                $("input.myClass:search").keyup(function (key) {
+                                $('#sele').click(function () {
                                     debugger
-                                    if (key.keyCode == "13") {
-                                        alert("ok");
-                                    }
+                                    console.log("cu");
                                 })
                             </script>
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
@@ -319,7 +323,7 @@
                         </div>
                     </div>
                     <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" style="width: 100%"/>
+                        <img class="file-upload-image" src="#" alt="your image" style="width: 100%" />
                         <div class="image-title-wrap">
                             <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh <span class="image-title">Uploaded Image</span></button>
                         </div>
