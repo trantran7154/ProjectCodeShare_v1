@@ -10,7 +10,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 {
     public class ViewAdminController : Controller
     {
-        CodeShareDataEntities db = new CodeShareDataEntities();
+        DataShareCodeEntities db = new DataShareCodeEntities();
         // Menu
         public PartialViewResult Menu()
         {
@@ -22,9 +22,9 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddCategorys(Categorys categorys)
+        public ActionResult AddCategorys(Category categorys)
         {
-            var dao = new CategorysDAO();
+            var dao = new CategorysDao();
             if (dao.Create(categorys))
             {
                 return Redirect("file:///C:/Users/lenovo/OneDrive/M%C3%A1y%20t%C3%ADnh/deskapp2-master/deskapp2-master/index.html");

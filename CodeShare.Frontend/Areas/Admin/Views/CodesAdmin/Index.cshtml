@@ -1,15 +1,8 @@
 ﻿@using CodeShare.Model.EF
-@model List<Codes>
 
 @{
     ViewBag.Title = "DANH SÁCH CODE";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-
-    CodeShareDataEntities db = new CodeShareDataEntities();
-}
-
-@{
-    List<Forms> forms = db.Forms.ToList();
 }
 
 <div class="container-fluid" ng-app="myApp">
@@ -159,10 +152,10 @@
                                             <div class="field">
                                                 <label><i class="fa fa-th-list"></i> Hình thức</label>
                                                 <select onchange="checkpoint();" id="check" name="form_id" class="ui fluid dropdown">
-                                                    @foreach (var item in forms)
+                                                    @*@foreach (var item in forms)
                                                     {
                                                         <option value="@item.form_id">@item.form_name</option>
-                                                    }
+                                                    }*@
                                                 </select>
                                                 <script>
                                                     function checkpoint() {

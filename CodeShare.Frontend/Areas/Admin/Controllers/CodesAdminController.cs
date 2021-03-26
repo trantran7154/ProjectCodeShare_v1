@@ -14,23 +14,23 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
     public class CodesAdminController : Controller
     {
         // GET: Admin/CodesAdmin
-        CodeShareDataEntities db = new CodeShareDataEntities();
+        DataShareCodeEntities db = new DataShareCodeEntities();
         public ActionResult Index()
         {
-            return View(db.Codes.Where(n => n.code_bin == false).ToList());
+            return View(db.Codes.Where(n => n.code_del == false).ToList());
         }
 
         // Create
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult CreateCode(Codes codes,HttpPostedFileBase IMG, string[] tags)
+        public ActionResult CreateCode(Code codes,HttpPostedFileBase IMG, string[] tags)
         {
             var code = Guid.NewGuid().ToString();
             var addimg = new ImagesController();
 
-            codes.code_bin = false;
+            codes.code_del = false;
 
-            codes.code_active = true;
+            codes.code_active = 1;
             codes.code_option = true;
 
             codes.code_view = 1;
@@ -45,7 +45,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 codes.code_img = code + IMG.FileName;
             }
 
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if(dao.Create(codes, tags))
             {
                 return Redirect("/Admin/CodesAdmin/Index");
@@ -58,19 +58,19 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult EditCode(Codes codes, HttpPostedFileBase IMG, string[] tags)
+        public ActionResult EditCode(Code codes, HttpPostedFileBase IMG, string[] tags)
         {
             var code = Guid.NewGuid().ToString();
             var addimg = new ImagesController();
 
-            codes.code_bin = false;
+            codes.code_del = false;
 
-            codes.code_active = true;
+            codes.code_active = 1;
             codes.code_option = true;
 
             codes.code_view = 1;
 
-            Codes codes1 = db.Codes.Find(codes.code_id);
+            Code codes1 = db.Codes.Find(codes.code_id);
 
             if (IMG == null)
             {
@@ -83,7 +83,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 codes.code_img = code + IMG.FileName;
             }
 
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if (dao.Edit(codes, tags))
             {
                 return Redirect("/Admin/CodesAdmin/Index");
@@ -95,87 +95,79 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         }
 
         // Active
-        public JsonResult ActiveCode(int? id)
-        {
-            var dao = new CodesDAO();
-            if (dao.Active(id))
-            {
+        //public JsonResult ActiveCode(int? id)
+        //{
+        //    var dao = new CodesDao();
+        //    if (dao.Active(id))
+        //    {
 
-                // Giá trị Angular
-                List<Codes> codes = db.Codes.Where(n => n.code_bin == false).OrderByDescending(n => n.code_datecreate).ToList();
-                // Tên biến
-                List<jCodes> list = codes.Select(n => new jCodes
-                {
-                    id = n.code_id,
-                    name = n.code_name,
-                    img = n.code_img,
-                    description = n.code_description,
-                    capacity = n.code_capacity,
-                    link = n.code_link,
-                    coin = n.code_coin,
-                    view = n.code_view,
-                    datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
-                    update = n.code_update.Value.ToString("yyyy-MM-dd"),
-                    active = n.code_active,
-                    bin = n.code_bin,
-                    option = n.code_option,
-                    introduce = n.code_introduce,
-                    down = n.code_down,
-                    browser_demo = n.code_browser_demo,
-                    demo = n.code_demo,
-                    point_refer = n.code_point_refer,
-                    browser_quality = n.code_browser_quality,
-                    point_quality = n.code_point_quality,
-                    browser_downoad = n.code_browser_downoad,
-                    browser_error = n.code_browser_error,
-                    banner_id = n.banner_id,
-                    form_id = n.form_id,
-                    user_id = n.user_id,
-                    user_name = n.code_name
-                }).ToList();
-                return Json(list, JsonRequestBehavior.AllowGet);
-            }
-            return Json(null);
-        }
+        //        // Giá trị Angular
+        //        List<Code> codes = db.Codes.Where(n => n.code_del == false).OrderByDescending(n => n.code_datecreate).ToList();
+        //        // Tên biến
+        //        List<jCodes> list = codes.Select(n => new jCodes
+        //        {
+        //            id = n.code_id,
+        //            active = (int)n.code_active,
+        //            code = n.code_code.ToString(),
+        //            coin = (int)n.code_coin,
+        //            datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
+        //            dateupdate = n.code_dateupdate.Value.ToString("yyyy-MM-dd"),
+        //            del = n.code_del,
+        //            des = n.code_des,
+        //            disk = (int)n.code_disk,
+        //            id_cate = (int)n.category_id,
+        //            id_us = (int)n.user_id,
+        //            img = n.code_img.ToString(),
+        //            info = n.code_info.ToString(),
+        //            linkdemo = n.code_linkdemo.ToString(),
+        //            linkdown = n.code_linkdown.ToString(),
+        //            option = n.code_option,
+        //            pass = n.code_pass.ToString(),
+        //            setting = n.code_setting.ToString(),
+        //            tag = n.code_tag.ToString(),
+        //            title = n.code_title.ToString(),
+        //            view = (int)n.code_view,
+        //            viewdown = (int)n.code_viewdown
+        //        }).ToList();
+        //        return Json(list, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(null);
+        //}
 
         // Option
         public JsonResult OptionCode(int? id)
         {
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if (dao.Option(id))
             {
 
                 // Giá trị Angular
-                List<Codes> codes = db.Codes.Where(n => n.code_bin == false).OrderByDescending(n => n.code_datecreate).ToList();
+                List<Code> codes = db.Codes.Where(n => n.code_del == false).OrderByDescending(n => n.code_datecreate).ToList();
                 // Tên biến
                 List<jCodes> list = codes.Select(n => new jCodes
                 {
                     id = n.code_id,
-                    name = n.code_name,
-                    img = n.code_img,
-                    description = n.code_description,
-                    capacity = n.code_capacity,
-                    link = n.code_link,
-                    coin = n.code_coin,
-                    view = n.code_view,
+                    active = (int)n.code_active,
+                    code = n.code_code.ToString(),
+                    coin = (int)n.code_coin,
                     datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
-                    update = n.code_update.Value.ToString("yyyy-MM-dd"),
-                    active = n.code_active,
-                    bin = n.code_bin,
+                    dateupdate = n.code_dateupdate.Value.ToString("yyyy-MM-dd"),
+                    del = n.code_del,
+                    des = n.code_des,
+                    disk = (int)n.code_disk,
+                    id_cate = (int)n.category_id,
+                    id_us = (int)n.user_id,
+                    img = n.code_img.ToString(),
+                    info = n.code_info.ToString(),
+                    linkdemo = n.code_linkdemo.ToString(),
+                    linkdown = n.code_linkdown.ToString(),
                     option = n.code_option,
-                    introduce = n.code_introduce,
-                    down = n.code_down,
-                    browser_demo = n.code_browser_demo,
-                    demo = n.code_demo,
-                    point_refer = n.code_point_refer,
-                    browser_quality = n.code_browser_quality,
-                    point_quality = n.code_point_quality,
-                    browser_downoad = n.code_browser_downoad,
-                    browser_error = n.code_browser_error,
-                    banner_id = n.banner_id,
-                    form_id = n.form_id,
-                    user_id = n.user_id,
-                    user_name = n.code_name
+                    pass = n.code_pass.ToString(),
+                    setting = n.code_setting.ToString(),
+                    tag = n.code_tag.ToString(),
+                    title = n.code_title.ToString(),
+                    view = (int)n.code_view,
+                    viewdown = (int)n.code_viewdown
                 }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -185,41 +177,37 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // Bin
         public JsonResult BinCode(int? id)
         {
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if (dao.Bin(id))
             {
 
                 // Giá trị Angular
-                List<Codes> codes = db.Codes.Where(n => n.code_bin == false).OrderByDescending(n => n.code_datecreate).ToList();
+                List<Code> codes = db.Codes.Where(n => n.code_del == false).OrderByDescending(n => n.code_datecreate).ToList();
                 // Tên biến
                 List<jCodes> list = codes.Select(n => new jCodes
                 {
                     id = n.code_id,
-                    name = n.code_name,
-                    img = n.code_img,
-                    description = n.code_description,
-                    capacity = n.code_capacity,
-                    link = n.code_link,
-                    coin = n.code_coin,
-                    view = n.code_view,
+                    active = (int)n.code_active,
+                    code = n.code_code.ToString(),
+                    coin = (int)n.code_coin,
                     datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
-                    update = n.code_update.Value.ToString("yyyy-MM-dd"),
-                    active = n.code_active,
-                    bin = n.code_bin,
+                    dateupdate = n.code_dateupdate.Value.ToString("yyyy-MM-dd"),
+                    del = n.code_del,
+                    des = n.code_des,
+                    disk = (int)n.code_disk,
+                    id_cate = (int)n.category_id,
+                    id_us = (int)n.user_id,
+                    img = n.code_img.ToString(),
+                    info = n.code_info.ToString(),
+                    linkdemo = n.code_linkdemo.ToString(),
+                    linkdown = n.code_linkdown.ToString(),
                     option = n.code_option,
-                    introduce = n.code_introduce,
-                    down = n.code_down,
-                    browser_demo = n.code_browser_demo,
-                    demo = n.code_demo,
-                    point_refer = n.code_point_refer,
-                    browser_quality = n.code_browser_quality,
-                    point_quality = n.code_point_quality,
-                    browser_downoad = n.code_browser_downoad,
-                    browser_error = n.code_browser_error,
-                    banner_id = n.banner_id,
-                    form_id = n.form_id,
-                    user_id = n.user_id,
-                    user_name = n.code_name
+                    pass = n.code_pass.ToString(),
+                    setting = n.code_setting.ToString(),
+                    tag = n.code_tag.ToString(),
+                    title = n.code_title.ToString(),
+                    view = (int)n.code_view,
+                    viewdown = (int)n.code_viewdown
                 }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -228,47 +216,43 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult IndexBin()
         {
-            return View(db.Codes.Where(n => n.code_bin == true).ToList());
+            return View(db.Codes.Where(n => n.code_del == true).ToList());
         }
 
         // Restore
         public JsonResult RestoreCode(int? id)
         {
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if (dao.Restore(id))
             {
 
                 // Giá trị Angular
-                List<Codes> codes = db.Codes.Where(n => n.code_bin == true).OrderByDescending(n => n.code_datecreate).ToList();
+                List<Code> codes = db.Codes.Where(n => n.code_del == true).OrderByDescending(n => n.code_datecreate).ToList();
                 // Tên biến
                 List<jCodes> list = codes.Select(n => new jCodes
                 {
                     id = n.code_id,
-                    name = n.code_name,
-                    img = n.code_img,
-                    description = n.code_description,
-                    capacity = n.code_capacity,
-                    link = n.code_link,
-                    coin = n.code_coin,
-                    view = n.code_view,
+                    active = (int)n.code_active,
+                    code = n.code_code.ToString(),
+                    coin = (int)n.code_coin,
                     datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
-                    update = n.code_update.Value.ToString("yyyy-MM-dd"),
-                    active = n.code_active,
-                    bin = n.code_bin,
+                    dateupdate = n.code_dateupdate.Value.ToString("yyyy-MM-dd"),
+                    del = n.code_del,
+                    des = n.code_des,
+                    disk = (int)n.code_disk,
+                    id_cate = (int)n.category_id,
+                    id_us = (int)n.user_id,
+                    img = n.code_img.ToString(),
+                    info = n.code_info.ToString(),
+                    linkdemo = n.code_linkdemo.ToString(),
+                    linkdown = n.code_linkdown.ToString(),
                     option = n.code_option,
-                    introduce = n.code_introduce,
-                    down = n.code_down,
-                    browser_demo = n.code_browser_demo,
-                    demo = n.code_demo,
-                    point_refer = n.code_point_refer,
-                    browser_quality = n.code_browser_quality,
-                    point_quality = n.code_point_quality,
-                    browser_downoad = n.code_browser_downoad,
-                    browser_error = n.code_browser_error,
-                    banner_id = n.banner_id,
-                    form_id = n.form_id,
-                    user_id = n.user_id,
-                    user_name = n.code_name
+                    pass = n.code_pass.ToString(),
+                    setting = n.code_setting.ToString(),
+                    tag = n.code_tag.ToString(),
+                    title = n.code_title.ToString(),
+                    view = (int)n.code_view,
+                    viewdown = (int)n.code_viewdown
                 }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -278,41 +262,37 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // Delete
         public JsonResult DeleteCode(int? id)
         {
-            var dao = new CodesDAO();
+            var dao = new CodesDao();
             if (dao.Delete(id))
             {
 
                 // Giá trị Angular
-                List<Codes> codes = db.Codes.Where(n => n.code_bin == true).OrderByDescending(n => n.code_datecreate).ToList();
+                List<Code> codes = db.Codes.Where(n => n.code_del == true).OrderByDescending(n => n.code_datecreate).ToList();
                 // Tên biến
                 List<jCodes> list = codes.Select(n => new jCodes
                 {
                     id = n.code_id,
-                    name = n.code_name,
-                    img = n.code_img,
-                    description = n.code_description,
-                    capacity = n.code_capacity,
-                    link = n.code_link,
-                    coin = n.code_coin,
-                    view = n.code_view,
+                    active = (int)n.code_active,
+                    code = n.code_code.ToString(),
+                    coin = (int)n.code_coin,
                     datecreate = n.code_datecreate.Value.ToString("yyyy-MM-dd"),
-                    update = n.code_update.Value.ToString("yyyy-MM-dd"),
-                    active = n.code_active,
-                    bin = n.code_bin,
+                    dateupdate = n.code_dateupdate.Value.ToString("yyyy-MM-dd"),
+                    del = n.code_del,
+                    des = n.code_des,
+                    disk = (int)n.code_disk,
+                    id_cate = (int)n.category_id,
+                    id_us = (int)n.user_id,
+                    img = n.code_img.ToString(),
+                    info = n.code_info.ToString(),
+                    linkdemo = n.code_linkdemo.ToString(),
+                    linkdown = n.code_linkdown.ToString(),
                     option = n.code_option,
-                    introduce = n.code_introduce,
-                    down = n.code_down,
-                    browser_demo = n.code_browser_demo,
-                    demo = n.code_demo,
-                    point_refer = n.code_point_refer,
-                    browser_quality = n.code_browser_quality,
-                    point_quality = n.code_point_quality,
-                    browser_downoad = n.code_browser_downoad,
-                    browser_error = n.code_browser_error,
-                    banner_id = n.banner_id,
-                    form_id = n.form_id,
-                    user_id = n.user_id,
-                    user_name = n.code_name
+                    pass = n.code_pass.ToString(),
+                    setting = n.code_setting.ToString(),
+                    tag = n.code_tag.ToString(),
+                    title = n.code_title.ToString(),
+                    view = (int)n.code_view,
+                    viewdown = (int)n.code_viewdown
                 }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
