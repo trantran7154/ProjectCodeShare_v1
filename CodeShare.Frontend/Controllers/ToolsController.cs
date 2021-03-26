@@ -38,8 +38,10 @@ namespace CodeShare.Frontend.Controllers
             return Json(null);
         }
         //Json chat - co the cap lai theo js
-        public JsonResult Get(int? idem)
+        public JsonResult Get(int? id)
         {
+            var cookie = functions.CookieID();
+
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataShareCode"].ConnectionString))
             {
                 connection.Open();
@@ -59,7 +61,7 @@ namespace CodeShare.Frontend.Controllers
 
 
 
-                    List<Chat> Chat = db.Chats.ToList();
+                    List<Chat> Chat = db.Chats.Where(n=>n.user_id == id && n.id_send == cookie.user_id).OrderByDescending(n=>n.chat_datecreate).ToList();
 
                     return Json(new { listChat = Chat }, JsonRequestBehavior.AllowGet);
 
