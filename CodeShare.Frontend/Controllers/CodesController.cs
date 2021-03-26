@@ -37,17 +37,15 @@ namespace CodeShare.Frontend.Controllers
             var coo = new FunctionsController();
             var id = coo.CookieID();
 
-            if (ModelState.IsValid)
+            var tag = "";
+            foreach (var item in code_tag)
             {
-                var tag = "";
-                foreach(var item in code_tag)
-                {
-                    tag += item + ";";
-                }
-                codes.code_tag = tag;
-                codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
-                codesDAO.Create(codes, language);
+                tag += item + ";";
             }
+            codes.code_tag = tag;
+            codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
+            codesDAO.Create(codes, language);
+
             return View();
         }
 
