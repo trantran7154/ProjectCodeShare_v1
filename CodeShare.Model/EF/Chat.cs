@@ -18,5 +18,6 @@ namespace CodeShare.Model.EF
         public Nullable<int> user_id { get; set; }
         public string chat_content { get; set; }
         public Nullable<System.DateTime> chat_datecreate { get; set; }
+        public Nullable<int> id_send { get; set; }
     }
 }

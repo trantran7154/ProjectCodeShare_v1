@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CodeShare.Frontend.Hubs;
+using CodeShare.Frontend.Functions;
 using CodeShare.Model.EF;
 using CodeShare.Frontend.Models;
 
@@ -15,10 +16,27 @@ namespace CodeShare.Frontend.Controllers
     public class ToolsController : Controller
     {
         DataShareCodeEntities db = new DataShareCodeEntities();
+        FunctionsController functions = new FunctionsController();
         // GET: Tools
-        public ActionResult Chats()
+        public ActionResult Chats(int ? id)
         {
-            return View();
+            return View(db.Users.Find(id));
+        }
+        public JsonResult Create(int ? id, string content)
+        {
+
+            var cookie = functions.CookieID();
+
+            Chat chat = new Chat
+            {
+                chat_content = content,
+                chat_datecreate = DateTime.Now,
+                id_send = cookie.user_id,
+                user_id = id
+            };
+            db.Chats.Add(chat);
+            db.SaveChanges();
+            return Json(null);
         }
         //Json chat - co the cap lai theo js
         public JsonResult Get(int? idem)

@@ -34,6 +34,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="chat_content" Type="nvarchar(max)" />
           <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="id_send" Type="int" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -712,6 +713,7 @@
           <Property Name="user_id" Type="Int32" />
           <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="id_send" Type="Int32" />
         </EntityType>
         <EntityType Name="TakePrice">
           <Key>
@@ -899,6 +901,7 @@
           <EntitySetMapping Name="Chats">
             <EntityTypeMapping TypeName="DataShareCodeModel.Chat">
               <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="id_send" ColumnName="id_send" />
                 <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
                 <ScalarProperty Name="chat_content" ColumnName="chat_content" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
