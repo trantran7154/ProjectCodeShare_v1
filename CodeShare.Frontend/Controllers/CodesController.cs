@@ -32,13 +32,19 @@ namespace CodeShare.Frontend.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Code codes, string[] language, HttpPostedFileBase img)
+        public ActionResult Create(Code codes, string[] language, string[] code_tag, HttpPostedFileBase img)
         {
             var coo = new FunctionsController();
             var id = coo.CookieID();
 
             if (ModelState.IsValid)
             {
+                var tag = "";
+                foreach(var item in code_tag)
+                {
+                    tag += item + ";";
+                }
+                codes.code_tag = tag;
                 codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
                 codesDAO.Create(codes, language);
             }
@@ -65,11 +71,18 @@ namespace CodeShare.Frontend.Controllers
             }
             return View(code);
         }
-        public ActionResult Edit(Code code, string[] tags)
+        public ActionResult Edit(Code codes, string[] language, string code_tag, HttpPostedFileBase img)
         {
             if (ModelState.IsValid)
             {
-
+                var tag = "";
+                foreach (var item in code_tag)
+                {
+                    tag += item + ";";
+                }
+                codes.code_tag = tag;
+                codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
+                codesDAO.Edit(codes, language);
             }
             return View();
         }

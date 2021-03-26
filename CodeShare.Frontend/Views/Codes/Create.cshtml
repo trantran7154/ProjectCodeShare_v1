@@ -14,6 +14,9 @@
     .ui.multiple.search.dropdown > input.search {
         height: 21px;
     }
+    .tags{
+
+    }
 </style>
 <style>
     .file-upload {
@@ -266,16 +269,12 @@
                             </style>
 
                             <label>Tag: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown" multiple="" id="sele" name="code_tag">
+                            <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="code_tag">
                                 <option value="">Tag</option>
 
                             </select>
-                            <script>
-                                $('#sele').click(function () {
-                                    debugger
-                                    console.log("cu");
-                                })
-                            </script>
+                            @*<a href="#" id="sele">click</a>*@
+                        
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <style>
@@ -370,4 +369,15 @@
     $('.ui.dropdown')
         .dropdown()
         ;
+</script>
+
+<script>
+    $(".ui.fluid.search.dropdown.tag.selection.multiple").on("keyup", function (e) {
+        debugger
+        var val = $(".ui.fluid.search.dropdown.tag.selection.multiple input.search").val();
+        if (e.keyCode == 13) {
+            $("input.search").val("");
+            $('#code_tag').append('<option value="' + val + '" selected>' + val + '</option>');
+        }
+    })
 </script>
