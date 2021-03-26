@@ -31,7 +31,6 @@ namespace CodeShare.Frontend.Controllers
             {
                 chat_content = content,
                 chat_datecreate = DateTime.Now,
-                id_send = cookie.user_id,
                 user_id = id
             };
             db.Chats.Add(chat);

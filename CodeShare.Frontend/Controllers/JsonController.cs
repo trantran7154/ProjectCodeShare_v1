@@ -81,5 +81,38 @@ namespace CodeShare.Frontend.Controllers
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Comment(int? id)
+        {
+            List<Comment> comments = db.Comments.Where(n => n.comment_id == id).ToList();
+            List<JComments> list = comments.Select(n => new JComments
+            {
+                code_id = n.code_id,
+                comment_content = n.comment_content,
+                comment_datecreate = n.comment_datecreate,
+                comment_dateupdate = n.comment_dateupdate,
+                comment_id = n.comment_id,
+                news_id = n.news_id,
+                user_id = n.user_id
+
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Rep(int? id)
+        {
+            List<Rep> reps = db.Reps.Where(n => n.rep_id == id).ToList();
+            List<JRep> list = reps.Select(n => new JRep
+            {
+                comment_id = n.comment_id,
+                rep_content = n.rep_content,
+                rep_datecreate = n.rep_datecreate,
+                rep_dateupdate = n.rep_dateupdate,
+                rep_id = n.rep_id,
+                user_id = n.user_id
+
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

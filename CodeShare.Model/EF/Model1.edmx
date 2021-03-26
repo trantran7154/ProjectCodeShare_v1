@@ -34,7 +34,6 @@
           <Property Name="user_id" Type="int" />
           <Property Name="chat_content" Type="nvarchar(max)" />
           <Property Name="chat_datecreate" Type="datetime" />
-          <Property Name="id_send" Type="int" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -73,6 +72,7 @@
           <Property Name="comment_content" Type="nvarchar(max)" />
           <Property Name="comment_datecreate" Type="datetime" />
           <Property Name="news_id" Type="int" />
+          <Property Name="comment_dateupdate" Type="datetime" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -130,6 +130,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="rep_content" Type="nvarchar(max)" />
           <Property Name="rep_datecreate" Type="datetime" />
+          <Property Name="rep_dateupdate" Type="datetime" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -874,7 +875,6 @@
           <Property Name="user_id" Type="Int32" />
           <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="id_send" Type="Int32" />
         </EntityType>
         <EntityType Name="TakePrice">
           <Key>
@@ -916,6 +916,7 @@
           <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="Comment" ToRole="News" />
           <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
           <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Comment" ToRole="Rep" />
+          <Property Name="comment_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Rep">
           <Key>
@@ -928,6 +929,7 @@
           <Property Name="rep_datecreate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comment" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Rep" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="Rep" ToRole="User" />
+          <Property Name="rep_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Comment_Codes">
           <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
@@ -1149,7 +1151,6 @@
           <EntitySetMapping Name="Chats">
             <EntityTypeMapping TypeName="DataShareCodeModel.Chat">
               <MappingFragment StoreEntitySet="Chats">
-                <ScalarProperty Name="id_send" ColumnName="id_send" />
                 <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
                 <ScalarProperty Name="chat_content" ColumnName="chat_content" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -1174,6 +1175,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="DataShareCodeModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="comment_dateupdate" ColumnName="comment_dateupdate" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="comment_datecreate" ColumnName="comment_datecreate" />
                 <ScalarProperty Name="comment_content" ColumnName="comment_content" />
@@ -1186,6 +1188,7 @@
           <EntitySetMapping Name="Reps">
             <EntityTypeMapping TypeName="DataShareCodeModel.Rep">
               <MappingFragment StoreEntitySet="Rep">
+                <ScalarProperty Name="rep_dateupdate" ColumnName="rep_dateupdate" />
                 <ScalarProperty Name="rep_datecreate" ColumnName="rep_datecreate" />
                 <ScalarProperty Name="rep_content" ColumnName="rep_content" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />

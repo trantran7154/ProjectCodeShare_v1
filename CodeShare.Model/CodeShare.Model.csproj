@@ -53,10 +53,12 @@
     <Compile Include="DAO\BillsDao.cs" />
     <Compile Include="DAO\CategorysDao.cs" />
     <Compile Include="DAO\CodesDao.cs" />
+    <Compile Include="DAO\CommentDao.cs" />
     <Compile Include="DAO\GroupDao.cs" />
     <Compile Include="DAO\LanguagesDao.cs" />
     <Compile Include="DAO\NewsDao.cs" />
     <Compile Include="DAO\Pakages.cs" />
+    <Compile Include="DAO\RepDao.cs" />
     <Compile Include="DAO\TakePricesDao.cs" />
     <Compile Include="DAO\ToolsDao.cs" />
     <Compile Include="DAO\UsersDao.cs" />

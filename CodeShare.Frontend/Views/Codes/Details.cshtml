@@ -156,15 +156,33 @@
                     <hr />
                     <div>
                         <form action="#" method="post">
-                            <textarea name="bl" class="form-control"></textarea>
-                            <input value="Go Go" class="btn btn-danger"/>
+                            <textarea name="comment_content" class="form-control"></textarea>
+                            <input type="hidden" value="@Model.code_id" name="code_id"/>
+                            <input value="Go Go" class="btn btn-danger" />
                         </form>
-                        @foreach(var item in Model.Comments) 
-                        { 
+                        @foreach (var item in Model.Comments)
+                        {
                             <div>
+                                <span>bl: </span>
                                 <span>@item.User.user_name</span>
                                 <hr />
                                 <span>@item.comment_content</span>
+                                <hr />
+                                @foreach (var jtem in item.Reps)
+                                {
+                                    <div>
+                                        <span>tl: </span>
+                                        <span>@jtem.User.user_name</span>
+                                        <hr />
+                                        <span>@jtem.rep_content</span>
+                                        <hr />
+                                    </div>
+                                }
+                                <form action="#" method="post">
+                                    <input type="text" name="rep_content" class="form-control" />
+                                    <input type="hidden" name="comment_id" value="@item.comment_id"/>
+                                    <input type="submit" value="Go Go" class="btn btn-danger"/>
+                                </form>
                             </div>
                         }
                     </div>

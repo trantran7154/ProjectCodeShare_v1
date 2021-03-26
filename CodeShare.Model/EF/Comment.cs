@@ -26,6 +26,7 @@ namespace CodeShare.Model.EF
         public string comment_content { get; set; }
         public Nullable<System.DateTime> comment_datecreate { get; set; }
         public Nullable<int> news_id { get; set; }
+        public Nullable<System.DateTime> comment_dateupdate { get; set; }
     
         public virtual Code Code { get; set; }
         public virtual News News { get; set; }

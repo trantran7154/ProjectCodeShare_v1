@@ -19,6 +19,7 @@ namespace CodeShare.Model.EF
         public Nullable<int> user_id { get; set; }
         public string rep_content { get; set; }
         public Nullable<System.DateTime> rep_datecreate { get; set; }
+        public Nullable<System.DateTime> rep_dateupdate { get; set; }
     
         public virtual Comment Comment { get; set; }
         public virtual User User { get; set; }

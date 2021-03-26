@@ -322,11 +322,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CodesController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PaysController.cs" />
+    <Compile Include="Controllers\RepController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
@@ -343,10 +345,12 @@
     <Compile Include="Models\jCategorys.cs" />
     <Compile Include="Models\jChat.cs" />
     <Compile Include="Models\jCodes.cs" />
+    <Compile Include="Models\JComments.cs" />
     <Compile Include="Models\jGroups.cs" />
     <Compile Include="Models\jLanguages.cs" />
     <Compile Include="Models\jNews.cs" />
     <Compile Include="Models\jPakages.cs" />
+    <Compile Include="Models\JRep.cs" />
     <Compile Include="Models\jTakePrices.cs" />
     <Compile Include="Models\jTools.cs" />
     <Compile Include="Models\jUsers.cs" />
@@ -356,6 +360,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ViewAccount.cs" />
+    <Compile Include="ViewModels\ViewComment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -1586,6 +1591,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Languages\" />
+    <Folder Include="Views\Comment\" />
+    <Folder Include="Views\Rep\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
