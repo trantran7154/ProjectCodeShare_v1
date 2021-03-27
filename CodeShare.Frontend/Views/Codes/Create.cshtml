@@ -12,7 +12,7 @@
     }
 
     .ui.multiple.search.dropdown > input.search {
-        height: 21px;
+        height: auto;
     }
     .tags{
 
@@ -141,7 +141,7 @@
                         ShareThis sẽ phải duyệt code của bạn trong thời gian sớm nhất. Tránh tình trạng đăng code lỗi, code độc.
                     </p>
                     <form class="ui form" style="color: #5f6368; font-size: 18px" method="post" enctype="multipart/form-data" action="@Url.Action("Create","Codes")">
-                        @Html.AntiForgeryToken();
+                        @Html.AntiForgeryToken()
                         <div class="two fields">
                             <div class="field">
                                 <label>Ảnh đại diện <b class="text-danger">*</b></label>
@@ -177,7 +177,7 @@
                             </style>
 
                             <label>Phân loại code: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown" multiple="" name="category">
+                            <select class="ui fluid search dropdown" multiple="" name="language">
                                 <option value="">Chọn phân loại code</option>
                                 @foreach (var item in db.Languages.Where(t => t.language_active == 1))
                                 {
@@ -191,18 +191,8 @@
                             <textarea name="code_info" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
                         </div>
                         <div class="field">
-                            <style>
-                                .ui.form .field > .selection.dropdown {
-                                    height: 0px;
-                                }
-
-                                .ck.ck-editor__editable_inline > :last-child {
-                                    height: 200px;
-                                }
-                            </style>
-
                             <label>Danh mục: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown">
+                            <select class="ui fluid dropdown" name="category_id">
                                 <option value="">Danh mục</option>
                                 @foreach (var item in db.Categorys.Where(t => t.category_active == true))
                                 {
@@ -259,7 +249,7 @@
 
                             </select>
                             @*<a href="#" id="sele">click</a>*@
-                        
+
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <style>
@@ -284,38 +274,39 @@
                             </div>
                         </div>
                         <button class="btn btn-danger">Tải lên ngay</button>
+
+                        <div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
+
+                                            <div class="image-upload-wrap">
+                                                <input name="img" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                                <div class="drag-text">
+                                                    <h3>Ảnh code đẹp! SEO TỐT </h3>
+                                                </div>
+                                            </div>
+                                            <div class="file-upload-content">
+                                                <img class="file-upload-image" src="#" alt="your image" style="width: 100%" />
+                                                <div class="image-title-wrap">
+                                                    <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh <span class="image-title">Uploaded Image</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
             <div class="col-lg-4 bg-white border shadow">
                 @Html.Action("All", "View")
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="file-upload">
-                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
-
-                    <div class="image-upload-wrap">
-                        <input name="img" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                        <div class="drag-text">
-                            <h3>Ảnh code đẹp! SEO TỐT </h3>
-                        </div>
-                    </div>
-                    <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" style="width: 100%" />
-                        <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh <span class="image-title">Uploaded Image</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
