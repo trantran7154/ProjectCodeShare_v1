@@ -12,7 +12,7 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Oder
+    public partial class Order
     {
         public int oder_id { get; set; }
         public Nullable<int> user_id { get; set; }

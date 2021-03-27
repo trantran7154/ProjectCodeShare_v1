@@ -120,7 +120,7 @@ namespace CodeShare.Frontend.Controllers
             var co = new FunctionsController();
             var id = co.CookieID();
 
-            var oders = from item in db.Oders
+            var oders = from item in db.Orders
                         where item.user_id == id.user_id
                         orderby item.oder_datecreate descending
                         select new {
@@ -140,7 +140,7 @@ namespace CodeShare.Frontend.Controllers
             var co = new FunctionsController();
             var id = co.CookieID();
 
-            var oders = from item in db.Oders
+            var order = from item in db.Orders
                         where item.id_coder == id.user_id
                         orderby item.oder_datecreate descending
                         select new
@@ -154,9 +154,17 @@ namespace CodeShare.Frontend.Controllers
                             sum = item.Code.code_coin * 1000,
                             buy = item.User.user_name
                         };
-            return Json(oders, JsonRequestBehavior.AllowGet);
+            return Json(order, JsonRequestBehavior.AllowGet);
         }
         //Quản lý rút tiền
-
+        public JsonResult HistoryTakePrice()
+        {
+            var coo = new FunctionsController();
+            var idus = coo.CookieID();
+            var history = from tp in db.TakePrices
+                          where tp.user_id == idus.user_id
+                          select new { id = tp.tp_id, user_id = tp.user_id, tp_coin = tp.tp_coin, tp_note = tp.tp_note, tp_active = tp.tp_active, tp_accountnumber = tp.tp_accountnumber, tp_customer = tp.tp_customer };
+            return Json(history, JsonRequestBehavior.AllowGet);
+        }
     }
 }

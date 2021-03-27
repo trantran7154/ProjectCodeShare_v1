@@ -22,8 +22,8 @@ namespace CodeShare.Model.EF
         public Nullable<int> group_item { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual Language Language { get; set; }
         public virtual Code Code { get; set; }
+        public virtual Language Language { get; set; }
         public virtual User User { get; set; }
     }
 }

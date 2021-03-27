@@ -157,5 +157,11 @@ namespace CodeShare.Frontend.Controllers
             }
             return View();
         }
+
+        // lich su rut tien
+        public ActionResult HistoryTakePrice()
+        {
+            return View();
+        }
     }
 }

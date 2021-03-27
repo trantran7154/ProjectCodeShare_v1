@@ -62,6 +62,9 @@
     <Compile Include="DAO\TakePricesDao.cs" />
     <Compile Include="DAO\ToolsDao.cs" />
     <Compile Include="DAO\UsersDao.cs" />
+    <Compile Include="EF\Banner.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Bill.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -101,7 +104,7 @@
     <Compile Include="EF\News.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Oder.cs">
+    <Compile Include="EF\Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Pakage.cs">

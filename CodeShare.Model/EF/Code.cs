@@ -17,10 +17,10 @@ namespace CodeShare.Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Code()
         {
-            this.Tools = new HashSet<Tool>();
-            this.Groups = new HashSet<Group>();
             this.Comments = new HashSet<Comment>();
-            this.Oders = new HashSet<Oder>();
+            this.Groups = new HashSet<Group>();
+            this.Orders = new HashSet<Order>();
+            this.Tools = new HashSet<Tool>();
         }
     
         public int code_id { get; set; }
@@ -49,12 +49,12 @@ namespace CodeShare.Model.EF
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tool> Tools { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Oder> Oders { get; set; }
+        public virtual ICollection<Tool> Tools { get; set; }
     }
 }

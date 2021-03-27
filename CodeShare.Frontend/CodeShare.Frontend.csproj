@@ -1590,6 +1590,7 @@
     <Content Include="Views\Codes\IndexCodeOder.cshtml" />
     <Content Include="Views\Codes\IndexCodeSell.cshtml" />
     <Content Include="Views\Codes\DetailsCodeSell.cshtml" />
+    <Content Include="Views\Pays\HistoryTakePrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

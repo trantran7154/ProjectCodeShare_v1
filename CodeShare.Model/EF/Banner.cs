@@ -12,17 +12,13 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class TakePrice
+    public partial class Banner
     {
-        public int tp_id { get; set; }
-        public Nullable<int> user_id { get; set; }
-        public Nullable<int> tp_coin { get; set; }
-        public Nullable<System.DateTime> tp_datecreate { get; set; }
-        public string tp_note { get; set; }
-        public Nullable<int> tp_active { get; set; }
-        public string tp_accountnumber { get; set; }
-        public string tp_customer { get; set; }
-    
-        public virtual User User { get; set; }
+        public int banner_id { get; set; }
+        public string banner_title { get; set; }
+        public string banner_image { get; set; }
+        public string banner_link { get; set; }
+        public Nullable<System.DateTime> banner_datecreate { get; set; }
+        public Nullable<bool> banner_active { get; set; }
     }
 }

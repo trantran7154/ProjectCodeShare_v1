@@ -127,17 +127,17 @@ namespace CodeShare.Frontend.Controllers
             }
             db.SaveChanges();
 
-            Oder oder = new Oder()
+            Order oder = new Order()
             {
                 code_id = id,
                 id_coder = coder,
                 oder_datecreate = DateTime.Now,
                 user_id = idus.user_id
             };
-            db.Oders.Add(oder);
+            db.Orders.Add(oder);
             db.SaveChanges();
 
-            Oder oder1 = db.Oders.Where(n => n.user_id == idus.user_id && n.code_id == id).First();
+            Order oder1 = db.Orders.Where(n => n.user_id == idus.user_id && n.code_id == id).First();
 
 
 
@@ -156,7 +156,7 @@ namespace CodeShare.Frontend.Controllers
         //Xem chi tiet hoa don mua duoc
         public ActionResult DetailsCodeSell(int ? id)
         {
-            return View(db.Oders.Find(id));
+            return View(db.Orders.Find(id));
         }
     }
 }

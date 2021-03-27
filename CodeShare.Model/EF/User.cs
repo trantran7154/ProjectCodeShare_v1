@@ -19,13 +19,13 @@ namespace CodeShare.Model.EF
         {
             this.Bills = new HashSet<Bill>();
             this.Codes = new HashSet<Code>();
-            this.News = new HashSet<News>();
-            this.Tools = new HashSet<Tool>();
-            this.Groups = new HashSet<Group>();
-            this.TakePrices = new HashSet<TakePrice>();
             this.Comments = new HashSet<Comment>();
+            this.Groups = new HashSet<Group>();
+            this.News = new HashSet<News>();
+            this.Orders = new HashSet<Order>();
             this.Reps = new HashSet<Rep>();
-            this.Oders = new HashSet<Oder>();
+            this.TakePrices = new HashSet<TakePrice>();
+            this.Tools = new HashSet<Tool>();
         }
     
         public int user_id { get; set; }
@@ -54,18 +54,18 @@ namespace CodeShare.Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Code> Codes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<News> News { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tool> Tools { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TakePrice> TakePrices { get; set; }
+        public virtual ICollection<News> News { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rep> Reps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Oder> Oders { get; set; }
+        public virtual ICollection<TakePrice> TakePrices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tool> Tools { get; set; }
     }
 }

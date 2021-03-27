@@ -4,41 +4,42 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="baccbd4ff1074141825970b40810a62f" Name="Diagram1" ZoomLevel="73">
-        <EntityTypeShape EntityType="DataShareCodeModel.Bill" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Category" Width="1.5" PointX="3.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Code" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Group" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Language" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.News" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Pakage" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Tool" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataShareCodeModel.User" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+      <Diagram DiagramId="84fbcde6857748019f3ca7cd778abce9" Name="Diagram1">
+        <EntityTypeShape EntityType="DataShareCodeModel.Banner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Bill" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Category" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Chat" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Code" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Comment" Width="1.5" PointX="8.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Group" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Language" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.News" Width="1.5" PointX="3" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Order" Width="1.5" PointX="11.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Pakage" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Rep" Width="1.5" PointX="10.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.TakePrice" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Tool" Width="1.5" PointX="11.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataShareCodeModel.User" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
         <AssociationConnector Association="DataShareCodeModel.FK_Bills_Pakeges" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Bills_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Codes_Categorys" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Groups_Categorys" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Codes_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Codes" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Codes" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Oders_Codes" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Codes" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_News" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Comment" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Groups_Languages" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_News_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Oders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" FillColor="0, 122, 204" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Codes" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Groups_Users" />
-        <EntityTypeShape EntityType="DataShareCodeModel.TakePrice" Width="1.5" PointX="3" PointY="20.375" />
-        <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Comment" Width="1.5" PointX="8.25" PointY="12.625" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Rep" Width="1.5" PointX="10.5" PointY="9.875" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Codes" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Comment_News" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Comment_Users" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Comment" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Rep_Users" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Chat" Width="1.5" PointX="6.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataShareCodeModel.Oder" Width="1.5" PointX="11.25" PointY="6.75" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Oders_Codes" />
-        <AssociationConnector Association="DataShareCodeModel.FK_Oders_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

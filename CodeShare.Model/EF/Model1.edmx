@@ -4,7 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banners">
+          <Key>
+            <PropertyRef Name="banner_id" />
+          </Key>
+          <Property Name="banner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="banner_title" Type="nvarchar" MaxLength="255" />
+          <Property Name="banner_image" Type="nvarchar(max)" />
+          <Property Name="banner_link" Type="nvarchar(max)" />
+          <Property Name="banner_datecreate" Type="datetime" />
+          <Property Name="banner_active" Type="bit" />
+        </EntityType>
         <EntityType Name="Bills">
           <Key>
             <PropertyRef Name="bill_id" />
@@ -114,7 +125,7 @@
           <Property Name="news_del" Type="bit" />
           <Property Name="news_img" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="Oders">
+        <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="oder_id" />
           </Key>
@@ -349,24 +360,24 @@
         </Association>
         <Association Name="FK_Oders_Codes">
           <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
-          <End Role="Oders" Type="Self.Oders" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Codes">
               <PropertyRef Name="code_id" />
             </Principal>
-            <Dependent Role="Oders">
+            <Dependent Role="Orders">
               <PropertyRef Name="code_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Oders_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Oders" Type="Self.Oders" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="user_id" />
             </Principal>
-            <Dependent Role="Oders">
+            <Dependent Role="Orders">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -432,6 +443,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataShareCodeModelStoreContainer">
+          <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
@@ -440,7 +452,7 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Oders" EntityType="Self.Oders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rep" EntityType="Self.Rep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -497,11 +509,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Oders_Codes" Association="Self.FK_Oders_Codes">
             <End Role="Codes" EntitySet="Codes" />
-            <End Role="Oders" EntitySet="Oders" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Oders_Users" Association="Self.FK_Oders_Users">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Oders" EntitySet="Oders" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Rep_Comment" Association="Self.FK_Rep_Comment">
             <End Role="Comment" EntitySet="Comment" />
@@ -524,10 +536,22 @@
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="banner_id" />
+          </Key>
+          <Property Name="banner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="banner_title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="banner_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="banner_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="banner_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="banner_active" Type="Boolean" />
+        </EntityType>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="bill_id" />
@@ -537,9 +561,9 @@
           <Property Name="pakege_id" Type="Int32" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="bill_active" Type="Boolean" />
+          <Property Name="bill_dealine" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Pakage" Relationship="Self.FK_Bills_Pakeges" FromRole="Bills" ToRole="Pakages" />
           <NavigationProperty Name="User" Relationship="Self.FK_Bills_Users" FromRole="Bills" ToRole="Users" />
-          <Property Name="bill_dealine" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -549,9 +573,20 @@
           <Property Name="category_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="category_active" Type="Boolean" />
           <Property Name="category_item" Type="Int32" />
+          <Property Name="category_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Categorys" FromRole="Categorys" ToRole="Codes" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Categorys" FromRole="Categorys" ToRole="Groups" />
-          <Property Name="category_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="id_send" Type="Int32" />
+          <Property Name="chat_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Code">
           <Key>
@@ -578,13 +613,29 @@
           <Property Name="code_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="category_id" Type="Int32" />
           <Property Name="user_id" Type="Int32" />
+          <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Codes_Categorys" FromRole="Codes" ToRole="Categorys" />
           <NavigationProperty Name="User" Relationship="Self.FK_Codes_Users" FromRole="Codes" ToRole="Users" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Codes" FromRole="Codes" ToRole="Comment" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Codes" FromRole="Codes" ToRole="Groups" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Oders_Codes" FromRole="Codes" ToRole="Orders" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Codes" FromRole="Codes" ToRole="Tools" />
-          <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Groups" Relationship="DataShareCodeModel.FK_Groups_Codes" FromRole="Code" ToRole="Group" />
-          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Codes" FromRole="Code" ToRole="Comment" />
-          <NavigationProperty Name="Oders" Relationship="DataShareCodeModel.FK_Oders_Codes" FromRole="Code" ToRole="Oder" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="code_id" Type="Int32" />
+          <Property Name="comment_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comment_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="news_id" Type="Int32" />
+          <Property Name="comment_dateupdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Code" Relationship="Self.FK_Comment_Codes" FromRole="Comment" ToRole="Codes" />
+          <NavigationProperty Name="News" Relationship="Self.FK_Comment_News" FromRole="Comment" ToRole="News" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
+          <NavigationProperty Name="Reps" Relationship="Self.FK_Rep_Comment" FromRole="Comment" ToRole="Rep" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -597,9 +648,9 @@
           <Property Name="language_id" Type="Int32" />
           <Property Name="group_item" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Groups_Categorys" FromRole="Groups" ToRole="Categorys" />
+          <NavigationProperty Name="Code" Relationship="Self.FK_Groups_Codes" FromRole="Groups" ToRole="Codes" />
           <NavigationProperty Name="Language" Relationship="Self.FK_Groups_Languages" FromRole="Groups" ToRole="Languages" />
-          <NavigationProperty Name="Code" Relationship="DataShareCodeModel.FK_Groups_Codes" FromRole="Group" ToRole="Code" />
-          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Groups_Users" FromRole="Group" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Groups_Users" FromRole="Groups" ToRole="Users" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -608,9 +659,9 @@
           <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="language_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="language_active" Type="Int32" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Languages" FromRole="Languages" ToRole="Groups" />
           <Property Name="language_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="language_view" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Languages" FromRole="Languages" ToRole="Groups" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -627,9 +678,21 @@
           <Property Name="news_active" Type="Int32" />
           <Property Name="news_option" Type="Boolean" />
           <Property Name="news_del" Type="Boolean" />
-          <NavigationProperty Name="User" Relationship="Self.FK_News_Users" FromRole="News" ToRole="Users" />
           <Property Name="news_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="News" ToRole="Comment" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_News" FromRole="News" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.FK_News_Users" FromRole="News" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="oder_id" />
+          </Key>
+          <Property Name="oder_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="id_coder" Type="Int32" />
+          <Property Name="oder_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="code_id" Type="Int32" />
+          <NavigationProperty Name="Code" Relationship="Self.FK_Oders_Codes" FromRole="Orders" ToRole="Codes" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Oders_Users" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="Pakage">
           <Key>
@@ -640,6 +703,43 @@
           <Property Name="pakage_money" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="pakage_active" Type="Int32" />
           <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Pakeges" FromRole="Pakages" ToRole="Bills" />
+        </EntityType>
+        <EntityType Name="Rep">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="rep_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rep_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="rep_dateupdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_Rep_Comment" FromRole="Rep" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rep_Users" FromRole="Rep" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TakePrice">
+          <Key>
+            <PropertyRef Name="tp_id" />
+          </Key>
+          <Property Name="tp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="tp_coin" Type="Int32" />
+          <Property Name="tp_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="tp_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tp_active" Type="Int32" />
+          <Property Name="tp_accountnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tp_customer" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_TakePrices_Users" FromRole="TakePrices" ToRole="Users" />
         </EntityType>
         <EntityType Name="Tool">
           <Key>
@@ -680,13 +780,13 @@
           <Property Name="user_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Users" FromRole="Users" ToRole="Bills" />
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Users" FromRole="Users" ToRole="Codes" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Users" FromRole="Users" ToRole="Groups" />
           <NavigationProperty Name="News" Relationship="Self.FK_News_Users" FromRole="Users" ToRole="News" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Oders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Reps" Relationship="Self.FK_Rep_Users" FromRole="Users" ToRole="Rep" />
+          <NavigationProperty Name="TakePrices" Relationship="Self.FK_TakePrices_Users" FromRole="Users" ToRole="TakePrices" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
-          <NavigationProperty Name="Groups" Relationship="DataShareCodeModel.FK_Groups_Users" FromRole="User" ToRole="Group" />
-          <NavigationProperty Name="TakePrices" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="User" ToRole="TakePrice" />
-          <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
-          <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="User" ToRole="Rep" />
-          <NavigationProperty Name="Oders" Relationship="DataShareCodeModel.FK_Oders_Users" FromRole="User" ToRole="Oder" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -748,6 +848,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comment_Codes">
+          <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Codes">
+          <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oders_Codes">
+          <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tools_Codes">
           <End Role="Codes" Type="Self.Code" Multiplicity="0..1" />
           <End Role="Tools" Type="Self.Tool" Multiplicity="*" />
@@ -757,6 +893,42 @@
             </Principal>
             <Dependent Role="Tools">
               <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_News">
+          <End Role="News" Type="Self.News" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="News">
+              <PropertyRef Name="news_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="news_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Rep" Type="Self.Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="Rep">
+              <PropertyRef Name="comment_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -772,6 +944,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Groups_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_News_Users">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="News" Type="Self.News" Multiplicity="*" />
@@ -780,6 +964,42 @@
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oders_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rep_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rep" Type="Self.Rep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rep">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakePrices_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="TakePrices" Type="Self.TakePrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="TakePrices">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -797,13 +1017,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataShareCodeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
           <EntitySet Name="Bills" EntityType="Self.Bill" />
           <EntitySet Name="Categorys" EntityType="Self.Category" />
+          <EntitySet Name="Chats" EntityType="Self.Chat" />
           <EntitySet Name="Codes" EntityType="Self.Code" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Groups" EntityType="Self.Group" />
           <EntitySet Name="Languages" EntityType="Self.Language" />
           <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Pakages" EntityType="Self.Pakage" />
+          <EntitySet Name="Reps" EntityType="Self.Rep" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TakePrices" EntityType="Self.TakePrice" />
           <EntitySet Name="Tools" EntityType="Self.Tool" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Bills_Pakeges" Association="Self.FK_Bills_Pakeges">
@@ -826,298 +1053,119 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Codes" EntitySet="Codes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_Codes" Association="Self.FK_Comment_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Codes" Association="Self.FK_Groups_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oders_Codes" Association="Self.FK_Oders_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tools_Codes" Association="Self.FK_Tools_Codes">
             <End Role="Codes" EntitySet="Codes" />
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_News" Association="Self.FK_Comment_News">
+            <End Role="News" EntitySet="News" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Comment" Association="Self.FK_Rep_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Rep" EntitySet="Reps" />
+          </AssociationSet>
           <AssociationSet Name="FK_Groups_Languages" Association="Self.FK_Groups_Languages">
             <End Role="Languages" EntitySet="Languages" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="Self.FK_Groups_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
           <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
+          <AssociationSet Name="FK_Oders_Users" Association="Self.FK_Oders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rep_Users" Association="Self.FK_Rep_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rep" EntitySet="Reps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakePrices_Users" Association="Self.FK_TakePrices_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TakePrices" EntitySet="TakePrices" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tools_Users" Association="Self.FK_Tools_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="DataShareCodeModel.sysdiagram" />
-          <AssociationSet Name="FK_Groups_Codes" Association="DataShareCodeModel.FK_Groups_Codes">
-            <End Role="Code" EntitySet="Codes" />
-            <End Role="Group" EntitySet="Groups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Groups_Users" Association="DataShareCodeModel.FK_Groups_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Group" EntitySet="Groups" />
-          </AssociationSet>
-          <EntitySet Name="TakePrices" EntityType="DataShareCodeModel.TakePrice" />
-          <AssociationSet Name="FK_TakePrices_Users" Association="DataShareCodeModel.FK_TakePrices_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="TakePrice" EntitySet="TakePrices" />
-          </AssociationSet>
-          <EntitySet Name="Comments" EntityType="DataShareCodeModel.Comment" />
-          <EntitySet Name="Reps" EntityType="DataShareCodeModel.Rep" />
-          <AssociationSet Name="FK_Comment_Codes" Association="DataShareCodeModel.FK_Comment_Codes">
-            <End Role="Code" EntitySet="Codes" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_News" Association="DataShareCodeModel.FK_Comment_News">
-            <End Role="News" EntitySet="News" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_Users" Association="DataShareCodeModel.FK_Comment_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rep_Comment" Association="DataShareCodeModel.FK_Rep_Comment">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Rep" EntitySet="Reps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rep_Users" Association="DataShareCodeModel.FK_Rep_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Rep" EntitySet="Reps" />
-          </AssociationSet>
-          <EntitySet Name="Chats" EntityType="DataShareCodeModel.Chat" />
-          <EntitySet Name="Oders" EntityType="DataShareCodeModel.Oder" />
-          <AssociationSet Name="FK_Oders_Codes" Association="DataShareCodeModel.FK_Oders_Codes">
-            <End Role="Code" EntitySet="Codes" />
-            <End Role="Oder" EntitySet="Oders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Oders_Users" Association="DataShareCodeModel.FK_Oders_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Oder" EntitySet="Oders" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="FK_Groups_Codes">
-          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Group" Role="Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Code">
-              <PropertyRef Name="code_id" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="code_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Groups_Users">
-          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Group" Role="Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TakePrice">
-          <Key>
-            <PropertyRef Name="tp_id" />
-          </Key>
-          <Property Name="tp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="tp_coin" Type="Int32" />
-          <Property Name="tp_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="tp_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tp_active" Type="Int32" />
-          <Property Name="tp_customer" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="tp_accountnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="TakePrice" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_TakePrices_Users">
-          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.TakePrice" Role="TakePrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="TakePrice">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="comment_id" />
-          </Key>
-          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="code_id" Type="Int32" />
-          <Property Name="comment_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="comment_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="news_id" Type="Int32" />
-          <NavigationProperty Name="Code" Relationship="DataShareCodeModel.FK_Comment_Codes" FromRole="Comment" ToRole="Code" />
-          <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="Comment" ToRole="News" />
-          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
-          <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Comment" ToRole="Rep" />
-          <Property Name="comment_dateupdate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Rep">
-          <Key>
-            <PropertyRef Name="rep_id" />
-          </Key>
-          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="comment_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="rep_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="rep_datecreate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Comment" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Rep" ToRole="Comment" />
-          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="Rep" ToRole="User" />
-          <Property Name="rep_dateupdate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <Association Name="FK_Comment_Codes">
-          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Code">
-              <PropertyRef Name="code_id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="code_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_News">
-          <End Type="DataShareCodeModel.News" Role="News" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="News">
-              <PropertyRef Name="news_id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="news_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_Users">
-          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rep_Comment">
-          <End Type="DataShareCodeModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Rep" Role="Rep" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comment">
-              <PropertyRef Name="comment_id" />
-            </Principal>
-            <Dependent Role="Rep">
-              <PropertyRef Name="comment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rep_Users">
-          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Rep" Role="Rep" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Rep">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Chat">
-          <Key>
-            <PropertyRef Name="chat_id" />
-          </Key>
-          <Property Name="chat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="id_send" Type="Int32" />
-          <Property Name="chat_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Oder">
-          <Key>
-            <PropertyRef Name="oder_id" />
-          </Key>
-          <Property Name="oder_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="id_coder" Type="Int32" />
-          <Property Name="oder_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="code_id" Type="Int32" />
-          <NavigationProperty Name="Code" Relationship="DataShareCodeModel.FK_Oders_Codes" FromRole="Oder" ToRole="Code" />
-          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Oders_Users" FromRole="Oder" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Oders_Codes">
-          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Oder" Role="Oder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Code">
-              <PropertyRef Name="code_id" />
-            </Principal>
-            <Dependent Role="Oder">
-              <PropertyRef Name="code_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Oders_Users">
-          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataShareCodeModel.Oder" Role="Oder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Oder">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DataShareCodeModelStoreContainer" CdmEntityContainer="DataShareCodeEntities">
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Banner">
+              <MappingFragment StoreEntitySet="Banners">
+                <ScalarProperty Name="banner_id" ColumnName="banner_id" />
+                <ScalarProperty Name="banner_title" ColumnName="banner_title" />
+                <ScalarProperty Name="banner_image" ColumnName="banner_image" />
+                <ScalarProperty Name="banner_link" ColumnName="banner_link" />
+                <ScalarProperty Name="banner_datecreate" ColumnName="banner_datecreate" />
+                <ScalarProperty Name="banner_active" ColumnName="banner_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="DataShareCodeModel.Bill">
               <MappingFragment StoreEntitySet="Bills">
-                <ScalarProperty Name="bill_dealine" ColumnName="bill_dealine" />
                 <ScalarProperty Name="bill_id" ColumnName="bill_id" />
                 <ScalarProperty Name="bill_datecreate" ColumnName="bill_datecreate" />
                 <ScalarProperty Name="pakege_id" ColumnName="pakege_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="bill_active" ColumnName="bill_active" />
+                <ScalarProperty Name="bill_dealine" ColumnName="bill_dealine" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categorys">
             <EntityTypeMapping TypeName="DataShareCodeModel.Category">
               <MappingFragment StoreEntitySet="Categorys">
-                <ScalarProperty Name="category_img" ColumnName="category_img" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="category_active" ColumnName="category_active" />
                 <ScalarProperty Name="category_item" ColumnName="category_item" />
+                <ScalarProperty Name="category_img" ColumnName="category_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chats">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Chat">
+              <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="chat_id" ColumnName="chat_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="chat_content" ColumnName="chat_content" />
+                <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
+                <ScalarProperty Name="id_send" ColumnName="id_send" />
+                <ScalarProperty Name="chat_key" ColumnName="chat_key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Codes">
             <EntityTypeMapping TypeName="DataShareCodeModel.Code">
               <MappingFragment StoreEntitySet="Codes">
-                <ScalarProperty Name="code_img" ColumnName="code_img" />
                 <ScalarProperty Name="code_id" ColumnName="code_id" />
                 <ScalarProperty Name="code_title" ColumnName="code_title" />
                 <ScalarProperty Name="code_coin" ColumnName="code_coin" />
@@ -1139,6 +1187,20 @@
                 <ScalarProperty Name="code_pass" ColumnName="code_pass" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="code_img" ColumnName="code_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="comment_content" ColumnName="comment_content" />
+                <ScalarProperty Name="comment_datecreate" ColumnName="comment_datecreate" />
+                <ScalarProperty Name="news_id" ColumnName="news_id" />
+                <ScalarProperty Name="comment_dateupdate" ColumnName="comment_dateupdate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1157,18 +1219,17 @@
           <EntitySetMapping Name="Languages">
             <EntityTypeMapping TypeName="DataShareCodeModel.Language">
               <MappingFragment StoreEntitySet="Languages">
-                <ScalarProperty Name="language_view" ColumnName="language_view" />
-                <ScalarProperty Name="language_img" ColumnName="language_img" />
                 <ScalarProperty Name="language_id" ColumnName="language_id" />
                 <ScalarProperty Name="language_name" ColumnName="language_name" />
                 <ScalarProperty Name="language_active" ColumnName="language_active" />
+                <ScalarProperty Name="language_img" ColumnName="language_img" />
+                <ScalarProperty Name="language_view" ColumnName="language_view" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="DataShareCodeModel.News">
               <MappingFragment StoreEntitySet="News">
-                <ScalarProperty Name="news_img" ColumnName="news_img" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="news_name" ColumnName="news_name" />
                 <ScalarProperty Name="news_view" ColumnName="news_view" />
@@ -1180,6 +1241,18 @@
                 <ScalarProperty Name="news_active" ColumnName="news_active" />
                 <ScalarProperty Name="news_option" ColumnName="news_option" />
                 <ScalarProperty Name="news_del" ColumnName="news_del" />
+                <ScalarProperty Name="news_img" ColumnName="news_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="oder_id" ColumnName="oder_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id_coder" ColumnName="id_coder" />
+                <ScalarProperty Name="oder_datecreate" ColumnName="oder_datecreate" />
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1190,6 +1263,43 @@
                 <ScalarProperty Name="pakage_coin" ColumnName="pakage_coin" />
                 <ScalarProperty Name="pakage_money" ColumnName="pakage_money" />
                 <ScalarProperty Name="pakage_active" ColumnName="pakage_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reps">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Rep">
+              <MappingFragment StoreEntitySet="Rep">
+                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="rep_content" ColumnName="rep_content" />
+                <ScalarProperty Name="rep_datecreate" ColumnName="rep_datecreate" />
+                <ScalarProperty Name="rep_dateupdate" ColumnName="rep_dateupdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataShareCodeModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TakePrices">
+            <EntityTypeMapping TypeName="DataShareCodeModel.TakePrice">
+              <MappingFragment StoreEntitySet="TakePrices">
+                <ScalarProperty Name="tp_id" ColumnName="tp_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />
+                <ScalarProperty Name="tp_datecreate" ColumnName="tp_datecreate" />
+                <ScalarProperty Name="tp_note" ColumnName="tp_note" />
+                <ScalarProperty Name="tp_active" ColumnName="tp_active" />
+                <ScalarProperty Name="tp_accountnumber" ColumnName="tp_accountnumber" />
+                <ScalarProperty Name="tp_customer" ColumnName="tp_customer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1228,79 +1338,6 @@
                 <ScalarProperty Name="user_view" ColumnName="user_view" />
                 <ScalarProperty Name="user_facode" ColumnName="user_facode" />
                 <ScalarProperty Name="user_pass" ColumnName="user_pass" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DataShareCodeModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TakePrices">
-            <EntityTypeMapping TypeName="DataShareCodeModel.TakePrice">
-              <MappingFragment StoreEntitySet="TakePrices">
-                <ScalarProperty Name="tp_accountnumber" ColumnName="tp_accountnumber" />
-                <ScalarProperty Name="tp_customer" ColumnName="tp_customer" />
-                <ScalarProperty Name="tp_active" ColumnName="tp_active" />
-                <ScalarProperty Name="tp_note" ColumnName="tp_note" />
-                <ScalarProperty Name="tp_datecreate" ColumnName="tp_datecreate" />
-                <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="tp_id" ColumnName="tp_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="DataShareCodeModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="comment_dateupdate" ColumnName="comment_dateupdate" />
-                <ScalarProperty Name="news_id" ColumnName="news_id" />
-                <ScalarProperty Name="comment_datecreate" ColumnName="comment_datecreate" />
-                <ScalarProperty Name="comment_content" ColumnName="comment_content" />
-                <ScalarProperty Name="code_id" ColumnName="code_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reps">
-            <EntityTypeMapping TypeName="DataShareCodeModel.Rep">
-              <MappingFragment StoreEntitySet="Rep">
-                <ScalarProperty Name="rep_dateupdate" ColumnName="rep_dateupdate" />
-                <ScalarProperty Name="rep_datecreate" ColumnName="rep_datecreate" />
-                <ScalarProperty Name="rep_content" ColumnName="rep_content" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Chats">
-            <EntityTypeMapping TypeName="DataShareCodeModel.Chat">
-              <MappingFragment StoreEntitySet="Chats">
-                <ScalarProperty Name="chat_key" ColumnName="chat_key" />
-                <ScalarProperty Name="id_send" ColumnName="id_send" />
-                <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
-                <ScalarProperty Name="chat_content" ColumnName="chat_content" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="chat_id" ColumnName="chat_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Oders">
-            <EntityTypeMapping TypeName="DataShareCodeModel.Oder">
-              <MappingFragment StoreEntitySet="Oders">
-                <ScalarProperty Name="code_id" ColumnName="code_id" />
-                <ScalarProperty Name="oder_datecreate" ColumnName="oder_datecreate" />
-                <ScalarProperty Name="id_coder" ColumnName="id_coder" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="oder_id" ColumnName="oder_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
