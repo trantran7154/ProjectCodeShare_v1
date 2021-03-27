@@ -9,6 +9,7 @@ using CodeShare.Model;
 using CodeShare.Frontend.Models;
 using CodeShare.Frontend.Functions;
 using CodeShare.Frontend.ViewModels;
+using CodeShare.Common;
 
 namespace CodeShare.Frontend.Controllers
 {
@@ -177,6 +178,67 @@ namespace CodeShare.Frontend.Controllers
             TempData["noti_resetpass"] = "Mật khẩu không đúng!";
             return View(resetPasword);
         }
-        
+
+        //Sửa ảnh
+        public ActionResult EditImages(HttpPostedFileBase IMG)
+        {
+            var coo = new FunctionsController();
+            var id = coo.CookieID();
+            User user = db.Users.Find(id.user_id);
+
+            if (IMG == null)
+            {
+                user.user_img = id.user_img;
+            }
+            else
+            {
+                var code = Guid.NewGuid().ToString();
+                var img = new ImagesController();
+                img.AddImages(IMG, Common.Links.IMG_USERS, code);
+                user.user_img = code + IMG.FileName;
+            }
+
+            db.SaveChanges();
+            return Redirect("/Users/Info");
+        }
+        //Sửa cho tất cả
+        public JsonResult EditAll(string name, Nullable<bool> sex, string phone)
+        {
+            var co = new FunctionsController();
+            var id = co.CookieID();
+
+            User user = db.Users.Find(id.user_id);
+
+            if(name != null)
+            {
+                user.user_name = name;
+            }
+            else if(sex != null)
+            {
+                user.user_sex = sex;
+            }
+            else if (phone != null)
+            {
+                user.user_phone = phone;
+            }
+            else
+            {
+
+            }
+            db.SaveChanges();
+
+            var list = from item in db.Users
+                       where item.user_id == id.user_id
+                       select new
+                       {
+                           id = item.user_id,
+                           birth = item.user_birth,
+                           name = item.user_name,
+                           sex = item.user_sex,
+                           phone = item.user_phone
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

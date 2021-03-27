@@ -48,6 +48,7 @@ namespace CodeShare.Model.EF
         public Nullable<int> user_view { get; set; }
         public string user_facode { get; set; }
         public string user_pass { get; set; }
+        public string user_img { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }

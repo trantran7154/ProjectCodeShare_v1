@@ -25,7 +25,11 @@ namespace CodeShare.Frontend.Controllers
             var list = from item in db.Users
                        where item.user_id == id.user_id
                        select new { 
-                            id = item.user_id
+                            id = item.user_id,
+                            birth = item.user_birth.ToString(),
+                            name = item.user_name,
+                            sex = item.user_sex,
+                            phone = item.user_phone
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }

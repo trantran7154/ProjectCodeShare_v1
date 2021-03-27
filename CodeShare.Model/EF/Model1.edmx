@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Banners">
           <Key>
             <PropertyRef Name="banner_id" />
@@ -213,6 +213,7 @@
           <Property Name="user_view" Type="int" />
           <Property Name="user_facode" Type="nvarchar(max)" />
           <Property Name="user_pass" Type="nvarchar(max)" />
+          <Property Name="user_img" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakages" Multiplicity="0..1" />
@@ -536,8 +537,7 @@
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -787,6 +787,7 @@
           <NavigationProperty Name="Reps" Relationship="Self.FK_Rep_Users" FromRole="Users" ToRole="Rep" />
           <NavigationProperty Name="TakePrices" Relationship="Self.FK_TakePrices_Users" FromRole="Users" ToRole="TakePrices" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
+          <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -1318,6 +1319,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataShareCodeModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_img" ColumnName="user_img" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_email" ColumnName="user_email" />
                 <ScalarProperty Name="user_phone" ColumnName="user_phone" />
