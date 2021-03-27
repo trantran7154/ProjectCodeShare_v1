@@ -25,6 +25,7 @@ namespace CodeShare.Model.EF
             this.TakePrices = new HashSet<TakePrice>();
             this.Comments = new HashSet<Comment>();
             this.Reps = new HashSet<Rep>();
+            this.Oders = new HashSet<Oder>();
         }
     
         public int user_id { get; set; }
@@ -64,5 +65,7 @@ namespace CodeShare.Model.EF
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rep> Reps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Oder> Oders { get; set; }
     }
 }

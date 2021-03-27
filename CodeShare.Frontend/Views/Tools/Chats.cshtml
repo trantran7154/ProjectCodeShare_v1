@@ -177,7 +177,7 @@
                                    ' <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>' +
                                     '<div class="pr-2 pl-1">' +
                                         '<span class="name">Sarah Anderson</span>' +
-                                            '<p class="msg">'+model.content+'</p >'+
+                                            '<p class="msg">'+model.chat_content+'</p >'+
                                     '</div>' +
                                 '</div>'
                             );
@@ -193,7 +193,7 @@
             $http({
                 method: "GET",
                 url: "/Tools/Create?content=" + content
-                    + "&idModel" + id
+                    + "&id=" + id
             }).then(function mySuccess(response) {
                 $scope.list = response.data;
             }, function myError(response) {

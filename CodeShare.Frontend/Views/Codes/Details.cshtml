@@ -1,8 +1,13 @@
 ﻿@using CodeShare.Model.EF;
+@using CodeShare.Frontend.Functions;
 @model Code
 
 @{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    FunctionsController functions = new FunctionsController();
     ViewBag.Title = "Details";
+
+    List<Oder> oder = db.Oders.ToList();
 }
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
@@ -56,7 +61,24 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <button class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                    @if (functions.Cookie() != null)
+                                    {
+                                        var id = functions.CookieID();
+                                        if (id.user_id == Model.user_id)
+                                        {
+                                            <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">Code của bạn</button>
+
+                                        }
+                                        else
+                                        {
+                                            <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                    }
                                     <button class="btn btn-default float-right font-weight-bold mt-3 w-100" style="font-size: 20px; height: 70px">DEMO</button>
                                 </div>
                             </div>
@@ -138,16 +160,102 @@
                             *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
                         </p>
                     </div>
-                    <div class="col-lg-12 mt-3">
-                        <div style="padding: 10px">
+                    <div class="col-lg-12 mt-3" id="pay">
+                        <div style="padding: 20px">
                             <div class="row border">
                                 <div class="col-lg-6">
                                     <h3>LINK DOWNLOAD</h3>
                                 </div>
                                 <div class="col-lg-6">
                                     <div style="padding: 20px">
-                                        Pass giải nén (Nếu có): baotran99 <br />
-                                        <button class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                        Pass giải nén (Nếu có): @(Model.code_coin > 0 ? "Mua code để có mật khẩu" : "baotran99") <br />
+                                        @if (Model.code_coin == 0)
+                                        {
+                                            <button onclick="window.location.href = '@Model.code_linkdown'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                        }
+                                        else
+                                        {
+                                            if (functions.Cookie() != null)
+                                            {
+                                                var id = functions.CookieID();
+                                                if (id.user_id == Model.user_id)
+                                                {
+                                                    <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">Code của bạn</button>
+
+                                                }
+                                                else
+                                                {
+
+                                                    if (oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id).Count() != 0)
+                                                    {
+                                                        foreach (var item in oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id))
+                                                        {
+                                                            <button onclick="window.location.href = '/Codes/DetailsCodeSell?id=@item.oder_id'" data-toggle="modal" data-target="#coin" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>THÔNG TIN CODE</button>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <button data-toggle="modal" data-target="#coin" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                                    }
+
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                                <button data-toggle="modal" data-target="#coin" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                            }
+                                            if (functions.Cookie() != null)
+                                            {
+                                                var id = functions.CookieID();
+                                                <div class="modal fade" id="coin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-success">
+                                                                <center>
+                                                                    <h5 class="font-weight-bold text-white" id="exampleModalLabel">DOWNLOAD SOURCE CODE</h5>
+                                                                </center>
+                                                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>
+                                                                    <i class="fa fa-user">&nbsp;</i>@id.user_name &nbsp;&nbsp;
+                                                                    <i class="fa fa-envelope">&nbsp;</i>@id.user_email &nbsp;&nbsp;
+                                                                    <b class="text-danger">Số xu khả dụng: </b>@id.user_coin xu &nbsp;&nbsp;
+                                                                </center>
+                                                                <hr />
+                                                                <center style="font-size: 24px">
+                                                                    <b>Khả dụng:</b> @id.user_coin xu <br />
+                                                                    <b>Download code:</b> @Model.code_coin xu <br />
+                                                                    <div>--------------------------------------------------</div>
+                                                                    @if (id.user_coin >= Model.code_coin)
+                                                                    {
+                                                                        <b>Đã đủ:</b> <span>@Model.code_coin xu <br /></span>
+                                                                        <br />
+                                                                        <button class="btn btn-danger" onclick="window.location.href='/Codes/PayCode?coder=@Model.user_id&id=@Model.code_id'" style="font-size: 19px">Download code này</button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b>Còn thiếu:</b> <span>@(Model.code_coin - id.user_coin) xu <br /></span>
+                                                                        <br />
+                                                                        <button class="btn btn-danger" style="font-size: 19px">Nạp tiền vào tài khoản</button>
+                                                                    }
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        <br />
+                                        <br />
+                                        <br />
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +314,14 @@
                                         <b>Code miển phí: </b> 0 <br />
                                         <b>Code có phí: </b> 0 <br />
 
-                                        <button class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                        @if (functions.Cookie() != null)
+                                        {
+                                            <button onclick="window.location.href='/Tools/Chats/@Model.user_id'" class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                        }
+                                        else
+                                        {
+                                            <button onclick="" class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                        }
                                         <button class="btn btn-danger"><i class="fa fa-heart"></i>&nbsp;Follow</button>
                                     </td>
                                 </tr>

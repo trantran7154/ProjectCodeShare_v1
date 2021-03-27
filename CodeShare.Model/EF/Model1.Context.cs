@@ -39,5 +39,6 @@ namespace CodeShare.Model.EF
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Rep> Reps { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
+        public virtual DbSet<Oder> Oders { get; set; }
     }
 }

@@ -27,11 +27,17 @@ namespace CodeShare.Frontend.Controllers
 
             var cookie = functions.CookieID();
 
+            User idtake = db.Users.Find(id);
+
+            var key = cookie.user_id + "key" + idtake.user_id+cookie.user_email.Substring(0,4)+idtake.user_email.Substring(0,4);
+
             Chat chat = new Chat
             {
                 chat_content = content,
                 chat_datecreate = DateTime.Now,
-                user_id = id
+                user_id = id,
+                id_send = cookie.user_id,
+                chat_key = key
             };
             db.Chats.Add(chat);
             db.SaveChanges();
@@ -41,6 +47,12 @@ namespace CodeShare.Frontend.Controllers
         public JsonResult Get(int? id)
         {
             var cookie = functions.CookieID();
+
+            User idsend = db.Users.Find(cookie.user_id);
+            User idtake = db.Users.Find(id);
+
+            var key = idsend.user_id + "key" + idtake.user_id + idsend.user_email.Substring(0, 4) + idtake.user_email.Substring(0, 4);
+            var key2 = idtake.user_id  + "key" + idsend.user_id + idtake.user_email.Substring(0, 4) + idsend.user_email.Substring(0, 4);
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataShareCode"].ConnectionString))
             {
@@ -59,9 +71,7 @@ namespace CodeShare.Frontend.Controllers
 
                     SqlDataReader reader = command.ExecuteReader();
 
-
-
-                    List<Chat> Chat = db.Chats.Where(n=>n.user_id == id && n.id_send == cookie.user_id).OrderByDescending(n=>n.chat_datecreate).ToList();
+                    List<Chat> Chat = db.Chats.Where(n => n.chat_key == key || n.chat_key == key2).OrderByDescending(n=>n.chat_datecreate).ToList();
 
                     return Json(new { listChat = Chat }, JsonRequestBehavior.AllowGet);
 

@@ -101,6 +101,9 @@
     <Compile Include="EF\News.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Oder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Pakage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

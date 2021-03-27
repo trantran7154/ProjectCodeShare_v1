@@ -30,7 +30,7 @@
                     </div>
                     <div class="user_box ml-auto mt-2">
                         <div class="dropdown text-white">
-                            <div class="dropdown-toggle user_box_link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div style="cursor: pointer" class="dropdown-toggle user_box_link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @users.user_name &nbsp;<img src="~/Images/Users/notimg.png" style="border-radius: 50%; height: 25px; width: 25px" />
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -38,6 +38,9 @@
                                 <a class="dropdown-item" href="@Url.Action("Index","Pays")"><i class="fa fa-bitcoin"></i> Nạp xu</a>
                                 <a class="dropdown-item" href="@Url.Action("TakePrice","Pays")"><i class="fas fa-money"></i> Rút tiền</a>
                                 <a class="dropdown-item" href="@Url.Action("Index","Codes")"><i class="fa fa-code"></i> Quản lý code</a>
+                                <a class="dropdown-item" href="@Url.Action("IndexCodeOder","Codes")"><i class="fa fa-code"></i> Quản lý code mua</a>
+                                <a class="dropdown-item" href="@Url.Action("IndexCodeSell","Codes")"><i class="fa fa-code"></i> Quản lý code đã bán</a>
+                                <a class="dropdown-item" href="@Url.Action("Index","CodesPay")"><i class="fa fa-code"></i> Quản lý rút tiền</a>
                                 <a class="dropdown-item" href="@Url.Action("Create","Codes")"><i class="fa fa-upload"></i> Đăng code</a>
                                 <a class="dropdown-item" href="@Url.Action("History","Pays")"><i class="fa fa-history"></i> Lịch sử thanh toán</a>
                                 <a class="dropdown-item" href="@Url.Action("ResetPassword","Users")"><i class="fa fa-user"></i> Đổi mật khẩu</a>

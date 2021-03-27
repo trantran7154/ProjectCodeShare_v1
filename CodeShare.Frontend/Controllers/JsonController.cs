@@ -113,6 +113,50 @@ namespace CodeShare.Frontend.Controllers
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        //Quản lý code mua
+
+        public JsonResult CodesOder()
+        {
+            var co = new FunctionsController();
+            var id = co.CookieID();
+
+            var oders = from item in db.Oders
+                        where item.user_id == id.user_id
+                        orderby item.oder_datecreate descending
+                        select new {
+                            id = item.code_id,
+                            img = item.Code.code_img,
+                            title = item.Code.code_title,
+                            coin = item.Code.code_coin,
+                            date = item.oder_datecreate.ToString(),
+                            coder = item.User.user_name,
+                            sum = item.Code.code_coin * 1000
+                        };
+            return Json(oders, JsonRequestBehavior.AllowGet);
+        }
+        //Quản lý code bán
+        public JsonResult CodesSell()
+        {
+            var co = new FunctionsController();
+            var id = co.CookieID();
+
+            var oders = from item in db.Oders
+                        where item.id_coder == id.user_id
+                        orderby item.oder_datecreate descending
+                        select new
+                        {
+                            id = item.code_id,
+                            img = item.Code.code_img,
+                            title = item.Code.code_title,
+                            coin = item.Code.code_coin,
+                            date = item.oder_datecreate.ToString(),
+                            coder = item.User.user_name,
+                            sum = item.Code.code_coin * 1000,
+                            buy = item.User.user_name
+                        };
+            return Json(oders, JsonRequestBehavior.AllowGet);
+        }
+        //Quản lý rút tiền
 
     }
 }

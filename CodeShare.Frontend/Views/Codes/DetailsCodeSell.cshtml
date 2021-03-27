@@ -1,0 +1,101 @@
+﻿@using CodeShare.Model.EF;
+@model Oder
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Chi tiết code <span class="text-danger">@Model.Code.code_title</span></h6>
+                    <table class="table">
+                        <tr>
+                            <td><b>Mật khẩu giải nén:</b> </td>
+                            <td>
+                                @(Model.Code.code_pass == null ? "Không có mật khẩu" : Model.Code.code_pass)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Link donwload:</b> </td>
+                            <td>
+                                <a target="_blank" href="@Model.Code.code_linkdown">Tải ngay</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Link demo:</b> </td>
+                            <td>
+                                <a target="_blank" href="@Model.Code.code_linkdemo">Xem ngay</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Số xu mua:</b> </td>
+                            <td>
+                                <b>@Model.Code.code_coin xu</b> <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Số tiền mua:</b> </td>
+                            <td>
+                                <b>@(Model.Code.code_coin * 1000) VNĐ</b> <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Người bán:</b> </td>
+                            <td>
+                                @Model.Code.User.user_name
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Email:</b> </td>
+                            <td>
+                                @Model.Code.User.user_email
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Số điện thoại:</b> </td>
+                            <td>
+                                @Model.Code.User.user_phone
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Hướng dẫn cài đặt:</b> </td>
+                            <td>
+                                @Html.Raw(Model.Code.code_setting)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Chi tiết code:</b> </td>
+                            <td>
+                                <a href="/Codes/Details/@Model.code_id">Xem ngay</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/CodesSell"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+

@@ -12,13 +12,15 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Chat
+    public partial class Oder
     {
-        public int chat_id { get; set; }
+        public int oder_id { get; set; }
         public Nullable<int> user_id { get; set; }
-        public string chat_content { get; set; }
-        public Nullable<System.DateTime> chat_datecreate { get; set; }
-        public Nullable<int> id_send { get; set; }
-        public string chat_key { get; set; }
+        public Nullable<int> id_coder { get; set; }
+        public Nullable<System.DateTime> oder_datecreate { get; set; }
+        public Nullable<int> code_id { get; set; }
+    
+        public virtual Code Code { get; set; }
+        public virtual User User { get; set; }
     }
 }

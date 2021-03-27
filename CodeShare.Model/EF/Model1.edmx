@@ -35,6 +35,7 @@
           <Property Name="chat_content" Type="nvarchar(max)" />
           <Property Name="chat_datecreate" Type="datetime" />
           <Property Name="id_send" Type="int" />
+          <Property Name="chat_key" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -73,6 +74,7 @@
           <Property Name="comment_content" Type="nvarchar(max)" />
           <Property Name="comment_datecreate" Type="datetime" />
           <Property Name="news_id" Type="int" />
+          <Property Name="comment_dateupdate" Type="datetime" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -112,6 +114,16 @@
           <Property Name="news_del" Type="bit" />
           <Property Name="news_img" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Oders">
+          <Key>
+            <PropertyRef Name="oder_id" />
+          </Key>
+          <Property Name="oder_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="id_coder" Type="int" />
+          <Property Name="oder_datecreate" Type="datetime" />
+          <Property Name="code_id" Type="int" />
+        </EntityType>
         <EntityType Name="Pakages">
           <Key>
             <PropertyRef Name="pakege_id" />
@@ -130,6 +142,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="rep_content" Type="nvarchar(max)" />
           <Property Name="rep_datecreate" Type="datetime" />
+          <Property Name="rep_dateupdate" Type="datetime" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -334,6 +347,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Oders_Codes">
+          <End Role="Codes" Type="Self.Codes" Multiplicity="0..1" />
+          <End Role="Oders" Type="Self.Oders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Codes">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Oders">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Oders" Type="Self.Oders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Oders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rep_Comment">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Rep" Type="Self.Rep" Multiplicity="*" />
@@ -403,6 +440,7 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oders" EntityType="Self.Oders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rep" EntityType="Self.Rep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -456,6 +494,14 @@
           <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oders_Codes" Association="Self.FK_Oders_Codes">
+            <End Role="Codes" EntitySet="Codes" />
+            <End Role="Oders" EntitySet="Oders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oders_Users" Association="Self.FK_Oders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Oders" EntitySet="Oders" />
           </AssociationSet>
           <AssociationSet Name="FK_Rep_Comment" Association="Self.FK_Rep_Comment">
             <End Role="Comment" EntitySet="Comment" />
@@ -538,6 +584,7 @@
           <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Groups" Relationship="DataShareCodeModel.FK_Groups_Codes" FromRole="Code" ToRole="Group" />
           <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Codes" FromRole="Code" ToRole="Comment" />
+          <NavigationProperty Name="Oders" Relationship="DataShareCodeModel.FK_Oders_Codes" FromRole="Code" ToRole="Oder" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -639,6 +686,7 @@
           <NavigationProperty Name="TakePrices" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="User" ToRole="TakePrice" />
           <NavigationProperty Name="Comments" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="User" ToRole="Rep" />
+          <NavigationProperty Name="Oders" Relationship="DataShareCodeModel.FK_Oders_Users" FromRole="User" ToRole="Oder" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -831,6 +879,15 @@
             <End Role="Rep" EntitySet="Reps" />
           </AssociationSet>
           <EntitySet Name="Chats" EntityType="DataShareCodeModel.Chat" />
+          <EntitySet Name="Oders" EntityType="DataShareCodeModel.Oder" />
+          <AssociationSet Name="FK_Oders_Codes" Association="DataShareCodeModel.FK_Oders_Codes">
+            <End Role="Code" EntitySet="Codes" />
+            <End Role="Oder" EntitySet="Oders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oders_Users" Association="DataShareCodeModel.FK_Oders_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Oder" EntitySet="Oders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -906,6 +963,7 @@
           <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_Comment_News" FromRole="Comment" ToRole="News" />
           <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
           <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Comment" ToRole="Rep" />
+          <Property Name="comment_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Rep">
           <Key>
@@ -918,6 +976,7 @@
           <Property Name="rep_datecreate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comment" Relationship="DataShareCodeModel.FK_Rep_Comment" FromRole="Rep" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="Rep" ToRole="User" />
+          <Property Name="rep_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Comment_Codes">
           <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
@@ -988,7 +1047,44 @@
           <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
           <Property Name="id_send" Type="Int32" />
+          <Property Name="chat_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Oder">
+          <Key>
+            <PropertyRef Name="oder_id" />
+          </Key>
+          <Property Name="oder_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="id_coder" Type="Int32" />
+          <Property Name="oder_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="code_id" Type="Int32" />
+          <NavigationProperty Name="Code" Relationship="DataShareCodeModel.FK_Oders_Codes" FromRole="Oder" ToRole="Code" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Oders_Users" FromRole="Oder" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Oders_Codes">
+          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Oder" Role="Oder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Code">
+              <PropertyRef Name="code_id" />
+            </Principal>
+            <Dependent Role="Oder">
+              <PropertyRef Name="code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oders_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Oder" Role="Oder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Oder">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1163,6 +1259,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="DataShareCodeModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="comment_dateupdate" ColumnName="comment_dateupdate" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="comment_datecreate" ColumnName="comment_datecreate" />
                 <ScalarProperty Name="comment_content" ColumnName="comment_content" />
@@ -1175,6 +1272,7 @@
           <EntitySetMapping Name="Reps">
             <EntityTypeMapping TypeName="DataShareCodeModel.Rep">
               <MappingFragment StoreEntitySet="Rep">
+                <ScalarProperty Name="rep_dateupdate" ColumnName="rep_dateupdate" />
                 <ScalarProperty Name="rep_datecreate" ColumnName="rep_datecreate" />
                 <ScalarProperty Name="rep_content" ColumnName="rep_content" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -1186,11 +1284,23 @@
           <EntitySetMapping Name="Chats">
             <EntityTypeMapping TypeName="DataShareCodeModel.Chat">
               <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="chat_key" ColumnName="chat_key" />
                 <ScalarProperty Name="id_send" ColumnName="id_send" />
                 <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
                 <ScalarProperty Name="chat_content" ColumnName="chat_content" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="chat_id" ColumnName="chat_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oders">
+            <EntityTypeMapping TypeName="DataShareCodeModel.Oder">
+              <MappingFragment StoreEntitySet="Oders">
+                <ScalarProperty Name="code_id" ColumnName="code_id" />
+                <ScalarProperty Name="oder_datecreate" ColumnName="oder_datecreate" />
+                <ScalarProperty Name="id_coder" ColumnName="id_coder" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="oder_id" ColumnName="oder_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
