@@ -22,29 +22,11 @@ namespace CodeShare.Frontend.Controllers
         {
             var co = new FunctionsController();
             var id = co.CookieID();
-            List<User> users = db.Users.Where(n => n.user_id == id.user_id).ToList();
-            List<jUsers> list = users.Select(n => new jUsers
-            {
-                active = (int)n.user_active,
-                birth = n.user_birth.Value.ToLongDateString(),
-                code = n.user_code,
-                coin = (int)n.user_coin,
-                datecreate = n.user_datecreate.Value.ToLongDateString(),
-                dateupdate = n.user_dateupdate.Value.ToLongDateString(),
-                del = n.user_del,
-                email = n.user_email,
-                fa = n.user_fa,
-                facode = n.user_facode,
-                id = n.user_id,
-                name = n.user_name,
-                none = n.user_none,
-                option = n.user_option,
-                phone = n.user_phone,
-                role = (int)n.user_role,
-                sex = n.user_sex,
-                token = n.user_token,
-                view = (int)n.user_view
-            }).ToList();
+            var list = from item in db.Users
+                       where item.user_id == id.user_id
+                       select new { 
+                            id = item.user_id
+                       };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         //Danh sách code

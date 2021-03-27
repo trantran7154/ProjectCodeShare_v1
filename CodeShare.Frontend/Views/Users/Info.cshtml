@@ -13,18 +13,6 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow">
                 <form action="@Url.Action("Edit", "Users")" method="post" enctype="multipart/form-data" style="padding: 10px">
-                    @Html.AntiForgeryToken();
-                    @Html.HiddenFor(x => x.user_id)
-                    @Html.HiddenFor(x => x.user_active)
-                    @Html.HiddenFor(x => x.user_option)
-                    @Html.HiddenFor(x => x.user_del)
-                    @Html.HiddenFor(x => x.user_datecreate)
-                    @Html.HiddenFor(x => x.user_code)
-                    @Html.HiddenFor(x => x.user_coin)
-                    @Html.HiddenFor(x => x.user_pass)
-                    @Html.HiddenFor(x => x.user_token)
-                    @Html.HiddenFor(x => x.user_email)
-
                     <h6 class="" style="color: black; font-size: 25px">Thông tin cá nhân</h6>
                     <p>
                         Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của ShareThis.
@@ -58,33 +46,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
-                                <label>Nhập ảnh:</label>
-                                <input name="IMG" value="{{list.img}}" type="file" class="btn btn-danger" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                TÊN
-                            </td>
-                            <td>
-                                Bảo Trân
-                            </td>
-                            <td class="text-right">
-                                <i class="fa fa-angle-right"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <label>Nhập tên:</label>
-                                <input name="user_name" value="{{list.name}}" type="text" class="form-control" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 NGÀY SINH
                             </td>
@@ -93,14 +54,6 @@
                             </td>
                             <td class="text-right">
                                 <i class="fa fa-angle-right"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <label>Nhập ngày sinh :</label>
-                                <input name="user_dateofbirth" value="{{list.date}}" type="text" class="form-control" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
                             </td>
                         </tr>
                         <tr>
@@ -120,17 +73,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
-                                <label>Chọn giới tính :</label>
-                                <select name="user_sex" class="form-control">
-                                    <option value="true">Nam</option>
-                                    <option value="false">Nữ</option>
-                                </select>
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 SỐ ĐIỆN THOẠI
                             </td>
@@ -139,14 +81,6 @@
                             </td>
                             <td class="text-right">
                                 <i class="fa fa-angle-right"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <label>Nhập số điện thoại :</label>
-                                <input name="user_phone" value="{{list.phone}}" type="text" class="form-control" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
                             </td>
                         </tr>
                         <tr>
