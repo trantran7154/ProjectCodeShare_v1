@@ -61,17 +61,25 @@ namespace CodeShare.Frontend.Controllers
         {
             var coo = new FunctionsController();
             var id = coo.CookieID();
-
-            var tag = "";
-            foreach (var item in tags)
+            if(id == null)
             {
-                tag += item + ";";
+                return Redirect("/User/Login");
             }
-            codes.code_tag = tag;
-            codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
-            codesDAO.Create(codes, language);
+            if (ModelState.IsValid)
+            {
+                var tag = "";
+                foreach (var item in tags)
+                {
+                    tag += item + ";";
+                }
+                codes.code_tag = tag;
+                codes.code_img = images.UpLoadImages(img, null, "Codes");
+                codesDAO.Create(codes, language);
 
-            return View();
+                return RedirectToAction("MyCodes");
+            }
+
+            return View(codes);
         }
 
         public PartialViewResult GetCategoryList(int? codeid)
@@ -104,7 +112,7 @@ namespace CodeShare.Frontend.Controllers
                     tag += item + ";";
                 }
                 codes.code_tag = tag;
-                codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
+                codes.code_img = images.UpLoadImages(img, codes.code_img, "Codes");
                 codesDAO.Edit(codes, language);
             }
             return View();

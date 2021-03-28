@@ -41,7 +41,7 @@ namespace CodeShare.Frontend.Controllers
                 }
                 news.news_tag = tag;
                 news.user_id = id.user_id;
-                news.news_img = images.AddImages(img, "News", Guid.NewGuid().ToString());
+                news.news_img = images.UpLoadImages(img, null, "News");
                 newsDao.Create(news);
 
                 return RedirectToAction("Index");
@@ -69,7 +69,7 @@ namespace CodeShare.Frontend.Controllers
                 }
                 news.news_tag = tag;
                 news.user_id = id.user_id;
-                news.news_img = images.AddImages(img, "News", Guid.NewGuid().ToString());
+                news.news_img = images.UpLoadImages(img, news.news_img, "News");
                 newsDao.Edit(news);
 
                 return RedirectToAction("Index");
