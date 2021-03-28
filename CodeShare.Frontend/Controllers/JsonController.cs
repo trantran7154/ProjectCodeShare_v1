@@ -29,7 +29,8 @@ namespace CodeShare.Frontend.Controllers
                             birth = item.user_birth.ToString(),
                             name = item.user_name,
                             sex = item.user_sex,
-                            phone = item.user_phone
+                            phone = item.user_phone,
+                            fa = item.user_fa
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -151,6 +152,33 @@ namespace CodeShare.Frontend.Controllers
                           where tp.user_id == idus.user_id
                           select new { id = tp.tp_id, user_id = tp.user_id, tp_coin = tp.tp_coin, tp_note = tp.tp_note, tp_active = tp.tp_active, tp_accountnumber = tp.tp_accountnumber, tp_customer = tp.tp_customer };
             return Json(history, JsonRequestBehavior.AllowGet);
+        }
+        //Quản lý ngôn ngữ
+        public JsonResult Language()
+        {
+            var list = from item in db.Languages
+                          select new {
+                              id = item.language_id,
+                              name = item.language_name
+                          };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        //Quản lý fa
+        public JsonResult FavouriteLa()
+        {
+            var coo = new FunctionsController();
+            var idus = coo.CookieID();
+
+            var list = from item in db.Groups
+                       where item.group_item == Common.Common.ITEM_LANGUAGE_USER && item.user_id == idus.user_id
+                       select new
+                       {
+                           id = item.language_id,
+                           idus = item.user_id,
+                           item = item.group_item,
+                           name = item.Language.language_name
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

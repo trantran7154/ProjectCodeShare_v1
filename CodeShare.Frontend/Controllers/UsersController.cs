@@ -202,7 +202,7 @@ namespace CodeShare.Frontend.Controllers
             return Redirect("/Users/Info");
         }
         //Sửa cho tất cả
-        public JsonResult EditAll(string name, Nullable<bool> sex, string phone)
+        public JsonResult EditAll(string name, Nullable<bool> sex, string phone, string fa)
         {
             var co = new FunctionsController();
             var id = co.CookieID();
@@ -221,6 +221,10 @@ namespace CodeShare.Frontend.Controllers
             {
                 user.user_phone = phone;
             }
+            else if(fa != null)
+            {
+                user.user_fa = fa;
+            }
             else
             {
 
@@ -235,7 +239,35 @@ namespace CodeShare.Frontend.Controllers
                            birth = item.user_birth,
                            name = item.user_name,
                            sex = item.user_sex,
-                           phone = item.user_phone
+                           phone = item.user_phone,
+                           fa = item.user_fa
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        //Yeu thích code
+        public JsonResult FaCode(int ? id)
+        {
+            var co = new FunctionsController();
+            var idus = co.CookieID();
+
+            Group group = new Group()
+            {
+                user_id = idus.user_id,
+                language_id = id,
+                group_item = Common.Common.ITEM_LANGUAGE_USER
+                
+            };
+            db.Groups.Add(group);
+            db.SaveChanges();
+
+            var list = from item in db.Groups
+                       where item.group_item == Common.Common.ITEM_LANGUAGE_USER && item.user_id == idus.user_id
+                       select new
+                       {
+                           id = item.language_id,
+                           idus = item.user_id,
+                           item = item.group_item,
+                           name = item.Language.language_name
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
