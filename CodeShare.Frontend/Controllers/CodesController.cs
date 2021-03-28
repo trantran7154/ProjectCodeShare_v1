@@ -73,6 +73,7 @@ namespace CodeShare.Frontend.Controllers
                     tag += item + ";";
                 }
                 codes.code_tag = tag;
+                codes.user_id = id.user_id;
                 codes.code_img = images.UpLoadImages(img, null, "Codes");
                 codesDAO.Create(codes, language);
 
