@@ -1,7 +1,369 @@
-﻿
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Code
+
 @{
-    ViewBag.Title = "Edit";
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = Model.code_title;
+
 }
+<style>
+    .menu {
+        opacity: inherit;
+    }
 
-<h2>Edit</h2>
+    .ui.multiple.search.dropdown > input.search {
+        height: auto;
+    }
 
+    .tags {
+    }
+</style>
+<style>
+    .file-upload {
+        background-color: #ffffff;
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-btn {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        background: #1FB264;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #15824B;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .file-upload-btn:hover {
+            background: #1AA059;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+    .file-upload-content {
+        display: none;
+        text-align: center;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 4px dashed #1FB264;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            background-color: #1FB264;
+            border: 4px dashed #ffffff;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: #222;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: #15824B;
+            padding: 60px 0;
+        }
+
+    .file-upload-image {
+    }
+
+    .remove-image {
+        width: 200px;
+        margin: 0;
+        color: #fff;
+        background: #cd4535;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #b02818;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .remove-image:hover {
+            background: #c13b2a;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .remove-image:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+</style>
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow">
+                <div style="padding: 10px">
+                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Chia sẻ hoặc đăng bán Source Code</h6>
+                    <p>
+                        ShareThis sẽ phải duyệt code của bạn trong thời gian sớm nhất. Tránh tình trạng đăng code lỗi, code độc.
+                    </p>
+                    <form class="ui form" style="color: #5f6368; font-size: 18px" method="post" enctype="multipart/form-data" action="@Url.Action("Create","Codes")">
+                        @Html.AntiForgeryToken()
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Ảnh đại diện <b class="text-danger">*</b></label>
+                                <style>
+                                    .hv:hover {
+                                        border: 1px dashed green;
+                                    }
+                                </style>
+                                <img data-toggle="modal" class="hv file-upload-image" data-target="#img" src="~/Images/Codes/notimg.png" style="width: 100%; height: 250px; cursor: pointer" />
+                            </div>
+                            <div class="field">
+                                <br />
+                                <i class="fa fa-check-circle text-success">&nbsp;</i> Ảnh đẹp sẽ giúp code có nhiều lượt xem <br />
+                                <i class="fa fa-check-circle text-success">&nbsp;</i> Ảnh đẹp sẽ giúp bạn SEO tốt
+
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Tiêu đề chính: <b class="text-danger">*</b></label>
+                            <p>Tiêu để để rõ nội dung của code, không được để chung chung. Một tiêu đề hay, tỷ lệ SEO sẽ càng cao. VD: Code game c#, Website wordpress bán điện thoại,...</p>
+                            <input type="text" name="code_title" placeholder="Tiêu để không quá 80 ký tự">
+                            <p class="text-danger">Quyết định SEO 90%</p>
+                        </div>
+                        <div class="field">
+                            <style>
+                                .ui.form .field > .selection.dropdown {
+                                    height: 0px;
+                                }
+
+                                .ck.ck-editor__editable_inline > :last-child {
+                                    height: 200px;
+                                }
+                            </style>
+
+                            <label>Phân loại code: <b class="text-danger">*</b></label>
+                            <select class="ui fluid search dropdown" multiple="" name="language">
+                                <option value="">Chọn phân loại code</option>
+                                @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                {
+                                    <option value="@item.language_id">@item.language_name</option>
+                                }
+                            </select>
+                            <p class="text-danger">Chọn tối đa 5 danh mục</p>
+                        </div>
+                        <div class="field">
+                            <label>Mô tả code: <b class="text-danger">*</b></label>
+                            <textarea name="code_info" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
+                        </div>
+                        <div class="field">
+                            <label>Danh mục: <b class="text-danger">*</b></label>
+                            <select class="ui fluid dropdown" name="category_id">
+                                <option value="">Danh mục</option>
+                                @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                {
+                                    <option value="@item.category_id">@item.category_name</option>
+                                }
+                            </select>
+                            <p class="text-danger">Chọn tối đa 5 danh mục</p>
+                        </div>
+                        <div class="field">
+                            <label>Link download: <b class="text-danger">*</b></label>
+                            <input type="text" name="code_linkdown" placeholder="Link dùng để thành viên khác download code">
+                            <p class="text-danger">Khi code có phí, sau khi bán thành công thì mới hiển thị link code này</p>
+                        </div>
+                        <div class="field">
+                            <label>Link Demo:</label>
+                            <input type="text" name="code_linkdemo" placeholder="Link demo nếu có">
+                        </div>
+                        <div class="field">
+                            <label>Password giải nén:</label>
+                            <input type="text" name="code_pass" placeholder="Password giải nén nếu có">
+                        </div>
+                        <div class="field">
+                            <label>Dung lượng file:</label>
+                            <input type="text" name="code_disk" placeholder="Dung lượng file">
+                            <p class="text-danger">Nếu để trống mặc định sẽ là không xác định</p>
+                        </div>
+                        <div class="field">
+                            <label>Mô tả chi tiết: <b class="text-danger">*</b></label>
+                            <textarea name="code_des" class="form-control" id="mt"></textarea>
+                            <script>
+                                ClassicEditor
+                                    .create(document.querySelector('#mt'))
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            </script>
+                        </div>
+                        <div class="field">
+                            <label>Hướng dẫn cài đặt: <b class="text-danger">*</b></label>
+                            <textarea class="form-control" id="cd" name="code_setting"></textarea>
+                            <script>
+                                ClassicEditor
+                                    .create(document.querySelector('#cd'))
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            </script>
+                        </div>
+                        <div class="field">
+                            <style>
+                                .ui.form .field > .selection.dropdown {
+                                    height: 0px;
+                                }
+
+                                .ck.ck-editor__editable_inline > :last-child {
+                                    height: 200px;
+                                }
+                            </style>
+
+                            <label>Tag: <b class="text-danger">*</b></label>
+                            <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="tags">
+                                <option value="">Tag</option>
+
+                            </select>
+                            @*<a href="#" id="sele">click</a>*@
+
+                            <p class="text-danger">Chọn tối đa 5 danh mục</p>
+                        </div>
+                        <style>
+                            #cr {
+                                overflow-y: auto;
+                                height: 100px;
+                            }
+                        </style>
+                        <div id="cr">
+                            - Mọi thông tin của thành viên đăng tải trên diễn đàn sharethis phải chính xác. <br />
+                            - Mọi source code khi upload đã được build phải đảm bảo chạy tốt, mô tả đầy đủ thông tin và đúng như hình ảnh đính kèm. <br />
+                            - Nội dung file nén đã được kiểm tra, đảm bảo không chứa tệp tin không khả dụng, độc hại, virus hoặc bất cứ liên kết khác... <br />
+                            - File chứa code có đầy đủ file chạy, thông tin chi tiết về source, hướng dẫn cài đặt và tài khoản đăng nhập chi tiết. <br />
+                            - Cam kết hỗ trợ hoặc fix lỗi nếu code >= 100Xu (Code chất lượng), khi người mua liên lạc qua email hoặc số điện thoại của bạn. <br />
+                            - Tất cả source code bị báo cáo vi phạm bản quyền nếu được ban quản trị xác nhận là đúng, source code sẽ bị xóa bỏ. <br />
+                            - Source code đã upload lên sharecode.vn là thành viên upload đã đồng ý cho phép các thành viên download và sử dụng.
+                        </div>
+                        <div class="inline field mt-2">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="terms">
+                                <label class="font-weight-bold text-danger">Tôi đã đọc và đồng ý với các điều khoản của ShareThis</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger">Tải lên ngay</button>
+
+                        <div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
+
+                                            <div class="image-upload-wrap">
+                                                <input name="img" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                                <div class="drag-text">
+                                                    <h3>Ảnh code đẹp! SEO TỐT </h3>
+                                                </div>
+                                            </div>
+                                            <div class="file-upload-content">
+                                                <img class="file-upload-image" src="#" alt="your image" style="width: 100%" />
+                                                <div class="image-title-wrap">
+                                                    <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh <span class="image-title">Uploaded Image</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+                $('.image-title').html(input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            removeUpload();
+        }
+    }
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
+
+
+
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>
+
+<script>
+    $(".ui.fluid.search.dropdown.tag.selection.multiple").on("keyup", function (e) {
+
+        var val = $(".ui.fluid.search.dropdown.tag.selection.multiple input.search").val();
+        debugger
+        if (e.keyCode == 13) {
+            $("input.search").val("");
+            $('#code_tag').append('<option value="' + val + '" selected>' + val + '</option>');
+        }
+    })
+</script>

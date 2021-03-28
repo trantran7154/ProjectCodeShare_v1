@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Security.Claims;
+using System.Web.Helpers;
 
 [assembly: OwinStartupAttribute(typeof(CodeShare.Frontend.Startup))]
 namespace CodeShare.Frontend
@@ -10,6 +12,7 @@ namespace CodeShare.Frontend
         {
             ConfigureAuth(app);
             app.MapSignalR();
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
         }
     }
 }
