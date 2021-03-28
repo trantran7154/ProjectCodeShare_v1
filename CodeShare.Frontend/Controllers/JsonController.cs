@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CodeShare.Model.EF;
 using CodeShare.Frontend.Functions;
 using CodeShare.Frontend.Models;
+using System.Data.Entity.SqlServer;
 
 namespace CodeShare.Frontend.Controllers
 {
@@ -147,6 +148,47 @@ namespace CodeShare.Frontend.Controllers
                           where tp.user_id == idus.user_id
                           select new { id = tp.tp_id, user_id = tp.user_id, tp_coin = tp.tp_coin, tp_note = tp.tp_note, tp_active = tp.tp_active, tp_accountnumber = tp.tp_accountnumber, tp_customer = tp.tp_customer };
             return Json(history, JsonRequestBehavior.AllowGet);
+        }
+
+        // All Code
+        public JsonResult AllCode()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var code = from c in db.Codes
+                       where c.code_active == 1 && c.code_del == false && c.code_option == true
+                       select new
+                       {
+                           active = c.code_active,
+                           code = c.code_code,
+                           coin = c.code_coin,
+                           datecreate = c.code_datecreate.ToString(),
+                           dateupdate = c.code_dateupdate.ToString(),
+                           del = c.code_del,
+                           des = c.code_des,
+                           disk = c.code_disk,
+                           id = c.code_id,
+                           id_cate = c.category_id,
+                           id_us = c.user_id,
+                           info = c.code_info,
+                           linkdemo = c.code_linkdemo,
+                           linkdown = c.code_linkdown,
+                           option = c.code_option,
+                           pass = c.code_pass,
+                           setting = c.code_setting,
+                           tag = c.code_tag,
+                           title = c.code_title,
+                           view = c.code_view,
+                           viewdown = c.code_viewdown,
+                           img = c.code_img,
+                           groupp = c.Groups.Select(t => t.Language.language_name)
+                       };
+            return Json(code, JsonRequestBehavior.AllowGet);
+        }
+
+        public string NameCategory(int? id)
+        {
+
+            return "aaaa";
         }
     }
 }

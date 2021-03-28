@@ -14,6 +14,31 @@ namespace CodeShare.Frontend.Controllers
         CodesDao codesDAO = new CodesDao();
         ImagesController images = new ImagesController();
         // GET: Codes
+        public ActionResult Index(string key)
+        {
+
+            if (key == "1")
+            {
+                ViewBag.key = "list.coin > 200";
+            }
+            else if (key == "2")
+            {
+                ViewBag.key = "list.coin > 0 && list.coin < 201";
+            }
+            else if (key == "3")
+            {
+                ViewBag.key = "list.coin == 0";
+            }
+            else
+            {
+                ViewBag.key = key;
+            }
+            return View();
+        }
+        public ActionResult MyCodes()
+        {
+            return View();
+        }
         public PartialViewResult NewSourceCodes()
         {
             return PartialView();
@@ -82,10 +107,6 @@ namespace CodeShare.Frontend.Controllers
                 codes.code_img = images.AddImages(img, "Codes", Guid.NewGuid().ToString());
                 codesDAO.Edit(codes, language);
             }
-            return View();
-        }
-        public ActionResult Index()
-        {
             return View();
         }
         public ActionResult PayCode(int ? coder, int? id)
