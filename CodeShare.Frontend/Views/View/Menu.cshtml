@@ -1,4 +1,9 @@
-﻿<style>
+﻿@using CodeShare.Model
+
+@{ 
+    CodeShare.Model.EF.DataShareCodeEntities db = new CodeShare.Model.EF.DataShareCodeEntities();
+}
+<style>
     .main_nav_container {
         margin-right: 56px;
     }
@@ -26,13 +31,16 @@
                         <li class="main_nav_item dropdown">
                             <a href="#" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">danh mục</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <a class="dropdown-item"><i class="fa fa-code text-primary" style="font-weight: bold"></i>&nbsp;&nbsp;C#</a>
+                                @foreach (var item in db.Languages.Where(x => x.language_active == 1))
+                                {
+                                    <a href="@Url.Action("Index", "Codes", new { key = item.language_name})" class="dropdown-item"><i class="fa fa-code text-primary" style="font-weight: bold"></i>&nbsp;&nbsp;@item.language_name</a>
+                                }
                             </div>
                         </li>
-                        <li class="main_nav_item"><a href="about.html">top code</a></li>
-                        <li class="main_nav_item"><a href="offers.html">code chất lượng</a></li>
-                        <li class="main_nav_item"><a href="blog.html">code tham khảo</a></li>
-                        <li class="main_nav_item"><a href="contact.html">code miễn phí</a></li>
+                        <li class="main_nav_item"><a href="@Url.Action("Index", "Codes", new { sort = "topcode"})">top code</a></li>
+                        <li class="main_nav_item"><a href="@Url.Action("Index", "Codes", new { key = 1})">code chất lượng</a></li>
+                        <li class="main_nav_item"><a href="@Url.Action("Index", "Codes", new { key = 2})">code tham khảo</a></li>
+                        <li class="main_nav_item"><a href="@Url.Action("Index", "Codes", new { key = 3})">code miễn phí</a></li>
                     </ul>
                 </div>
                 <div class="content_search ml-lg-0 ml-auto">

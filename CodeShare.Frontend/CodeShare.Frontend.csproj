@@ -1563,7 +1563,7 @@
     <Content Include="Views\Codes\Create.cshtml" />
     <Content Include="Views\Codes\Details.cshtml" />
     <Content Include="Views\Codes\GetCategoryList.cshtml" />
-    <Content Include="Views\Codes\Index.cshtml" />
+    <Content Include="Views\Codes\MyCodes.cshtml" />
     <Content Include="Views\Codes\NewSourceCodes.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -1592,6 +1592,7 @@
     <Content Include="Views\Codes\IndexCodeSell.cshtml" />
     <Content Include="Views\Codes\DetailsCodeSell.cshtml" />
     <Content Include="Views\Pays\HistoryTakePrice.cshtml" />
+    <Content Include="Views\Codes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
