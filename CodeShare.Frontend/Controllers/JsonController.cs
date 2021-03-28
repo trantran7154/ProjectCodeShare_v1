@@ -49,7 +49,7 @@ namespace CodeShare.Frontend.Controllers
                 dateupdate = n.code_dateupdate.ToString(),
                 del = n.code_del,
                 des = n.code_des,
-                disk = (int)n.code_disk,
+                disk = (int)(n.code_disk == null ? 0 : n.code_disk),
                 id = n.code_id,
                 id_cate = (int)n.category_id,
                 id_us = (int)n.user_id,

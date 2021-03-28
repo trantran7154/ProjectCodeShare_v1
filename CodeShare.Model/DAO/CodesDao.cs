@@ -16,7 +16,8 @@ namespace CodeShare.Model.DAO
 
         // Hàm thêm
         public bool Create(Code codes, string[] tags)
-        {   
+        {
+            Random r = new Random();
             try
             {
                 // add code
@@ -24,7 +25,11 @@ namespace CodeShare.Model.DAO
                 codes.code_dateupdate = DateTime.Now;
                 codes.code_active = 2;
                 codes.code_del = false;
+                codes.code_view = 0;
+                codes.code_viewdown = 0;
                 codes.code_option = true;
+                codes.code_coin = 0;
+                codes.code_code = "CODE-" + r.Next().ToString();
 
                 db.Codes.Add(codes);
                 db.SaveChanges();
