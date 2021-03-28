@@ -213,6 +213,7 @@
           <Property Name="user_view" Type="int" />
           <Property Name="user_facode" Type="nvarchar(max)" />
           <Property Name="user_pass" Type="nvarchar(max)" />
+          <Property Name="user_img" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakages" Multiplicity="0..1" />
@@ -786,6 +787,7 @@
           <NavigationProperty Name="Reps" Relationship="Self.FK_Rep_Users" FromRole="Users" ToRole="Rep" />
           <NavigationProperty Name="TakePrices" Relationship="Self.FK_TakePrices_Users" FromRole="Users" ToRole="TakePrices" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
+          <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -1317,6 +1319,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataShareCodeModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_img" ColumnName="user_img" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_email" ColumnName="user_email" />
                 <ScalarProperty Name="user_phone" ColumnName="user_phone" />

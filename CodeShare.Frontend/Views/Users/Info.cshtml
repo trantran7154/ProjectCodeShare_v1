@@ -12,13 +12,13 @@
     <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
         <div class="row">
             <div class="col-lg-8 bg-white border shadow">
-                <form action="@Url.Action("Edit", "Users")" method="post" enctype="multipart/form-data" style="padding: 10px">
+                <div style="padding: 10px">
                     <h6 class="" style="color: black; font-size: 25px">Thông tin cá nhân</h6>
                     <p>
                         Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của ShareThis.
                     </p>
-                    <table class="table" style="color: #5f6368; font-size: 16px; cursor: pointer" ng-repeat="list in list">
-                        <tr>
+                    <table class="table" style="color: #5f6368; font-size: 16px; cursor: pointer" ng-repeat="list in list" id="default">
+                        <tr data-toggle="modal" data-target="#img">
                             <td>
                                 ẢNH
                             </td>
@@ -31,10 +31,58 @@
                                         border: 1px dashed green;
                                     }
                                 </style>
-                                <img src="~/Images/Users/notimg.png" style="width: 35px; height: 35px; border-radius: 50%" class="hv" />
+                                @if (Model.user_img == null)
+                                {
+                                    <img data-toggle="modal" data-target="#img" src="~/Images/Users/notimg.png" style="width: 35px; height: 35px; border-radius: 50%" class="hv" />
+                                }
+                                else
+                                {
+                                    <img data-toggle="modal" data-target="#img" src="~/Images/Users/@Model.user_img" style="width: 35px; height: 35px; border-radius: 50%" class="hv" />
+                                }
+                                <!-- Modal -->
+                                <div class="modal fade" id="img" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-success">
+                                                <h5 class="modal-title text-white" id="exampleModalLabel">Thay đổi ảnh cá nhân</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="@Url.Action("EditImages","Users")" enctype="multipart/form-data" method="post">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <img data-toggle="modal" data-target="#img" id="output_image" src="~/Images/Users/notimg.png" style="width: 100%; height: 200px;" class="hv" />
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input name="IMG" accept="image/*" onchange="preview_image(event)" type="file" class="form-control shadow" style="height: 130px; border: 1px solid green" />
+                                                            <p class="text-danger">Chọn hình ảnh cá nhân và bấm thay đổi ảnh.</p>
+                                                        </div>
+                                                        <script>
+                                                            function preview_image(event) {
+                                                                var reader = new FileReader();
+                                                                reader.onload = function () {
+                                                                    var output = document.getElementById('output_image');
+                                                                    output.src = reader.result;
+                                                                }
+                                                                reader.readAsDataURL(event.target.files[0]);
+                                                            }
+                                                        </script>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-image">&nbsp;</i>Thay đổi ảnh cá nhân</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="cursor: not-allowed">
                             <td>
                                 EMAIL
                             </td>
@@ -45,18 +93,32 @@
                                 <i class="fa fa-angle-right"></i>
                             </td>
                         </tr>
-                        <tr>
+                        <tr ng-click="name()" style="cursor: pointer">
                             <td>
-                                NGÀY SINH
+                                TÊN HIỂN THỊ
                             </td>
                             <td>
-                                <span>{{list.dateofbirth}}</span>
+                                {{list.name}}
                             </td>
                             <td class="text-right">
                                 <i class="fa fa-angle-right"></i>
                             </td>
                         </tr>
-                        <tr>
+                        <tr ng-click="birth()">
+                            <td>
+                                NGÀY SINH
+                            </td>
+                            <td>
+                                <span ng-show="list.birth == null">
+                                    Cập nhật ngày sinh
+                                </span>
+                                <span ng-show="list.birth != null">{{list.birth | date:'dd MMMM yyyy hh : mm'}}</span>
+                            </td>
+                            <td class="text-right">
+                                <i class="fa fa-angle-right"></i>
+                            </td>
+                        </tr>
+                        <tr ng-click="sex()">
                             <td>
                                 GIỚI TÍNH
                             </td>
@@ -72,12 +134,17 @@
                                 <i class="fa fa-angle-right"></i>
                             </td>
                         </tr>
-                        <tr>
+                        <tr ng-click="phone()">
                             <td>
                                 SỐ ĐIỆN THOẠI
                             </td>
                             <td>
-                                {{list.phone}}
+                                <div ng-show="list.phone == null">
+                                    Cập nhật số điện thoại
+                                </div>
+                                <div ng-show="list.phone != null">
+                                    {{list.phone}}
+                                </div>
                             </td>
                             <td class="text-right">
                                 <i class="fa fa-angle-right"></i>
@@ -96,7 +163,70 @@
                             </td>
                         </tr>
                     </table>
-                </form>
+                    <!--Sửa tên hiển thị-->
+                    <table class="table bg-secondary text-white rounded" id="name" ng-repeat="list in list" style="display: none">
+                        <tr>
+                            <td colspan="3">
+                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi tên hiển thị</h3>
+                                <p class="text-white">Tên phải trên 5 ký tự và không vượt quá 50 ký tự. Tên mang ý nghĩa tục tiểu sẽ bị cấm sử dụng tài khoản.</p>
+                                <label class="font-weight-bold">Nhập tên:</label>
+                                <input placeholder="Nhập tên hiển thị" class="form-control" value="{{list.name}}" name="name" />
+                                <br />
+                                <button ng-click="editname()" class="btn btn-danger"><i class="fa fa-save">&nbsp;</i>Chấp nhận</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--Ngày sinh-->
+                    <table class="table bg-secondary text-white rounded" id="birth" ng-repeat="list in list" style="display: none">
+                        <tr>
+                            <td colspan="3">
+                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi ngày sinh</h3>
+                                <p class="text-white">Chọn rõ ngày sinh của bạn.</p>
+                                <label class="font-weight-bold">Chọn ngày sinh:</label>
+                                <input placeholder="" type="date" class="form-control" value="{{list.birth}}" name="birth" />
+                                <br />
+                                <button ng-click="editname()" class="btn btn-danger"><i class="fa fa-save">&nbsp;</i>Chấp nhận</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--Gioi tinh-->
+                    <table class="table bg-secondary text-white rounded" id="sex" ng-repeat="list in list" style="display: none">
+                        <tr>
+                            <td colspan="3">
+                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi giới tính</h3>
+                                <p class="text-white">Đổi giới tính.</p>
+                                <label class="font-weight-bold">Chọn giới tính:</label>
+                                <div ng-show="list.sex == true">
+                                    <select class="form-control" name="sex">
+                                        <option selected value="true">Nam</option>
+                                        <option value="false">Nữ</option>
+                                    </select>
+                                </div>
+                                <div ng-show="list.sex == false">
+                                    <select class="form-control" name="sex">
+                                        <option value="true">Nam</option>
+                                        <option selected value="false">Nữ</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <button ng-click="editsex()" class="btn btn-danger"><i class="fa fa-save">&nbsp;</i>Chấp nhận</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--Phone-->
+                    <table class="table bg-secondary text-white rounded" id="phone" ng-repeat="list in list" style="display: none">
+                        <tr>
+                            <td colspan="3">
+                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi số điện thoại</h3>
+                                <p class="text-white">Đổi điện thoại.</p>
+                                <label class="font-weight-bold">Số điện thoại:</label>
+                                <input placeholder="Nhập số điện thoại" class="form-control" value="{{list.phone}}" name="phone" />
+                                <br />
+                                <button ng-click="editphone()" class="btn btn-danger"><i class="fa fa-save">&nbsp;</i>Chấp nhận</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <div style="padding: 10px">
                     <h6 class="" style="color: black; font-size: 25px">Thông tin khác</h6>
                     <p>
@@ -115,14 +245,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
-                                <label>Nhập yêu thích :</label>
-                                <input name="user_favorite" value="{{list.favorite}}" type="text" class="form-control" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 CODE YÊU THÍCH
                             </td>
@@ -131,14 +253,6 @@
                             </td>
                             <td class="text-right">
                                 <i class="fa fa-angle-right"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <label>Nhập yêu thích :</label>
-                                <input name="user_codefavorite" value="{{list.codefavorite}}" type="text" class="form-control" />
-                                <br />
-                                <button class="btn btn-primary">Lưu</button>
                             </td>
                         </tr>
                         <tr>
@@ -169,6 +283,92 @@
             url: "/Json/Users"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
+
+
+            $scope.name = function () {
+                reset()
+                document.getElementById("name").style = "";
+                document.getElementById("default").style = "display: none";
+            }
+
+            $scope.editname = function () {
+                var name = document.getElementsByName("name")[0].value;
+                reset()
+                $http({
+                    method: "GET",
+                    url: "/Users/EditAll?name=" + name
+                }).then(function mySuccess(response) {
+                    $scope.list = response.data;
+                }, function myError(response) {
+                    $scope.list = response.statusText;
+                });
+
+                document.getElementById("name").style = "display: none";
+                document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
+
+            }
+
+            //sex
+            $scope.sex = function () {
+                reset()
+                document.getElementById("sex").style = "";
+                document.getElementById("default").style = "display: none";
+            }
+            $scope.editsex = function () {
+                var sex = document.getElementsByName("sex")[0].value;
+                reset()
+                $http({
+                    method: "GET",
+                    url: "/Users/EditAll?sex=" + sex
+                }).then(function mySuccess(response) {
+                    $scope.list = response.data;
+                }, function myError(response) {
+                    $scope.list = response.statusText;
+                });
+
+                document.getElementById("name").style = "display: none";
+                document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
+
+            }
+
+            //phone
+            $scope.phone = function () {
+                reset()
+                document.getElementById("phone").style = "";
+                document.getElementById("default").style = "display: none";
+            }
+            $scope.editphone = function () {
+                var phone = document.getElementsByName("phone")[0].value;
+                reset()
+                $http({
+                    method: "GET",
+                    url: "/Users/EditAll?phone=" + phone
+                }).then(function mySuccess(response) {
+                    $scope.list = response.data;
+                }, function myError(response) {
+                    $scope.list = response.statusText;
+                });
+
+                document.getElementById("name").style = "display: none";
+                document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
+
+            }
+
+            $scope.left = function () {
+                reset()
+                document.getElementById("name").style = "display: none";
+                document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
+            }
+
+
+            function reset() {
+                document.getElementById("name").style = "display: none";
+                document.getElementById("birth").style = "display: none";
+                document.getElementById("sex").style = "display: none";
+                document.getElementById("phone").style = "display: none";
+            }
+
+
         }, function myError(response) {
             $scope.list = response.statusText;
         });
