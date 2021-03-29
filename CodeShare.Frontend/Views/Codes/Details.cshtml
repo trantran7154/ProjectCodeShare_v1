@@ -307,54 +307,34 @@
                             margin-bottom: 100px
                         }
                     </style>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" ng-controller="myComment" id="topcomment">
                         <!-- Main Body -->
                         <div class="container d-flex justify-content-center mb-100">
-                            <div class="row">
+                            <div class="row w-100">
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Bình luận cho @Model.code_title</h4>
                                         </div>
                                         <div class="comment-widgets m-b-20">
-                                            <div class="d-flex flex-row comment-row">
-                                                <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+                                            <div class="d-flex flex-row comment-row" ng-repeat="com in com">
+                                                <div ng-show="com.imgid == null" class="p-2"><span class="round"><img src="~/Images/Users/notimg.png" alt="user" width="50"></span></div>
+                                                <div ng-show="com.imgid != null" class="p-2"><span class="round"><img src="~/Images/Users/{{imgid}}" alt="user" width="50"></span></div>
                                                 <div class="comment-text w-100">
-                                                    <h5>Samso Nagaro</h5>
+                                                    <h5>{{com.nameid}}</h5>
                                                     <div class="comment-footer"> <span class="date">April 14, 2019</span> <span class="label label-info">Pending</span> <span class="action-icons"> <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a> <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a> <a href="#" data-abc="true"><i class="fa fa-heart"></i></a> </span> </div>
-                                                    <p class="m-b-5 m-t-10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row comment-row ">
-                                                <div class="p-2"><span class="round"><img src="https://i.imgur.com/tT8rjKC.jpg" alt="user" width="50"></span></div>
-                                                <div class="comment-text active w-100">
-                                                    <h5>Jonty Andrews</h5>
-                                                    <div class="comment-footer"> <span class="date">March 13, 2020</span> <span class="label label-success">Approved</span> <span class="action-icons active"> <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a> <a href="#" data-abc="true"><i class="fa fa-rotate-right text-success"></i></a> <a href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></a> </span> </div>
-                                                    <p class="m-b-5 m-t-10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row comment-row">
-                                                <div class="p-2"><span class="round"><img src="https://i.imgur.com/cAdLHeY.jpg" alt="user" width="50"></span></div>
-                                                <div class="comment-text w-100">
-                                                    <h5>Sarah Tim</h5>
-                                                    <div class="comment-footer"> <span class="date">Jan 20, 2020</span> <span class="label label-danger">Rejected</span> <span class="action-icons"> <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a> <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a> <a href="#" data-abc="true"><i class="fa fa-heart"></i></a> </span> </div>
-                                                    <p class="m-b-5 m-t-10">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row comment-row">
-                                                <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
-                                                <div class="comment-text w-100">
-                                                    <h5>Samso Nagaro</h5>
-                                                    <div class="comment-footer"> <span class="date">March 20, 2020</span> <span class="label label-info">Pending</span> <span class="action-icons"> <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a> <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a> <a href="#" data-abc="true"><i class="fa fa-heart"></i></a> </span> </div>
-                                                    <p class="m-b-5 m-t-10">It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+                                                    <p class="m-b-5 m-t-10">
+                                                        {{com.content}}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="d-flex flex-row mt-2">
-                                        <textarea class="form-control" placeholder="Nhập nội dung! Bấm enter để gửi" style="height: 200px"></textarea>
+                                        <textarea name="content" class="form-control" placeholder="Nhập nội dung! Bấm enter để gửi" style="height: 200px"></textarea>
                                     </div>
+                                    <br />
+                                    <button class="btn btn-danger" ng-click="createcomment(@Model.code_id)"><i class="fa fa-comment"></i>Bình luận</button>
                                 </div>
                             </div>
                         </div>
@@ -496,7 +476,7 @@
                 </b>
             </div>
             <div class="col-lg-3">
-                <button class="btn btn-outline-danger w-100 font-weight-bold mt-3">TẢI CODE NGAY</button>
+                <button class="btn btn-outline-danger w-100 font-weight-bold mt-3" onclick="">TẢI CODE NGAY</button>
             </div>
         </div>
     </div>
@@ -511,6 +491,34 @@
             $scope.list = response.data;
         }, function myError(response) {
             $scope.list = response.statusText;
+        });
+    });
+
+    app.controller('myComment', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/CommentID?id=@Model.code_id"
+        }).then(function mySuccess(response) {
+            $scope.com = response.data;
+            $scope.createcomment = function (id) {
+                var content = document.getElementsByName("content")[0].value;
+                $http({
+                    method: "GET",
+                    url: "/Codes/Comment?content=" + content
+                        + "&id=" + id
+                }).then(function mySuccess(response) {
+                    $scope.com = response.data;
+
+                    document.getElementsByName("content")[0].value = "";
+                    window.location.href = '#pay'
+                    
+
+                }, function myError(response) {
+                    $scope.com = response.statusText;
+                });
+            }
+        }, function myError(response) {
+            $scope.com = response.statusText;
         });
     });
 </script>

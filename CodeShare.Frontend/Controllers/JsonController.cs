@@ -188,11 +188,25 @@ namespace CodeShare.Frontend.Controllers
                        };
             return Json(code, JsonRequestBehavior.AllowGet);
         }
-
-        public string NameCategory(int? id)
+        //Binh luan id code
+        public JsonResult CommentID(int ? id)
         {
+            var list = from item in db.Comments
+                       where item.code_id == id
+                       orderby item.comment_dateupdate descending
+                       select new
+                       {
+                           id = item.comment_id,
+                           idcode = item.code_id,
+                           idus = item.user_id,
+                           date = item.comment_datecreate,
+                           update = item.comment_dateupdate,
+                           content = item.comment_content,
+                           nameid = item.User.user_name,
+                           imgid = item.User.user_img
 
-            return "aaaa";
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

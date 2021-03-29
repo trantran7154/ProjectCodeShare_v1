@@ -190,5 +190,39 @@ namespace CodeShare.Frontend.Controllers
         {
             return View(db.Orders.Find(id));
         }
+        //Bình luận
+        public JsonResult Comment(string content, int ? id)
+        {
+            var coo = new FunctionsController();
+            var idus = coo.CookieID();
+
+            Comment comment = new Comment
+            {
+                code_id = id,
+                comment_content = content,
+                comment_datecreate = DateTime.Now,
+                user_id = idus.user_id
+            };
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+
+            var list = from item in db.Comments
+                       where item.code_id == id
+                       orderby item.comment_dateupdate descending
+                       select new
+                       {
+                           id = item.comment_id,
+                           idcode = item.code_id,
+                           idus = item.user_id,
+                           date = item.comment_datecreate,
+                           update = item.comment_dateupdate,
+                           content = item.comment_content,
+                           nameid = item.User.user_name,
+                           imgid = item.User.user_img
+
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }
