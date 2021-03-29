@@ -29,17 +29,17 @@
                     <br />
                     <table class="table table-bordered text-center table-hover">
                         <tr class="bg-danger text-white font-weight-bold">
-                            <td>Mã code</td>
+                            <td>Mã Code</td>
                             <td>Ảnh</td>
-                            <td>Tiêu đề</td>
-                            <td width="90">Lượt xem</td>
-                            <td width="90">Số xu</td>
-                            <td width="150">Số tiền</td>
-                            <td width="100">Tùy chọn</td>
+                            <td>Tiêu Đề</td>
+                            <td width="90">Lượt Xem</td>
+                            <td width="90">Số Xu</td>
+                            <td width="150">Số Tiền</td>
+                            <td width="100">Tùy Chọn</td>
                         </tr>
                         <tr ng-show="(list | filter: txtSearch).length == 0">
                             <td colspan="7">
-                                <h4><i class="fa fa-ban" style="color: red"></i> Không Có Kết Quả</h4>
+                                <h4><i class="fa fa-ban" style="color: red"></i> KHÔNG TÌM THẤY KẾT QUẢ NÀO</h4>
                             </td>
                         </tr>
                         <tr ng-repeat="list in list | filter: txtSearch">
