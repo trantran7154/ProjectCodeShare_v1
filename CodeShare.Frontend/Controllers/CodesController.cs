@@ -20,14 +20,17 @@ namespace CodeShare.Frontend.Controllers
             if (key == "1")
             {
                 ViewBag.key = "list.coin > 200";
+                ViewBag.name = "CODE CHẤT LƯỢNG";
             }
             else if (key == "2")
             {
                 ViewBag.key = "list.coin > 0 && list.coin < 201";
+                ViewBag.name = "CODE THAM KHẢO";
             }
             else if (key == "3")
             {
                 ViewBag.key = "list.coin == 0";
+                ViewBag.name = "CODE MIỄN PHÍ";
             }
             else
             {

@@ -63,8 +63,8 @@ namespace CodeShare.Frontend.Controllers
                 title = n.code_title,
                 view = (int)n.code_view,
                 viewdown = (int)n.code_viewdown,
-                img = n.code_img
-
+                img = n.code_img,
+                cate_name = n.Category.category_name
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
