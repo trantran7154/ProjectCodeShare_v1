@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Quản lý code cá nhân</h6>
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black">QUẢN LÝ CODE CÁ NHÂN</h3>
                     <p class="text-dark font-weight-bold float-left">
                         <b>Có tổng cộng {{count}} code</b> <br />
                         Có <span class="text-danger">{{(list | filter: txtSearch).length}}</span> code được tìm thấy
@@ -20,7 +20,7 @@
                     <div class="ui float-right">
                         <div class="ui icon input">
                             <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
-                            <i class="search icon"></i>
+                            <i class="search icon text-white"></i>
                         </div>
                         <div class="results"></div>
                     </div>
@@ -39,7 +39,7 @@
                         </tr>
                         <tr ng-show="(list | filter: txtSearch).length == 0">
                             <td colspan="7">
-                                <h4><i class="fa fa-ban"></i> Không Có Kết Quả</h4>
+                                <h4><i class="fa fa-ban" style="color: red"></i> Không Có Kết Quả</h4>
                             </td>
                         </tr>
                         <tr ng-repeat="list in list | filter: txtSearch">
