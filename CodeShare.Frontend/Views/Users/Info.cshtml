@@ -50,7 +50,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="@Url.Action("EditImages","Users")" enctype="multipart/form-data" method="post">
+                                                <form action="@Url.Action("","Users")" enctype="multipart/form-data" method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <img data-toggle="modal" data-target="#img" id="output_image" src="~/Images/Users/notimg.png" style="width: 100%; height: 200px;" class="hv" />
@@ -164,17 +164,6 @@
                                 <i class="fa fa-angle-right"></i>
                             </td>
                         </tr>
-                        @*<tr>
-                            <td>
-                                CODE YÊU THÍCH
-                            </td>
-                            <td>
-                                {{list.codefavorite}}
-                            </td>
-                            <td class="text-right">
-                                <i class="fa fa-angle-right"></i>
-                            </td>
-                        </tr>*@
                         
                     </table>
                     <!--Sửa tên hiển thị-->
@@ -190,20 +179,6 @@
                             </td>
                         </tr>
                     </table>
-                    @*Ngày sinh
-                    <table class="table bg-secondary text-white rounded" id="birth" ng-repeat="list in list" style="display: none">
-                        <tr>
-                            <td colspan="3">
-                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi ngày sinh</h3>
-                                <p class="text-white">Chọn rõ ngày sinh của bạn.</p>
-                                <label class="font-weight-bold">Chọn ngày sinh:</label>
-                                <input placeholder="" type="date" class="form-control" value="{{list.birth}}" name="birth" />
-                                <br />
-                                <button ng-click="editname()" class="btn btn-danger"><i class="fa fa-save">&nbsp;</i>Chấp nhận</button>
-                            </td>
-                        </tr>
-                    </table>*@
-                    <!--Gioi tinh-->
                     <table class="table bg-secondary text-white rounded" id="sex" ng-repeat="list in list" style="display: none">
                         <tr>
                             <td colspan="3">
@@ -253,39 +228,6 @@
                             </td>
                         </tr>
                     </table>
-                    @*<table class="table bg-secondary text-white rounded" id="facode" ng-repeat="list in list"  ng-controller="myFa">
-                        <tr>
-                            <td colspan="3">
-                                <h3 class=""><i class="fa fa-arrow-circle-o-left" style="cursor: pointer" ng-click="left()">&nbsp;</i>Thay đổi ngôn ngữ lập trình yêu thích</h3>
-                                <p class="text-white">Đổi ngôn ngữ lập trình yêu thích.</p>
-                                <label class="font-weight-bold">Phân loại yêu thích:</label>
-                                <select class="form-control" ng-controller="myLa">
-                                    <option value="">Chọn ngôn ngữ yêu thích</option>
-                                    <option ng-repeat="la in la" value="{{la.id}}">{{la.name}}</option>
-                                </select>
-                                <button ng-click="createla()" class="btn btn-success mt-2" style="float: right">Chọn</button>
-                                <br />
-                                <table class="table mt-5">
-                                    <tr class="text-white bg-danger" style="font-weight: bold">
-                                        <td>Phân loại yêu thích</td>
-                                        <td>Tùy chọn</td>
-                                    </tr>
-                                    <tr class="text-dark" ng-show="countfa == 0">
-                                        <td colspan="3">
-                                            Không có yêu thích nào
-                                        </td>
-                                    </tr>
-                                    <tr class="text-dark" ng-show="countfa != 0"  ng-repeat="fa in fa">
-                                        <td>{{fa.name}}</td>
-                                        <td>
-                                            <i class="fa fa-trash text-danger">&nbsp;</i>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <br />
-                            </td>
-                        </tr>
-                    </table>*@
                     <img src="~/Images/Codes/Chụp web_28-3-2021_111122_sharecode.vn.jpeg" class="w-100"/>
                 </div>
             </div>
@@ -306,7 +248,7 @@
 
 
             $scope.name = function () {
-                reset()
+                
                 document.getElementById("name").style = "";
                 document.getElementById("default").style = "display: none";
             }
@@ -330,7 +272,7 @@
 
             //sex
             $scope.sex = function () {
-                reset()
+                
                 document.getElementById("sex").style = "";
                 document.getElementById("default").style = "display: none";
             }
@@ -353,7 +295,7 @@
 
             //phone
             $scope.phone = function () {
-                reset()
+                
                 document.getElementById("phone").style = "";
                 document.getElementById("default").style = "display: none";
             }
@@ -398,12 +340,8 @@
 
 
 
-
-
-
             $scope.left = function () {
                 reset()
-                document.getElementById("name").style = "display: none";
                 document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
             }
 
@@ -413,49 +351,11 @@
                 document.getElementById("birth").style = "display: none";
                 document.getElementById("sex").style = "display: none";
                 document.getElementById("phone").style = "display: none";
-                document.getElementById("fa").style = "display: none";
             }
 
 
         }, function myError(response) {
             $scope.list = response.statusText;
-        });
-    });
-    app.controller('myLa', function ($scope, $http) {
-        $http({
-            method: "GET",
-            url: "/Json/Language"
-        }).then(function mySuccess(response) {
-            $scope.la= response.data;
-        }, function myError(response) {
-            $scope.la = response.statusText;
-        });
-    });
-
-    app.controller('myFa', function ($scope, $http) {
-        $http({
-            method: "GET",
-            url: "/Json/fa"
-        }).then(function mySuccess(response) {
-            $scope.fa = response.data;
-            $scope.countfa = $scope.fa.length;
-
-            $scope.createla = function (id) {
-                $http({
-                    method: "GET",
-                    url: "/Users/FaCode?id=" + id
-                }).then(function mySuccess(response) {
-                   $scope.fa = response.data;
-                }, function myError(response) {
-                    $scope.myWelcome = response.statusText;
-                });
-            }
-
-
-
-
-        }, function myError(response) {
-            $scope.fa = response.statusText;
         });
     });
 </script>
