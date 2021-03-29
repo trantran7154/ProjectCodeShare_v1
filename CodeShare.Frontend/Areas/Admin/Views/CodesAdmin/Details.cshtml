@@ -1,0 +1,187 @@
+﻿@model CodeShare.Model.EF.Code
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Code</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.code_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_coin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_coin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_des)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_des)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_info)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_info)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_setting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_setting)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_viewdown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_viewdown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_linkdemo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_linkdemo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_linkdown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_linkdown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_dateupdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_dateupdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_del)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_del)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_disk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_disk)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.category_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.category_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.code_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

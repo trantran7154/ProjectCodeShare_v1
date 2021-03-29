@@ -1,0 +1,83 @@
+﻿@model CodeShare.Model.EF.TakePrice
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TakePrice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_coin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_coin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_accountnumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_accountnumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_customer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_customer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tp_momo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tp_momo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.tp_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

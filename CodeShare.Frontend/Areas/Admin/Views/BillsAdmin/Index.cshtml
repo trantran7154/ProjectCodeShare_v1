@@ -1,0 +1,80 @@
+﻿@model IEnumerable<CodeShare.Model.EF.Bill>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>Member’s performance</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                    <li><i class="fa fa-window-maximize full-card"></i></li>
+                    <li><i class="fa fa-minus minimize-card"></i></li>
+                    <li><i class="fa fa-refresh reload-card"></i></li>
+                    <li><i class="fa fa-trash close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.bill_datecreate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.bill_active)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.bill_dealine)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Pakage.pakage_money)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.User.user_email)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.bill_datecreate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.bill_active)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.bill_dealine)
+                            </td>
+                            <td>
+                                @(item.Pakage.pakage_coin * 1000) vnđ
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.user_email)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.bill_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.bill_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.bill_id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -177,6 +177,7 @@
           <Property Name="tp_active" Type="int" />
           <Property Name="tp_accountnumber" Type="varchar" MaxLength="50" />
           <Property Name="tp_customer" Type="nvarchar" MaxLength="225" />
+          <Property Name="tp_momo" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Tools">
           <Key>
@@ -740,6 +741,7 @@
           <Property Name="tp_accountnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="tp_customer" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.FK_TakePrices_Users" FromRole="TakePrices" ToRole="Users" />
+          <Property Name="tp_momo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Tool">
           <Key>
@@ -1293,6 +1295,7 @@
           <EntitySetMapping Name="TakePrices">
             <EntityTypeMapping TypeName="DataShareCodeModel.TakePrice">
               <MappingFragment StoreEntitySet="TakePrices">
+                <ScalarProperty Name="tp_momo" ColumnName="tp_momo" />
                 <ScalarProperty Name="tp_id" ColumnName="tp_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="tp_coin" ColumnName="tp_coin" />

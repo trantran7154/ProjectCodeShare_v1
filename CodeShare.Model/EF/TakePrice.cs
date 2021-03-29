@@ -22,6 +22,7 @@ namespace CodeShare.Model.EF
         public Nullable<int> tp_active { get; set; }
         public string tp_accountnumber { get; set; }
         public string tp_customer { get; set; }
+        public string tp_momo { get; set; }
     
         public virtual User User { get; set; }
     }

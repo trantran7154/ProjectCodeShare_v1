@@ -159,7 +159,7 @@
             <!-- Trending Item -->
             @foreach (var item in languages.Where(n => n.language_active == 1).OrderByDescending(n => n.language_view).Take(12))
             {
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6" onclick="window.location.href='@Url.Action("Index", "Codes", new { key = item.language_name})'">
                     <div class="trending_item clearfix">
                         <div class="trending_image"><img style="height: 80px; width: 100%; border-radius: 50%" src="~/Images/Languages/@item.language_img" alt=""></div>
                         <div class="trending_content">
@@ -490,22 +490,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false).OrderByDescending(n => n.code_view))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_view).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -518,22 +536,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin < 99).OrderByDescending(n => n.code_coin))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin > 100).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -546,22 +582,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && n.code_coin > 100 ).OrderByDescending(n => n.code_coin))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin > 50).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -574,22 +628,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_option == true && n.code_bin == false && 2 < n.code_coin && n.code_coin == 0).OrderByDescending(n => n.code_datecreate))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin == 0).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -627,22 +699,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -655,22 +745,40 @@
             </div>
         </div>
         <div class="row">
-            @*@for (int i = 0; i < 16; i++)
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -683,22 +791,40 @@
             </div>
         </div>
         <div class="row">
-            @*@for (int i = 0; i < 16; i++)
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -711,22 +837,40 @@
             </div>
         </div>
         <div class="row">
-            @*@for (int i = 0; i < 16; i++)
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -739,22 +883,40 @@
             </div>
         </div>
         <div class="row">
-            @*@foreach (var item in events.Where(n => n.event_active == true && n.event_bin == false && n.event_option == true).OrderByDescending(n => n.event_datecreate))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-3">
                     <figure class="snip1208">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption>
-                            <h4 class="font-weight-bold">Đồ án code giao diện website tin tức</h4>
-                            <div class="font-weight-bold text-dark">
-                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i> C#
+                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
                             </div>
-                            <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
-                        </figcaption><a href="#"></a>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
                     </figure>
                 </div>
-            }*@
+            }
         </div>
     </div>
 </div>

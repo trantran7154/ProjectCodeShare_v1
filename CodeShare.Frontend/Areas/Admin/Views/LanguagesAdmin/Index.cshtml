@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CodeShare.Model.EF.Language>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>Member’s performance</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                    <li><i class="fa fa-window-maximize full-card"></i></li>
+                    <li><i class="fa fa-minus minimize-card"></i></li>
+                    <li><i class="fa fa-refresh reload-card"></i></li>
+                    <li><i class="fa fa-trash close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive">
+
+
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.language_name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.language_active)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.language_img)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.language_view)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.language_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.language_active)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.language_img)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.language_view)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.language_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.language_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.language_id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

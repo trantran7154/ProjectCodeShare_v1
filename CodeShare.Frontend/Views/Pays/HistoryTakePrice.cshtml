@@ -1,7 +1,119 @@
-﻿
+﻿@using CodeShare.Model.EF
+@using CodeShare.Frontend.Functions
 @{
-    ViewBag.Title = "HistoryTakePrice";
-}
+    var co = new FunctionsController();
+    var idus = co.CookieID();
 
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = "HistoryTakePrice";
+    List<TakePrice> TakePrice = db.TakePrices.ToList();
+}
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black">QUẢN LÝ RÚT TIỀN</h3>
+                    <p class="text-dark font-weight-bold float-left">
+                        <b>Có tổng cộng @TakePrice.Where(n => n.user_id == idus.user_id).Count() </b> hóa đơn <br />
+                        Có <span class="text-danger">@TakePrice.Where(n => n.user_id == idus.user_id).Count()</span> code được tìm thấy
+                    </p>
+                    <div class="ui float-right">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
+                            <i class="search icon text-white"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <table class="table table-bordered text-center table-hover">
+                        <tr class="bg-danger text-white font-weight-bold">
+                            <td>Mã Code</td>
+                            <td>Số tiền rút</td>
+                            <td>Số xu rút</td>
+                            <td>Hình thức rút</td>
+                            <td>Thông tin</td>
+                            <td>Ngày tiến hành</td>
+                            <td>Tình trạng</td>
+                            <td width="100">Tùy Chọn</td>
+                        </tr>
+                        @if (TakePrice.Where(n => n.user_id == idus.user_id).Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    <h4 class="font-weight-bold"><i class="fa fa-ban" style="color: red"></i> KHÔNG TÌM THẤY KẾT QUẢ</h4>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in TakePrice.Where(n => n.user_id == idus.user_id).OrderByDescending(n=>n.tp_datecreate))
+                            {
+                                <tr>
+                                    <td>#HDRT-@item.tp_id</td>
+                                    <td class="font-weight-bold">@(item.tp_coin * 1000) VNĐ</td>
+                                    <td>@item.tp_coin xu</td>
+                                    <td>
+                                        @if (item.tp_momo != null)
+                                        {
+                                            <b>MoMo</b>
+                                        }
+                                        else if (item.tp_accountnumber != null)
+                                        {
+                                            <b>Chuyển khoản</b>
+                                        }
+                                        else
+                                        {
+                                            <b>Cả 2 hình thức</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.tp_momo != null)
+                                        {
+                                            <b>@item.tp_momo</b>
+                                        }
+                                        else if (item.tp_accountnumber != null)
+                                        {
+                                            <b>@item.tp_accountnumber | @item.tp_customer</b>
+                                        }
+                                        else
+                                        {
+                                            <b>Cả 2 hình thức</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @item.tp_datecreate
+                                    </td>
+                                    <td>
+                                        @if (item.tp_active == 2)
+                                        {
+                                            <b class="text-success">Đang duyệt</b>
+                                        }
+                                        else
+                                        {
+                                            <b class="text-danger">Đã duyệt</b>
+                                        }
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
 
 

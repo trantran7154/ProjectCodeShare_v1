@@ -50,7 +50,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="@Url.Action("","Users")" enctype="multipart/form-data" method="post">
+                                                <form action="@Url.Action("EditImages","Users")" enctype="multipart/form-data" method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <img data-toggle="modal" data-target="#img" id="output_image" src="~/Images/Users/notimg.png" style="width: 100%; height: 200px;" class="hv" />
@@ -255,7 +255,6 @@
 
             $scope.editname = function () {
                 var name = document.getElementsByName("name")[0].value;
-                reset()
                 $http({
                     method: "GET",
                     url: "/Users/EditAll?name=" + name
@@ -278,7 +277,6 @@
             }
             $scope.editsex = function () {
                 var sex = document.getElementsByName("sex")[0].value;
-                reset()
                 $http({
                     method: "GET",
                     url: "/Users/EditAll?sex=" + sex
@@ -288,7 +286,7 @@
                     $scope.list = response.statusText;
                 });
 
-                document.getElementById("name").style = "display: none";
+                document.getElementById("sex").style = "display: none";
                 document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
 
             }
@@ -301,7 +299,6 @@
             }
             $scope.editphone = function () {
                 var phone = document.getElementsByName("phone")[0].value;
-                reset()
                 $http({
                     method: "GET",
                     url: "/Users/EditAll?phone=" + phone
@@ -311,7 +308,7 @@
                     $scope.list = response.statusText;
                 });
 
-                document.getElementById("name").style = "display: none";
+                document.getElementById("phone").style = "display: none";
                 document.getElementById("default").style = "color: #5f6368; font-size: 16px; cursor: pointer";
 
             }
