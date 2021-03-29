@@ -194,8 +194,8 @@ namespace CodeShare.Frontend.Controllers
             {
                 var code = Guid.NewGuid().ToString();
                 var img = new ImagesController();
-                img.UpLoadImages(IMG,user.user_img ,Common.Links.IMG_USERS);
-                user.user_img = code + IMG.FileName;
+                var imgd = img.UpLoadImages(IMG,user.user_img ,Common.Links.IMG_USERS);
+                user.user_img = imgd;
             }
 
             db.SaveChanges();
