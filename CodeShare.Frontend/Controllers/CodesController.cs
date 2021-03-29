@@ -60,12 +60,13 @@ namespace CodeShare.Frontend.Controllers
         public ActionResult Create(Code codes, string[] language, string[] tags, HttpPostedFileBase img)
         {
             var coo = new FunctionsController();
-            var id = coo.CookieID();
+            var id = coo.Cookie();
+            var idus = coo.CookieID();
             if(id == null)
             {
                 return Redirect("/User/Login");
             }
-            if (ModelState.IsValid)
+            else
             {
                 var tag = "";
                 foreach (var item in tags)
@@ -73,14 +74,12 @@ namespace CodeShare.Frontend.Controllers
                     tag += item + ";";
                 }
                 codes.code_tag = tag;
-                codes.user_id = id.user_id;
+                codes.user_id = idus.user_id;
                 codes.code_img = images.UpLoadImages(img, null, "Codes");
                 codesDAO.Create(codes, language);
 
                 return RedirectToAction("MyCodes");
             }
-
-            return View(codes);
         }
 
         public PartialViewResult GetCategoryList(int? codeid)
