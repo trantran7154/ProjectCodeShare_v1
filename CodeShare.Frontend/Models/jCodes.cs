@@ -29,5 +29,6 @@ namespace CodeShare.Frontend.Models
         public int id_cate { get; set; }
         public int id_us { get; set; }
         public string img { get; set; }
+        public string cate_name { get; set; }
     }
 }

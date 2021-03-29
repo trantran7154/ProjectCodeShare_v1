@@ -12,7 +12,7 @@
     //List<CategoryGroup> categoryGroup = db.CategoryGroup.ToList();
 }
 
-<link href="~/Content/Layout/Codes/CSS/cards-hover.css" rel="stylesheet" />
+<link href="~/Content/Layout/Codes/CSS/cards.css" rel="stylesheet" />
 <link href="~/Content/Layout/Codes/CSS/girds.css" rel="stylesheet" />
 <link href="~/Content/Layout/Codes/CSS/card-girds.css" rel="stylesheet" />
 <!-- Home -->
@@ -354,7 +354,7 @@
     <div class="container" ng-controller="myCtrl">
         <div class="row">
             <div class="col text-center">
-                <h2 class="section_title text-white">source codes mới nhất</h2>
+                <h2 class="section_title text-white">@ViewBag.name</h2>
                 <p>Source code cập nhật thường xuyên và được xét duyệt kỹ từ admin</p>
             </div>
         </div>
@@ -371,48 +371,53 @@
         <div class="row" id="list">
             <div class="col-md-3 mt-3" ng-repeat="list in list | filter: key">
                 <figure class="snip1208">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample6.jpg" alt="sample6" />
-                    <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">0</span></div><i class="fa fa-search hover text-white"> </i>
-                    <figcaption>
-                        <h4 class="font-weight-bold">{{list.title}} {{list.coin}}</h4>
-                        <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i>
-                        <div ng-repeat="x in list.groupp">
-                            <a href="/Codes/Index?key={{x}}">{{x}}</a>
+                    <img src="~/Images/Codes/{{list.img}}" alt="sample6" height="170" style="width: 100%" />
+                    <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">{{list.view}}</span></div><i class="fa fa-search hover text-white"> </i>
+                    <figcaption style="height: 213px">
+                        <div style="height: 60px">
+                            <h4 class="font-weight-bold fix-line-css">{{list.title}}</h4>
                         </div>
-                        <button class="mt-2 float-right mb-4">Xem Thêm <i class="fa fa-plus"></i></button>
+                        <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                            <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i>
+                            <div ng-repeat="x in list.groupp">
+                                <span><a href="/Codes/Index?key={{x}}" style="position: inherit">{{x}}</a></span>
+                            </div>
+                        </div>
+                        <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
                     </figcaption><a href="/Codes/Details/{{list.id}}"></a>
                 </figure>
             </div>
         </div>
         <div class="row" id="gird" style="display: none">
-            @*@foreach (var item in codes.Where(n => n.code_active == true && n.code_bin == false && n.code_option == true).OrderByDescending(n => n.code_datecreate))
-                {
-                    <div class="container-fluid mb-3">
-                        <div class="d-flex justify-content-center row">
-                            <div class="col-md-10">
-                                <div class="row p-2 bg-white border rounded">
-                                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/QpjAiHq.jpg"></div>
-                                    <div class="col-md-6 mt-1">
-                                        <h5>Quant olap shirts</h5>
-                                        <div class="d-flex flex-row">
-                                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
+            <div ng-repeat="list in list | filter: key">
+                <div class="container-fluid mb-3">
+                    <div class="d-flex justify-content-center row">
+                        <div class="col-md-12">
+                            <div class="row p-2 bg-white border rounded">
+                                <div class="col-md-3 mt-1">
+                                    <img src="~/Images/Codes/{{list.img}}" alt="sample6" height="170" style="width: 100%" class="mt-3 mb-3" />
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <div class="fix-line-css text-dark font-weight-bold mt-1">{{list.title}}</div>
+                                    <div class="font-weight-bold text-dark ml-4 mt-2">
+                                        <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i>
+                                        <div ng-repeat="x in list.groupp">
+                                            <span><a href="/Codes/Index?key={{x}}" style="position: inherit">{{x}}</a></span>
                                         </div>
-                                        <div class="mt-1 mb-1 spec-1"><span>100% cotton</span><span class="dot"></span><span>Light weight</span><span class="dot"></span><span>Best finish<br></span></div>
-                                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For men</span><span class="dot"></span><span>Casual<br></span></div>
-                                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p>
-                                    </div>
-                                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <h4 class="mr-1">$13.99</h4><span class="strike-text">$20.99</span>
-                                        </div>
-                                        <h6 class="text-success">Free shipping</h6>
-                                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button></div>
                                     </div>
                                 </div>
+                                <center class="align-items-center align-content-center col-md-3 border-left mt-3">
+                                    <span class="mt-4 text-dark font-weight-bold"> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> (1)</span>
+                                    <div class="d-flex flex-column mt-4">
+                                        <button class="btn btn-danger font-weight-bold" type="button" style="cursor: not-allowed"><i class="fa fa-eye"></i> {{list.view}}</button>
+                                        <a href="/Codes/Details/{{list.id}}" class="btn btn-outline-success mt-3 font-weight-bold" type="button">XEM THÊM <i class="fa fa-long-arrow-right"></i></a>
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
-                }*@
+                </div>
+            </div>
         </div>
         <script>
             function List() {

@@ -66,7 +66,8 @@
                             </div>
                             <input class="mt-3" type="submit" value="ĐĂNG NHẬP">
                             <div class="clearfix"></div>
-                            <center class="mt-3 font-weight-bold" style="color: red">@ViewBag.Check</center>
+                            <center class="mt-3 font-weight-bold" style="color: red">@TempData["noti_login"]</center>
+                            <div class="ui error message"></div>
                         </form>
                         <footer class="text-center">
                             <fieldset>
@@ -139,8 +140,8 @@
             inline: true,
             on: 'blur',
             fields: {
-                user_email: {
-                    identifier: 'user_email',
+                Email: {
+                    identifier: 'Email',
                     rules: [
                         {
                             type: 'empty',
@@ -152,8 +153,8 @@
                         }
                     ]
                 },
-                user_pass: {
-                    identifier: 'user_pass',
+                Password: {
+                    identifier: 'Password',
                     rules: [
                         {
                             type: 'empty',
