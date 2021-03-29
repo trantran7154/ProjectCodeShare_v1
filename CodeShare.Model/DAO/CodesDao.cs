@@ -28,7 +28,10 @@ namespace CodeShare.Model.DAO
                 codes.code_view = 0;
                 codes.code_viewdown = 0;
                 codes.code_option = true;
-                codes.code_coin = 0;
+                if(codes.code_coin == null)
+                {
+                    codes.code_coin = 0;
+                }
                 codes.code_code = "CODE-" + r.Next().ToString();
 
                 db.Codes.Add(codes);
