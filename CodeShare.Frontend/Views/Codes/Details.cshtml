@@ -5,9 +5,10 @@
 @{
     DataShareCodeEntities db = new DataShareCodeEntities();
     FunctionsController functions = new FunctionsController();
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.code_title;
 
     List<Order> oder = db.Orders.ToList();
+    List<Group> groups = db.Groups.ToList();
 }
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
@@ -17,7 +18,7 @@
     <div class="container" style="max-width: 1500px; font-size: 16px" ng-controller="myCtrl">
         <div class="row">
             <div class="col-lg-9 bg-white border shadow text-dark">
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-lg-4">
                         <div style="padding: 10px">
                             <img src="~/Images/Codes/@Model.code_img" style="width: 100%; height: 280px" />
@@ -29,7 +30,7 @@
                             <hr />
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div style="font-size: 20px"><b class="text-dark">Phí tải:</b> <b class="text-danger">@Model.code_coin XU</b></div>
+                                    <div style="font-size: 20px"><b class="text-dark">PHÍ TẢI:</b> <b class="text-danger">@Model.code_coin XU</b></div>
                                 </div>
                                 <div class="col-lg-6">
                                     <button class="btn btn-danger float-right"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
@@ -39,16 +40,20 @@
                             <div class="row">
                                 <div class="col-lg-7">
                                     <div>
-                                        <b>Danh mục: </b> C#,C++
+                                        <b>Danh mục: </b> @Model.Category.category_name
                                     </div>
                                     <div>
-                                        <b>Thể loại: </b> Website
+                                        <b>Thể loại: </b> 
+                                        @foreach(var item in groups.Where(n => n.code_id == Model.code_id))
+                                        {
+                                            @item.Language.language_name<span>&nbsp;</span>
+                                        }
                                     </div>
                                     <div>
                                         <b>Nhóm code: </b> Code chất lượng
                                     </div>
                                     <div>
-                                        <b>Ngày đăng: </b> @Model.code_datecreate
+                                        <b>Ngày đăng: </b> @Model.code_datecreate.Value.ToString("dd/MM/yyyy")
                                     </div>
                                     <div>
                                         <b>Dung lượng: </b> @Model.code_disk MB
@@ -88,76 +93,41 @@
                         <div style="border: 1px dashed green">
                             <div style="padding: 10px">
                                 <center>
-                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
-                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
-                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
-                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
-                                    <i class="fa fa-check-circle text-success"></i>Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i> Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i> Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i> Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i> Không chứa mã độc &nbsp;&nbsp;
+                                    <i class="fa fa-check-circle text-success"></i> Không chứa mã độc &nbsp;&nbsp;
                                 </center>
                             </div>
                         </div>
                         <hr />
                         <div class="alert alert-success">
-                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng.
+                            @Html.Raw(Model.code_info)
                         </div>
                         <hr />
                         <h3>Mô tả chi tiết</h3>
                         <p style="color: #7e592a">
-                            1.Giới thiệu
-
-                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
-                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
-                            2.Chức năng
-
-                            Một số chức năng chính:
-
-                            Quản lý tin tức, chuyên mục tin tức
-                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
-                            Quản lý slide, liên kết.
-                            Quản lý người dùng
-                            Responsive
-                            Chuẩn SEO
-                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                            @Html.Raw(Model.code_des)
                         </p>
                     </div>
                     <div class="col-lg-12 mt-3">
                         <h3>Hướng dẫn cài đặt</h3>
                         <p style="color: #7e592a">
-                            1.Giới thiệu
-
-                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
-                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
-                            2.Chức năng
-
-                            Một số chức năng chính:
-
-                            Quản lý tin tức, chuyên mục tin tức
-                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
-                            Quản lý slide, liên kết.
-                            Quản lý người dùng
-                            Responsive
-                            Chuẩn SEO
-                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                            @Html.Raw(Model.code_setting)
                         </p>
                     </div>
                     <div class="col-lg-12 mt-3">
                         <h3>Thông số code</h3>
                         <p style="color: #7e592a">
-                            1.Giới thiệu
-
-                            Source code website giới thiệu dịch vụ và món ăn của nhà hàng viết bằng PHP và MYSQL đơn giản, dễ hiểu, chuẩn seo, thiết kế responsive tương thích với mọi thiết bị, giao diện đẹp, đầy đủ chức năng, có thể tùy chỉnh theo yêu cầu.
-                            Source code phù hợp cho các nhà hàng, quán ăn triển khai thực tế và các bạn sinh viên nghiên cứu để làm đồ án, luận văn,…
-                            2.Chức năng
-
-                            Một số chức năng chính:
-
-                            Quản lý tin tức, chuyên mục tin tức
-                            Quản lý sản phẩm/dịch vụ, phân loại sản phẩm/dịch vụ theo danh mục
-                            Quản lý slide, liên kết.
-                            Quản lý người dùng
-                            Responsive
-                            Chuẩn SEO
-                            *** Có thể mở rộng thêm chức năng và tối ưu phù hợp theo yêu cầu
+                            @if (Model.code_disk == null)
+                            {
+                                <b>Thông số không xác định được.</b>
+                            }
+                            else
+                            {
+                                @Model.code_disk <span>MB</span>
+                            }
                         </p>
                     </div>
                     <div class="col-lg-12 mt-3" id="pay">
@@ -425,7 +395,7 @@
             </div>
             <div class="col-lg-3 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <div class="card shadow">
+                    <div class="card shadow mt-3">
                         <div style="padding: 10px">
                             <h4>NGƯỜI BÁN</h4>
                             <table>
@@ -493,7 +463,7 @@
 <div id="menu">
     <div class="card">
         <center>
-            <b class="text-danger">Đánh giá ngay</b>
+            <b class="text-danger">ĐÁNH GIÁ NGAY</b>
             <br />
             <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
             <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
@@ -507,25 +477,26 @@
 </div>
 <div class="bg-white fixed-bottom border">
     <div class="container">
-        <div class="row mt-2">
+        <div class="row mt-3 mb-3">
             <div class="col-lg-3">
-                <b class="text-dark">Tên code:</b> <br />
-                <b class="text-danger"> @Model.code_title</b>
+                <b class="text-dark"><i class="fa fa-code font-weight-bold"></i> TÊN CODE:</b> <br />
+                <b class="text-primary"> @Model.code_title</b>
             </div>
             <div class="col-lg-3">
-                <b class="text-dark"> Danh mục:</b>
-                <p>
-                    C#,C++
-                </p>
+                <b class="text-dark"><i class="fa fa-th-list"></i> DANH MỤC: </b> <br />
+                <b class="text-warning">@Model.Category.category_name</b>
             </div>
             <div class="col-lg-3">
-                <b class="text-dark"> Thê loại:</b>
-                <p>
-                    Website
-                </p>
+                <b class="text-dark"><i class="fa fa-list"></i> THỂ LOẠI: </b>
+                <b class="text-success"> <br />
+                    @foreach (var item in groups.Where(n => n.code_id == Model.code_id))
+                    {
+                        @item.Language.language_name<span>&nbsp;</span>
+                    }
+                </b>
             </div>
             <div class="col-lg-3">
-                <button class="btn btn-danger w-100">Tải code ngay</button>
+                <button class="btn btn-outline-danger w-100 font-weight-bold mt-3">TẢI CODE NGAY</button>
             </div>
         </div>
     </div>

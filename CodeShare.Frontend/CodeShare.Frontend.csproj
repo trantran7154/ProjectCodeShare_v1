@@ -875,7 +875,7 @@
     <Content Include="Content\Layout\404\Images\overlay_stars.svg" />
     <Content Include="Content\Layout\404\Images\rocket.svg" />
     <Content Include="Content\Layout\Codes\CSS\card-girds.css" />
-    <Content Include="Content\Layout\Codes\CSS\cards-hover.css" />
+    <Content Include="Content\Layout\Codes\CSS\cards.css" />
     <Content Include="Content\Layout\Codes\CSS\girds.css" />
     <Content Include="Content\Layout\images\4401280.jpg" />
     <Content Include="Content\Layout\images\about_background.jpg" />

@@ -34,7 +34,7 @@ figure.snip1208 figcaption {
 }
 figure.snip1208 .date,
 figure.snip1208 .hover {
-  background-color: #1abc9c;
+  background-color: #009c39;
   top: 25px;
   color: #fff;
   left: 25px;
@@ -86,7 +86,7 @@ figure.snip1208 p {
 figure.snip1208 button {
   border: medium none;
   padding: 10px 20px;
-  background-color: #1abc9c;
+  background-color: #009c39;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: 2px;
@@ -122,5 +122,5 @@ figure.snip1208.hover i {
 }
 figure.snip1208:hover button,
 figure.snip1208.hover button {
-  background-color: #117964;
+  background-color: #01660e;
 }

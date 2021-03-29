@@ -47,6 +47,9 @@ namespace CodeShare.Frontend.Controllers
         public ActionResult Details(int id)
         {
             var code = db.Codes.Find(id);
+            code.code_view = code.code_view + 1;
+            db.SaveChanges();
+
             return View(code);
         }
 
