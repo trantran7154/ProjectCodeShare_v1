@@ -33,7 +33,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 @foreach (var item in db.Languages.Where(x => x.language_active == 1))
                                 {
-                                    <a href="@Url.Action("Index", "Codes", new { key = item.language_name})" class="dropdown-item"><i class="fa fa-code text-primary" style="font-weight: bold"></i>&nbsp;&nbsp;@item.language_name</a>
+                                    <a href="@Url.Action("Index", "Codes", new { key = item.language_name})" class="dropdown-item text-dark"><i class="fa fa-code text-primary" style="font-weight: bold"></i>&nbsp;&nbsp;@item.language_name</a>
                                 }
                             </div>
                         </li>
