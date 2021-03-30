@@ -21,113 +21,99 @@
         </div>
         <div class="card-block">
             <div class="table-responsive">
-
-                <p>
-                    @Html.ActionLink("Create New", "Create")
-                </p>
-                <table class="table">
+                <button class="btn btn-success float-right text-white font-weight-bold">
+                    @Html.ActionLink("THÊM", "Create")
+                </button>
+                <table class="table table-bordered text-center">
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_title)
+                        <th class="font-weight-bold">
+                            Ảnh
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_coin)
+                        <th class="font-weight-bold">
+                            Tên Code
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_code)
+                        <th class="font-weight-bold">
+                            Giá
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_datecreate)
+                        <th class="font-weight-bold">
+                            Code
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_dateupdate)
+                        <th class="font-weight-bold">
+                            Ngày Tạo
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_active)
+                        <th class="font-weight-bold">
+                            Ngày Cập Nhật
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_option)
+                        <th class="font-weight-bold" width="120">
+                            Hoạt Động
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_del)
+                        <th class="font-weight-bold">
+                            Tùy Chọn
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_tag)
+                        <th class="font-weight-bold">
+                            Tag
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_disk)
+                        <th class="font-weight-bold">
+                            Tên Danh Mục
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_pass)
+                        <th class="font-weight-bold">
+                            Người Bán
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.code_img)
+                        <th class="font-weight-bold">
+                            Công Cụ
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Category.category_name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.User.user_email)
-                        </th>
-                        <th></th>
                     </tr>
-
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_title)
+                                <img src="~/Images/Codes/@item.code_img" height="60" width="80" />
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_coin)
+                                @Html.DisplayFor(modelItem => item.code_title)
+                            </td>
+                            <td width="100">
+                                @Html.DisplayFor(modelItem => item.code_coin) Xu
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.code_code)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_datecreate)
+                                @item.code_datecreate.Value.ToString("dd/MM/yyy")
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_dateupdate)
+                               @item.code_dateupdate.Value.ToString("dd/MM/yyyy")
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_active)
+                                @if (item.code_active == 1)
+                                {
+                                    <span class="font-weight-bold">ĐÃ DUYỆT</span>
+                                }
+                                else
+                                {
+                                    <span class="font-weight-bold">CHƯA DUYỆT</span>
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.code_option)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.code_del)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.code_tag)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.code_disk)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.code_pass)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.code_img)
-                            </td>
-                            <td>
+                            <td width="150">
                                 @Html.DisplayFor(modelItem => item.Category.category_name)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.user_email)
+                            <td width="120">
+                                @Html.DisplayFor(modelItem => item.User.user_name)
                             </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.code_id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.code_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.code_id })
+                            <td width="110">
+                                <a href="@Url.Action("Edit", "CodesAdmin", new { id = item.code_id })"><i class="fa fa-edit"></i></a> |
+                                <a href="@Url.Action("Details", "CodesAdmin", new { id = item.code_id })"><i class="fa fa-eye"></i></a> |
+                                <a href="@Url.Action("Delete", "CodesAdmin", new { id = item.code_id })"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     }
-
                 </table>
-
-
             </div>
         </div>
     </div>

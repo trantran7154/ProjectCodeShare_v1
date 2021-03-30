@@ -15,8 +15,7 @@ namespace CodeShare.Common
         // tags
         public static int CODE_TAG = 1;
 
-
-        //ACTIVE
+        // ACTIVE
         public static int ACTIVE_HD = 1;
         public static int ACTIVE_KHD = 2;
 

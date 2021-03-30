@@ -84,6 +84,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "code_id,code_title,code_coin,code_code,code_des,code_info,code_setting,code_view,code_viewdown,code_linkdemo,code_linkdown,code_datecreate,code_dateupdate,code_active,code_option,code_del,code_tag,code_disk,code_pass,category_id,user_id,code_img")] Code code)
         {

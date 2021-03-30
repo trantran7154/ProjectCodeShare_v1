@@ -218,7 +218,7 @@ namespace CodeShare.Frontend.Controllers
                            id = item.comment_id,
                            idcode = item.code_id,
                            idus = item.user_id,
-                           date = item.comment_datecreate,
+                           date = item.comment_datecreate.ToString(),
                            update = item.comment_dateupdate,
                            content = item.comment_content,
                            nameid = item.User.user_name,
