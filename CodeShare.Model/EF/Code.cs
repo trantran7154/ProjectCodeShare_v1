@@ -42,9 +42,9 @@ namespace CodeShare.Model.EF
         public string code_tag { get; set; }
         public Nullable<int> code_disk { get; set; }
         public string code_pass { get; set; }
-        public Nullable<int> category_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public string code_img { get; set; }
+        public Nullable<int> category_id { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
@@ -56,5 +56,6 @@ namespace CodeShare.Model.EF
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tool> Tools { get; set; }
+        public virtual Category Category1 { get; set; }
     }
 }

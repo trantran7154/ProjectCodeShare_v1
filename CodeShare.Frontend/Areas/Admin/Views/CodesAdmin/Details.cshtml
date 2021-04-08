@@ -1,187 +1,138 @@
-﻿@model CodeShare.Model.EF.Code
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Code
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Thông tin code";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Code</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.code_title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_coin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_coin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_code)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_des)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_des)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_info)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_info)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_setting)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_setting)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_view)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_view)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_viewdown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_viewdown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_linkdemo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_linkdemo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_linkdown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_linkdown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_datecreate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_datecreate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_dateupdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_dateupdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_option)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_option)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_del)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_del)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_tag)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_tag)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_disk)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_disk)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_pass)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_pass)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code_img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code_img)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.category_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.category_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.user_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.user_email)
-        </dd>
-
-    </dl>
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <a href="/Admin/CodesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
+            </div>
+        </div>
+        <div class="card-block container-fluid">
+            <div class="table-responsive">
+                <form method="post" action="@Url.Action("Details","CodesAdmin", new { id = Model.code_id })" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="field">
+                                <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                <img src="~/Images/Codes/@Model.code_img" height="120" width="150" />
+                            </div>
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-pencil-square-o font-weight-bold"></i> Tiêu đề</label>
+                                    <input type="text" value="@Model.code_title" name="code_title" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-pencil"></i> Mô tả ngắn</label>
+                                    <input type="text" value="@Model.code_info" name="code_info" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-th-list"></i> Danh mục</label>
+                                    <select class="ui fluid dropdown" name="category_id">
+                                        <option>Chọn Danh Mục</option>
+                                        @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                        {
+                                            <option value="@item.category_id" @(item.category_id == item.category_id ? "selected" : "")>@item.category_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                @*<div class="field">
+                                        <label>Phân loại code: <b class="text-danger">*</b></label>
+                                        <select class="ui fluid search dropdown" multiple="" name="cate">
+                                            <option value="">Chọn phân loại code</option>
+                                            @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                            {
+                                                <option value="@item.language_id">@item.language_name</option>
+                                            }
+                                        </select>
+                                    </div>*@
+                                <div class="field">
+                                    <label><i class="fa fa-money"></i> Giá</label>
+                                    <input type="text" value="@Model.code_coin" name="code_coin" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-key"></i> Password giải nén</label>
+                                    <input type="text" name="code_pass" value="@Model.code_pass" placeholder="Password giải nén nếu có">
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-archive"></i> Dung lượng</label>
+                                    <input type="text" value="@Model.code_disk" name="code_disk" />
+                                </div>
+                            </div>
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-download"></i> Link download</label>
+                                    <input type="text" value="@Model.code_linkdown" name="code_linkdown" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-link"></i> Link demo</label>
+                                    <input type="text" value="@Model.code_linkdemo" name="code_linkdemo" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label><i class="fa fa-pencil-square"></i> Mô tả chi tiết</label>
+                                <textarea id="editor1" name="code_des">@Model.code_des</textarea>
+                            </div>
+                            <div class="field">
+                                <label><i class="fa fa-cog"></i> Hướng dẫn</label>
+                                <textarea id="editor2" name="code_setting">@Model.code_setting</textarea>
+                            </div>
+                            <div class="ui error message">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions modal-footer">
+                        <button type="submit" class="ui positive right labeled icon button">
+                            Sửa
+                            <i class="checkmark icon"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.code_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor1'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>
+<script>
+    $(".ui.fluid.search.dropdown.tag.selection.multiple").on("keyup", function (e) {
+        var val = $(".ui.fluid.search.dropdown.tag.selection.multiple input.search").val();
+        debugger
+        if (e.keyCode == 13) {
+            $("input.search").val("");
+            $('#code_tag').append('<option value="' + val + '" selected>' + val + '</option>');
+        }
+    })
+</script>

@@ -2,7 +2,7 @@
 @model IEnumerable<CodeShare.Model.EF.Code>
 
 @{
-    ViewBag.Title = "Quản lý code";
+    ViewBag.Title = "Thùng rác";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
     DataShareCodeEntities db = new DataShareCodeEntities();
@@ -157,7 +157,7 @@
                     <table class="mb-4 mt-4">
                         <tr>
                             <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","CodesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Create","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
                         </tr>
                     </table>
                 </div>
@@ -248,9 +248,7 @@
                             </div>
                         </td>
                         <td width="110">
-                            <a href="/Admin/CodesAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                            <a href="/Admin/CodesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> |
-                            <a ng-click="bin(list.id)" data-toggle="modal" data-target="#del-{{list.id}}"><i class="fa fa-trash" style="font-size: 16px"></i></a>
+                            <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
                         </td>
                         <!-- Xoá -->
                         <!--<td class="modal fade mt-5" id="del-{{list.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -290,22 +288,15 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Codes"
+            url: "/Admin/CodesAdmin/DeletedCodes"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
             $scope.list = response.statusText;
         });
-        // Active
-        $scope.active = function (id) {
-            $http.get("/Admin/CodesAdmin/ActiveCode?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Option
-        $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
+        // Restore
+        $scope.restore = function (id) {
+            $http.get("/Admin/CodesAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                 });

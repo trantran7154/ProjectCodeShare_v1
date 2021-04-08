@@ -1,8 +1,11 @@
-﻿@model CodeShare.Model.EF.Code
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Code
 
 @{
-    ViewBag.Title = "SỬA CODE";
+    ViewBag.Title = "Sửa code";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
 <div class="col-xl-12 col-md-12">
@@ -10,216 +13,138 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/CodesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
-        <div class="card-block">
+        <div class="card-block container-fluid">
             <div class="table-responsive">
-                @using (Html.BeginForm())
-                {
+                <form method="post" action="@Url.Action("Edit","CodesAdmin", new { id = Model.code_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <h4>Code</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.code_id)
+                    <input type="hidden" value="@Model.code_id" name="code_id" />
+                    <input type="hidden" value="@Model.code_datecreate" name="code_datecreate" />
+                    <input type="hidden" value="@Model.code_img" name="code_img" />
+                    <input type="hidden" value="@Model.code_view" name="code_view" />
+                    <input type="hidden" value="@Model.code_viewdown" name="code_viewdown" />
+                    <input type="hidden" value="@Model.code_active" name="code_active" />
+                    <input type="hidden" value="@Model.code_code" name="code_code" />
 
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Tên Code</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_title, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_title, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="field">
+                                <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                <input type="file" value="@Model.code_img" name="img" />
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Giá</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_coin, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_coin, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Code</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_code, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_code, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Mô Tả CHi Tiết</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_des, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_des, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Mô Tả Ngắn</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_info, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_info, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Cài Đặt</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_setting, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_setting, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Lượt Xem</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_view, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_view, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Lượt Xem</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_viewdown, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_viewdown, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Link Demo</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_linkdemo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_linkdemo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Link Download</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_linkdown, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_linkdown, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Ngày Tạo</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_datecreate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Ngày Cập Nhật</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_dateupdate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_dateupdate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Hoạt Động</div>
-                            <div class="col-md-12">
-                                <select name="code_active">
-                                    <option value="1">ĐÃ DUYỆT</option>
-                                    <option value="2">CHƯA DUYỆT</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Tùy Chọn</div>
-                            <div class="col-md-12">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.code_option)
-                                    @Html.ValidationMessageFor(model => model.code_option, "", new { @class = "text-danger" })
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-pencil-square-o font-weight-bold"></i> Tiêu đề</label>
+                                    <input type="text" value="@Model.code_title" name="code_title" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-pencil"></i> Mô tả ngắn</label>
+                                    <input type="text" value="@Model.code_info" name="code_info" />
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Thùng Rác</div>
-                            <div class="col-md-12">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.code_del)
-                                    @Html.ValidationMessageFor(model => model.code_del, "", new { @class = "text-danger" })
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-th-list"></i> Danh mục</label>
+                                    <select class="ui fluid dropdown" name="category_id">
+                                        <option>Chọn Danh Mục</option>
+                                        @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                        {
+                                            <option value="@item.category_id" @(item.category_id == item.category_id ? "selected" : "")>@item.category_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                @*<div class="field">
+                                        <label>Phân loại code: <b class="text-danger">*</b></label>
+                                        <select class="ui fluid search dropdown" multiple="" name="cate">
+                                            <option value="">Chọn phân loại code</option>
+                                            @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                            {
+                                                <option value="@item.language_id">@item.language_name</option>
+                                            }
+                                        </select>
+                                    </div>*@
+                                <div class="field">
+                                    <label><i class="fa fa-money"></i> Giá</label>
+                                    <input type="text" value="@Model.code_coin" name="code_coin" />
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Tag</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_tag, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_tag, "", new { @class = "text-danger" })
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-key"></i> Password giải nén</label>
+                                    <input type="text" name="code_pass" value="@Model.code_pass" placeholder="Password giải nén nếu có">
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-archive"></i> Dung lượng</label>
+                                    <input type="text" value="@Model.code_disk" name="code_disk" />
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Dung Lượng</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_disk, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_disk, "", new { @class = "text-danger" })
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-download"></i> Link download</label>
+                                    <input type="text" value="@Model.code_linkdown" name="code_linkdown" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-link"></i> Link demo</label>
+                                    <input type="text" value="@Model.code_linkdemo" name="code_linkdemo" />
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Mật Khẩu Truy Cập</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_pass, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_pass, "", new { @class = "text-danger" })
+                            <div class="field">
+                                <label><i class="fa fa-pencil-square"></i> Mô tả chi tiết</label>
+                                <textarea id="editor1" name="code_des">@Model.code_des</textarea>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Tên Danh Mục</div>
-                            <div class="col-md-12">
-                                @Html.DropDownList("category_id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                            <div class="field">
+                                <label><i class="fa fa-cog"></i> Hướng dẫn</label>
+                                <textarea id="editor2" name="code_setting">@Model.code_setting</textarea>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Người Dùng</div>
-                            <div class="col-md-12">
-                                @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="control-label col-md-2 font-weight-bold mb-1">Ảnh</div>
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.code_img, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.code_img, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-12">
-                                <input type="submit" value="LƯU" class="btn btn-success float-right" />
+                            <div class="ui error message">
                             </div>
                         </div>
                     </div>
-                }
-
-                <div class="ml-3">
-                    @Html.ActionLink("Quay Lại", "Index")
-                </div>
-
+                    <div class="actions modal-footer">
+                        <button type="submit" class="ui positive right labeled icon button">
+                            Sửa
+                            <i class="checkmark icon"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor1'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>
+<script>
+    $(".ui.fluid.search.dropdown.tag.selection.multiple").on("keyup", function (e) {
+        var val = $(".ui.fluid.search.dropdown.tag.selection.multiple input.search").val();
+        debugger
+        if (e.keyCode == 13) {
+            $("input.search").val("");
+            $('#code_tag').append('<option value="' + val + '" selected>' + val + '</option>');
+        }
+    })
+</script>
 
 

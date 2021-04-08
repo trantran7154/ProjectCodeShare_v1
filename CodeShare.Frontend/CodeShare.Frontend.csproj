@@ -324,6 +324,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CodesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\JsonAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\LanguagesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TakePricesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersAdminController.cs" />
@@ -1214,6 +1215,7 @@
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Details.cshtml" />
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CodesAdmin\Deleted.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1271,6 +1273,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\JsonAdmin\" />
     <Folder Include="Images\Languages\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="Views\Json\" />

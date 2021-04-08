@@ -37,17 +37,6 @@
           <Property Name="category_item" Type="int" />
           <Property Name="category_img" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="Chats">
-          <Key>
-            <PropertyRef Name="chat_id" />
-          </Key>
-          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="chat_content" Type="nvarchar(max)" />
-          <Property Name="chat_datecreate" Type="datetime" />
-          <Property Name="id_send" Type="int" />
-          <Property Name="chat_key" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Codes">
           <Key>
             <PropertyRef Name="code_id" />
@@ -71,9 +60,9 @@
           <Property Name="code_tag" Type="nvarchar(max)" />
           <Property Name="code_disk" Type="int" />
           <Property Name="code_pass" Type="nvarchar(max)" />
-          <Property Name="category_id" Type="int" />
           <Property Name="user_id" Type="int" />
           <Property Name="code_img" Type="nvarchar(max)" />
+          <Property Name="category_id" Type="int" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -86,6 +75,17 @@
           <Property Name="comment_datecreate" Type="datetime" />
           <Property Name="news_id" Type="int" />
           <Property Name="comment_dateupdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="chat_content" Type="nvarchar(max)" />
+          <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="id_send" Type="int" />
+          <Property Name="chat_key" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -448,9 +448,9 @@
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
@@ -577,6 +577,7 @@
           <Property Name="category_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Categorys" FromRole="Categorys" ToRole="Codes" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Categorys" FromRole="Categorys" ToRole="Groups" />
+          <NavigationProperty Name="Codes1" Relationship="DataShareCodeModel.FK_Codes_Categorys1" FromRole="Category" ToRole="Code" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -612,7 +613,6 @@
           <Property Name="code_tag" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="code_disk" Type="Int32" />
           <Property Name="code_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="category_id" Type="Int32" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="code_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Codes_Categorys" FromRole="Codes" ToRole="Categorys" />
@@ -621,6 +621,8 @@
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Codes" FromRole="Codes" ToRole="Groups" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Oders_Codes" FromRole="Codes" ToRole="Orders" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Codes" FromRole="Codes" ToRole="Tools" />
+          <Property Name="category_id" Type="Int32" />
+          <NavigationProperty Name="Category1" Relationship="DataShareCodeModel.FK_Codes_Categorys1" FromRole="Code" ToRole="Category" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -1112,7 +1114,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tools" EntitySet="Tools" />
           </AssociationSet>
+          <AssociationSet Name="FK_Codes_Categorys1" Association="DataShareCodeModel.FK_Codes_Categorys1">
+            <End Role="Category" EntitySet="Categorys" />
+            <End Role="Code" EntitySet="Codes" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Codes_Categorys1">
+          <End Type="DataShareCodeModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Code" Role="Code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Code">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1169,6 +1187,7 @@
           <EntitySetMapping Name="Codes">
             <EntityTypeMapping TypeName="DataShareCodeModel.Code">
               <MappingFragment StoreEntitySet="Codes">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="code_id" ColumnName="code_id" />
                 <ScalarProperty Name="code_title" ColumnName="code_title" />
                 <ScalarProperty Name="code_coin" ColumnName="code_coin" />
@@ -1188,7 +1207,6 @@
                 <ScalarProperty Name="code_tag" ColumnName="code_tag" />
                 <ScalarProperty Name="code_disk" ColumnName="code_disk" />
                 <ScalarProperty Name="code_pass" ColumnName="code_pass" />
-                <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="code_img" ColumnName="code_img" />
               </MappingFragment>

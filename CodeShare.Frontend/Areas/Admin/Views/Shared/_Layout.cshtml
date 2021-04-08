@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Material Able bootstrap admin template by Codedthemes</title>
+    <title>@ViewBag.Title</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -21,6 +21,10 @@
     <link rel="icon" href="~/Content/LayoutAdmin/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- Sematic -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
     <!-- waves.css -->
     <link rel="stylesheet" href="~/Content/LayoutAdmin/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- Required Fremwork -->
@@ -36,6 +40,8 @@
     <link rel="stylesheet" type="text/css" href="~/Content/LayoutAdmin/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="~/Content/LayoutAdmin/css/style.css">
+    <!-- Angular -->
+    <script src="~/Scripts/angular.min.js"></script>
 </head>
 
 <body>
@@ -246,7 +252,7 @@
                             </div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
-                                    <a href="index.html" class="waves-effect waves-dark">
+                                    <a href="/Admin/HomeAdmin/Index" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Trang chủ</span>
                                         <span class="pcoded-mcaret"></span>
@@ -254,42 +260,42 @@
                                 </li>
                                 <li class="">
                                     <a href="/Admin/CodesAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-code"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Code</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="/Admin/UsersAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-user"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Người dùng</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="/Admin/BillsAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-paperclip"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Hóa đơn</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="/Admin/TakePricesAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-money"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Rút tiền</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="/Admin/CategoriesAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-list"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Danh mục</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="/Admin/LanguagesAdmin/Index" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-th-list"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Ngôn ngữ</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
