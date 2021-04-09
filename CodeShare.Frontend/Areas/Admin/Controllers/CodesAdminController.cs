@@ -61,7 +61,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
             if (img == null)
             {
-                
+                code.code_img = "notimg.png";
             }
             else
             {
@@ -74,16 +74,11 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 code.code_img = ViewBag.random + img.FileName;
 
                 code.code_datecreate = DateTime.Now;
-                code.code_dateupdate = DateTime.Now;
-
                 code.code_view = 0;
                 code.code_viewdown = 0;
-
                 code.code_active = 2;
                 code.code_option = true;
-
                 code.code_del = false;
-
                 if (code.code_coin == null)
                 {
                     code.code_coin = 0;
@@ -162,6 +157,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             db.SaveChanges();
 
             var list = from item in db.Codes
+                       where item.code_del == false
                        orderby item.code_datecreate descending
                        select new
                        {

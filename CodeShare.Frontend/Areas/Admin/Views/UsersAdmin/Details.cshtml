@@ -1,179 +1,100 @@
-﻿@model CodeShare.Model.EF.User
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Thông tin người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
-<h2>Details</h2>
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <a href="/Admin/UsersAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive container-fluid">
+                <form method="post" action="@Url.Action("Details","UsersAdmin",new { id = Model.user_id })" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.user_email)
-        </dt>
+                    <input type="hidden" value="@Model.user_id" name="user_id" />
+                    <input type="hidden" value="@Model.user_img" name="user_img" />
+                    <input type="hidden" value="@Model.user_datecreate" name="user_datecreate" />
+                    <input type="hidden" value="@Model.user_active" name="user_active" />
+                    <input type="hidden" value="@Model.user_view" name="user_view" />
+                    <input type="hidden" value="@Model.user_token" name="user_token" />
+                    <input type="hidden" value="@Model.user_coin" name="user_coin" />
 
-        <dd>
-            @Html.DisplayFor(model => model.user_email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_sex)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_birth)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_birth)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_token)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_token)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_role)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_role)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_coin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_coin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_datecreate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_datecreate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_dateupdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_dateupdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_code)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_option)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_option)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_del)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_del)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_fa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_fa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_none)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_none)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_view)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_view)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_facode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_facode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_pass)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_pass)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_img)
-        </dd>
-
-    </dl>
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-user"></i> Tên người dùng</label>
+                                    <input type="text" value="@Model.user_name" name="user_name" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-key"></i> Vai trò</label>
+                                    <select class="ui fluid dropdown" name="user_role">
+                                        <option value="1" @(Model.user_role == 1 ? "selected" : "")>Admin</option>
+                                        <option value="2" @(Model.user_role == 2 ? "selected" : "")>Người dùng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-envelope"></i> Email</label>
+                                    <input type="text" value="@Model.user_email" name="user_email" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="key icon"></i> Mật khẩu</label>
+                                    <input type="text" value="@Model.user_pass" name="user_pass" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-image"></i> Ảnh đại diện</label>
+                                    <img src="~/Images/Users/@Model.user_img" height="80" width="100" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-phone"></i> Số điện thoại</label>
+                                    <input type="text" value="@Model.user_phone" name="user_phone" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-venus-mars font-weight-bold"></i> Giới tính</label>
+                                    <select class="ui fluid dropdown" name="user_sex">
+                                        <option value="true" @(Model.user_sex == true ? "selected" : "")>Nam</option>
+                                        <option value="false" @(Model.user_sex == false ? "selected" : "")>Nữ</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-calendar"></i> Ngày sinh</label>
+                                    <input type="text" value="@Model.user_birth.Value.ToShortDateString()" name="user_birth" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-code font-weight-bold"></i> Code</label>
+                                    <input type="text" value="@Model.user_code" name="user_code" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-heart-o font-weight-bold"></i> Sở thích</label>
+                                    <input type="text" value="@Model.user_fa" name="user_fa" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.user_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+

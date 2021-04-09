@@ -1,14 +1,17 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Bill>
+﻿@using CodeShare.Model.EF
+@model IEnumerable<CodeShare.Model.EF.Bill>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý hóa đơn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-xl-12 col-md-12">
-    <div class="card table-card">
+<link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
+
+<div class="col-xl-12 col-md-12" ng-app="myApp">
+    <div class="card table-card" ng-controller="myCtrl">
         <div class="card-header">
-            <h5>Member’s performance</h5>
+            <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -19,62 +22,166 @@
                 </ul>
             </div>
         </div>
-        <div class="card-block">
-            <div class="table-responsive">
-                <p>
-                    @Html.ActionLink("Create New", "Create")
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.bill_datecreate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.bill_active)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.bill_dealine)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Pakage.pakage_money)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.User.user_email)
-                        </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.bill_datecreate)
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9">
+                    <table class="mb-5 mt-5">
+                        <tr class="two fields">
+                            <td class="field">
+                                <label class="font-weight-bold">Tìm kiếm: </label>
+                                <div class="ui icon input" style="width: 250px">
+                                    <input type="text" placeholder="VD: Website chia sẻ code..." ng-model="searchText">
+                                    <i class="inverted circular search link icon"></i>
+                                </div>
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.bill_active)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.bill_dealine)
-                            </td>
-                            <td>
-                                @(item.Pakage.pakage_coin * 1000) vnđ
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.user_email)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.bill_id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.bill_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.bill_id })
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Sắp xếp theo: </label>
+                                <select class="ui dropdown" ng-model="searchSort">
+                                    <option value="searchText">Sắp xếp mặc định</option>
+                                    <option value="searchText">Mặc định</option>
+                                    <option value="title">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
+                                </select>
                             </td>
                         </tr>
-                    }
-
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="mb-4 mt-4">
+                        <tr>
+                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","CodesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive container-fluid">
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th class="font-weight-bold">
+                            Tên Người Mua
+                        </th>
+                        <th class="font-weight-bold">
+                            Giá
+                        </th>
+                        <th class="font-weight-bold">
+                            Ngày Tạo
+                        </th>
+                        <th class="font-weight-bold">
+                            Ngày Hết Hạn
+                        </th>
+                        <th class="font-weight-bold" width="120">
+                            Hoạt Động
+                        </th>
+                        <th class="font-weight-bold">
+                            Công Cụ
+                        </th>
+                    </tr>
+                    <tbody ng-show="(list | filter:searchText).length != 0">
+                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
+                            <td class="font-weight-bold" width="200">{{list.user_name}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.pk_coin > 0">{{list.pk_coin * 1000 | currency:"":0}} VNĐ</div>
+                                <div ng-show="list.pk_coin == 0">MIỄN PHÍ</div>
+                            </td>
+                            <td>{{list.datecreate}}</td>
+                            <td>{{list.dealine}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.active == true">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div ng-show="list.active == false">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="110">
+                                <a href="/Admin/CodesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> |
+                                <a ng-click="bin(list.id)" data-toggle="modal" data-target="#del-{{list.id}}"><i class="fa fa-trash" style="font-size: 16px"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="(list | filter:searchText).length == 0">
+                        <tr>
+                            <th colspan="6" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                        </tr>
+                    </tbody>
                 </table>
-
+                <!-- Success modal -->
+                <div class="modal" tabindex="-1" id="bin">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center font-18">
+                                <h3 class="mb-20">Xóa Thành Công</h3>
+                                <div class="mb-30 text-center">
+                                    <img src="~/Images/Modal/checked.png" />
+                                </div>
+                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Admin/JsonAdmin/Bills"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+        // Active
+        $scope.active = function (id) {
+            $http.get("/Admin/BillsAdmin/ActiveBill?id=" + id)
+                .then(function (response) {
+                    $scope.list = response.data;
+                });
+        }
+        // Option
+        $scope.option = function (id) {
+            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
+                .then(function (response) {
+                    $scope.list = response.data;
+                });
+        }
+        // Bin
+        $scope.bin = function (id) {
+            $http.get("/Admin/CodesAdmin/Del?id=" + id)
+                .then(function (response) {
+                    $scope.list = response.data;
+                    $(document).ready(function () {
+                        $('#bin').modal('show');
+                    })
+                });
+        }
+        // Search
+        $scope.searchSort = "datecreate";
+        $scope.searchSort = "title";
+        $scope.searchSort = "searchText";
+    });
+</script>
 
 

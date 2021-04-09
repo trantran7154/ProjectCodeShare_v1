@@ -132,5 +132,28 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // Check trạng thái hoạt động của Bills
+        public JsonResult ActiveBill(int? id)
+        {
+            Bill bill = db.Bills.Find(id);
+            bill.bill_active = !bill.bill_active;
+
+            db.SaveChanges();
+
+            var list = from item in db.Bills
+                       orderby item.bill_datecreate descending
+                       select new
+                       {
+                           id = (int)item.bill_id,
+                           datecreate = item.bill_datecreate.ToString(),
+                           pk_id = item.pakege_id,
+                           pk_coin = (int)item.Pakage.pakage_coin,
+                           user_name = item.User.user_name,
+                           active = item.bill_active,
+                           dealine = item.bill_dealine.ToString()
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

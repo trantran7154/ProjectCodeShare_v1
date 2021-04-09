@@ -95,11 +95,11 @@
                             </div>
                             <div class="field">
                                 <label><i class="fa fa-pencil-square"></i> Mô tả chi tiết</label>
-                                <textarea id="editor1" name="code_des">@Model.code_des</textarea>
+                                <textarea id="editor1" name="code_des">@Html.Raw(@Model.code_des)</textarea>
                             </div>
                             <div class="field">
                                 <label><i class="fa fa-cog"></i> Hướng dẫn</label>
-                                <textarea id="editor2" name="code_setting">@Model.code_setting</textarea>
+                                <textarea id="editor2" name="code_setting">@Html.Raw(@Model.code_setting)</textarea>
                             </div>
                             <div class="ui error message">
                             </div>

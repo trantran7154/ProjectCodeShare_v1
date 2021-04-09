@@ -12,111 +12,16 @@
     List<Category> cate = db.Categorys.ToList();
 }
 
-<style>
-    .ios-switch, .ios-switch * {
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-    }
- 
-    .ios-switch > input {
-      display: none;
-    }
- 
-    .ios-switch {
-      display: inline-block;
-      vertical-align: middle;
-      cursor: pointer;
-      height: 30px;
-      width: 50px;
-      border-radius: 15px;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-
-    .ios-switch > span {
-      position: relative;
-      display: block;
-      height: 30px;
-      width: 50px;
-      border: 2px solid transparent;
-      border-radius: 15px;
-      transition: all 0.3s;
-    }
-
-    .ios-switch > input:checked ~ span {
-      background-color: #4bd863;
-      border-color: #4bd863;
-    }
- 
-    .ios-switch > input ~ span {
-      background-color: #e5e5e5;
-      border-color: #e5e5e5;
-    }
- 
-    .ios-switch-inlay {
-      position: absolute;
-      display: block;
-      background-color: white;
-      border-radius: 13px;
-      height: 26px;
-      width: 46px;
-      transition: all 0.33s;
-    }
-
-    .ios-switch > input:checked ~ span .ios-switch-inlay {
-      -webkit-transform: scale(0, 0);
-      transform: scale(0, 0);
-    }
- 
-    .ios-switch > input ~ span .ios-switch-inlay {
-      -webkit-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
- 
-    .ios-switch-knob {
-      position: absolute;
-      border-radius: 13px;
-      display: block;
-      height: 26px;
-      width: 26px;
-      background-color: white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
-      -webkit-transition: -webkit-transform 0.3s cubic-bezier(.47,.26,.37,1.4), width 0.3s, margin 0.3s;
-      transition: transform 0.3s cubic-bezier(.47,.26,.37,1.4), width 0.3s, margin 0.3s;
-    }
- 
-    .ios-switch > input ~ span .ios-switch-knob {
-      border-color: #e2e2e2;
-    }
- 
-    .ios-switch > input:checked ~ span .ios-switch-knob {
-      -webkit-transform: translateX(20px);
-      transform: translateX(20px);
-    }
-
-    .ios-switch:active .ios-switch-knob {
-      width: 32px;
-    }
-
-    .ios-switch:active > input:checked ~ span .ios-switch-knob {
-      margin-left: -6px;
-      width: 32px;
-    }
-</style>
+<link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
 
 <div class="col-xl-12 col-md-12" ng-app="myApp">
     <div class="card table-card" ng-controller="myCtrl">
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/CodesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="container-fluid">
@@ -195,90 +100,87 @@
                             Công Cụ
                         </th>
                     </tr>
-                    <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
-                        <td>
-                            <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
-                        </td>
-                        <td class="font-weight-bold" width="200">{{list.title}}</td>
-                        <td>{{list.cate_name}}</td>
-                        <td class="font-weight-bold">
-                            <div ng-show="list.coin > 0">{{list.coin * 1000 | currency:"":0}} VNĐ</div>
-                            <div ng-show="list.coin == 0">MIỄN PHÍ</div>
-                        </td>
-                        <td>{{list.user_name}}</td>
-                        <td>{{list.datecreate}}</td>
-                        <td class="font-weight-bold">
-                            <div ng-show="list.active == 1">
-                                <label ontouchstart="" class="ios-switch">
-                                    <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
-                                    <span>
-                                        <span class="ios-switch-inlay"></span>
-                                        <span class="ios-switch-knob"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div ng-show="list.active == 2">
-                                <label ontouchstart="" class="ios-switch">
-                                    <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
-                                    <span>
-                                        <span class="ios-switch-inlay"></span>
-                                        <span class="ios-switch-knob"></span>
-                                    </span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div ng-show="list.option == true">
-                                <label ontouchstart="" class="ios-switch">
-                                    <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox" checked>
-                                    <span>
-                                        <span class="ios-switch-inlay"></span>
-                                        <span class="ios-switch-knob"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div ng-show="list.option == false">
-                                <label ontouchstart="" class="ios-switch">
-                                    <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox">
-                                    <span>
-                                        <span class="ios-switch-inlay"></span>
-                                        <span class="ios-switch-knob"></span>
-                                    </span>
-                                </label>
-                            </div>
-                        </td>
-                        <td width="110">
-                            <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
-                        </td>
-                        <!-- Xoá -->
-                        <!--<td class="modal fade mt-5" id="del-{{list.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">XÓA CODE</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bạn có chắc chắn muốn xóa <b class="text-danger font-weight-bold">{{list.title}}</b> ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="actions">
-                                            <div class="ui black deny button" data-dismiss="modal">
-                                                HỦY
-                                            </div>
-                                            <a href="/Admin/CodesAdmin/Details?id={{list.id}}" class="ui positive right labeled icon button">
-                                                XÓA
-                                                <i class="checkmark icon"></i>
-                                            </a>
-                                        </a>
-                                    </div>
+                    <tbody ng-show="(list | filter:searchText).length != 0">
+                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
+                            <td>
+                                <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
+                            </td>
+                            <td class="font-weight-bold" width="200">{{list.title}}</td>
+                            <td>{{list.cate_name}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.coin > 0">{{list.coin * 1000 | currency:"":0}} VNĐ</div>
+                                <div ng-show="list.coin == 0">MIỄN PHÍ</div>
+                            </td>
+                            <td>{{list.user_name}}</td>
+                            <td>{{list.datecreate}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.active == 1">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
                                 </div>
-                            </div>
-                        </td>-->
-                    </tr>
+                                <div ng-show="list.active == 2">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-show="list.option == true">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div ng-show="list.option == false">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="110">
+                                <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="(list | filter:searchText).length == 0">
+                        <tr>
+                            <th colspan="9" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                        </tr>
+                    </tbody>
                 </table>
+                <!-- Success modal -->
+                <div class="modal" tabindex="-1" id="bin">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center font-18">
+                                <h3 class="mb-20">Khôi Phục Thành Công</h3>
+                                <div class="mb-30 text-center">
+                                    <img src="~/Images/Modal/checked.png" />
+                                </div>
+                                <h6 class="mt-2">Dữ liệu đã được cập nhật!</h6>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -299,13 +201,9 @@
             $http.get("/Admin/CodesAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
-                });
-        }
-        // Bin
-        $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
+                    $(document).ready(function () {
+                        $('#bin').modal('show');
+                    })
                 });
         }
         // Search

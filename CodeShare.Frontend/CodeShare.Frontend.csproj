@@ -390,6 +390,7 @@
     <Content Include="Content\LayoutAdmin\css\simple-line-icons.css" />
     <Content Include="Content\LayoutAdmin\css\style.css" />
     <Content Include="Content\LayoutAdmin\css\style.min.css" />
+    <Content Include="Content\LayoutAdmin\css\switchIOS.css" />
     <Content Include="Content\LayoutAdmin\icon\fa-brands-400.svg" />
     <Content Include="Content\LayoutAdmin\icon\fa-regular-400.svg" />
     <Content Include="Content\LayoutAdmin\icon\fa-solid-900.svg" />
@@ -1045,6 +1046,7 @@
     <Content Include="Images\Events\6235642e-c052-4e08-b43a-256b28211d6abg.jpg" />
     <Content Include="Images\Events\fcc1bbd8-d2ec-4991-bf78-e2c4cdceb871[serverclient]-vo-lam-truyen-ky-mobile-19-phai-day-du-web-api-214535.jpg" />
     <Content Include="Images\Events\notimg.png" />
+    <Content Include="Images\Modal\checked.png" />
     <Content Include="Images\PKs\1494e29f-6bc0-4c63-b3e5-6943e0ae2b4e142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
     <Content Include="Images\PKs\29a229c0-77f0-4bb8-ac1c-dc17384fba0a223424-Thiet-ke-website.png" />
     <Content Include="Images\PKs\515a0d82-5e9f-45fc-b294-51f78a2b21e3142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
@@ -1216,6 +1218,7 @@
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CodesAdmin\Deleted.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\Deleted.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
