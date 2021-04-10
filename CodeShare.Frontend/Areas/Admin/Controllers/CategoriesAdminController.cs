@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -46,15 +47,35 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "category_id,category_name,category_active,category_item,category_img")] Category category)
+        public ActionResult Create([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update")] Category category, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            Random random = new Random();
+            Random r = new Random();
+            ViewBag.random = random.Next(0, 1000);
+
+            db.Categorys.Add(category);
+
+            if (img == null)
             {
-                db.Categorys.Add(category);
+                category.category_img = "notimg.png";
+            }
+            else
+            {
+                // Tên file ảnh sản phẩm
+                var fileimg_cre = Path.GetFileName(img.FileName);
+                // Đưa tên ảnh vào đúng file
+                var pa_cre = Path.Combine(Server.MapPath("~/Images/Categorys/"), ViewBag.random + fileimg_cre);
+
+                img.SaveAs(pa_cre);
+                category.category_img = ViewBag.random + img.FileName;
+
+                category.category_active = true;
+                category.category_del = false;
+                category.category_datecreate = DateTime.Now;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(category);
         }
 
@@ -78,15 +99,34 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "category_id,category_name,category_active,category_item,category_img")] Category category)
+        public ActionResult Edit([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update")] Category category, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            Random random = new Random();
+            ViewBag.random = random.Next(0, 1000);
+
+            db.Entry(category).State = EntityState.Modified;
+
+            if (img == null)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
-            return View(category);
+            else
+            {
+                // Tên file ảnh sản phẩm
+                var fileimg_cre = Path.GetFileName(img.FileName);
+                // Đưa tên ảnh vào đúng file
+                var pa_cre = Path.Combine(Server.MapPath("~/Images/Categorys/"), ViewBag.random + fileimg_cre);
+
+                img.SaveAs(pa_cre);
+                category.category_img = ViewBag.random + img.FileName;
+            }
+
+            category.category_del = false;
+            category.category_dateupdate = DateTime.Now;
+            category.category_active = true;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CategoriesAdmin/Delete/5
@@ -122,6 +162,30 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult ActiveCate(int? id)
+        {
+            Category cate = db.Categorys.Find(id);
+            cate.category_active = !cate.category_active;
+
+            db.SaveChanges();
+
+            var list = from item in db.Categorys
+                       where item.category_del == false
+                       orderby item.category_datecreate descending
+                       select new
+                       {
+                           id = (int)item.category_id,
+                           name = item.category_name,
+                           active = item.category_active,
+                           item = item.category_item,
+                           img = item.category_img,
+                           datecreate = item.category_datecreate.ToString(),
+                           update = item.category_dateupdate.ToString(),
+                           del = item.category_del
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

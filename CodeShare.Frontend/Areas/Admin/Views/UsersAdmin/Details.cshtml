@@ -22,15 +22,6 @@
             <div class="table-responsive container-fluid">
                 <form method="post" action="@Url.Action("Details","UsersAdmin",new { id = Model.user_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
-
-                    <input type="hidden" value="@Model.user_id" name="user_id" />
-                    <input type="hidden" value="@Model.user_img" name="user_img" />
-                    <input type="hidden" value="@Model.user_datecreate" name="user_datecreate" />
-                    <input type="hidden" value="@Model.user_active" name="user_active" />
-                    <input type="hidden" value="@Model.user_view" name="user_view" />
-                    <input type="hidden" value="@Model.user_token" name="user_token" />
-                    <input type="hidden" value="@Model.user_coin" name="user_coin" />
-
                     <div class="modal-body">
                         <div class="ui form">
                             <div class="two fields">

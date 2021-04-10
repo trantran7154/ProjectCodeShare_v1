@@ -1025,6 +1025,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Categorys\notimg.png" />
     <Content Include="Images\Codes\52edcade-c48c-440d-91d0-29501e648b1adh2.jpg" />
     <Content Include="Images\Codes\5b46199e-7d4f-4dc1-a701-08c2f8b2b626[serverclient]-vo-lam-truyen-ky-mobile-19-phai-day-du-web-api-214535.jpg" />
     <Content Include="Images\Codes\866eebd5-05bc-4556-9e66-cae33e25e889dh1.jpg" />

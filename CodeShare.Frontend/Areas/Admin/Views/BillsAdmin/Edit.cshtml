@@ -1,92 +1,79 @@
-﻿@model CodeShare.Model.EF.Bill
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Bill
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa thông tin hóa đơn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
+}
+
+@{ 
+    List<User> users = db.Users.ToList();
+    List<Pakage> pakages = db.Pakages.ToList();
 }
 
 <div class="col-xl-12 col-md-12">
     <div class="card table-card">
         <div class="card-header">
-            <h5>Member’s performance</h5>
+            <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/BillsAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive">
-
-                @using (Html.BeginForm())
-                {
+            <div class="table-responsive container-fluid">
+                <form method="post" action="@Url.Action("Edit","BillsAdmin",new { id = Model.bill_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <h4>Bill</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.bill_id)
+                    <input type="hidden" value="@Model.bill_id" name="bill_id" />
+                    <input type="hidden" value="@Model.bill_datecreate" name="bill_datecreate" />
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.bill_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.bill_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.bill_datecreate, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-user"></i> Tên người mua</label>
+                                    <select class="ui fluid dropdown" name="user_id">
+                                        @foreach (var item in users)
+                                        {
+                                            <option value="@item.user_id" @(item.user_id == item.user_id ? "selected" : "")>@item.user_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-key"></i> Giá</label>
+                                    <select class="ui fluid dropdown" name="pakege_id">
+                                        @foreach (var item in pakages)
+                                        {
+                                            <option value="@item.pakege_id" @(item.pakege_id == item.pakege_id ? "selected" : "")>@item.pakage_coin</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pakege_id, "pakege_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("pakege_id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.pakege_id, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.user_id, "user_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.bill_active, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.bill_active)
-                                    @Html.ValidationMessageFor(model => model.bill_active, "", new { @class = "text-danger" })
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-calculator"></i> Ngày tạo</label>
+                                    <input type="text" value="@Model.bill_datecreate.Value.ToShortDateString()" name="bill_datecreate" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-history"></i> Ngày hết hạn</label>
+                                    <input type="text" value="@Model.bill_dealine.Value.ToShortDateString()" name="bill_dealine" />
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.bill_dealine, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.bill_dealine, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.bill_dealine, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Save" class="btn btn-default" />
-                            </div>
-                        </div>
                     </div>
-                }
-
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
-
+                    <div class="actions modal-footer">
+                        <button type="submit" class="ui positive right labeled icon button">
+                            Sửa
+                            <i class="checkmark icon"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+

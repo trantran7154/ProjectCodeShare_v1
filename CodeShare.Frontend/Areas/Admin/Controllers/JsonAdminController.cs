@@ -94,5 +94,45 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult TakePrices()
+        {
+            var list = from item in db.TakePrices
+                       orderby item.tp_datecreate descending
+                       select new
+                       {
+                           id = (int)item.tp_id,
+                           user_id = (int)item.user_id,
+                           user_name = item.User.user_name,
+                           user_email = item.User.user_email,
+                           coin = item.tp_coin,
+                           datecreate = item.tp_datecreate.ToString(),
+                           note = item.tp_note,
+                           active = (int)item.tp_active,
+                           accountnumber = item.tp_accountnumber,
+                           customer = item.tp_customer,
+                           momo = item.tp_momo
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Categorys()
+        {
+            var list = from item in db.Categorys
+                       where item.category_del == false
+                       orderby item.category_datecreate descending
+                       select new
+                       {
+                           id = (int)item.category_id,
+                           name = item.category_name,
+                           active = item.category_active,
+                           item = item.category_item,
+                           img = item.category_img,
+                           datecreate = item.category_datecreate.ToString(),
+                           update = item.category_dateupdate.ToString(),
+                           del = item.category_del
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

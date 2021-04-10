@@ -128,5 +128,39 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // Check trạng thái hoạt động của Rút Tiền
+        public JsonResult ActivePrice(int? id)
+        {
+            TakePrice tk = db.TakePrices.Find(id);
+            if (tk.tp_active == 1)
+            {
+                tk.tp_active = 2;
+            }
+            else
+            {   
+                tk.tp_active = 1;
+            }
+
+            db.SaveChanges();
+
+            var list = from item in db.TakePrices
+                       orderby item.tp_datecreate descending
+                       select new
+                       {
+                           id = (int)item.tp_id,
+                           user_id = (int)item.user_id,
+                           user_name = item.User.user_name,
+                           user_email = item.User.user_email,
+                           coin = item.tp_coin,
+                           datecreate = item.tp_datecreate.ToString(),
+                           note = item.tp_note,
+                           active = (int)item.tp_active,
+                           accountnumber = item.tp_accountnumber,
+                           customer = item.tp_customer,
+                           momo = item.tp_momo
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

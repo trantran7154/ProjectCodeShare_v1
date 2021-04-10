@@ -87,15 +87,13 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "bill_id,bill_datecreate,pakege_id,user_id,bill_active,bill_dealine")] Bill bill)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(bill).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            db.Entry(bill).State = EntityState.Modified;
+            bill.bill_active = true;
+            db.SaveChanges();
+
             ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money", bill.pakege_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", bill.user_id);
-            return View(bill);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/BillsAdmin/Delete/5

@@ -9,7 +9,7 @@
 <link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
 
 <div class="col-xl-12 col-md-12" ng-app="myApp">
-    <div class="card table-card" ng-controller="myCtrl">
+    <div class="card table-card container-fluid" ng-controller="myCtrl">
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
@@ -24,13 +24,13 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <table class="mb-5 mt-5">
                         <tr class="two fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: Website chia sẻ code..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: Trân..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
                             </td>
@@ -39,19 +39,11 @@
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="title">Chữ cái</option>
+                                    <option value="user_name">Chữ cái</option>
                                     <option value="datecreate">Cũ nhất</option>
                                     <option value="searchText">Mới nhất</option>
                                 </select>
                             </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-3">
-                    <table class="mb-4 mt-4">
-                        <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","CodesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
                         </tr>
                     </table>
                 </div>
@@ -110,8 +102,8 @@
                                 </div>
                             </td>
                             <td width="110">
-                                <a href="/Admin/CodesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> |
-                                <a ng-click="bin(list.id)" data-toggle="modal" data-target="#del-{{list.id}}"><i class="fa fa-trash" style="font-size: 16px"></i></a>
+                                <a href="/Admin/BillsAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
+                                <a href="/Admin/BillsAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> 
                             </td>
                         </tr>
                     </tbody>
@@ -121,23 +113,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- Success modal -->
-                <div class="modal" tabindex="-1" id="bin">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body text-center font-18">
-                                <h3 class="mb-20">Xóa Thành Công</h3>
-                                <div class="mb-30 text-center">
-                                    <img src="~/Images/Modal/checked.png" />
-                                </div>
-                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
-                            </div>
-                            <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -160,26 +135,9 @@
                     $scope.list = response.data;
                 });
         }
-        // Option
-        $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Bin
-        $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                    $(document).ready(function () {
-                        $('#bin').modal('show');
-                    })
-                });
-        }
         // Search
         $scope.searchSort = "datecreate";
-        $scope.searchSort = "title";
+        $scope.searchSort = "user_name";
         $scope.searchSort = "searchText";
     });
 </script>

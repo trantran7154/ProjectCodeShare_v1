@@ -1,83 +1,57 @@
-﻿@model CodeShare.Model.EF.Category
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.Category
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
-
 <div class="col-xl-12 col-md-12">
-    <div class="card table-card">
+    <div class="card table-card container-fluid">
         <div class="card-header">
-            <h5>Member’s performance</h5>
+            <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/CategoriesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
-        <div class="card-block">
+        <div class="card-block container-fluid">
             <div class="table-responsive">
-
-
-                @using (Html.BeginForm())
-                {
+                <form method="post" action="@Url.Action("Create","CategoriesAdmin")" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        <h4>Category</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.category_name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-image"></i> Ảnh</label>
+                                    <input type="file" name="img" />
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.category_active, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.category_active)
-                                    @Html.ValidationMessageFor(model => model.category_active, "", new { @class = "text-danger" })
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-th-list"></i> Tên danh mục</label>
+                                    <input type="text" name="category_name" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-th-list"></i> Thuộc danh mục</label>
+                                    <select class="ui fluid dropdown" name="category_item">
+                                        <option value="1">Code</option>
+                                        <option value="2">Tin tức</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.category_item, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.category_item, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.category_item, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.category_img, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.category_img, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.category_img, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                            </div>
-                        </div>
                     </div>
-                }
-
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
-
+                    <div class="actions modal-footer">
+                        <button type="submit" class="ui positive right labeled icon button">
+                            Thêm
+                            <i class="checkmark icon"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

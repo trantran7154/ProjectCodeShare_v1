@@ -36,6 +36,9 @@
           <Property Name="category_active" Type="bit" />
           <Property Name="category_item" Type="int" />
           <Property Name="category_img" Type="nvarchar(max)" />
+          <Property Name="category_del" Type="bit" />
+          <Property Name="category_datecreate" Type="datetime" />
+          <Property Name="category_dateupdate" Type="datetime" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -578,6 +581,9 @@
           <NavigationProperty Name="Codes" Relationship="Self.FK_Codes_Categorys" FromRole="Categorys" ToRole="Codes" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Categorys" FromRole="Categorys" ToRole="Groups" />
           <NavigationProperty Name="Codes1" Relationship="DataShareCodeModel.FK_Codes_Categorys1" FromRole="Category" ToRole="Code" />
+          <Property Name="category_del" Type="Boolean" />
+          <Property Name="category_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="category_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -1164,6 +1170,9 @@
           <EntitySetMapping Name="Categorys">
             <EntityTypeMapping TypeName="DataShareCodeModel.Category">
               <MappingFragment StoreEntitySet="Categorys">
+                <ScalarProperty Name="category_dateupdate" ColumnName="category_dateupdate" />
+                <ScalarProperty Name="category_datecreate" ColumnName="category_datecreate" />
+                <ScalarProperty Name="category_del" ColumnName="category_del" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="category_active" ColumnName="category_active" />

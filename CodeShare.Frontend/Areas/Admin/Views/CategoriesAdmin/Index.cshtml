@@ -1,15 +1,23 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Category>
+﻿@using CodeShare.Model.EF
+@model IEnumerable<CodeShare.Model.EF.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
+@{ 
+    List<Category> cate = db.Categorys.ToList();
+}
 
-<div class="col-xl-12 col-md-12">
-    <div class="card table-card">
+<link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
+
+<div class="col-xl-12 col-md-12" ng-app="myApp">
+    <div class="card table-card container-fluid" ng-controller="myCtrl">
         <div class="card-header">
-            <h5>Member’s performance</h5>
+            <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -20,56 +28,190 @@
                 </ul>
             </div>
         </div>
-        <div class="card-block">
-            <div class="table-responsive">
-                <p>
-                    @Html.ActionLink("Create New", "Create")
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.category_name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.category_active)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.category_item)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.category_img)
-                        </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.category_name)
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9">
+                    <table class="mb-5 mt-5">
+                        <tr class="two fields">
+                            <td class="field">
+                                <label class="font-weight-bold">Tìm kiếm: </label>
+                                <div class="ui icon input" style="width: 250px">
+                                    <input type="text" placeholder="VD: Website..." ng-model="searchText">
+                                    <i class="inverted circular search link icon"></i>
+                                </div>
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.category_active)
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Tìm theo danh mục: </label>
+                                <select class="ui dropdown" ng-model="searchCate">
+                                    @foreach (var item in cate)
+                                    {
+                                        <option>@item.category_name</option>
+                                    }
+                                </select>
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.category_item)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.category_img)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.category_id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.category_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.category_id })
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Sắp xếp theo: </label>
+                                <select class="ui dropdown" ng-model="searchSort">
+                                    <option value="searchText">Sắp xếp mặc định</option>
+                                    <option value="searchText">Mặc định</option>
+                                    <option value="user_name">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
+                                </select>
                             </td>
                         </tr>
-                    }
-
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="mb-4 mt-4">
+                        <tr>
+                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","CategoriesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="table-responsive container-fluid">
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th class="font-weight-bold">
+                            Ảnh
+                        </th>
+                        <th class="font-weight-bold">
+                            Tên Danh Mục
+                        </th>
+                        <th class="font-weight-bold">
+                            Thuộc Danh Mục
+                        </th>
+                        <th class="font-weight-bold">
+                            Ngày Tạo
+                        </th>
+                        <th class="font-weight-bold" width="120">
+                            Hoạt Động
+                        </th>
+                        <th class="font-weight-bold">
+                            Công Cụ
+                        </th>
+                    </tr>
+                    <tbody ng-show="(list | filter:searchText).length != 0">
+                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
+                            <td class="font-weight-bold" width="200">
+                                <img src="~/Images/Categorys/{{list.img}}" width="100" height="100" />
+                            </td>
+                            <td class="font-weight-bold" width="300">{{list.name}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.item == 1">Code</div>
+                                <div ng-show="list.item == 2">Tin tức</div>
+                            </td>
+                            <td>{{list.datecreate}}</td>
+                            <td class="font-weight-bold" width="200">
+                                <div ng-show="list.active == true">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div ng-show="list.active == false">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="150">
+                                <a href="/Admin/CategoriesAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i>|</a>
+                                <a href="/Admin/CategoriesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                                <a ng-click="bin(list.id)"> | <i class="fa fa-trash" style="font-size: 16px"></i></a>
+                            </td>
+                            <!-- Success modal -->
+                            <td class="modal" tabindex="-1" id="check">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center font-18">
+                                            <h3 class="mb-20">Duyệt Thành Công</h3>
+                                            <div class="mb-30 text-center">
+                                                <img src="~/Images/Modal/checked.png" />
+                                            </div>
+                                            <h6 class="mt-2">Tài khoản <b class="text-danger">{{list.user_email}}</b> đã rút tiền thành công!</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- Success modal -->
+                            <td class="modal" tabindex="-1" id="bin">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center font-18">
+                                            <h3 class="mb-20">Hủy Thành Công</h3>
+                                            <div class="mb-30 text-center">
+                                                <img src="~/Images/Modal/checked.png" />
+                                            </div>
+                                            <h6 class="mt-2">Tài khoản <b class="text-danger">{{list.user_email}}</b> đã rút tiền không thành công!</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="(list | filter:searchText).length == 0">
+                        <tr>
+                            <th colspan="6" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                        </tr>
+                    </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Admin/JsonAdmin/Categorys"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+        // Active
+        $scope.active = function (id) {
+            $http.get("/Admin/CategoriesAdmin/ActiveCate?id=" + id)
+                .then(function (response) {
+                    $scope.list = response.data;
+                });
+        }
+        // Bin
+        $scope.bin = function (id) {
+            $http.get("/Admin/CategoriesAdmin/ActivePrice?id=" + id)
+                .then(function (response) {
+                    $scope.list = response.data;
+                    $(document).ready(function () {
+                        $('#bin').modal('show');
+                    })
+                });
+        }
+        // Search
+        $scope.searchSort = "datecreate";
+        $scope.searchSort = "user_name";
+        $scope.searchSort = "searchText";
+    });
+</script>
+
 
 
