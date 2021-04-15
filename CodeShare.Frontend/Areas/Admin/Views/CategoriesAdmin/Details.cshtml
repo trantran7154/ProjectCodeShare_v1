@@ -19,7 +19,6 @@
             <div class="table-responsive">
                 <form method="post" action="@Url.Action("Details","CategoriesAdmin", new { id = Model.category_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
-
                     <div class="modal-body">
                         <div class="ui form">
                             <div class="two fields">
@@ -42,12 +41,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="actions modal-footer">
-                        <button type="submit" class="ui positive right labeled icon button">
-                            Sửa
-                            <i class="checkmark icon"></i>
-                        </button>
                     </div>
                 </form>
             </div>

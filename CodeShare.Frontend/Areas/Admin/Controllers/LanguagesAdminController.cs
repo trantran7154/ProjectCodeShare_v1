@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -46,11 +47,31 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "language_id,language_name,language_active,language_img,language_view")] Language language)
+        public ActionResult Create([Bind(Include = "language_id,language_name,language_active,language_img,language_view")] Language language, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            Random random = new Random();
+            Random r = new Random();
+            ViewBag.random = random.Next(0, 1000);
+
+            db.Languages.Add(language);
+
+            if (img == null)
             {
-                db.Languages.Add(language);
+                language.language_img = "notimg.png";
+            }
+            else
+            {
+                // Tên file ảnh sản phẩm
+                var fileimg_cre = Path.GetFileName(img.FileName);
+                // Đưa tên ảnh vào đúng file
+                var pa_cre = Path.Combine(Server.MapPath("~/Images/Languages/"), ViewBag.random + fileimg_cre);
+
+                img.SaveAs(pa_cre);
+                language.language_img = ViewBag.random + img.FileName;
+
+                language.language_active = 1;
+                language.language_view = 0;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -78,15 +99,31 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "language_id,language_name,language_active,language_img,language_view")] Language language)
+        public ActionResult Edit([Bind(Include = "language_id,language_name,language_active,language_img,language_view")] Language language, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            Random random = new Random();
+            Random r = new Random();
+            ViewBag.random = random.Next(0, 1000);
+
+            db.Entry(language).State = EntityState.Modified;
+
+            if (img == null)
             {
-                db.Entry(language).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
-            return View(language);
+            else
+            {
+                // Tên file ảnh sản phẩm
+                var fileimg_cre = Path.GetFileName(img.FileName);
+                // Đưa tên ảnh vào đúng file
+                var pa_cre = Path.Combine(Server.MapPath("~/Images/Languages/"), ViewBag.random + fileimg_cre);
+
+                img.SaveAs(pa_cre);
+                language.language_img = ViewBag.random + img.FileName;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/LanguagesAdmin/Delete/5
@@ -122,6 +159,79 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // Check trạng thái hoạt động của danh mục
+        public JsonResult ActiveLanguages(int? id)
+        {
+            Language language = db.Languages.Find(id);
+            if (language.language_active == 1)
+            {
+                language.language_active = 2;
+            }
+            else
+            {
+                language.language_active = 1;
+            }
+            db.SaveChanges();
+            var list = from item in db.Languages
+                       where item.language_active == 1
+                       select new
+                       {
+                           id = (int)item.language_id,
+                           name = item.language_name,
+                           active = item.language_active,
+                           img = item.language_img,
+                           view = (int)item.language_view
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UnActive()
+        {
+            return View();
+        }
+
+        // Check trạng thái hoạt động của danh mục
+        public JsonResult ShowUnActive(int? id)
+        {
+            var list = from item in db.Languages
+                       where item.language_active == 2
+                       select new
+                       {
+                           id = (int)item.language_id,
+                           name = item.language_name,
+                           active = item.language_active,
+                           img = item.language_img,
+                           view = (int)item.language_view
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        // Check trạng thái hoạt động của danh mục
+        public JsonResult Restore(int? id)
+        {
+            Language language = db.Languages.Find(id);
+            if (language.language_active == 1)
+            {
+                language.language_active = 2;
+            }
+            else
+            {
+                language.language_active = 1;
+            }
+            db.SaveChanges();
+            var list = from item in db.Languages
+                       where item.language_active == 2
+                       select new
+                       {
+                           id = (int)item.language_id,
+                           name = item.language_name,
+                           active = item.language_active,
+                           img = item.language_img,
+                           view = (int)item.language_view
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

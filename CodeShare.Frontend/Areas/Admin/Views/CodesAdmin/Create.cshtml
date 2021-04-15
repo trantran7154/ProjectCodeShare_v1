@@ -108,19 +108,6 @@
     </div>
 </div>
 <script>
-    var app = angular.module('myApp', []);
-    app.controller('myCtrl', function ($scope, $http) {
-        $http({
-            method: "GET",
-            url: "/Admin/JsonAdmin/Codes"
-        }).then(function mySuccess(response) {
-            $scope.list = response.data;
-        }, function myError(response) {
-            $scope.list = response.statusText;
-        });
-    });
-</script>
-<script>
     ClassicEditor
         .create(document.querySelector('#editor1'))
         .catch(error => {

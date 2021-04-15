@@ -134,5 +134,20 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Languages()
+        {
+            var list = from item in db.Languages
+                       where item.language_active == 1
+                       select new
+                       {
+                           id = (int)item.language_id,
+                           name = item.language_name,
+                           active = item.language_active,
+                           img = item.language_img,
+                           view = (int)item.language_view
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -320,6 +320,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannersAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BillsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CodesAdminController.cs" />
@@ -1047,6 +1048,7 @@
     <Content Include="Images\Events\6235642e-c052-4e08-b43a-256b28211d6abg.jpg" />
     <Content Include="Images\Events\fcc1bbd8-d2ec-4991-bf78-e2c4cdceb871[serverclient]-vo-lam-truyen-ky-mobile-19-phai-day-du-web-api-214535.jpg" />
     <Content Include="Images\Events\notimg.png" />
+    <Content Include="Images\Languages\notimg.png" />
     <Content Include="Images\Modal\checked.png" />
     <Content Include="Images\PKs\1494e29f-6bc0-4c63-b3e5-6943e0ae2b4e142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
     <Content Include="Images\PKs\29a229c0-77f0-4bb8-ac1c-dc17384fba0a223424-Thiet-ke-website.png" />
@@ -1220,6 +1222,13 @@
     <Content Include="Areas\Admin\Views\LanguagesAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CodesAdmin\Deleted.cshtml" />
     <Content Include="Areas\Admin\Views\UsersAdmin\Deleted.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Deleted.cshtml" />
+    <Content Include="Areas\Admin\Views\LanguagesAdmin\UnActive.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1278,7 +1287,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\JsonAdmin\" />
-    <Folder Include="Images\Languages\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="Views\Json\" />
     <Folder Include="Views\Rep\" />

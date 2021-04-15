@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CodeShare.Model.EF.Banner>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.banner_title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.banner_image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.banner_link)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.banner_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.banner_active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.banner_title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.banner_image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.banner_link)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.banner_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.banner_active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.banner_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.banner_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.banner_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -187,5 +187,79 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Del(int? id)
+        {
+            Category cate = db.Categorys.Find(id);
+            cate.category_del = !cate.category_del;
+
+            db.SaveChanges();
+
+            var list = from item in db.Categorys
+                       where item.category_del == false
+                       orderby item.category_datecreate descending
+                       select new
+                       {
+                           id = (int)item.category_id,
+                           name = item.category_name,
+                           active = item.category_active,
+                           item = item.category_item,
+                           img = item.category_img,
+                           datecreate = item.category_datecreate.ToString(),
+                           update = item.category_dateupdate.ToString(),
+                           del = item.category_del
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Deleted()
+        {
+            return View();
+        }
+
+        // Danh sách danh mục đã xóa
+        public JsonResult DeletedCategories()
+        {
+            var list = from item in db.Categorys
+                       where item.category_del == true
+                       orderby item.category_datecreate descending
+                       select new
+                       {
+                           id = (int)item.category_id,
+                           name = item.category_name,
+                           active = item.category_active,
+                           item = item.category_item,
+                           img = item.category_img,
+                           datecreate = item.category_datecreate.ToString(),
+                           update = item.category_dateupdate.ToString(),
+                           del = item.category_del
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        // Khôi phục danh mục
+        public JsonResult Restore(int? id)
+        {
+            Category cate = db.Categorys.Find(id);
+            cate.category_del = !cate.category_del;
+
+            db.SaveChanges();
+
+            var list = from item in db.Categorys
+                       where item.category_del == true
+                       orderby item.category_datecreate descending
+                       select new
+                       {
+                           id = (int)item.category_id,
+                           name = item.category_name,
+                           active = item.category_active,
+                           item = item.category_item,
+                           img = item.category_img,
+                           datecreate = item.category_datecreate.ToString(),
+                           update = item.category_dateupdate.ToString(),
+                           del = item.category_del
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

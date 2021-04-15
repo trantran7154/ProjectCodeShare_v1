@@ -54,7 +54,7 @@
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="user_name">Chữ cái</option>
+                                    <option value="name">Chữ cái</option>
                                     <option value="datecreate">Cũ nhất</option>
                                     <option value="searchText">Mới nhất</option>
                                 </select>
@@ -63,10 +63,10 @@
                     </table>
                 </div>
                 <div class="col-md-3">
-                    <table class="mb-4 mt-4">
+                    <table class="mb-4 mt-4" style="float: right">
                         <tr>
                             <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","CategoriesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CodesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","CategoriesAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
                         </tr>
                     </table>
                 </div>
@@ -98,7 +98,7 @@
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
                             <td class="font-weight-bold" width="200">
-                                <img src="~/Images/Categorys/{{list.img}}" width="100" height="100" />
+                                <img src="~/Images/Categorys/{{list.img}}" width="100" height="90" />
                             </td>
                             <td class="font-weight-bold" width="300">{{list.name}}</td>
                             <td class="font-weight-bold">
@@ -173,6 +173,23 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- Success modal -->
+                <div class="modal" tabindex="-1" id="bin">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center font-18">
+                                <h3 class="mb-20">Xóa Thành Công</h3>
+                                <div class="mb-30 text-center">
+                                    <img src="~/Images/Modal/checked.png" />
+                                </div>
+                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -198,7 +215,7 @@
         }
         // Bin
         $scope.bin = function (id) {
-            $http.get("/Admin/CategoriesAdmin/ActivePrice?id=" + id)
+            $http.get("/Admin/CategoriesAdmin/Del?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
@@ -208,7 +225,7 @@
         }
         // Search
         $scope.searchSort = "datecreate";
-        $scope.searchSort = "user_name";
+        $scope.searchSort = "name";
         $scope.searchSort = "searchText";
     });
 </script>

@@ -1,10 +1,16 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Language>
+﻿@using CodeShare.Model.EF
+@model IEnumerable<CodeShare.Model.EF.Category>
 
 @{
-    ViewBag.Title = "Quản lý ngôn ngữ lập trình";
+    ViewBag.Title = "Thùng rác";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
+@{ 
+    List<Category> cate = db.Categorys.ToList();
+}
 
 <link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
 
@@ -13,43 +19,42 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/CategoriesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <table class="mb-5 mt-5">
                         <tr class="two fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: IOS..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: Website..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
+                            </td>
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Tìm theo danh mục: </label>
+                                <select class="ui dropdown" ng-model="searchCate">
+                                    @foreach (var item in cate)
+                                    {
+                                        <option>@item.category_name</option>
+                                    }
+                                </select>
                             </td>
                             <td class="field">
                                 <label class="ml-3 font-weight-bold">Sắp xếp theo: </label>
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="name">Chữ cái</option>
+                                    <option value="user_name">Chữ cái</option>
+                                    <option value="datecreate">Cũ nhất</option>
+                                    <option value="searchText">Mới nhất</option>
                                 </select>
                             </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <table class="mb-4 mt-4" style="float: right">
-                        <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","LanguagesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","LanguagesAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
                         </tr>
                     </table>
                 </div>
@@ -63,10 +68,13 @@
                             Ảnh
                         </th>
                         <th class="font-weight-bold">
-                            Tên Ngôn Ngữ Lập Trình
+                            Tên Danh Mục
                         </th>
                         <th class="font-weight-bold">
-                            Lượt Xem
+                            Thuộc Danh Mục
+                        </th>
+                        <th class="font-weight-bold">
+                            Ngày Tạo
                         </th>
                         <th class="font-weight-bold" width="120">
                             Hoạt Động
@@ -77,13 +85,17 @@
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
-                            <td class="font-weight-bold" width="300">
-                                <img src="~/Images/Languages/{{list.img}}" height="70" width="80" />
+                            <td class="font-weight-bold" width="200">
+                                <img src="~/Images/Categorys/{{list.img}}" width="100" height="90" />
                             </td>
-                            <td width="300">{{list.name}}</td>
-                            <td>{{list.view}}</td>
-                            <td class="font-weight-bold" width="300">
-                                <div ng-show="list.active == 1" class="font-weight-bold text-success">
+                            <td class="font-weight-bold" width="300">{{list.name}}</td>
+                            <td class="font-weight-bold">
+                                <div ng-show="list.item == 1">Code</div>
+                                <div ng-show="list.item == 2">Tin tức</div>
+                            </td>
+                            <td>{{list.datecreate}}</td>
+                            <td class="font-weight-bold" width="200">
+                                <div ng-show="list.active == true">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
                                         <span>
@@ -92,7 +104,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <div ng-show="list.active == 2" class="font-weight-bold text-danger">
+                                <div ng-show="list.active == false">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
                                         <span>
@@ -102,20 +114,36 @@
                                     </label>
                                 </div>
                             </td>
-                            <td width="200">
-                                <a href="/Admin/LanguagesAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/LanguagesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                            <td width="110">
+                                <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
                             </td>
                             <!-- Success modal -->
                             <td class="modal" tabindex="-1" id="check">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body text-center font-18">
-                                            <h3 class="mb-20">Thông Báo</h3>
+                                            <h3 class="mb-20">Duyệt Thành Công</h3>
                                             <div class="mb-30 text-center">
                                                 <img src="~/Images/Modal/checked.png" />
                                             </div>
-                                            <h6 class="mt-2">Bạn vừa tắt hoạt động thành công !</h6>
+                                            <h6 class="mt-2">Tài khoản <b class="text-danger">{{list.user_email}}</b> đã rút tiền thành công!</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- Success modal -->
+                            <td class="modal" tabindex="-1" id="bin">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center font-18">
+                                            <h3 class="mb-20">Hủy Thành Công</h3>
+                                            <div class="mb-30 text-center">
+                                                <img src="~/Images/Modal/checked.png" />
+                                            </div>
+                                            <h6 class="mt-2">Tài khoản <b class="text-danger">{{list.user_email}}</b> đã rút tiền không thành công!</h6>
                                         </div>
                                         <div class="modal-footer justify-content-center">
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -127,10 +155,27 @@
                     </tbody>
                     <tbody ng-show="(list | filter:searchText).length == 0">
                         <tr>
-                            <th colspan="5" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                            <th colspan="6" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
                         </tr>
                     </tbody>
                 </table>
+                <!-- Success modal -->
+                <div class="modal" tabindex="-1" id="bin">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center font-18">
+                                <h3 class="mb-20">Khôi Phục Thành Công</h3>
+                                <div class="mb-30 text-center">
+                                    <img src="~/Images/Modal/checked.png" />
+                                </div>
+                                <h6 class="mt-2">Dữ liệu đã được cập nhật!</h6>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -141,25 +186,24 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Languages"
+            url: "/Admin/CategoriesAdmin/DeletedCategories"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
             $scope.list = response.statusText;
         });
-        // Check
-        $scope.active = function (id) {
-            $http.get(" /Admin/LanguagesAdmin/ActiveLanguages?id=" + id)
+        // Restore
+        $scope.restore = function (id) {
+            $http.get("/Admin/CategoriesAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
-                        $('#check').modal('show');
+                        $('#bin').modal('show');
                     })
                 });
         }
-        // Search
-        $scope.searchSort = "searchText";
-        $scope.searchSort = "name";
-        $scope.searchSort = "searchText";
     });
 </script>
+
+
+

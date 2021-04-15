@@ -1,10 +1,8 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Language>
-
+﻿
 @{
-    ViewBag.Title = "Quản lý ngôn ngữ lập trình";
+    ViewBag.Title = "Không hoạt động";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 
 <link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
 
@@ -13,13 +11,9 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/LanguagesAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="container-fluid">
@@ -45,14 +39,6 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-4">
-                    <table class="mb-4 mt-4" style="float: right">
-                        <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","LanguagesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","LanguagesAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
-                        </tr>
-                    </table>
-                </div>
             </div>
         </div>
         <div class="card-block">
@@ -71,16 +57,13 @@
                         <th class="font-weight-bold" width="120">
                             Hoạt Động
                         </th>
-                        <th class="font-weight-bold">
-                            Công Cụ
-                        </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
                             <td class="font-weight-bold" width="300">
                                 <img src="~/Images/Languages/{{list.img}}" height="70" width="80" />
                             </td>
-                            <td width="300">{{list.name}}</td>
+                            <td width="400">{{list.name}}</td>
                             <td>{{list.view}}</td>
                             <td class="font-weight-bold" width="300">
                                 <div ng-show="list.active == 1" class="font-weight-bold text-success">
@@ -102,10 +85,6 @@
                                     </label>
                                 </div>
                             </td>
-                            <td width="200">
-                                <a href="/Admin/LanguagesAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/LanguagesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
-                            </td>
                             <!-- Success modal -->
                             <td class="modal" tabindex="-1" id="check">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -115,7 +94,7 @@
                                             <div class="mb-30 text-center">
                                                 <img src="~/Images/Modal/checked.png" />
                                             </div>
-                                            <h6 class="mt-2">Bạn vừa tắt hoạt động thành công !</h6>
+                                            <h6 class="mt-2">Bạn vừa bật hoạt động thành công !</h6>
                                         </div>
                                         <div class="modal-footer justify-content-center">
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -141,7 +120,7 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Languages"
+            url: "/Admin/LanguagesAdmin/ShowUnActive"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
@@ -149,7 +128,7 @@
         });
         // Check
         $scope.active = function (id) {
-            $http.get(" /Admin/LanguagesAdmin/ActiveLanguages?id=" + id)
+            $http.get(" /Admin/LanguagesAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
@@ -163,3 +142,4 @@
         $scope.searchSort = "searchText";
     });
 </script>
+
