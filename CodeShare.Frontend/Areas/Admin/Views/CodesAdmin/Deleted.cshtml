@@ -27,7 +27,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-9">
-                    <table class="mb-5 mt-5">
+                    <h4 class="mt-3">TÌM KIẾM NÂNG CAO</h4>
+                    <table class="mb-5 mt-3">
                         <tr class="two fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
@@ -37,12 +38,21 @@
                                 </div>
                             </td>
                             <td class="field">
-                                <label class="ml-3 font-weight-bold">Tìm theo danh mục: </label>
+                                <label class="ml-3 font-weight-bold">Danh mục: </label>
                                 <select class="ui dropdown" ng-model="searchCate">
+                                    <option value="">Tất cả</option>
                                     @foreach (var item in cate)
                                     {
                                         <option>@item.category_name</option>
                                     }
+                                </select>
+                            </td>
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Tình trạng: </label>
+                                <select class="ui search dropdown" ng-model="searchFull.active">
+                                    <option value="">Tất cả</option>
+                                    <option value="1">Hoạt động</option>
+                                    <option value="2">Không hoạt động</option>
                                 </select>
                             </td>
                             <td class="field">
@@ -93,7 +103,7 @@
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
-                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
+                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate | filter: searchFull">
                             <td>
                                 <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
                             </td>

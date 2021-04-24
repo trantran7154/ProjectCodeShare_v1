@@ -358,5 +358,12 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        // Lịch sử nạp xu
+        public ActionResult MoneyHistory(int? id)
+        {
+            User users = db.Users.Find(id);
+            return View(users);
+        }
     }
 }

@@ -19,7 +19,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <table class="mb-5 mt-5">
+                    <h4 class="mt-3">TÌM KIẾM NÂNG CAO</h4>
+                    <table class="mb-5 mt-3">
                         <tr class="two fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
@@ -27,6 +28,14 @@
                                     <input type="text" placeholder="VD: TÌM VÀ CHIA SẺ SOURCE..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
+                            </td>
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Tình trạng: </label>
+                                <select class="ui search dropdown" ng-model="searchFull.active">
+                                    <option value="">Tất cả</option>
+                                    <option value="true">Hoạt động</option>
+                                    <option value="false">Không hoạt động</option>
+                                </select>
                             </td>
                             <td class="field">
                                 <label class="ml-3 font-weight-bold">Sắp xếp theo: </label>
@@ -75,7 +84,7 @@
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
-                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
+                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchFull">
                             <td width="200">
                                 <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
                             </td>

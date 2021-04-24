@@ -19,14 +19,23 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <table class="mb-5 mt-5">
-                        <tr class="two fields">
+                    <h4 class="mt-3">TÌM KIẾM NÂNG CAO</h4>
+                    <table class="mb-5 mt-3">
+                        <tr class="three fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: Tin tức..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: Tin tức công nghệ..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
+                            </td>
+                            <td class="field">
+                                <label class="ml-3 font-weight-bold">Tình trạng: </label>
+                                <select class="ui search dropdown" ng-model="searchFull.active">
+                                    <option value="">Tất cả</option>
+                                    <option value="1">Hoạt động</option>
+                                    <option value="2">Không hoạt động</option>
+                                </select>
                             </td>
                             <td class="field">
                                 <label class="ml-3 font-weight-bold">Sắp xếp theo: </label>

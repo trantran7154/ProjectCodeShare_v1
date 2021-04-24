@@ -1245,6 +1245,7 @@
     <Content Include="Areas\Admin\Views\NewsAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\NewsAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NewsAdmin\Deleted.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\MoneyHistory.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
