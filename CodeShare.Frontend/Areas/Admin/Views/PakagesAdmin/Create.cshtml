@@ -1,8 +1,8 @@
 ﻿@using CodeShare.Model.EF
-@model CodeShare.Model.EF.Banner
+@model CodeShare.Model.EF.Pakage
 
 @{
-    ViewBag.Title = "Thêm Banner";
+    ViewBag.Title = "Thêm gói nạp xu";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
     DataShareCodeEntities db = new DataShareCodeEntities();
@@ -13,34 +13,22 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <a href="/Admin/BannersAdmin/Index" class="font-weight-bold mr-4">
+                <a href="/Admin/PakagesAdmin/Index" class="font-weight-bold mr-4">
                     <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
                 </a>
             </div>
         </div>
         <div class="card-block container-fluid">
             <div class="table-responsive">
-                <form method="post" action="@Url.Action("Create","BannersAdmin")" enctype="multipart/form-data">
+                <form method="post" action="@Url.Action("Create","PakagesAdmin")" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="ui form">
-                            <div class="two fields">
+                            <div class="fields two">
                                 <div class="field">
-                                    <label><i class="fa fa-image"></i> Ảnh</label>
-                                    <input type="file" name="img" />
+                                    <label><i class="fa fa-pencil-square-o font-weight-bold"></i> Gói nạp xu</label>
+                                    <input type="text" name="pakage_coin" />
                                 </div>
-                                <div class="field">
-                                    <label><i class="fa fa-pencil"></i> Tên banner</label>
-                                    <input type="text" name="banner_title">
-                                </div>
-                            </div>
-                            <div class="two fields">
-                                <div class="field">
-                                    <label><i class="fa fa-link"></i> Link banner</label>
-                                    <input type="text" name="banner_link" />
-                                </div>
-                            </div>
-                            <div class="ui error message">
                             </div>
                         </div>
                     </div>

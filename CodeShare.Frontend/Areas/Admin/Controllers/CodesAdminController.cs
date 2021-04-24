@@ -197,6 +197,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             db.SaveChanges();
 
             var list = from item in db.Codes
+                       where item.code_del == true
                        orderby item.code_datecreate descending
                        select new
                        {
@@ -309,7 +310,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        // Check trạng thái xóa của Codes
+        // Check trạng thái của Codes
         public JsonResult OptionCode(int? id)
         {
             Code codes = db.Codes.Find(id);

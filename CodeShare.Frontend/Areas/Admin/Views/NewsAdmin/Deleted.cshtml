@@ -1,7 +1,6 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Banner>
-
+﻿
 @{
-    ViewBag.Title = "Quản lý Banners";
+    ViewBag.Title = "Không hoạt động";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,13 +11,9 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/NewsAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="container-fluid">
@@ -29,7 +24,7 @@
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: TÌM VÀ CHIA SẺ SOURCE..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: Tin tức..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
                             </td>
@@ -38,19 +33,11 @@
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="title">Chữ cái</option>
+                                    <option value="name">Chữ cái</option>
                                     <option value="datecreate">Cũ nhất</option>
                                     <option value="searchText">Mới nhất</option>
                                 </select>
                             </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <table class="mb-4 mt-4" style="float: right">
-                        <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","BannersAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","BannersAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
                         </tr>
                     </table>
                 </div>
@@ -64,10 +51,16 @@
                             Ảnh
                         </th>
                         <th class="font-weight-bold">
-                            Tên Banner
+                            Tên Tin Tức
                         </th>
                         <th class="font-weight-bold">
-                            Link
+                            Lượt Xem
+                        </th>
+                        <th class="font-weight-bold">
+                            Tag
+                        </th>
+                        <th class="font-weight-bold">
+                            Người Đăng
                         </th>
                         <th class="font-weight-bold">
                             Ngày Tạo
@@ -76,19 +69,24 @@
                             Hoạt Động
                         </th>
                         <th class="font-weight-bold">
+                            Tùy Chọn
+                        </th>
+                        <th class="font-weight-bold">
                             Công Cụ
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
-                            <td width="200">
-                                <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
+                            <td>
+                                <img src="~/Images/News/{{list.img}}" height="60" width="80" />
                             </td>
-                            <td class="font-weight-bold" width="300">{{list.title}}</td>
-                            <td width="250">{{list.link}}</td>
+                            <td class="font-weight-bold">{{list.name}}</td>
+                            <td class="font-weight-bold">{{list.view}} lượt</td>
+                            <td class="font-weight-bold">{{list.tag}}</td>
+                            <td class="font-weight-bold">{{list.user_name}}</td>
                             <td>{{list.datecreate}}</td>
-                            <td class="font-weight-bold" width="150">
-                                <div ng-show="list.active == true">
+                            <td class="font-weight-bold">
+                                <div ng-show="list.active == 1">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
                                         <span>
@@ -97,7 +95,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <div ng-show="list.active == false">
+                                <div ng-show="list.active == 2">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
                                         <span>
@@ -107,9 +105,28 @@
                                     </label>
                                 </div>
                             </td>
-                            <td width="150">
-                                <a href="/Admin/BannersAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/BannersAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                            <td>
+                                <div ng-show="list.option == true">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div ng-show="list.option == false">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="110">
+                                <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -124,11 +141,11 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center font-18">
-                                <h3 class="mb-20">Xóa Thành Công</h3>
+                                <h3 class="mb-20">Khôi Phục Thành Công</h3>
                                 <div class="mb-30 text-center">
                                     <img src="~/Images/Modal/checked.png" />
                                 </div>
-                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
+                                <h6 class="mt-2">Dữ liệu đã được cập nhật!</h6>
                             </div>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -146,29 +163,15 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Banners"
+            url: "/Admin/NewsAdmin/ShowBin"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
             $scope.list = response.statusText;
         });
-        // Active
-        $scope.active = function (id) {
-            $http.get("/Admin/BannersAdmin/ActiveBanner?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Option
-        $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Bin
-        $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
+        // Check
+        $scope.restore = function (id) {
+            $http.get(" /Admin/NewsAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
@@ -177,8 +180,9 @@
                 });
         }
         // Search
-        $scope.searchSort = "datecreate";
-        $scope.searchSort = "title";
+        $scope.searchSort = "searchText";
+        $scope.searchSort = "name";
         $scope.searchSort = "searchText";
     });
 </script>
+

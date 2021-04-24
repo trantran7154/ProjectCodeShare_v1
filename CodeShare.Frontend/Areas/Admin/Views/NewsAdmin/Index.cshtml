@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Banner>
+﻿@model IEnumerable<CodeShare.Model.EF.News>
 
 @{
-    ViewBag.Title = "Quản lý Banners";
+    ViewBag.Title = "Quản lý tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,13 +23,13 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <table class="mb-5 mt-5">
                         <tr class="two fields">
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: TÌM VÀ CHIA SẺ SOURCE..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: Tin tức công nghệ..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
                             </td>
@@ -38,7 +38,7 @@
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="title">Chữ cái</option>
+                                    <option value="name">Chữ cái</option>
                                     <option value="datecreate">Cũ nhất</option>
                                     <option value="searchText">Mới nhất</option>
                                 </select>
@@ -46,11 +46,11 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <table class="mb-4 mt-4" style="float: right">
                         <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","BannersAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","BannersAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
+                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","NewsAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("Deleted","NewsAdmin")"><i class="fa fa-trash"></i> THÙNG RÁC</a></td>
                         </tr>
                     </table>
                 </div>
@@ -64,10 +64,16 @@
                             Ảnh
                         </th>
                         <th class="font-weight-bold">
-                            Tên Banner
+                            Tên Tin Tức
                         </th>
                         <th class="font-weight-bold">
-                            Link
+                            Lượt Xem
+                        </th>
+                        <th class="font-weight-bold">
+                            Tag
+                        </th>
+                        <th class="font-weight-bold">
+                            Người Đăng
                         </th>
                         <th class="font-weight-bold">
                             Ngày Tạo
@@ -76,19 +82,24 @@
                             Hoạt Động
                         </th>
                         <th class="font-weight-bold">
+                            Tùy Chọn
+                        </th>
+                        <th class="font-weight-bold">
                             Công Cụ
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
-                            <td width="200">
-                                <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
+                            <td>
+                                <img src="~/Images/News/{{list.img}}" height="60" width="80" />
                             </td>
-                            <td class="font-weight-bold" width="300">{{list.title}}</td>
-                            <td width="250">{{list.link}}</td>
+                            <td class="font-weight-bold">{{list.name}}</td>
+                            <td class="font-weight-bold">{{list.view}} lượt</td>
+                            <td class="font-weight-bold">{{list.tag}}</td>
+                            <td class="font-weight-bold">{{list.user_name}}</td>
                             <td>{{list.datecreate}}</td>
-                            <td class="font-weight-bold" width="150">
-                                <div ng-show="list.active == true">
+                            <td class="font-weight-bold">
+                                <div ng-show="list.active == 1">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
                                         <span>
@@ -97,7 +108,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <div ng-show="list.active == false">
+                                <div ng-show="list.active == 2">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
                                         <span>
@@ -107,9 +118,30 @@
                                     </label>
                                 </div>
                             </td>
-                            <td width="150">
-                                <a href="/Admin/BannersAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/BannersAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                            <td>
+                                <div ng-show="list.option == true">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox" checked>
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div ng-show="list.option == false">
+                                    <label ontouchstart="" class="ios-switch">
+                                        <input type="checkbox" ng-click="option(list.id)" id="checkbox" name="my-checkbox">
+                                        <span>
+                                            <span class="ios-switch-inlay"></span>
+                                            <span class="ios-switch-knob"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="110">
+                                <a href="/Admin/NewsAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
+                                <a href="/Admin/NewsAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> |
+                                <a ng-click="bin(list.id)"><i class="fa fa-trash" style="font-size: 16px"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -140,13 +172,12 @@
         </div>
     </div>
 </div>
-
 <script>
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Banners"
+            url: "/Admin/JsonAdmin/News"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
@@ -154,21 +185,21 @@
         });
         // Active
         $scope.active = function (id) {
-            $http.get("/Admin/BannersAdmin/ActiveBanner?id=" + id)
+            $http.get("/Admin/NewsAdmin/ActiveNew?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                 });
         }
         // Option
         $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
+            $http.get("/Admin/NewsAdmin/OptionNew?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                 });
         }
         // Bin
         $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
+            $http.get("/Admin/NewsAdmin/DelNew?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
@@ -178,7 +209,7 @@
         }
         // Search
         $scope.searchSort = "datecreate";
-        $scope.searchSort = "title";
+        $scope.searchSort = "name";
         $scope.searchSort = "searchText";
     });
 </script>

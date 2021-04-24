@@ -149,5 +149,60 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Banners()
+        {
+            var list = from item in db.Banners
+                       where item.banner_active == true
+                       orderby item.banner_datecreate descending
+                       select new
+                       {
+                           id = (int)item.banner_id,
+                           title = item.banner_title,
+                           active = item.banner_active,
+                           img = item.banner_image,
+                           link = item.banner_link,
+                           datecreate = item.banner_datecreate.ToString()
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Packages()
+        {
+            var list = from item in db.Pakages
+                       where item.pakage_active == 1
+                       select new
+                       {
+                           id = (int)item.pakege_id,
+                           coin = (int)item.pakage_coin,
+                           money = item.pakage_money.ToString(),
+                           active = (int)item.pakage_active
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult News()
+        {
+            var list = from item in db.News
+                       where item.news_del == false
+                       orderby item.news_datecreate descending
+                       select new
+                       {
+                           id = (int)item.news_id,
+                           name = item.news_name.ToString(),
+                           view = (int)item.news_view,
+                           content = item.news_content.ToString(),
+                           tag = item.news_tag.ToString(),
+                           user_id = (int)item.user_id,
+                           user_name = item.User.user_name.ToString(),
+                           datecreate = item.news_datecreate.ToString(),
+                           update = item.news_dateupdate.ToString(),
+                           active = (int)item.news_active,
+                           option = item.news_option,
+                           del = item.news_del,
+                           img = item.news_img
+                       };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

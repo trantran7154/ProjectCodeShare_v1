@@ -1,7 +1,6 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Banner>
-
+﻿
 @{
-    ViewBag.Title = "Quản lý Banners";
+    ViewBag.Title = "Banner không hoạt động";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,13 +11,9 @@
         <div class="card-header">
             <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                    <li><i class="fa fa-minus minimize-card"></i></li>
-                    <li><i class="fa fa-refresh reload-card"></i></li>
-                    <li><i class="fa fa-trash close-card"></i></li>
-                </ul>
+                <a href="/Admin/BannersAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
         <div class="container-fluid">
@@ -50,7 +45,7 @@
                     <table class="mb-4 mt-4" style="float: right">
                         <tr>
                             <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","BannersAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","BannersAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","LanguagesAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
                         </tr>
                     </table>
                 </div>
@@ -108,8 +103,7 @@
                                 </div>
                             </td>
                             <td width="150">
-                                <a href="/Admin/BannersAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/BannersAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                                <a ng-click="restore(list.id)"><i class="fa fa-refresh" style="font-size: 16px"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -120,15 +114,15 @@
                     </tbody>
                 </table>
                 <!-- Success modal -->
-                <div class="modal" tabindex="-1" id="bin">
+                <div class="modal" tabindex="-1" id="check">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center font-18">
-                                <h3 class="mb-20">Xóa Thành Công</h3>
+                                <h3 class="mb-20">Khôi Phục Thành Công</h3>
                                 <div class="mb-30 text-center">
                                     <img src="~/Images/Modal/checked.png" />
                                 </div>
-                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
+                                <h6 class="mt-2">Dữ liệu đã khôi phục!</h6>
                             </div>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -146,33 +140,19 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Banners"
+            url: "/Admin/BannersAdmin/CheckActive"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
         }, function myError(response) {
             $scope.list = response.statusText;
         });
-        // Active
-        $scope.active = function (id) {
-            $http.get("/Admin/BannersAdmin/ActiveBanner?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Option
-        $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Bin
-        $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
+        // Check
+        $scope.restore = function (id) {
+            $http.get(" /Admin/BannersAdmin/Restore?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
-                        $('#bin').modal('show');
+                        $('#check').modal('show');
                     })
                 });
         }
@@ -182,3 +162,4 @@
         $scope.searchSort = "searchText";
     });
 </script>
+

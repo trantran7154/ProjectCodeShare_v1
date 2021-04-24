@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CodeShare.Model.EF.Banner>
+﻿@model IEnumerable<CodeShare.Model.EF.Pakage>
 
 @{
-    ViewBag.Title = "Quản lý Banners";
+    ViewBag.Title = "Quản lý nạp xu";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,7 +29,7 @@
                             <td class="field">
                                 <label class="font-weight-bold">Tìm kiếm: </label>
                                 <div class="ui icon input" style="width: 250px">
-                                    <input type="text" placeholder="VD: TÌM VÀ CHIA SẺ SOURCE..." ng-model="searchText">
+                                    <input type="text" placeholder="VD: 200..." ng-model="searchText">
                                     <i class="inverted circular search link icon"></i>
                                 </div>
                             </td>
@@ -38,9 +38,7 @@
                                 <select class="ui dropdown" ng-model="searchSort">
                                     <option value="searchText">Sắp xếp mặc định</option>
                                     <option value="searchText">Mặc định</option>
-                                    <option value="title">Chữ cái</option>
-                                    <option value="datecreate">Cũ nhất</option>
-                                    <option value="searchText">Mới nhất</option>
+                                    <option value="coin">Gói nạp</option>
                                 </select>
                             </td>
                         </tr>
@@ -49,8 +47,8 @@
                 <div class="col-md-4">
                     <table class="mb-4 mt-4" style="float: right">
                         <tr>
-                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","BannersAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
-                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","BannersAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
+                            <td><a class="btn btn-dark font-weight-bold mt-4 mb-4" href="@Url.Action("Create","PakagesAdmin")"><i class="fa fa-plus"></i> THÊM</a></td>
+                            <td><a class="btn btn-success font-weight-bold mt-4 mb-4 ml-3" href="@Url.Action("UnActive","PakagesAdmin")"><i class="fa fa-power-off font-weight-bold"></i> KHÔNG HOẠT ĐỘNG</a></td>
                         </tr>
                     </table>
                 </div>
@@ -61,18 +59,12 @@
                 <table class="table table-bordered text-center">
                     <tr>
                         <th class="font-weight-bold">
-                            Ảnh
+                            Gói Nạp Xu
                         </th>
                         <th class="font-weight-bold">
-                            Tên Banner
+                            Mệnh Giá Nạp
                         </th>
                         <th class="font-weight-bold">
-                            Link
-                        </th>
-                        <th class="font-weight-bold">
-                            Ngày Tạo
-                        </th>
-                        <th class="font-weight-bold" width="120">
                             Hoạt Động
                         </th>
                         <th class="font-weight-bold">
@@ -81,14 +73,10 @@
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
                         <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchCate">
-                            <td width="200">
-                                <img src="~/Images/Codes/{{list.img}}" height="60" width="80" />
-                            </td>
-                            <td class="font-weight-bold" width="300">{{list.title}}</td>
-                            <td width="250">{{list.link}}</td>
-                            <td>{{list.datecreate}}</td>
-                            <td class="font-weight-bold" width="150">
-                                <div ng-show="list.active == true">
+                            <td class="font-weight-bold">{{list.coin}} Xu</td>
+                            <td class="font-weight-bold">{{list.coin * 1000 | currency:"":0}} VNĐ</td>
+                            <td class="font-weight-bold" width="300">
+                                <div ng-show="list.active == 1" class="font-weight-bold text-success">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox" checked>
                                         <span>
@@ -97,7 +85,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <div ng-show="list.active == false">
+                                <div ng-show="list.active == 2" class="font-weight-bold text-danger">
                                     <label ontouchstart="" class="ios-switch">
                                         <input type="checkbox" ng-click="active(list.id)" id="checkbox" name="my-checkbox">
                                         <span>
@@ -107,35 +95,35 @@
                                     </label>
                                 </div>
                             </td>
-                            <td width="150">
-                                <a href="/Admin/BannersAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/BannersAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                            <td width="200">
+                                <a href="/Admin/LanguagesAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
+                                <a href="/Admin/PakagesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
+                            </td>
+                            <!-- Success modal -->
+                            <td class="modal" tabindex="-1" id="check">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center font-18">
+                                            <h3 class="mb-20">Thông Báo</h3>
+                                            <div class="mb-30 text-center">
+                                                <img src="~/Images/Modal/checked.png" />
+                                            </div>
+                                            <h6 class="mt-2">Bạn vừa tắt hoạt động thành công !</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                     <tbody ng-show="(list | filter:searchText).length == 0">
                         <tr>
-                            <th colspan="9" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                            <th colspan="4" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
                         </tr>
                     </tbody>
                 </table>
-                <!-- Success modal -->
-                <div class="modal" tabindex="-1" id="bin">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body text-center font-18">
-                                <h3 class="mb-20">Xóa Thành Công</h3>
-                                <div class="mb-30 text-center">
-                                    <img src="~/Images/Modal/checked.png" />
-                                </div>
-                                <h6 class="mt-2">Dữ liệu đã được chuyển vào thùng rác!</h6>
-                            </div>
-                            <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -146,39 +134,25 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Admin/JsonAdmin/Banners"
+            url: "/Admin/JsonAdmin/Packages"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
-        }, function myError(response) {
+        }, function myError(response) {s
             $scope.list = response.statusText;
         });
-        // Active
+        // Check
         $scope.active = function (id) {
-            $http.get("/Admin/BannersAdmin/ActiveBanner?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Option
-        $scope.option = function (id) {
-            $http.get("/Admin/CodesAdmin/OptionCode?id=" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        }
-        // Bin
-        $scope.bin = function (id) {
-            $http.get("/Admin/CodesAdmin/Del?id=" + id)
+            $http.get("/Admin/PakagesAdmin/ActivePackages?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
                     $(document).ready(function () {
-                        $('#bin').modal('show');
+                        $('#check').modal('show');
                     })
                 });
         }
         // Search
-        $scope.searchSort = "datecreate";
-        $scope.searchSort = "title";
+        $scope.searchSort = "searchText";
+        $scope.searchSort = "coin";
         $scope.searchSort = "searchText";
     });
 </script>

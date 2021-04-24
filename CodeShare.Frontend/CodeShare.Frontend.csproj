@@ -327,6 +327,8 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\JsonAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\LanguagesAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PakagesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TakePricesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1050,6 +1052,7 @@
     <Content Include="Images\Events\notimg.png" />
     <Content Include="Images\Languages\notimg.png" />
     <Content Include="Images\Modal\checked.png" />
+    <Content Include="Images\News\notimg.png" />
     <Content Include="Images\PKs\1494e29f-6bc0-4c63-b3e5-6943e0ae2b4e142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
     <Content Include="Images\PKs\29a229c0-77f0-4bb8-ac1c-dc17384fba0a223424-Thiet-ke-website.png" />
     <Content Include="Images\PKs\515a0d82-5e9f-45fc-b294-51f78a2b21e3142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
@@ -1229,6 +1232,19 @@
     <Content Include="Areas\Admin\Views\BannersAdmin\Details.cshtml" />
     <Content Include="Areas\Admin\Views\BannersAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\BannersAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BannersAdmin\UnActive.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PakagesAdmin\UnActive.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsAdmin\Deleted.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

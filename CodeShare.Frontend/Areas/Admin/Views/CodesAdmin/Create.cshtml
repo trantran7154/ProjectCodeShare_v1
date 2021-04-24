@@ -8,6 +8,8 @@
     DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+
 <div class="col-xl-12 col-md-12">
     <div class="card table-card">
         <div class="card-header">
@@ -50,15 +52,15 @@
                                     </select>
                                 </div>
                                 @*<div class="field">
-                                    <label>Phân loại code: <b class="text-danger">*</b></label>
-                                    <select class="ui fluid search dropdown" multiple="" name="cate">
-                                        <option value="">Chọn phân loại code</option>
-                                        @foreach (var item in db.Languages.Where(t => t.language_active == 1))
-                                        {
-                                            <option value="@item.language_id">@item.language_name</option>
-                                        }
-                                    </select>
-                                </div>*@
+                                        <label>Phân loại code: <b class="text-danger">*</b></label>
+                                        <select class="ui fluid search dropdown" multiple="" name="cate">
+                                            <option value="">Chọn phân loại code</option>
+                                            @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                            {
+                                                <option value="@item.language_id">@item.language_name</option>
+                                            }
+                                        </select>
+                                    </div>*@
                                 <div class="field">
                                     <label><i class="fa fa-money"></i> Giá</label>
                                     <input type="text" name="code_coin" />

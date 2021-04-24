@@ -1,72 +1,60 @@
-﻿@model CodeShare.Model.EF.Banner
+﻿@using CodeShare.Model;
+@model CodeShare.Model.EF.Banner
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa thông tin banner";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Banner</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.banner_id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.banner_title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.banner_title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.banner_title, "", new { @class = "text-danger" })
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <a href="/Admin/BannersAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
             </div>
         </div>
+        <div class="card-block container-fluid">
+            <div class="table-responsive">
+                <form method="post" action="@Url.Action("Edit","BannersAdmin", new { id = Model.banner_id })" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.banner_image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.banner_image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.banner_image, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <input type="hidden" value="@Model.banner_id" name="banner_id" />
+                    <input type="hidden" value="@Model.banner_datecreate" name="banner_datecreate" />
+                    <input type="hidden" value="@Model.banner_image" name="banner_image" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.banner_link, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.banner_link, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.banner_link, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.banner_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.banner_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.banner_datecreate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.banner_active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.banner_active)
-                    @Html.ValidationMessageFor(model => model.banner_active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="modal-body">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-image"></i> Ảnh</label>
+                                    <input type="file" value="@Model.banner_image" name="img" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-pencil"></i> Tên banner</label>
+                                    <input type="text" value="@Model.banner_title" name="banner_title">
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label><i class="fa fa-link"></i> Link banner</label>
+                                    <input type="text" value="@Model.banner_link" name="banner_link" />
+                                </div>
+                            </div>
+                            <div class="ui error message">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions modal-footer">
+                        <button type="submit" class="ui positive right labeled icon button">
+                            Sửa
+                            <i class="checkmark icon"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
