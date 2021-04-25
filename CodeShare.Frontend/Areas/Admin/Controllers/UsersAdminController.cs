@@ -365,5 +365,12 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             User users = db.Users.Find(id);
             return View(users);
         }
+
+        // Lịch sử bình luận
+        public ActionResult CommetHistory(int? id)
+        {
+            User users = db.Users.Find(id);
+            return View(users);
+        }
     }
 }

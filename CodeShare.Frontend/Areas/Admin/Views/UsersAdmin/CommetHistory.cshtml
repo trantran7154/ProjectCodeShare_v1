@@ -1,0 +1,75 @@
+﻿@using CodeShare.Model.EF
+@model CodeShare.Model.EF.User
+
+@{
+    ViewBag.Title = "Lịch sử bình luận";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
+}
+
+@{
+    List<Comment> comments = db.Comments.Where(n => n.user_id == Model.user_id).ToList();
+}
+
+<link href="~/Content/LayoutAdmin/css/switchIOS.css" rel="stylesheet" />
+
+<div class="col-xl-12 col-md-12">
+    <div class="card table-card container-fluid">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <a href="/Admin/UsersAdmin/Index" class="font-weight-bold mr-4">
+                    <i class="fa fa-long-arrow-left text-primary"></i>TRỞ VỀ
+                </a>
+            </div>
+        </div>
+        <center class="card-block container mt-5">
+            <div class="table-responsive container">
+                <table class="table table-bordered text-center" style="width: 900px">
+                    <tr class="bg-dark text-white" style="font-size: 14px">
+                        <th class="font-weight-bold">
+                            <i class="fa fa-image"></i> Ảnh Bài Viết
+                        </th>
+                        <th class="font-weight-bold">
+                            <i class="fa fa-pencil"></i> Tên Bài Viết
+                        </th>
+                        <th class="font-weight-bold">
+                            <i class="fa fa-edit"></i> Nội Dung Bình Luận
+                        </th>
+                        <th class="font-weight-bold">
+                            <i class="fa fa-calendar"></i> Ngày Bình Luận
+                        </th>
+                    </tr>
+                    @if (comments.Count != 0)
+                    {
+                        <tbody>
+                            @foreach (var item in comments)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Codes/@item.Code.code_img" height="50" width="60" />
+                                    </td>
+                                    <td class="font-weight-bold">@item.Code.code_title</td>
+                                    <td class="font-weight-bold">@item.comment_content</td>
+                                    <td>@item.comment_datecreate.Value.ToShortDateString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody>
+                            <tr>
+                                <th colspan="10" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </center>
+    </div>
+</div>
+
+
+
