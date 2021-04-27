@@ -41,6 +41,16 @@
                                         }
                                     </select>
                                 </div>
+                                <div class="field">
+                                    <label><i class="fa fa-user"></i> Người đăng</label>
+                                    <select class="ui fluid dropdown" name="user_id">
+                                        <option value="">Chọn người đăng</option>
+                                        @foreach (var item in db.Users.Where(n => n.user_active == 1).ToList())
+                                        {
+                                            <option value="@item.user_id">@item.user_name</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <div class="fields two">
                                 <div class="field">

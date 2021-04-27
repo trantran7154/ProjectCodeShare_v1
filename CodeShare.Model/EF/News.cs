@@ -32,6 +32,7 @@ namespace CodeShare.Model.EF
         public Nullable<bool> news_option { get; set; }
         public Nullable<bool> news_del { get; set; }
         public string news_img { get; set; }
+        public string news_key { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

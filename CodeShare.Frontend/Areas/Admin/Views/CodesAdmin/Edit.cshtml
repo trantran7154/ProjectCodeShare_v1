@@ -8,6 +8,8 @@
     DataShareCodeEntities db = new DataShareCodeEntities();
 }
 
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+
 <div class="col-xl-12 col-md-12">
     <div class="card table-card">
         <div class="card-header">
@@ -30,12 +32,35 @@
                     <input type="hidden" value="@Model.code_viewdown" name="code_viewdown" />
                     <input type="hidden" value="@Model.code_active" name="code_active" />
                     <input type="hidden" value="@Model.code_code" name="code_code" />
+                    <input type="hidden" value="@Model.code_key" name="code_key" />
 
                     <div class="modal-body">
                         <div class="ui form">
-                            <div class="field">
-                                <label><i class="fa fa-image"></i> Hình ảnh</label>
-                                <input type="file" value="@Model.code_img" name="img" />
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                    <input type="file" value="@Model.code_img" name="img" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-list-alt"></i> Phân loại ngôn ngữ</label>
+                                    <select class="ui fluid search dropdown" multiple="" name="language">
+                                        <option value="">Chọn phân loại code</option>
+                                        @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                        {
+                                            <option value="@item.language_id">@item.language_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-user"></i> Người đăng</label>
+                                    <select class="ui fluid dropdown" name="user_id">
+                                        <option value="">Chọn người đăng</option>
+                                        @foreach (var item in db.Users.Where(n => n.user_active == 1).ToList())
+                                        {
+                                            <option value="@item.user_id" @(item.user_id == Model.user_id ? "selected" : "")>@item.user_name</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <div class="fields two">
                                 <div class="field">
@@ -54,20 +79,10 @@
                                         <option>Chọn Danh Mục</option>
                                         @foreach (var item in db.Categorys.Where(t => t.category_active == true))
                                         {
-                                            <option value="@item.category_id" @(item.category_id == item.category_id ? "selected" : "")>@item.category_name</option>
+                                            <option value="@item.category_id" @(item.category_id == Model.category_id ? "selected" : "")>@item.category_name</option>
                                         }
                                     </select>
                                 </div>
-                                @*<div class="field">
-                                        <label>Phân loại code: <b class="text-danger">*</b></label>
-                                        <select class="ui fluid search dropdown" multiple="" name="cate">
-                                            <option value="">Chọn phân loại code</option>
-                                            @foreach (var item in db.Languages.Where(t => t.language_active == 1))
-                                            {
-                                                <option value="@item.language_id">@item.language_name</option>
-                                            }
-                                        </select>
-                                    </div>*@
                                 <div class="field">
                                     <label><i class="fa fa-money"></i> Giá</label>
                                     <input type="text" value="@Model.code_coin" name="code_coin" />

@@ -128,6 +128,7 @@
           <Property Name="news_option" Type="bit" />
           <Property Name="news_del" Type="bit" />
           <Property Name="news_img" Type="nvarchar(max)" />
+          <Property Name="news_key" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -692,6 +693,7 @@
           <Property Name="news_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_News" FromRole="News" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Self.FK_News_Users" FromRole="News" ToRole="Users" />
+          <Property Name="news_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1263,6 +1265,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="DataShareCodeModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_key" ColumnName="news_key" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="news_name" ColumnName="news_name" />
                 <ScalarProperty Name="news_view" ColumnName="news_view" />

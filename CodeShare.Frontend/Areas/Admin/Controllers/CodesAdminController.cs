@@ -58,6 +58,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             ViewBag.random = random.Next(0, 1000);
 
             var key = Guid.NewGuid().ToString();
+
             if (img == null)
             {
                 code.code_img = "notimg.png";
@@ -133,7 +134,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "code_id,code_title,code_coin,code_code,code_des,code_info,code_setting,code_view,code_viewdown,code_linkdemo,code_linkdown,code_datecreate,code_dateupdate,code_active,code_option,code_del,code_tag,code_disk,code_pass,category_id,user_id,code_img")] Code code, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "code_id,code_title,code_coin,code_code,code_des,code_info,code_setting,code_view,code_viewdown,code_linkdemo,code_linkdown,code_datecreate,code_dateupdate,code_active,code_option,code_del,code_tag,code_disk,code_pass,category_id,user_id,code_img,code_key")] Code code, HttpPostedFileBase img, int[] language)
         {
             Random random = new Random();
             ViewBag.random = random.Next(0, 1000);
@@ -158,8 +159,19 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             code.code_del = false;
             code.code_option = true;
             code.code_dateupdate = DateTime.Now;
-
             db.SaveChanges();
+
+            foreach (var item in language)
+            {
+                // add multiple tag for code
+                Group group = new Group()
+                {
+                    code_id = code.code_id,
+                    language_id = item,
+                    group_item = Common.Common.ITEM_LANGUAGE_CODE
+                };
+                db.SaveChanges();
+            }
             ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name", code.category_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", code.user_id);
             return RedirectToAction("Index", "CodesAdmin");

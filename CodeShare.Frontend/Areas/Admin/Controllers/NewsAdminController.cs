@@ -56,7 +56,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             Random r = new Random();
             ViewBag.random = random.Next(0, 1000);
 
-            db.News.Add(news);
+            var key = Guid.NewGuid().ToString();
 
             if (img == null)
             {
@@ -77,7 +77,8 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 news.news_active = 1;
                 news.news_option = true;
                 news.news_del = false;
-
+                
+                db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
