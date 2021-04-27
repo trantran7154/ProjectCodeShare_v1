@@ -871,7 +871,7 @@
     <Content Include="Content\Layout\styles\responsive.css" />
     <Content Include="Content\Layout\styles\single_listing_responsive.css" />
     <Content Include="Content\Layout\styles\single_listing_styles.css" />
-    <Content Include="Content\Layout\Users\CSS\style-users.css" />
+    <Content Include="Content\Layout\Users\CSS\user.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.min.css" />

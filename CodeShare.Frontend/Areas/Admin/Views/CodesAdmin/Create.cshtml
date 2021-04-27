@@ -26,9 +26,21 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="ui form">
-                            <div class="field">
-                                <label><i class="fa fa-image"></i> Hình ảnh</label>
-                                <input type="file" name="img" />
+                            <div class="fields two">
+                                <div class="field">
+                                    <label><i class="fa fa-image"></i> Hình ảnh</label>
+                                    <input type="file" name="img" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-list-alt"></i> Phân loại code</label>
+                                    <select class="ui fluid search dropdown" multiple="" name="language">
+                                        <option value="">Chọn phân loại code</option>
+                                        @foreach (var item in db.Languages.Where(t => t.language_active == 1))
+                                        {
+                                            <option value="@item.language_id">@item.language_name</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <div class="fields two">
                                 <div class="field">
@@ -51,16 +63,6 @@
                                         }
                                     </select>
                                 </div>
-                                @*<div class="field">
-                                        <label>Phân loại code: <b class="text-danger">*</b></label>
-                                        <select class="ui fluid search dropdown" multiple="" name="cate">
-                                            <option value="">Chọn phân loại code</option>
-                                            @foreach (var item in db.Languages.Where(t => t.language_active == 1))
-                                            {
-                                                <option value="@item.language_id">@item.language_name</option>
-                                            }
-                                        </select>
-                                    </div>*@
                                 <div class="field">
                                     <label><i class="fa fa-money"></i> Giá</label>
                                     <input type="text" name="code_coin" />
@@ -94,8 +96,7 @@
                                 <label><i class="fa fa-cog"></i> Hướng dẫn</label>
                                 <textarea id="editor2" name="code_setting"></textarea>
                             </div>
-                            <div class="ui error message">
-                            </div>
+                            <div class="ui error message"></div>
                         </div>
                     </div>
                     <div class="actions modal-footer">

@@ -66,6 +66,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="code_img" Type="nvarchar(max)" />
           <Property Name="category_id" Type="int" />
+          <Property Name="code_key" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -629,6 +630,7 @@
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Codes" FromRole="Codes" ToRole="Tools" />
           <Property Name="category_id" Type="Int32" />
           <NavigationProperty Name="Category1" Relationship="DataShareCodeModel.FK_Codes_Categorys1" FromRole="Code" ToRole="Category" />
+          <Property Name="code_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -1196,6 +1198,7 @@
           <EntitySetMapping Name="Codes">
             <EntityTypeMapping TypeName="DataShareCodeModel.Code">
               <MappingFragment StoreEntitySet="Codes">
+                <ScalarProperty Name="code_key" ColumnName="code_key" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="code_id" ColumnName="code_id" />
                 <ScalarProperty Name="code_title" ColumnName="code_title" />

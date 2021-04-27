@@ -156,6 +156,7 @@
     <Content Include="Script\script4.sql" />
     <Content Include="Script\script5.sql" />
     <Content Include="Script\script8.sql" />
+    <Content Include="Script\scriptnew.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

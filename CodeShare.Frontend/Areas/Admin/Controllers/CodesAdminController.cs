@@ -51,14 +51,13 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "code_id,code_title,code_coin,code_code,code_des,code_info,code_setting,code_view,code_viewdown,code_linkdemo,code_linkdown,code_datecreate,code_dateupdate,code_active,code_option,code_del,code_tag,code_disk,code_pass,category_id,user_id,code_img")] Code code, HttpPostedFileBase img)
+        public ActionResult Create([Bind(Include = "code_id,code_title,code_coin,code_code,code_des,code_info,code_setting,code_view,code_viewdown,code_linkdemo,code_linkdown,code_datecreate,code_dateupdate,code_active,code_option,code_del,code_tag,code_disk,code_pass,category_id,user_id,code_img,code_key")] Code code, HttpPostedFileBase img, int[] language)
         {
             Random random = new Random();
             Random r = new Random();
             ViewBag.random = random.Next(0, 1000);
 
-            db.Codes.Add(code);
-
+            var key = Guid.NewGuid().ToString();
             if (img == null)
             {
                 code.code_img = "notimg.png";
@@ -79,13 +78,30 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 code.code_active = 2;
                 code.code_option = true;
                 code.code_del = false;
+                code.code_key = key;
                 if (code.code_coin == null)
                 {
                     code.code_coin = 0;
                 }
                 code.code_code = "CODE-" + r.Next().ToString();
 
+                db.Codes.Add(code);
                 db.SaveChanges();
+
+                Code code1 = db.Codes.SingleOrDefault(n => n.code_key == key);
+
+                foreach (var item in language)
+                {
+                    // add multiple tag for code
+                    Group group = new Group()
+                    {
+                        code_id = code1.code_id,
+                        language_id = item,
+                        group_item = Common.Common.ITEM_LANGUAGE_CODE
+                    };
+                    db.Groups.Add(group);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
