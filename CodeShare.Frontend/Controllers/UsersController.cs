@@ -10,6 +10,7 @@ using CodeShare.Frontend.Models;
 using CodeShare.Frontend.Functions;
 using CodeShare.Frontend.ViewModels;
 using CodeShare.Common;
+using System.Web.Helpers;
 
 namespace CodeShare.Frontend.Controllers
 {
@@ -244,7 +245,8 @@ namespace CodeShare.Frontend.Controllers
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-        //Yeu thích code
+
+        //Yêu thích code
         public JsonResult FaCode(int ? id)
         {
             var co = new FunctionsController();
@@ -272,5 +274,46 @@ namespace CodeShare.Frontend.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        // Quên mật khẩu
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPassword fp)
+        {
+            try
+            {
+                // Máy chủ gmail
+                WebMail.SmtpServer = "smtp.gmail.com";
+                // Cổng
+                WebMail.SmtpPort = 465;
+                WebMail.SmtpUseDefaultCredentials = true;
+                //Gửi gmail với giao thức bảo mật
+                WebMail.EnableSsl = true;
+                //Tài khoản dùng để đăng nhập vào gmail để gửi
+                WebMail.UserName = "vuongbaot1905@gmail.com";
+                WebMail.Password = "tran1905";
+                // Nội dung gửi
+                WebMail.From = "vuongbaot1905@gmail.com";
+                User user = db.Users.SingleOrDefault(n => n.user_email == fp.ConfirmationEmail);
+                fp.Theme = "Xác nhận mật khẩu Web";
+                fp.Content = "Xác Nhận: https://localhost:44327/Users/ChangePassword/" + user.user_id + "&Token=" + user.user_token;
+                //Gửi gmail
+                WebMail.Send(to: fp.ConfirmationEmail, subject: fp.Theme, body: fp.Content, cc: fp.Cc, bcc: fp.Bcc, isBodyHtml: true);
+                ViewBag.Sucess = "Gửi thành công! Vui lòng kiểm tra email/gmail.";
+            }
+            catch (Exception)
+            {
+                ViewBag.Fail = "Gửi gmail thất bại! Vui lòng thử lại.";
+            }
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }

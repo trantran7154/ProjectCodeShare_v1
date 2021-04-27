@@ -50,7 +50,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "news_id,news_name,news_view,news_content,news_tag,user_id,news_datecreate,news_dateupdate,news_active,news_option,news_del,news_img")] News news, HttpPostedFileBase img)
+        public ActionResult Create([Bind(Include = "news_id,news_name,news_view,news_content,news_tag,user_id,news_datecreate,news_dateupdate,news_active,news_option,news_del,news_img,news_key")] News news, HttpPostedFileBase img, int[] category)
         {
             Random random = new Random();
             Random r = new Random();
@@ -77,9 +77,25 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 news.news_active = 1;
                 news.news_option = true;
                 news.news_del = false;
+                news.news_key = key;
                 
                 db.News.Add(news);
                 db.SaveChanges();
+
+                News news1 = db.News.SingleOrDefault(n => n.news_key == key);
+
+                foreach (var item in category)
+                {
+                    // add multiple tag for code
+                    Group group = new Group()
+                    {
+                        news_id = news1.news_id,
+                        category_id = item,
+                        group_item = Common.Common.ITEM_CATEGORY_CODE
+                    };
+                    db.Groups.Add(group);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", news.user_id);
@@ -108,7 +124,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "news_id,news_name,news_view,news_content,news_tag,user_id,news_datecreate,news_dateupdate,news_active,news_option,news_del,news_img")] News news, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "news_id,news_name,news_view,news_content,news_tag,user_id,news_datecreate,news_dateupdate,news_active,news_option,news_del,news_img,,news_key")] News news, HttpPostedFileBase img, int[] category)
         {
 
             Random random = new Random();
@@ -138,6 +154,18 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             news.news_dateupdate = DateTime.Now;
 
             db.SaveChanges();
+
+            foreach (var item in category)
+            {
+                // add multiple tag for code
+                Group group = new Group()
+                {
+                    news_id = news.news_id,
+                    category_id = item,
+                    group_item = Common.Common.ITEM_CATEGORY_CODE
+                };
+                db.SaveChanges();
+            }
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", news.user_id);
             return RedirectToAction("Index", "NewsAdmin");
         }

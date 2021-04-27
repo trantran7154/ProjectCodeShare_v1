@@ -41,6 +41,7 @@
         <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Codes_Categorys1" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Groups_News" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

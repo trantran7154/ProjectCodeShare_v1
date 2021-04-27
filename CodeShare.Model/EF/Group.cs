@@ -20,10 +20,12 @@ namespace CodeShare.Model.EF
         public Nullable<int> code_id { get; set; }
         public Nullable<int> language_id { get; set; }
         public Nullable<int> group_item { get; set; }
+        public Nullable<int> news_id { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Code Code { get; set; }
         public virtual Language Language { get; set; }
         public virtual User User { get; set; }
+        public virtual News News { get; set; }
     }
 }

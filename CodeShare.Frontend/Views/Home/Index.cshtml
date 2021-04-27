@@ -937,6 +937,25 @@
                             <div style="height: 60px">
                                 <h4 class="font-weight-bold fix-line-css">@item.news_name</h4>
                             </div>
+                         <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Category.category_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Category.category_name |</a>
+                                    }
+                                }
+                            </div>
                             <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
                         </figcaption><a href="#"></a>
                     </figure>

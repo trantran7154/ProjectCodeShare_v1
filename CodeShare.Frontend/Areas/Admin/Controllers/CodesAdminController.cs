@@ -76,7 +76,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 code.code_datecreate = DateTime.Now;
                 code.code_view = 0;
                 code.code_viewdown = 0;
-                code.code_active = 2;
+                code.code_active = 1;
                 code.code_option = true;
                 code.code_del = false;
                 code.code_key = key;
@@ -161,6 +161,11 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             code.code_dateupdate = DateTime.Now;
             db.SaveChanges();
 
+            // remove old tags
+            foreach (var item in code.Groups)
+            {
+                db.Groups.Remove(item);
+            }
             foreach (var item in language)
             {
                 // add multiple tag for code

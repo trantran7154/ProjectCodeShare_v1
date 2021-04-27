@@ -54,6 +54,7 @@
     <Compile Include="DAO\CategorysDao.cs" />
     <Compile Include="DAO\CodesDao.cs" />
     <Compile Include="DAO\CommentDao.cs" />
+    <Compile Include="DAO\ForgotPassword.cs" />
     <Compile Include="DAO\GroupDao.cs" />
     <Compile Include="DAO\LanguagesDao.cs" />
     <Compile Include="DAO\NewsDao.cs" />

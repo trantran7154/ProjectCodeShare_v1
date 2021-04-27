@@ -33,6 +33,7 @@
                     <input type="hidden" value="@Model.news_datecreate" name="news_datecreate" />
                     <input type="hidden" value="@Model.news_view" name="news_view" />
                     <input type="hidden" value="@Model.news_img" name="news_img" />
+                    <input type="hidden" value="@Model.news_key" name="news_key" />
 
                     <div class="modal-body">
                         <div class="ui form">
@@ -44,6 +45,16 @@
                                 <div class="field">
                                     <label><i class="fa fa-pencil-square-o font-weight-bold"></i> Tên tin tức</label>
                                     <input type="text" value="@Model.news_name" name="news_name" />
+                                </div>
+                                <div class="field">
+                                    <label><i class="fa fa-list-alt"></i> Thuộc danh mục</label>
+                                    <select class="ui fluid search dropdown" multiple="" name="category">
+                                        <option value="">Chọn danh mục tin tức</option>
+                                        @foreach (var item in db.Categorys.Where(t => t.category_item == 2))
+                                        {
+                                            <option value="@item.category_id">@item.category_name</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                             <div class="field">

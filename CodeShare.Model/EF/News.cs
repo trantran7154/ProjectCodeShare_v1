@@ -18,6 +18,7 @@ namespace CodeShare.Model.EF
         public News()
         {
             this.Comments = new HashSet<Comment>();
+            this.Groups = new HashSet<Group>();
         }
     
         public int news_id { get; set; }
@@ -37,5 +38,7 @@ namespace CodeShare.Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }
