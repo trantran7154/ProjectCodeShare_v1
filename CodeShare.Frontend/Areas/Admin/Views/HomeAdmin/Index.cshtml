@@ -1,13 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý Admin";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="col-xl-12 col-md-12">
     <div class="card table-card">
         <div class="card-header">
-            <h5>Member’s performance</h5>
+            <h5>@ViewBag.Title</h5>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -18,6 +18,7 @@
                 </ul>
             </div>
         </div>
+        <!-- Lịch sử người dùng -->
         <div class="card-block">
             <div class="table-responsive">
                 <table class="table table-hover m-b-0 without-header">
