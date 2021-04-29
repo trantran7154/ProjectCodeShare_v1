@@ -8,17 +8,72 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CodeShare.Model.EF;
+using CodeShare.Model.DAO;
+using CodeShare.Frontend.Functions;
+using CodeShare.Frontend.ViewModels;
 
 namespace CodeShare.Frontend.Areas.Admin.Controllers
 {
     public class UsersAdminController : Controller
     {
         private DataShareCodeEntities db = new DataShareCodeEntities();
+        UsersDao usersDAO = new UsersDao();
+        FunctionsController function = new FunctionsController();
 
         // GET: Admin/UsersAdmin
         public ActionResult Index()
         {
             return View(db.Users.ToList());
+        }
+
+        public PartialViewResult Login()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Login(ViewLogin login)
+        {
+            if (function.CookieID() != null)
+            {
+                return Redirect("/");
+            }
+            if (ModelState.IsValid)
+            {
+                int status = usersDAO.LoginAdmin(login.Email, login.Password);
+                switch (status)
+                {
+                    case 1:
+                        var user = db.Users.FirstOrDefault(t => t.user_email == login.Email && t.user_pass == login.Password);
+                        HttpCookie cookie = new HttpCookie("user_id", user.user_id.ToString());
+                        cookie.Expires.AddDays(10);
+                        Response.Cookies.Set(cookie);
+                        return RedirectToAction("Index","HomeAdmin");
+                    case -1:
+                        TempData["noti_login"] = "Sai tài khoản hoặc mật khẩu!";
+                        break;
+                    case -2:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị xóa!";
+                        break;
+                    case -3:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị khóa!";
+                        break;
+                    default:
+                        TempData["noti_login"] = "Tài khoản của bạn không tồn tại!";
+                        break;
+                }
+            }
+            return View(login);
+        }
+
+        // SignOut
+        public ActionResult LogOut()
+        {
+            HttpCookie cookie = Request.Cookies["user_id"];
+            cookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Set(cookie);
+
+            return RedirectToAction("Login","UsersAdmin");
         }
 
         // GET: Admin/UsersAdmin/Details/5

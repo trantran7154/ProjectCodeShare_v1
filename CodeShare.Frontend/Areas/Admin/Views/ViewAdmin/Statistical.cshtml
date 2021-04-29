@@ -1,0 +1,160 @@
+﻿@using CodeShare.Model.EF
+
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+}
+
+@{
+    List<User> users = db.Users.ToList();
+    List<Code> codes = db.Codes.ToList();
+    List<Category> categories = db.Categorys.ToList();
+    List<Language> languages = db.Languages.ToList();
+    List<News> news = db.News.ToList();
+    List<Banner> banners = db.Banners.ToList();
+    List<Bill> bills = db.Bills.ToList();
+    List<TakePrice> takePrices = db.TakePrices.ToList();
+    List<Pakage> pakages = db.Pakages.ToList();
+
+    var sum = users.Take(1).Count() + codes.Take(1).Count() + categories.Take(1).Count() + languages.Take(1).Count() + news.Take(1).Count() + banners.Take(1).Count() + bills.Take(1).Count() + takePrices.Take(1).Count() + pakages.Take(1).Count();
+}
+
+<!-- Material statustic card start -->
+<div class="col-xl-4 col-md-12">
+    <div class="card mat-stat-card">
+        <div class="card-block">
+            <div class="row align-items-center b-b-default">
+                <div class="col-sm-6 b-r-default p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-th-list text-c-purple f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@categories.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">DANH MỤC</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-list-alt font-weight-bold text-c-green f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@news.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">TIN TỨC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6 p-b-20 p-t-20 b-r-default">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-th-large text-c-red f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@languages.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">NGÔN NGỮ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-flag font-weight-bold text-c-blue f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@banners.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">Banners</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-12">
+    <div class="card mat-stat-card">
+        <div class="card-block">
+            <div class="row align-items-center b-b-default">
+                <div class="col-sm-6 b-r-default p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-paperclip font-weight-bold text-c-purple f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@bills.Count</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">HÓA ĐƠN</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="fa fa-money text-c-green f-24"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@takePrices.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">RÚT TIỀN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6 p-b-20 p-t-20 b-r-default">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="money bill alternate icon text-c-red f-24" style="font-size: 25px"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@pakages.Count()</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">NẠP XU</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-b-20 p-t-20">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4 p-r-0">
+                            <i class="hand point right outline icon text-c-blue f-24" style="font-size: 25px"></i>
+                        </div>
+                        <div class="col-8 p-l-0">
+                            <h5 class="font-weight-bold">@sum</h5>
+                            <p class="text-muted m-b-0 font-weight-bold">MỤC QUẢN LÝ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-12">
+    <div class="card mat-clr-stat-card text-white green ">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-3 text-center bg-c-green">
+                    <i class="fa fa-code font-weight-bold mat-icon f-24"></i>
+                </div>
+                <div class="col-9 cst-cont">
+                    <h5 class="font-weight-bold">@codes.Count()</h5>
+                    <p class="m-b-0 font-weight-bold">CODES</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mat-clr-stat-card text-white blue">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-3 text-center bg-c-blue">
+                    <i class="fa fa-user mat-icon f-24"></i>
+                </div>
+                <div class="col-9 cst-cont">
+                    <h5 class="font-weight-bold">@users.Count()</h5>
+                    <p class="m-b-0 font-weight-bold">NGƯỜI DÙNG</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

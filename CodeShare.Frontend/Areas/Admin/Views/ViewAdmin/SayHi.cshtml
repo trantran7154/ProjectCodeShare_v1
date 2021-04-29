@@ -1,0 +1,38 @@
+﻿@using CodeShare.Model.EF
+@model User
+
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+
+    HttpCookie cookie = Request.Cookies["user_id"];
+}
+
+@if (cookie != null)
+{
+
+    User users = db.Users.Find(int.Parse(cookie.Value.ToString()));
+
+    <!-- Page-header start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Quản lý Admin</h5>
+                        <p class="m-b-0">Chào, @users.user_name</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html"> <i class="fa fa-home"></i> </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Admin/HomeAdmin/Index">Trang chủ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

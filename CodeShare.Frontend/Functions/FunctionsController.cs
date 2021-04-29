@@ -22,7 +22,7 @@ namespace CodeShare.Frontend.Functions
             return users;
 
         }
-        //Hàm lấy cookie ko
+        //Hàm lấy cookie không có id
         public HttpCookie Cookie()
         {
             HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies["user_id"];

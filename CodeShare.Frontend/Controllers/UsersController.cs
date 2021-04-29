@@ -46,7 +46,7 @@ namespace CodeShare.Frontend.Controllers
                 switch (status)
                 {
                     case 1:
-                        var user = db.Users.FirstOrDefault(t => t.user_email == login.Email);
+                        var user = db.Users.FirstOrDefault(t => t.user_email == login.Email && t.user_pass == login.Password);
                         HttpCookie cookie = new HttpCookie("user_id", user.user_id.ToString());
                         cookie.Expires.AddDays(10);
                         Response.Cookies.Set(cookie);

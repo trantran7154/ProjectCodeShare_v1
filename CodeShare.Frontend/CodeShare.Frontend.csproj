@@ -331,7 +331,7 @@
     <Compile Include="Areas\Admin\Controllers\PakagesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TakePricesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersAdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ViewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CodesController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -1249,6 +1249,11 @@
     <Content Include="Areas\Admin\Views\UsersAdmin\MoneyHistory.cshtml" />
     <Content Include="Areas\Admin\Views\UsersAdmin\CommetHistory.cshtml" />
     <Content Include="Areas\Admin\Views\View\Statistical.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\Statistical.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\Header.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\Menu.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\SayHi.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1309,7 +1314,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\JsonAdmin\" />
-    <Folder Include="Areas\Admin\Views\Statistical\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="Views\Json\" />
     <Folder Include="Views\Rep\" />

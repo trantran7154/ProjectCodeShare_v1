@@ -1,0 +1,117 @@
+﻿@using CodeShare.Model.EF
+@model User
+
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+
+    HttpCookie cookie = Request.Cookies["user_id"];
+}
+
+@if (cookie != null)
+{
+    User users = db.Users.Find(int.Parse(cookie.Value.ToString()));
+
+    <nav class="pcoded-navbar">
+        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+        <div class="pcoded-inner-navbar main-menu">
+            <div class="">
+                <div class="main-menu-header">
+                    <img class="img-80 img-radius" src="~/Images/Users/@users.user_img" alt="User-Profile-Image" style="border-radius: 50%; height: 50px; width:50px">
+                    <div class="user-details">
+                        <span id="more-details">@users.user_name<i class="fa fa-caret-down"></i></span>
+                    </div>
+                </div>
+                <div class="main-menu-content">
+                    <ul>
+                        <li class="more-details">
+                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
+                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                            <a href="@Url.Action("LogOut","UsersAdmin")l"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-15 p-b-0">
+                <form class="form-material">
+                    <div class="form-group form-primary">
+                        <input type="text" name="footer-email" class="form-control">
+                        <span class="form-bar"></span>
+                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Nhập nội dung cần tìm...</label>
+                    </div>
+                </form>
+            </div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="active">
+                    <a href="/Admin/HomeAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Trang chủ</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/CodesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-code"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Code</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/UsersAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-user"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Người dùng</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/BillsAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-paperclip"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Hóa đơn</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/TakePricesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-money"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Rút tiền</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/CategoriesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-list"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Danh mục</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/LanguagesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-th-list"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Ngôn ngữ</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/BannersAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-flag"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Banners</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/PakagesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="money bill alternate icon"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Nạp xu</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Admin/NewsAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="newspaper icon"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Tin tức</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+}
