@@ -375,6 +375,7 @@
     <Compile Include="ViewModels\ViewComment.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Layout\images\android.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -559,6 +560,8 @@
     <Content Include="Content\Layout\images\4401280.jpg" />
     <Content Include="Content\Layout\images\about_background.jpg" />
     <Content Include="Content\Layout\images\add.jpg" />
+    <Content Include="Content\Layout\images\apple.png" />
+    <Content Include="Content\Layout\images\application.png" />
     <Content Include="Content\Layout\images\backpack.png" />
     <Content Include="Content\Layout\images\banner_1.png" />
     <Content Include="Content\Layout\images\bicycle.png" />
@@ -585,16 +588,22 @@
     <Content Include="Content\Layout\images\gallery_4.jpg" />
     <Content Include="Content\Layout\images\gallery_5.jpg" />
     <Content Include="Content\Layout\images\gallery_6.jpg" />
+    <Content Include="Content\Layout\images\game-console.png" />
     <Content Include="Content\Layout\images\home_slider.jpg" />
+    <Content Include="Content\Layout\images\http %281%29.png" />
+    <Content Include="Content\Layout\images\http.png" />
     <Content Include="Content\Layout\images\icon_1.png" />
     <Content Include="Content\Layout\images\icon_2.png" />
     <Content Include="Content\Layout\images\icon_3.png" />
+    <Content Include="Content\Layout\images\internet %281%29.png" />
+    <Content Include="Content\Layout\images\internet.png" />
     <Content Include="Content\Layout\images\intro.png" />
     <Content Include="Content\Layout\images\intro_1.jpg" />
     <Content Include="Content\Layout\images\intro_2.jpg" />
     <Content Include="Content\Layout\images\intro_3.jpg" />
     <Content Include="Content\Layout\images\island.png" />
     <Content Include="Content\Layout\images\island_t.png" />
+    <Content Include="Content\Layout\images\joystick.png" />
     <Content Include="Content\Layout\images\kayak.png" />
     <Content Include="Content\Layout\images\latest_1.jpg" />
     <Content Include="Content\Layout\images\latest_2.jpg" />
@@ -630,6 +639,7 @@
     <Content Include="Content\Layout\images\nav_next.svg" />
     <Content Include="Content\Layout\images\nav_prev.svg" />
     <Content Include="Content\Layout\images\nav_rect.svg" />
+    <Content Include="Content\Layout\images\news.png" />
     <Content Include="Content\Layout\images\next.png" />
     <Content Include="Content\Layout\images\offer_1.jpg" />
     <Content Include="Content\Layout\images\offer_2.jpg" />
@@ -669,6 +679,7 @@
     <Content Include="Content\Layout\images\trend_6.png" />
     <Content Include="Content\Layout\images\trend_7.png" />
     <Content Include="Content\Layout\images\trend_8.png" />
+    <Content Include="Content\Layout\images\world-news.png" />
     <Content Include="Content\Layout\js\about_custom.js" />
     <Content Include="Content\Layout\js\blog_custom.js" />
     <Content Include="Content\Layout\js\contact_custom.js" />
