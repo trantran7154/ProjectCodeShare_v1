@@ -76,5 +76,13 @@ namespace CodeShare.Frontend.Controllers
             }
             return View();
         }
+        public ActionResult Details(int? id)
+        {
+            News news = db.News.Find(id);
+            news.news_view += 1;
+            db.SaveChanges();
+
+            return View(news);
+        }
     }
 }

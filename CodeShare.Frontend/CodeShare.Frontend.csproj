@@ -563,6 +563,8 @@
     <Content Include="Content\Layout\images\add.jpg" />
     <Content Include="Content\Layout\images\apple.png" />
     <Content Include="Content\Layout\images\application.png" />
+    <Content Include="Content\Layout\images\b11.png" />
+    <Content Include="Content\Layout\images\b7.png" />
     <Content Include="Content\Layout\images\backpack.png" />
     <Content Include="Content\Layout\images\banner_1.png" />
     <Content Include="Content\Layout\images\bicycle.png" />
@@ -1322,6 +1324,7 @@
     <Content Include="Views\Codes\Index.cshtml" />
     <Content Include="Views\Users\ForgotPassword.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

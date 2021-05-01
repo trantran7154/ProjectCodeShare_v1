@@ -1,0 +1,116 @@
+﻿@using CodeShare.Model.EF
+@using CodeShare.Frontend.Functions
+@model News
+@{
+    ViewBag.Title = Model.news_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    FunctionsController functions = new FunctionsController();
+
+    List<Order> oder = db.Orders.ToList();
+    List<Group> groups = db.Groups.ToList();
+    List<News> news = db.News.ToList();
+}
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1500px; font-size: 16px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-9 bg-white border shadow text-dark">
+                <div class="row mt-3">
+                    <div class="col-lg-4">
+                        <div style="padding: 10px">
+                            <img src="~/Images/News/@Model.news_img" style="width: 100%; height: 280px" />
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div style="padding: 10px">
+                            <h2>@Model.news_name</h2>
+                            <div class="mt-4">@Html.Raw(Model.news_content)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 bg-white border shadow text-dark">
+                <div class="card mt-4 mb-4">
+                    <h4 class="card-header font-weight-bold"><i class="fa fa-user"></i> NGƯỜI ĐĂNG</h4>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td width="20%">
+                                    <div style="padding: 10px">
+                                        <img src="~/Images/Users/@Model.User.user_img" style="width: 100px; height: 100px" />
+                                    </div>
+                                </td>
+                                <td width="80%">
+                                    <h5 class="font-weight-bold text-danger">@Model.User.user_name</h5>
+
+                                    @if (functions.Cookie() != null)
+                                    {
+                                        <button onclick="window.location.href='/Tools/Chats/@Model.user_id'" class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                    }
+                                    else
+                                    {
+                                        <button onclick="" class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                    }
+                                    <button class="btn btn-danger"><i class="fa fa-heart"></i>&nbsp;Follow</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4 class="card-header font-weight-bold"><i class="sort numeric down icon"></i> TOP BÀI VIẾT</h4>
+                    <div class="card-body">
+                        @foreach (var item in news.OrderByDescending(n => n.news_view).Take(9))
+                        {
+                            <div class="row mb-4 mt-1">
+                                <div class="col-lg-3">
+                                    <img src="~/Images/News/@item.news_img" height="70" width="70" />
+                                </div>
+                                <div class="col-lg-9">
+                                    <a href="@Url.Action("Details","News", new { id = item.news_id })" class="font-weight-bold">@item.news_name</a>
+                                    @foreach (var item1 in groups.Where(n => n.news_id == item.news_id))
+                                    {
+                                        <div><i class="fa fa-bookmark text-warning"></i> @item1.Category.category_name</div>
+                                        <div class="text-success"><i class="fa fa-calendar text-success"></i> @item.news_datecreate.Value.ToShortDateString()</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #menu {
+        position: fixed;
+        right: 0;
+        top: 35%;
+        width: 10em;
+        margin-top: -3.5em;
+        z-index: 1000;
+    }
+</style>
+<div id="menu">
+    <div class="card">
+        <center>
+            <b class="text-danger">ĐÁNH GIÁ NGAY</b>
+            <br />
+            <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
+            <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
+            <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
+            <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b><br />
+            <b class="text-warning" style="font-size: 30px"><i class="fa fa-star"></i></b>
+            <br />
+            10/10
+        </center>
+    </div>
+</div>
