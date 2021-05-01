@@ -71,35 +71,35 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 news.news_img = ViewBag.random + img.FileName;
-
-                news.news_view = 0;
-                news.news_datecreate = DateTime.Now;
-                news.news_active = 1;
-                news.news_option = true;
-                news.news_del = false;
-                news.news_key = key;
-                
-                db.News.Add(news);
-                db.SaveChanges();
-
-                News news1 = db.News.SingleOrDefault(n => n.news_key == key);
-
-                foreach (var item in category)
-                {
-                    // add multiple tag for code
-                    Group group = new Group()
-                    {
-                        news_id = news1.news_id,
-                        category_id = item,
-                        group_item = Common.Common.ITEM_CATEGORY_CODE
-                    };
-                    db.Groups.Add(group);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index");
             }
+
+            news.news_view = 0;
+            news.news_datecreate = DateTime.Now;
+            news.news_active = 1;
+            news.news_option = true;
+            news.news_del = false;
+            news.news_key = key;
+
+            db.News.Add(news);
+            db.SaveChanges();
+
+            News news1 = db.News.SingleOrDefault(n => n.news_key == key);
+
+            foreach (var item in category)
+            {
+                // add multiple tag for code
+                Group group = new Group()
+                {
+                    news_id = news1.news_id,
+                    category_id = item,
+                    group_item = Common.Common.ITEM_CATEGORY_CODE
+                };
+                db.Groups.Add(group);
+                db.SaveChanges();
+            }
+
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", news.user_id);
-            return View(news);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/NewsAdmin/Edit/5

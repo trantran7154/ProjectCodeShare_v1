@@ -48,9 +48,9 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "pakege_id,pakage_coin,pakage_money,pakage_active")] Pakage pakage)
         {
-            db.Pakages.Add(pakage);
             pakage.pakage_active = 1;
 
+            db.Pakages.Add(pakage);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

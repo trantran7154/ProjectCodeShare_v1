@@ -331,6 +331,7 @@
     <Compile Include="Areas\Admin\Controllers\PakagesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TakePricesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ValidationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CodesController.cs" />
@@ -1265,6 +1266,7 @@
     <Content Include="Areas\Admin\Views\ViewAdmin\Header.cshtml" />
     <Content Include="Areas\Admin\Views\ViewAdmin\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\ViewAdmin\SayHi.cshtml" />
+    <Content Include="Areas\Admin\Views\Validation\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -72,43 +72,42 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 code.code_img = ViewBag.random + img.FileName;
+            }
 
-                code.code_datecreate = DateTime.Now;
-                code.code_view = 0;
-                code.code_viewdown = 0;
-                code.code_active = 1;
-                code.code_option = true;
-                code.code_del = false;
-                code.code_key = key;
-                if (code.code_coin == null)
+            code.code_datecreate = DateTime.Now;
+            code.code_view = 0;
+            code.code_viewdown = 0;
+            code.code_active = 1;
+            code.code_option = true;
+            code.code_del = false;
+            code.code_key = key;
+            if (code.code_coin == null)
+            {
+                code.code_coin = 0;
+            }
+            code.code_code = "CODE-" + r.Next().ToString();
+
+            db.Codes.Add(code);
+            db.SaveChanges();
+
+            Code code1 = db.Codes.SingleOrDefault(n => n.code_key == key);
+
+            foreach (var item in language)
+            {
+                // add multiple tag for code
+                Group group = new Group()
                 {
-                    code.code_coin = 0;
-                }
-                code.code_code = "CODE-" + r.Next().ToString();
-
-                db.Codes.Add(code);
+                    code_id = code1.code_id,
+                    language_id = item,
+                    group_item = Common.Common.ITEM_LANGUAGE_CODE
+                };
+                db.Groups.Add(group);
                 db.SaveChanges();
-
-                Code code1 = db.Codes.SingleOrDefault(n => n.code_key == key);
-
-                foreach (var item in language)
-                {
-                    // add multiple tag for code
-                    Group group = new Group()
-                    {
-                        code_id = code1.code_id,
-                        language_id = item,
-                        group_item = Common.Common.ITEM_LANGUAGE_CODE
-                    };
-                    db.Groups.Add(group);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index");
             }
 
             ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name", code.category_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", code.user_id);
-            return View(code);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Codes/Edit/5

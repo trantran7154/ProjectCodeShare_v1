@@ -53,8 +53,6 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             Random r = new Random();
             ViewBag.random = random.Next(0, 1000);
 
-            db.Banners.Add(banner);
-
             if (img == null)
             {
                 banner.banner_image = "notimg.png";
@@ -68,15 +66,14 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 banner.banner_image = ViewBag.random + img.FileName;
-
-                banner.banner_active = true;
-                banner.banner_datecreate = DateTime.Now;
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(banner);
+            banner.banner_active = true;
+            banner.banner_datecreate = DateTime.Now;
+
+            db.Banners.Add(banner);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/BannersAdmin/Edit/5

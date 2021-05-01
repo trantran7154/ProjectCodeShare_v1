@@ -68,15 +68,14 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 category.category_img = ViewBag.random + img.FileName;
-
-                category.category_active = true;
-                category.category_del = false;
-                category.category_datecreate = DateTime.Now;
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return View(category);
+
+            category.category_active = true;
+            category.category_del = false;
+            category.category_datecreate = DateTime.Now;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CategoriesAdmin/Edit/5

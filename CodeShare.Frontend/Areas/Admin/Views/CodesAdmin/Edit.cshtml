@@ -22,7 +22,7 @@
         </div>
         <div class="card-block container-fluid">
             <div class="table-responsive">
-                <form method="post" action="@Url.Action("Edit","CodesAdmin", new { id = Model.code_id })" enctype="multipart/form-data">
+                <form method="post" class="ui form" action="@Url.Action("Edit","CodesAdmin", new { id = Model.code_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
                     <input type="hidden" value="@Model.code_id" name="code_id" />
@@ -116,8 +116,7 @@
                                 <label><i class="fa fa-cog"></i> Hướng dẫn</label>
                                 <textarea id="editor2" name="code_setting">@Html.Raw(@Model.code_setting)</textarea>
                             </div>
-                            <div class="ui error message">
-                            </div>
+                            <div class="ui error message"></div>
                         </div>
                     </div>
                     <div class="actions modal-footer">

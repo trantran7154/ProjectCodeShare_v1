@@ -158,23 +158,6 @@
                                     </div>
                                 </div>
                             </td>
-                            <!-- Success modal -->
-                            <td class="modal" tabindex="-1" id="bin">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body text-center font-18">
-                                            <h3 class="mb-20">Hủy Thành Công</h3>
-                                            <div class="mb-30 text-center">
-                                                <img src="~/Images/Modal/checked.png" />
-                                            </div>
-                                            <h6 class="mt-2">Tài khoản <b class="text-danger">{{list.user_email}}</b> đã rút tiền không thành công!</h6>
-                                        </div>
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                     </tbody>
                     <tbody ng-show="(list | filter:searchText).length == 0">

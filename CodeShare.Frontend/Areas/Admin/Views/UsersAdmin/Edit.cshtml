@@ -20,7 +20,7 @@
         </div>
         <div class="card-block">
             <div class="table-responsive container-fluid">
-                <form method="post" action="@Url.Action("Edit","UsersAdmin",new { id = Model.user_id })" enctype="multipart/form-data">
+                <form method="post" class="ui form" action="@Url.Action("Edit","UsersAdmin",new { id = Model.user_id })" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
                     <input type="hidden" value="@Model.user_id" name="user_id" />
@@ -89,6 +89,7 @@
                                     <input type="text" value="@Model.user_fa" name="user_fa" />
                                 </div>
                             </div>
+                            <div class="ui error message"></div>
                         </div>
                     </div>
                     <div class="actions modal-footer">

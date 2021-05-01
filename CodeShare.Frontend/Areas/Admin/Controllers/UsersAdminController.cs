@@ -108,8 +108,6 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             Random r = new Random();
             ViewBag.random = random.Next(0, 1000);
 
-            db.Users.Add(user);
-
             if (img == null)
             {
                 user.user_img = "notimg.png";
@@ -123,20 +121,19 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 user.user_img = ViewBag.random + img.FileName;
-
-                user.user_datecreate = DateTime.Now;
-                user.user_del = false;
-                user.user_option = true;
-                user.user_active = 1;
-                user.user_view = 0;
-                user.user_token = Guid.NewGuid().ToString();
-                user.user_coin = 0;
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(user);
+            user.user_datecreate = DateTime.Now;
+            user.user_del = false;
+            user.user_option = true;
+            user.user_active = 1;
+            user.user_view = 0;
+            user.user_token = Guid.NewGuid().ToString();
+            user.user_coin = 0;
+
+            db.Users.Add(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/UsersAdmin/Edit/5

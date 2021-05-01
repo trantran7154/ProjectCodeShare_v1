@@ -1,0 +1,346 @@
+﻿<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                // Codes
+                languge: {
+                    identifier: 'language',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn phân loại code.'
+                        }
+                    ]
+                },
+                user_id: {
+                    identifier: 'user_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn người đăng.'
+                        }
+                    ]
+                },
+                code_title: {
+                    identifier: 'code_title',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tiêu đề code.'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Tiêu đề phải có ít nhất 6 ký tự.'
+                        }
+                    ]
+                },
+                code_info: {
+                    identifier: 'code_info',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mô tả ngắn cho code.'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Mô tả ngắn phải có ít nhất 6 ký tự.'
+                        }
+                    ]
+                },
+                category_id: {
+                    identifier: 'category_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn danh mục.'
+                        }
+                    ]
+                },
+                code_coin: {
+                    identifier: 'code_coin',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập giá code.'
+                        },
+                        {
+                            type: 'integer[0..100000000]',
+                            prompt: 'Vui lòng nhập đúng giá code.'
+                        }
+                    ]
+                },
+                code_pass: {
+                    identifier: 'code_pass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu giải nén.'
+                        }
+                    ]
+                },
+                code_disk: {
+                    identifier: 'code_disk',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập dung lượng cho code.'
+                        },
+                        {
+                            type: 'integer[1..10000]',
+                            prompt: 'Vui lòng nhập đúng dung lượng code.'
+                        }
+                    ]
+                },
+                code_linkdown: {
+                    identifier: 'code_linkdown',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập link download cho code.'
+                        },
+                        {
+                            type: 'url',
+                            prompt: 'Link download chưa đúng.'
+                        }
+                    ]
+                },
+                code_linkdemo: {
+                    identifier: 'code_linkdemo',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập link demo cho code.'
+                        },
+                        {
+                            type: 'url',
+                            prompt: 'Link demo chưa đúng.'
+                        }
+                    ]
+                },
+                code_des: {
+                    identifier: 'code_des',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mô tả code.'
+                        },
+                        {
+                            type: 'minLength[50]',
+                            prompt: 'Vui lòng nhập ít nhất 50 ký tự để mô tả.'
+                        }
+                    ]
+                },
+                code_setting: {
+                    identifier: 'code_setting',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập hướng dẫn cài đặt.'
+                        }
+                    ]
+                },
+                // Người Dùng
+                user_name: {
+                    identifier: 'user_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên người dùng.'
+                        }
+                    ]
+                },
+                user_role: {
+                    identifier: 'user_role',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn vai trò cho người dùng.'
+                        }
+                    ]
+                },
+                user_email: {
+                    identifier: 'user_email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập email cho người dùng.'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Vui lòng nhập đúng email/gmail.'
+                        }
+                    ]
+                },
+                user_pass: {
+                    identifier: 'user_pass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu.'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Mật khẩu phải có ít nhất 6 ký tự.'
+                        }
+                    ]
+                },
+                user_phone: {
+                    identifier: 'user_phone',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập số điện thoại.'
+                        },
+                        {
+                            type: 'exactLength[12]',
+                            prompt: 'Số điện thoại nhập chưa chính xác.'
+                        }
+                    ]
+                },
+                user_sex: {
+                    identifier: 'user_sex',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn giới tính cho người dùng.'
+                        }
+                    ]
+                },
+                user_birth: {
+                    identifier: 'user_birth',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn ngày sinh.'
+                        }
+                    ]
+                },
+                user_code: {
+                    identifier: 'user_code',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập code.'
+                        }
+                    ]
+                },
+                user_fa: {
+                    identifier: 'user_fa',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập sở thích của người dùng.'
+                        }
+                    ]
+                },
+                // Danh Mục
+                category_name: {
+                    identifier: 'category_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên danh mục.'
+                        }
+                    ]
+                },
+                category_item: {
+                    identifier: 'category_item',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn danh mục.'
+                        }
+                    ]
+                },
+                // Ngôn Ngữ
+                language_name: {
+                    identifier: 'language_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên ngôn ngữ.'
+                        }
+                    ]
+                },
+                // Banners
+                banner_title: {
+                    identifier: 'banner_title',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tiêu đề banner.'
+                        }
+                    ]
+                },
+                banner_link: {
+                    identifier: 'banner_link',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập link cho banner.'
+                        },
+                        {
+                            type: 'url',
+                            prompt: 'Link chưa đúng.'
+                        }
+                    ]
+                },
+                // Nạp Xu
+                pakage_coin: {
+                    identifier: 'pakage_coin',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập gói nạp.'
+                        },
+                        {
+                            type: 'integer[0..10000]',
+                            prompt: 'Vui lòng nhập đúng định giá.'
+                        }
+                    ]
+                },
+                // Tin Tức
+                news_name: {
+                    identifier: 'news_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên tin tức.'
+                        }
+                    ]
+                },
+                category: {
+                    identifier: 'category',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn danh mục tin tức.'
+                        }
+                    ]
+                },
+                news_content: {
+                    identifier: 'news_content',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mô tả tin tức.'
+                        },
+                        {
+                            type: 'minLength[50]',
+                            prompt: 'Vui lòng nhập ít nhất 50 ký tự để mô tả.'
+                        }
+                    ]
+                },
+                news_tag: {
+                    identifier: 'news_tag',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tag cho tin tức.'
+                        }
+                    ]
+                },
+            }
+        })
+        ;
+</script>

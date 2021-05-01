@@ -53,8 +53,6 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             Random r = new Random();
             ViewBag.random = random.Next(0, 1000);
 
-            db.Languages.Add(language);
-
             if (img == null)
             {
                 language.language_img = "notimg.png";
@@ -68,15 +66,14 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
                 img.SaveAs(pa_cre);
                 language.language_img = ViewBag.random + img.FileName;
-
-                language.language_active = 1;
-                language.language_view = 0;
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(language);
+            language.language_active = 1;
+            language.language_view = 0;
+
+            db.Languages.Add(language);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/LanguagesAdmin/Edit/5

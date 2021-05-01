@@ -20,7 +20,7 @@
         </div>
         <div class="card-block container-fluid">
             <div class="table-responsive">
-                <form method="post" action="@Url.Action("Create","CategoriesAdmin")" enctype="multipart/form-data">
+                <form method="post" class="ui form" action="@Url.Action("Create","CategoriesAdmin")" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     <div class="modal-body">
                         <div class="ui form">
@@ -38,11 +38,13 @@
                                 <div class="field">
                                     <label><i class="fa fa-th-list"></i> Thuộc danh mục</label>
                                     <select class="ui fluid dropdown" name="category_item">
+                                        <option value="">Chọn danh mục</option>
                                         <option value="1">Code</option>
                                         <option value="2">Tin tức</option>
                                     </select>
                                 </div>
                             </div>
+                            <div class="ui error message"></div>
                         </div>
                     </div>
                     <div class="actions modal-footer">
