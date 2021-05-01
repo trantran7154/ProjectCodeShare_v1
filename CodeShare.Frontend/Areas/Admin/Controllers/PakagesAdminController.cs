@@ -77,9 +77,12 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "pakege_id,pakage_coin,pakage_money,pakage_active")] Pakage pakage)
         {
+            var coin = pakage.pakage_coin * 1000;
             if (ModelState.IsValid)
             {
                 db.Entry(pakage).State = EntityState.Modified;
+                pakage.pakage_money = coin.Value.ToString("#,##0") + "VNĐ";
+                pakage.pakage_active = 1;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
