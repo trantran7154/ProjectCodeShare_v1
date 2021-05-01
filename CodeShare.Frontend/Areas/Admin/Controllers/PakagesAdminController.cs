@@ -81,7 +81,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(pakage).State = EntityState.Modified;
-                pakage.pakage_money = coin.Value.ToString("#,##0") + "VNĐ";
+                pakage.pakage_money = coin.Value.ToString("#,##0") + " VNĐ";
                 pakage.pakage_active = 1;
                 db.SaveChanges();
                 return RedirectToAction("Index");
