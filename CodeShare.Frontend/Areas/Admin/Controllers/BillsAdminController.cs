@@ -17,31 +17,55 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin
         public ActionResult Index()
         {
-            var bills = db.Bills.Include(b => b.Pakage).Include(b => b.User);
-            return View(bills.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                var bills = db.Bills.Include(b => b.Pakage).Include(b => b.User);
+                return View(bills.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/BillsAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Bill bill = db.Bills.Find(id);
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(bill);
             }
-            Bill bill = db.Bills.Find(id);
-            if (bill == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(bill);
         }
 
         // GET: Admin/BillsAdmin/Create
         public ActionResult Create()
         {
-            ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money");
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money");
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/BillsAdmin/Create
@@ -66,18 +90,26 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Bill bill = db.Bills.Find(id);
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money", bill.pakege_id);
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", bill.user_id);
+                return View(bill);
             }
-            Bill bill = db.Bills.Find(id);
-            if (bill == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money", bill.pakege_id);
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", bill.user_id);
-            return View(bill);
         }
 
         // POST: Admin/BillsAdmin/Edit/5

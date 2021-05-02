@@ -18,8 +18,16 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/Codes
         public ActionResult Index()
         {
-            var codes = db.Codes.Include(c => c.Category).Include(c => c.User);
-            return View(codes.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                var codes = db.Codes.Include(c => c.Category).Include(c => c.User);
+                return View(codes.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/Codes/Details/5
@@ -40,9 +48,17 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/Codes/Create
         public ActionResult Create()
         {
-            ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name");
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name");
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/Codes/Create
@@ -113,18 +129,26 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/Codes/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Code code = db.Codes.Find(id);
+                if (code == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name", code.category_id);
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", code.user_id);
+                return View(code);
             }
-            Code code = db.Codes.Find(id);
-            if (code == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            ViewBag.category_id = new SelectList(db.Categorys, "category_id", "category_name", code.category_id);
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", code.user_id);
-            return View(code);
         }
 
         // POST: Admin/Codes/Edit/5
@@ -383,7 +407,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // Danh sách code đã xóa

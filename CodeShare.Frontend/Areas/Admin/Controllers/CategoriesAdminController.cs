@@ -18,28 +18,52 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin
         public ActionResult Index()
         {
-            return View(db.Categorys.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View(db.Categorys.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/CategoriesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Category category = db.Categorys.Find(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(category);
             }
-            Category category = db.Categorys.Find(id);
-            if (category == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(category);
         }
 
         // GET: Admin/CategoriesAdmin/Create
         public ActionResult Create()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/CategoriesAdmin/Create
@@ -81,16 +105,24 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Category category = db.Categorys.Find(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(category);
             }
-            Category category = db.Categorys.Find(id);
-            if (category == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(category);
         }
 
         // POST: Admin/CategoriesAdmin/Edit/5
@@ -213,7 +245,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // Danh sách danh mục đã xóa

@@ -17,28 +17,52 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/PakagesAdmin
         public ActionResult Index()
         {
-            return View(db.Pakages.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View(db.Pakages.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/PakagesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Pakage pakage = db.Pakages.Find(id);
+                if (pakage == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pakage);
             }
-            Pakage pakage = db.Pakages.Find(id);
-            if (pakage == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(pakage);
         }
 
         // GET: Admin/PakagesAdmin/Create
         public ActionResult Create()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/PakagesAdmin/Create
@@ -58,16 +82,24 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/PakagesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Pakage pakage = db.Pakages.Find(id);
+                if (pakage == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pakage);
             }
-            Pakage pakage = db.Pakages.Find(id);
-            if (pakage == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(pakage);
         }
 
         // POST: Admin/PakagesAdmin/Edit/5
@@ -151,7 +183,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult UnActive()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         public JsonResult ShowUnActive(int? id)

@@ -82,7 +82,7 @@
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
-                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchFull">
+                        <tr ng-repeat="list in filteredTodos | filter: searchText | orderBy: searchSort | filter: searchFull">
                             <td class="font-weight-bold" width="200">{{list.user_name}}</td>
                             <td class="font-weight-bold">
                                 <div ng-show="list.pk_coin > 0">{{list.pk_coin * 1000 | currency:"":0}} VNĐ</div>
@@ -112,7 +112,7 @@
                             </td>
                             <td width="110">
                                 <a href="/Admin/BillsAdmin/Edit?id={{list.id}}"><i class="fa fa-edit" style="font-size: 16px"></i></a> |
-                                <a href="/Admin/BillsAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a> 
+                                <a href="/Admin/BillsAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -123,17 +123,39 @@
                     </tbody>
                 </table>
             </div>
+            <center>
+                <!-- Page List -->
+                <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+            </center>
         </div>
     </div>
 </div>
 <script>
-    var app = angular.module('myApp', []);
+    var app = angular.module('myApp', ['ui.bootstrap']);
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
             url: "/Admin/JsonAdmin/Bills"
         }).then(function mySuccess(response) {
-            $scope.list = response.data;
+            //Giả định
+            $scope.filteredTodos = []
+                , $scope.currentPage = 1
+                , $scope.numPerPage = 10
+                , $scope.maxSize = 5;
+
+            //Xác định list phân trang
+            $scope.makeTodos = function () {
+                $scope.list = response.data;
+            }
+            $scope.makeTodos();
+
+            //Phân trang
+            $scope.$watch('currentPage + numPerPage', function () {
+                var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                    , end = begin + $scope.numPerPage;
+
+                $scope.filteredTodos = $scope.list.slice(begin, end);
+            });
         }, function myError(response) {
             $scope.list = response.statusText;
         });

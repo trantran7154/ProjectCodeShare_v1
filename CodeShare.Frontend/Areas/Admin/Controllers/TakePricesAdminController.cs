@@ -17,30 +17,54 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin
         public ActionResult Index()
         {
-            var takePrices = db.TakePrices.Include(t => t.User);
-            return View(takePrices.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                var takePrices = db.TakePrices.Include(t => t.User);
+                return View(takePrices.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/TakePricesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                TakePrice takePrice = db.TakePrices.Find(id);
+                if (takePrice == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(takePrice);
             }
-            TakePrice takePrice = db.TakePrices.Find(id);
-            if (takePrice == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(takePrice);
         }
 
         // GET: Admin/TakePricesAdmin/Create
         public ActionResult Create()
         {
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/TakePricesAdmin/Create
@@ -64,17 +88,25 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                TakePrice takePrice = db.TakePrices.Find(id);
+                if (takePrice == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", takePrice.user_id);
+                return View(takePrice);
             }
-            TakePrice takePrice = db.TakePrices.Find(id);
-            if (takePrice == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", takePrice.user_id);
-            return View(takePrice);
         }
 
         // POST: Admin/TakePricesAdmin/Edit/5

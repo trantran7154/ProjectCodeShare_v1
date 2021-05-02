@@ -13,6 +13,7 @@
     List<Order> oder = db.Orders.ToList();
     List<Group> groups = db.Groups.ToList();
     List<News> news = db.News.ToList();
+    List<News> nc = db.News.Where(n => n.user_id == Model.user_id).ToList();
 }
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
@@ -23,16 +24,20 @@
         <div class="row">
             <div class="col-lg-9 bg-white border shadow text-dark">
                 <div class="row mt-3">
-                    <div class="col-lg-4">
-                        <div style="padding: 10px">
-                            <img src="~/Images/News/@Model.news_img" style="width: 100%; height: 280px" />
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div style="padding: 10px">
-                            <h2>@Model.news_name</h2>
-                            <div class="mt-4">@Html.Raw(Model.news_content)</div>
-                        </div>
+                    <div style="padding: 40px">
+                        <h2><i class="fa fa-pencil"></i> @Model.news_name</h2>
+                        @foreach (var item1 in groups.Where(n => n.news_id == Model.news_id))
+                        {
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mt-3"><i class="fa fa-bookmark text-warning"></i> <b class="text-warning">Danh mục:</b> @item1.Category.category_name</div>
+                                </div>
+                                <div class="col-lg-6 text-right">
+                                    <div class="mt-3"><i class="fa fa-calendar text-success"></i> <b class="text-success">Ngày tạo:</b> @Model.news_datecreate.Value.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        }
+                        <div class="mt-5">@Html.Raw(Model.news_content)</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +54,8 @@
                                 </td>
                                 <td width="80%">
                                     <h5 class="font-weight-bold text-danger">@Model.User.user_name</h5>
-
+                                    <hr />
+                                    <b>Số bài đăng: </b> <small class="text-danger font-weight-bold">@nc.Count()</small> <br />
                                     @if (functions.Cookie() != null)
                                     {
                                         <button onclick="window.location.href='/Tools/Chats/@Model.user_id'" class="btn btn-danger"><i class="fa fa-comment"></i>&nbsp;Chat</button>
@@ -78,7 +84,7 @@
                                     @foreach (var item1 in groups.Where(n => n.news_id == item.news_id))
                                     {
                                         <div><i class="fa fa-bookmark text-warning"></i> @item1.Category.category_name</div>
-                                        <div class="text-success"><i class="fa fa-calendar text-success"></i> @item.news_datecreate.Value.ToShortDateString()</div>
+                                        <div><i class="fa fa-calendar text-success"></i> @item.news_datecreate.Value.ToShortDateString()</div>
                                     }
                                 </div>
                             </div>

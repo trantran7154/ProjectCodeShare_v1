@@ -81,7 +81,7 @@
                         </th>
                     </tr>
                     <tbody ng-show="(list | filter:searchText).length != 0">
-                        <tr ng-repeat="list in list | filter: searchText | orderBy: searchSort | filter: searchFull">
+                        <tr ng-repeat="list in filteredTodos | filter: searchText | orderBy: searchSort | filter: searchFull">
                             <td class="font-weight-bold">{{list.coin}} Xu</td>
                             <td class="font-weight-bold">{{list.coin * 1000 | currency:"":0}} VNĐ</td>
                             <td class="font-weight-bold" width="300">
@@ -134,18 +134,40 @@
                     </tbody>
                 </table>
             </div>
+            <center>
+                <!-- Page List -->
+                <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+            </center>
         </div>
     </div>
 </div>
 
 <script>
-    var app = angular.module('myApp', []);
+    var app = angular.module('myApp', ['ui.bootstrap']);
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
             url: "/Admin/JsonAdmin/Packages"
         }).then(function mySuccess(response) {
-            $scope.list = response.data;
+            //Giả định
+            $scope.filteredTodos = []
+                , $scope.currentPage = 1
+                , $scope.numPerPage = 10
+                , $scope.maxSize = 5;
+
+            //Xác định list phân trang
+            $scope.makeTodos = function () {
+                $scope.list = response.data;
+            }
+            $scope.makeTodos();
+
+            //Phân trang
+            $scope.$watch('currentPage + numPerPage', function () {
+                var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                    , end = begin + $scope.numPerPage;
+
+                $scope.filteredTodos = $scope.list.slice(begin, end);
+            });
         }, function myError(response) {s
             $scope.list = response.statusText;
         });

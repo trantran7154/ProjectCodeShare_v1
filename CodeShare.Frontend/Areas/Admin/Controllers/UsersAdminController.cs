@@ -23,7 +23,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View(db.Users.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         public PartialViewResult Login()
@@ -79,22 +87,38 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(user);
         }
 
         // GET: Admin/UsersAdmin/Create
         public ActionResult Create()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/UsersAdmin/Create
@@ -139,16 +163,24 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(user);
         }
 
         // POST: Admin/UsersAdmin/Edit/5
@@ -297,7 +329,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         public JsonResult DeletedUsers()
@@ -414,15 +454,31 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // Lịch sử nạp xu
         public ActionResult MoneyHistory(int? id)
         {
-            User users = db.Users.Find(id);
-            return View(users);
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                User users = db.Users.Find(id);
+                return View(users);
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // Lịch sử bình luận
         public ActionResult CommetHistory(int? id)
         {
-            User users = db.Users.Find(id);
-            return View(users);
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                User users = db.Users.Find(id);
+                return View(users);
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
     }
 }

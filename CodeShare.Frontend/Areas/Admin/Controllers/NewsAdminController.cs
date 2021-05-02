@@ -18,30 +18,54 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/NewsAdmin
         public ActionResult Index()
         {
-            var news = db.News.Include(n => n.User);
-            return View(news.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                var news = db.News.Include(n => n.User);
+                return View(news.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/NewsAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(news);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(news);
         }
 
         // GET: Admin/NewsAdmin/Create
         public ActionResult Create()
         {
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/NewsAdmin/Create
@@ -105,17 +129,25 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/NewsAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", news.user_id);
+                return View(news);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email", news.user_id);
-            return View(news);
         }
 
         // POST: Admin/NewsAdmin/Edit/5
@@ -298,7 +330,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         public JsonResult ShowBin()

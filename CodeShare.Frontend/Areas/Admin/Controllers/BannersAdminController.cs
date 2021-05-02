@@ -18,28 +18,53 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin
         public ActionResult Index()
         {
-            return View(db.Banners.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View(db.Banners.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/BannersAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Banner banner = db.Banners.Find(id);
+                if (banner == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(banner);
             }
-            Banner banner = db.Banners.Find(id);
-            if (banner == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(banner);
         }
 
         // GET: Admin/BannersAdmin/Create
         public ActionResult Create()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/BannersAdmin/Create
@@ -79,16 +104,24 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Banner banner = db.Banners.Find(id);
+                if (banner == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(banner);
             }
-            Banner banner = db.Banners.Find(id);
-            if (banner == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(banner);
         }
 
         // POST: Admin/BannersAdmin/Edit/5
@@ -182,7 +215,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         }
         public ActionResult UnActive()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // Banner không hoạt động

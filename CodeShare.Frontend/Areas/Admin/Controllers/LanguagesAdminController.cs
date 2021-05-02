@@ -18,28 +18,52 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/LanguagesAdmin
         public ActionResult Index()
         {
-            return View(db.Languages.ToList());
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View(db.Languages.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // GET: Admin/LanguagesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Language language = db.Languages.Find(id);
+                if (language == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(language);
             }
-            Language language = db.Languages.Find(id);
-            if (language == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(language);
         }
 
         // GET: Admin/LanguagesAdmin/Create
         public ActionResult Create()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // POST: Admin/LanguagesAdmin/Create
@@ -79,16 +103,24 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/LanguagesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Language language = db.Languages.Find(id);
+                if (language == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(language);
             }
-            Language language = db.Languages.Find(id);
-            if (language == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "UsersAdmin");
             }
-            return View(language);
         }
 
         // POST: Admin/LanguagesAdmin/Edit/5
@@ -186,7 +218,15 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult UnActive()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["user_id"];
+            if (cookie != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "UsersAdmin");
+            }
         }
 
         // Check trạng thái hoạt động của danh mục
