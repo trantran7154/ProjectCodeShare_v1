@@ -15,7 +15,7 @@ namespace CodeShare.Model.DAO
             var login = db.Users.SingleOrDefault(t => t.user_email == email && t.user_pass == password);
             if (login != null)
             {
-                if (login.user_active == 1 && login.user_option == true && login.user_del == false)
+                if (login.user_active == 1 && login.user_option == true && login.user_del == false && login.user_role == 1)
                 {
                     // dang nhap thanh cong
                     return 1;
@@ -43,7 +43,7 @@ namespace CodeShare.Model.DAO
             var login = db.Users.SingleOrDefault(t => t.user_email == email && t.user_pass == password);
             if (login != null)
             {
-                if (login.user_active == 1 && login.user_option == true && login.user_del == false && login.user_role == 1)
+                if (login.user_active == 1 && login.user_option == true && login.user_del == false && login.user_role == 2)
                 {
                     // dang nhap thanh cong
                     return 1;
@@ -75,13 +75,13 @@ namespace CodeShare.Model.DAO
                 user.user_datecreate = DateTime.Now;
                 //user.user_datelogin = DateTime.Now;
                 user.user_token = Guid.NewGuid().ToString();
-                user.user_code = "#Music_Admin";
+                user.user_code = "#123321";
                 user.user_del = false;
                 user.user_active = 1;
                 user.user_coin = 0;
                 user.user_option = true;
                 user.user_view = 0;
-                user.user_role = 2;
+                user.user_role = 1;
 
                 db.Users.Add(user);
                 db.SaveChanges();

@@ -1,0 +1,345 @@
+﻿@using CodeShare.Model.EF;
+@{
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = "Thống kê doanh thu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<User> users = db.Users.ToList();
+    List<Bill> bills = db.Bills.Where(n => n.bill_active == true).ToList();
+    List<Order> orders = db.Orders.ToList();
+    List<TakePrice> takePrices = db.TakePrices.ToList();
+
+
+    var sumcoin = users.Sum(n => n.user_coin) + takePrices.Where(n => n.tp_active == 1).Sum(n => n.tp_coin);
+    var sumrevenue = orders.Where(n => n.cate_orders == 2).Sum(n => n.coin);
+    var sumreduction = takePrices.Where(n=>n.tp_active == 2).Sum(n=>n.tp_coin);
+    var sum = sumrevenue + sumcoin + sumreduction;
+    //Tính tiền
+    var pricesum = (sum * 1000) + 0;
+    var pricesumrevenue = (sumrevenue * 1000) + 0;
+    var pricesumcoin = (sumcoin * 1000) + 0;
+    var pricesumreduction = (sumreduction * 1000) + 0;
+
+
+}
+
+<div class="col-xl-3 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h4 class="text-c-purple">@sum Xu</h4>
+                    <h6 class="text-muted m-b-0">Tổng xu</h6>
+                </div>
+                <div class="col-4 text-right">
+                    <i class="fa fa-bar-chart f-28"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-c-purple">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <p class="text-white m-b-0">@pricesum.Value.ToString("#,###") VNĐ</p>
+                </div>
+                <div class="col-3 text-right">
+                    <i class="fa fa-line-chart text-white f-16"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h4 class="text-c-purple">@sumrevenue</h4>
+                    <h6 class="text-muted m-b-0">Tổng xu lời</h6>
+                </div>
+                <div class="col-4 text-right">
+                    <i class="fa fa-bar-chart f-28"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-c-purple">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <p class="text-white m-b-0">@pricesumrevenue.Value.ToString("#,###") VNĐ</p>
+                </div>
+                <div class="col-3 text-right">
+                    <i class="fa fa-line-chart text-white f-16"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h4 class="text-c-purple">@sumcoin Xu</h4>
+                    <h6 class="text-muted m-b-0">Kho xu hiện tại </h6>
+                </div>
+                <div class="col-4 text-right">
+                    <i class="fa fa-bar-chart f-28"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-c-purple">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <p class="text-white m-b-0">@pricesumcoin.Value.ToString("#,###") VNĐ</p>
+                </div>
+                <div class="col-3 text-right">
+                    <i class="fa fa-line-chart text-white f-16"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6">
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h4 class="text-c-purple">@sumreduction Xu</h4>
+                    <h6 class="text-muted m-b-0">Xu giao dịch</h6>
+                </div>
+                <div class="col-4 text-right">
+                    <i class="fa fa-bar-chart f-28"></i>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-c-purple">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <p class="text-white m-b-0">@pricesumreduction.Value.ToString("#,###") VNĐ</p>
+                </div>
+                <div class="col-3 text-right">
+                    <i class="fa fa-line-chart text-white f-16"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6">
+    @{ 
+        var billnow = bills.Where(n => n.bill_active == true && n.bill_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.coin);
+        var pricebillnow = billnow * 1000;
+
+        var odernow = orders.Where(n => n.oder_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.coin);
+        var priceodernow = odernow * 1000;
+
+        var odermainnow = orders.Where(n => n.cate_orders == 1 && n.oder_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.coin);
+        var priceodermainnow = odermainnow * 1000;
+
+        var oderrevenuenow = orders.Where(n => n.cate_orders == 2 && n.oder_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.coin);
+        var priceoderrevenuenow = oderrevenuenow * 1000;
+
+        var takepricenow = takePrices.Where(n => n.tp_active == 2 && n.tp_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.tp_coin);
+        var pricetakepricenow = takepricenow * 1000;
+
+        var takepricewaitnow = takePrices.Where(n => n.tp_active == 1 && n.tp_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.tp_coin);
+        var pricetakepricewaitnow = takepricewaitnow * 1000;
+    }
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-12 mt-3">
+                    <h3>DOANH THU TRONG NGÀY</h3>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu nạp xu</h5>
+                    <h4 class="text-c-purple text-danger">@pricebillnow.Value.ToString("#,###") VNĐ (@billnow Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch</h5>
+                    <h4 class="text-c-purple text-primary">@priceodernow.Value.ToString("#,###") Xu (@odernow Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh giao dịch chính</h5>
+                    <h4 class="text-c-purple text-success">@priceodermainnow.Value.ToString("#,###") VNĐ (@odermainnow Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch lời</h5>
+                    <h4 class="text-c-purple text-dark">@priceoderrevenuenow.Value.ToString("#,###") VNĐ (@oderrevenuenow Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu rút tiền</h5>
+                    <h4 class="text-c-purple text-secondary">@pricetakepricenow.Value.ToString("#,###") VNĐ (@takepricenow Xu) </h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu chờ rút tiền</h5>
+                    <h4 class="text-c-purple">@pricetakepricewaitnow.Value.ToString("#,###") VNĐ (@takepricewaitnow Xu)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6">
+    @{
+        var billweed = bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddDays(7)).Sum(n => n.coin);
+        var pricebillweed = billweed * 1000;
+
+        var oderweed = orders.Where(n => n.oder_datecreate < n.oder_datecreate.Value.AddDays(7)).Sum(n => n.coin);
+        var priceoderweed = oderweed * 1000;
+
+        var odermainweed = orders.Where(n => n.cate_orders == 1 && n.oder_datecreate < n.oder_datecreate.Value.AddDays(7)).Sum(n => n.coin);
+        var priceodermainweed = odermainweed * 1000;
+
+        var oderrevenueweed = orders.Where(n => n.cate_orders == 2 && n.oder_datecreate < n.oder_datecreate.Value.AddDays(7)).Sum(n => n.coin);
+        var priceoderrevenueweed = oderrevenueweed * 1000;
+
+        var takepriceweed = takePrices.Where(n => n.tp_active == 2 && n.tp_datecreate < n.tp_datecreate.Value.AddDays(7)).Sum(n => n.tp_coin);
+        var pricetakepriceweed = takepriceweed * 1000;
+
+        var takepricewaitweed = takePrices.Where(n => n.tp_active == 1 && n.tp_datecreate < n.tp_datecreate.Value.AddDays(7)).Sum(n => n.tp_coin);
+        var pricetakepricewaitweed = takepricewaitweed * 1000;
+    }
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-12 mt-3">
+                    <h3>DOANH THU TRONG TUẦN</h3>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu nạp xu</h5>
+                    <h4 class="text-c-purple text-danger">@pricebillweed.Value.ToString("#,###") VNĐ (@billweed Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch</h5>
+                    <h4 class="text-c-purple text-primary">@priceoderweed.Value.ToString("#,###") Xu (@oderweed Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh giao dịch chính</h5>
+                    <h4 class="text-c-purple text-success">@priceodermainweed.Value.ToString("#,###") VNĐ (@odermainweed Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch lời</h5>
+                    <h4 class="text-c-purple text-dark">@priceoderrevenueweed.Value.ToString("#,###") VNĐ (@oderrevenueweed Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu rút tiền</h5>
+                    <h4 class="text-c-purple text-secondary">@pricetakepriceweed.Value.ToString("#,###") VNĐ (@takepriceweed Xu) </h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu chờ rút tiền</h5>
+                    <h4 class="text-c-purple">@pricetakepricewaitweed.Value.ToString("#,###") VNĐ (@takepricewaitweed Xu)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6">
+    @{
+        var billmonth = bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(1)).Sum(n => n.coin);
+        var pricebillmonth = billmonth * 1000;
+
+        var odermonth = orders.Where(n => n.oder_datecreate < n.oder_datecreate.Value.AddMonths(1)).Sum(n => n.coin);
+        var priceodermonth = odermonth * 1000;
+
+        var odermainmonth = orders.Where(n => n.cate_orders == 1 && n.oder_datecreate < n.oder_datecreate.Value.AddMonths(1)).Sum(n => n.coin);
+        var priceodermainmonth = odermainmonth * 1000;
+
+        var oderrevenuemonth = orders.Where(n => n.cate_orders == 2 && n.oder_datecreate < n.oder_datecreate.Value.AddMonths(1)).Sum(n => n.coin);
+        var priceoderrevenuemonth = oderrevenuemonth * 1000;
+
+        var takepricemonth = takePrices.Where(n => n.tp_active == 2 && n.tp_datecreate < n.tp_datecreate.Value.AddMonths(1)).Sum(n => n.tp_coin);
+        var pricetakepricemonth = takepricemonth * 1000;
+
+        var takepricewaitmonth = takePrices.Where(n => n.tp_active == 1 && n.tp_datecreate < n.tp_datecreate.Value.AddMonths(1)).Sum(n => n.tp_coin);
+        var pricetakepricewaitmonth = takepricewaitmonth * 1000;
+    }
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-12 mt-3">
+                    <h3>DOANH THU TRONG THÁNG</h3>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu nạp xu</h5>
+                    <h4 class="text-c-purple text-danger">@pricebillmonth.Value.ToString("#,###") VNĐ (@billmonth Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch</h5>
+                    <h4 class="text-c-purple text-primary">@priceodermonth.Value.ToString("#,###") Xu (@odermonth Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh giao dịch chính</h5>
+                    <h4 class="text-c-purple text-success">@priceodermainmonth.Value.ToString("#,###") VNĐ (@odermainmonth Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch lời</h5>
+                    <h4 class="text-c-purple text-dark">@priceoderrevenuemonth.Value.ToString("#,###") VNĐ (@oderrevenuemonth Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu rút tiền</h5>
+                    <h4 class="text-c-purple text-secondary">@pricetakepricemonth.Value.ToString("#,###") VNĐ (@takepricemonth Xu) </h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu chờ rút tiền</h5>
+                    <h4 class="text-c-purple">@pricetakepricewaitmonth.Value.ToString("#,###") VNĐ (@takepricewaitmonth Xu)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6">
+    @{
+        var billyear = bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddYears(1)).Sum(n => n.coin);
+        var pricebillyear = billyear * 1000;
+
+        var oderyear = orders.Where(n => n.oder_datecreate < n.oder_datecreate.Value.AddYears(1)).Sum(n => n.coin);
+        var priceoderyear = oderyear * 1000;
+
+        var odermainyear = orders.Where(n => n.cate_orders == 1 && n.oder_datecreate < n.oder_datecreate.Value.AddYears(1)).Sum(n => n.coin);
+        var priceodermainyear = odermainyear * 1000;
+
+        var oderrevenueyear = orders.Where(n => n.cate_orders == 2 && n.oder_datecreate < n.oder_datecreate.Value.AddYears(1)).Sum(n => n.coin);
+        var priceoderrevenueyear = oderrevenueyear * 1000;
+
+        var takepriceyear = takePrices.Where(n => n.tp_active == 2 && n.tp_datecreate < n.tp_datecreate.Value.AddYears(1)).Sum(n => n.tp_coin);
+        var pricetakepriceyear = takepriceyear * 1000;
+
+        var takepricewaityear = takePrices.Where(n => n.tp_active == 1 && n.tp_datecreate < n.tp_datecreate.Value.AddYears(1)).Sum(n => n.tp_coin);
+        var pricetakepricewaityear = takepricewaityear * 1000;
+    }
+    <div class="card">
+        <div class="card-block">
+            <div class="row align-items-center">
+                <div class="col-12 mt-3">
+                    <h3>DOANH THU TRONG NĂM</h3>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu nạp xu</h5>
+                    <h4 class="text-c-purple text-danger">@pricebillyear.Value.ToString("#,###") VNĐ (@billyear Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch</h5>
+                    <h4 class="text-c-purple text-primary">@priceoderyear.Value.ToString("#,###") Xu (@oderyear Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh giao dịch chính</h5>
+                    <h4 class="text-c-purple text-success">@priceodermainyear.Value.ToString("#,###") VNĐ (@odermainyear Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Tổng giao dịch lời</h5>
+                    <h4 class="text-c-purple text-dark">@priceoderrevenueyear.Value.ToString("#,###") VNĐ (@oderrevenueyear Xu)</h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu rút tiền</h5>
+                    <h4 class="text-c-purple text-secondary">@pricetakepriceyear.Value.ToString("#,###") VNĐ (@takepriceyear Xu) </h4>
+                </div>
+                <div class="col-6 mt-3">
+                    <h5 class="text-muted m-b-0 font-weight-bold"><i class="fa fa-dollar-sign">&nbsp;</i>Doanh thu chờ rút tiền</h5>
+                    <h4 class="text-c-purple">@pricetakepricewaityear.Value.ToString("#,###") VNĐ (@takepricewaityear Xu)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

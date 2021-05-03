@@ -18,7 +18,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View(db.Banners.ToList());
@@ -32,7 +32,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
 
@@ -56,7 +56,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin/Create
         public ActionResult Create()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View();
@@ -104,7 +104,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BannersAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -215,7 +215,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         }
         public ActionResult UnActive()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View();

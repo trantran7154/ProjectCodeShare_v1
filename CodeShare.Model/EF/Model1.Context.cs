@@ -41,5 +41,6 @@ namespace CodeShare.Model.EF
         public virtual DbSet<TakePrice> TakePrices { get; set; }
         public virtual DbSet<Tool> Tools { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<History> Historys { get; set; }
     }
 }

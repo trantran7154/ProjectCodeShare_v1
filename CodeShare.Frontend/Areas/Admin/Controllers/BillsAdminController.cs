@@ -17,7 +17,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 var bills = db.Bills.Include(b => b.Pakage).Include(b => b.User);
@@ -32,7 +32,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -55,7 +55,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin/Create
         public ActionResult Create()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 ViewBag.pakege_id = new SelectList(db.Pakages, "pakege_id", "pakage_money");
@@ -90,7 +90,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/BillsAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)

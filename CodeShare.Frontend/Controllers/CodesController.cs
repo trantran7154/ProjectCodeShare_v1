@@ -134,43 +134,115 @@ namespace CodeShare.Frontend.Controllers
             int pt5 = 5;
             int pt7 = 7;
             int pt10 = 10;
+
+            int pt95 = 95;
+            int pt93 = 93;
+            int pt90 = 90;
+
             float sum5 = (float)(code.code_coin * (1 - (float)pt5 / 100));
             float sum7 = (float)(code.code_coin * (1 - (float)pt7 / 100));
             float sum10 = (float)(code.code_coin * (1 - (float)pt10 / 100));
 
-
+            float sum95 = (float)(code.code_coin * (1 - (float)pt95 / 100));
+            float sum93 = (float)(code.code_coin * (1 - (float)pt93 / 100));
+            float sum90 = (float)(code.code_coin * (1 - (float)pt90 / 100));
 
             User idmain = db.Users.Find(idus.user_id);
             idmain.user_coin = idmain.user_coin - code.code_coin;
 
             User idcoder = db.Users.Find(coder);
-            if(code.code_coin < 50)
+            if(code.code_coin <= 100)
             {
                 idcoder.user_coin = idcoder.user_coin + code.code_coin;
+
+                Order oder = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = code.code_coin,
+                    cate_orders = 1
+                };
+                db.Orders.Add(oder);
             }
-            else if(code.code_coin < 1000000)
+            else if(code.code_coin <= 1000)
             {
                 idcoder.user_coin = (int?)(idcoder.user_coin + sum5);
+                Order odercate = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum95,
+                    cate_orders = 2
+                };
+                db.Orders.Add(odercate);
+
+                Order oder = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum5,
+                    cate_orders = 1
+                };
+                db.Orders.Add(oder);
             }
-            else if(code.code_coin < 5000000)
+            else if(code.code_coin <= 5000)
             {
                 idcoder.user_coin = (int?)(idcoder.user_coin + sum7);
+                Order odercate = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum93,
+                    cate_orders = 2
+                };
+                db.Orders.Add(odercate);
+
+                Order oder = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum7,
+                    cate_orders = 1
+                };
+                db.Orders.Add(oder);
             }
             else
             {
                 idcoder.user_coin = (int?)(idcoder.user_coin + sum10);
+                Order odercate = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum90,
+                    cate_orders = 2
+                };
+                db.Orders.Add(odercate);
+
+                Order oder = new Order()
+                {
+                    code_id = id,
+                    id_coder = coder,
+                    oder_datecreate = DateTime.Now,
+                    user_id = idus.user_id,
+                    coin = (int?)sum10,
+                    cate_orders = 1
+                };
+                db.Orders.Add(oder);
             }
             db.SaveChanges();
 
-            Order oder = new Order()
-            {
-                code_id = id,
-                id_coder = coder,
-                oder_datecreate = DateTime.Now,
-                user_id = idus.user_id
-            };
-            db.Orders.Add(oder);
-            db.SaveChanges();
 
             Order oder1 = db.Orders.Where(n => n.user_id == idus.user_id && n.code_id == id).First();
 

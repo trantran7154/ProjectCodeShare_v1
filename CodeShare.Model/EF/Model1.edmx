@@ -26,6 +26,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="bill_active" Type="bit" />
           <Property Name="bill_dealine" Type="datetime" />
+          <Property Name="coin" Type="int" />
         </EntityType>
         <EntityType Name="Categorys">
           <Key>
@@ -39,6 +40,17 @@
           <Property Name="category_del" Type="bit" />
           <Property Name="category_datecreate" Type="datetime" />
           <Property Name="category_dateupdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="chat_content" Type="nvarchar(max)" />
+          <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="id_send" Type="int" />
+          <Property Name="chat_key" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Codes">
           <Key>
@@ -80,17 +92,6 @@
           <Property Name="news_id" Type="int" />
           <Property Name="comment_dateupdate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Chats">
-          <Key>
-            <PropertyRef Name="chat_id" />
-          </Key>
-          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="chat_content" Type="nvarchar(max)" />
-          <Property Name="chat_datecreate" Type="datetime" />
-          <Property Name="id_send" Type="int" />
-          <Property Name="chat_key" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="group_id" />
@@ -102,6 +103,15 @@
           <Property Name="language_id" Type="int" />
           <Property Name="group_item" Type="int" />
           <Property Name="news_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Historys">
+          <Key>
+            <PropertyRef Name="his_id" />
+          </Key>
+          <Property Name="his_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="his_datecreate" Type="datetime" />
+          <Property Name="his_content" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Languages">
           <Key>
@@ -140,6 +150,8 @@
           <Property Name="id_coder" Type="int" />
           <Property Name="oder_datecreate" Type="datetime" />
           <Property Name="code_id" Type="int" />
+          <Property Name="coin" Type="int" />
+          <Property Name="cate_orders" Type="int" />
         </EntityType>
         <EntityType Name="Pakages">
           <Key>
@@ -366,6 +378,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Historys_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Historys" Type="Self.Historys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Historys">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_News_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="News" Type="Self.News" Multiplicity="*" />
@@ -466,10 +490,11 @@
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historys" EntityType="Self.Historys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -526,6 +551,10 @@
           <AssociationSet Name="FK_Groups_Users" Association="Self.FK_Groups_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Historys_Users" Association="Self.FK_Historys_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Historys" EntitySet="Historys" />
           </AssociationSet>
           <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
             <End Role="Users" EntitySet="Users" />
@@ -587,6 +616,7 @@
           <Property Name="bill_dealine" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Pakage" Relationship="Self.FK_Bills_Pakeges" FromRole="Bills" ToRole="Pakages" />
           <NavigationProperty Name="User" Relationship="Self.FK_Bills_Users" FromRole="Bills" ToRole="Users" />
+          <Property Name="coin" Type="Int32" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -726,6 +756,8 @@
           <Property Name="code_id" Type="Int32" />
           <NavigationProperty Name="Code" Relationship="Self.FK_Oders_Codes" FromRole="Orders" ToRole="Codes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Oders_Users" FromRole="Orders" ToRole="Users" />
+          <Property Name="coin" Type="Int32" />
+          <Property Name="cate_orders" Type="Int32" />
         </EntityType>
         <EntityType Name="Pakage">
           <Key>
@@ -822,6 +854,7 @@
           <NavigationProperty Name="TakePrices" Relationship="Self.FK_TakePrices_Users" FromRole="Users" ToRole="TakePrices" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
           <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Historys" Relationship="DataShareCodeModel.FK_Historys_Users" FromRole="User" ToRole="History" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Role="Pakages" Type="Self.Pakage" Multiplicity="0..1" />
@@ -1152,6 +1185,11 @@
             <End Role="News" EntitySet="News" />
             <End Role="Group" EntitySet="Groups" />
           </AssociationSet>
+          <EntitySet Name="Historys" EntityType="DataShareCodeModel.History" />
+          <AssociationSet Name="FK_Historys_Users" Association="DataShareCodeModel.FK_Historys_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="History" EntitySet="Historys" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Codes_Categorys1">
           <End Type="DataShareCodeModel.Category" Role="Category" Multiplicity="0..1" />
@@ -1177,6 +1215,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="his_id" />
+          </Key>
+          <Property Name="his_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="his_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="his_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Historys_Users" FromRole="History" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Historys_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1198,6 +1258,7 @@
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="DataShareCodeModel.Bill">
               <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="coin" ColumnName="coin" />
                 <ScalarProperty Name="bill_id" ColumnName="bill_id" />
                 <ScalarProperty Name="bill_datecreate" ColumnName="bill_datecreate" />
                 <ScalarProperty Name="pakege_id" ColumnName="pakege_id" />
@@ -1321,6 +1382,8 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DataShareCodeModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="cate_orders" ColumnName="cate_orders" />
+                <ScalarProperty Name="coin" ColumnName="coin" />
                 <ScalarProperty Name="oder_id" ColumnName="oder_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="id_coder" ColumnName="id_coder" />
@@ -1413,6 +1476,16 @@
                 <ScalarProperty Name="user_view" ColumnName="user_view" />
                 <ScalarProperty Name="user_facode" ColumnName="user_facode" />
                 <ScalarProperty Name="user_pass" ColumnName="user_pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historys">
+            <EntityTypeMapping TypeName="DataShareCodeModel.History">
+              <MappingFragment StoreEntitySet="Historys">
+                <ScalarProperty Name="his_content" ColumnName="his_content" />
+                <ScalarProperty Name="his_datecreate" ColumnName="his_datecreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="his_id" ColumnName="his_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

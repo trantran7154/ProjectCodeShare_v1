@@ -48,12 +48,13 @@
                         }
                         else
                         {
-                            foreach (var item in Model)
+                            foreach (var item in Model.OrderByDescending(n=>n.bill_datecreate))
                             {
+                                var c = item.Pakage.pakage_coin * 1000;
                                 <tr>
                                     <td>DH-@item.bill_id</td>
                                     <td>@item.Pakage.pakage_coin Xu</td>
-                                    <td>0 VNĐ</td>
+                                    <td>@c.Value.ToString("#,###") VNĐ</td>
                                     <td>@item.bill_datecreate</td>
                                     <td>
                                         @if (item.bill_active == true)

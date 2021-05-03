@@ -351,6 +351,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\HistoryHub.cs" />
     <Compile Include="Hubs\ShowHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1272,6 +1273,7 @@
     <Content Include="Areas\Admin\Views\ViewAdmin\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\ViewAdmin\SayHi.cshtml" />
     <Content Include="Areas\Admin\Views\Validation\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\StaticPrice.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

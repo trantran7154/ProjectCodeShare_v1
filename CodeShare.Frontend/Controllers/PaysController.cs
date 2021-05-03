@@ -40,7 +40,7 @@ namespace CodeShare.Frontend.Controllers
             string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
             string orderInfo = "Nạp " + pakage.pakage_coin + " vào tài khoản " + idus.user_email;
             string returnUrl = "https://localhost:44327/Pays/ReturnUrl";
-            string notifyurl = "https://localhost:44327/Pays/NotifyUrl";
+            string notifyurl = "https://localhost:44327/Pays/ReturnUrl";
 
             string amount = money.ToString();
             string orderid = Guid.NewGuid().ToString();
@@ -85,56 +85,76 @@ namespace CodeShare.Frontend.Controllers
 
             return Redirect(jmessage.GetValue("payUrl").ToString());
         }
-        public ActionResult ReturnUrl(int errorCode, int amount)
+        public ActionResult ReturnUrl(int errorCode)
         {
-            var coo = new FunctionsController();
-            var id = coo.CookieID();
-
-            User user = db.Users.Find(id.user_id); 
-
-            int idpake = int.Parse(Session["idpake"].ToString());
-            Pakage pakage = db.Pakages.Find(idpake);
-
-            if(errorCode.Equals(0))
+            if(Session["idpake"] == null)
             {
-
-                user.user_coin = user.user_coin + pakage.pakage_coin;
-                db.SaveChanges();
-
-
-                Bill bills = new Bill
-                {
-                    bill_datecreate = DateTime.Now,
-                    bill_active = true,
-                    user_id = id.user_id,
-                    pakege_id = pakage.pakege_id,
-                    bill_dealine = DateTime.Now
-                };
-                db.Bills.Add(bills);
-                db.SaveChanges();
-
                 return RedirectToAction("History");
             }
             else
             {
-                Bill bills = new Bill
-                {
-                    bill_datecreate = DateTime.Now,
-                    bill_active = false,
-                    user_id = id.user_id,
-                    pakege_id = pakage.pakege_id,
-                    bill_dealine = DateTime.Now.AddDays(10)
-                };
-                db.Bills.Add(bills);
-                db.SaveChanges();
+                var coo = new FunctionsController();
+                var id = coo.CookieID();
 
-                return RedirectToAction("History");
+                User user = db.Users.Find(id.user_id);
+
+                int idpake = int.Parse(Session["idpake"].ToString());
+                Pakage pakage = db.Pakages.Find(idpake);
+
+                if (errorCode.Equals(0))
+                {
+                    user.user_coin = user.user_coin + pakage.pakage_coin;
+                    db.SaveChanges();
+
+                    Bill bills = new Bill
+                    {
+                        bill_datecreate = DateTime.Now,
+                        bill_active = true,
+                        user_id = id.user_id,
+                        pakege_id = pakage.pakege_id,
+                        bill_dealine = DateTime.Now,
+                        coin = pakage.pakage_coin
+                    };
+                    db.Bills.Add(bills);
+
+
+                    History history = new History()
+                    {
+                        user_id = id.user_id,
+                        his_datecreate = DateTime.Now,
+                        his_content = id.user_name + " đã nạp thành công " + pakage.pakage_coin + " vào tài khoản" 
+                    };
+                    db.Historys.Add(history);
+
+                    db.SaveChanges();
+                    Session["idpake"] = null;
+                    return RedirectToAction("History");
+                }
+                else
+                {
+                    Bill bills = new Bill
+                    {
+                        bill_datecreate = DateTime.Now,
+                        bill_active = false,
+                        user_id = id.user_id,
+                        pakege_id = pakage.pakege_id,
+                        bill_dealine = DateTime.Now.AddDays(10),
+                        coin = pakage.pakage_coin
+                    };
+                    db.Bills.Add(bills);
+
+                    db.SaveChanges();
+                    Session["idpake"] = null;
+                    return RedirectToAction("History");
+                }
             }
         }
         public ActionResult History()
         {
             var coo = new FunctionsController();
             var id = coo.CookieID();
+
+            Session["idpake"] = null;
 
             return View(db.Bills.Where(n=>n.user_id == id.user_id).ToList());
         }
@@ -150,6 +170,13 @@ namespace CodeShare.Frontend.Controllers
             {
                 var coo = new FunctionsController();
                 var idus = coo.CookieID();
+
+                User user = db.Users.Find(idus.user_id);
+
+                user.user_coin = idus.user_coin - takePrice.tp_coin;
+                db.SaveChanges();
+
+
                 takePrice.user_id = idus.user_id;
                 takePricesDao.Create(takePrice);
                 TempData["noti_send_request"] = "success";

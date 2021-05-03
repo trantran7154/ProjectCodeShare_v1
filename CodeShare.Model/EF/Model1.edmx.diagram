@@ -42,6 +42,8 @@
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" ManuallyRouted="false" />
         <AssociationConnector Association="DataShareCodeModel.FK_Codes_Categorys1" />
         <AssociationConnector Association="DataShareCodeModel.FK_Groups_News" />
+        <EntityTypeShape EntityType="DataShareCodeModel.History" Width="1.5" PointX="3" PointY="16.5" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Historys_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

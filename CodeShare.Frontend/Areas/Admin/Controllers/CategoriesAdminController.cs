@@ -18,7 +18,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View(db.Categorys.ToList());
@@ -32,7 +32,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -55,7 +55,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin/Create
         public ActionResult Create()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View();
@@ -245,7 +245,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View();

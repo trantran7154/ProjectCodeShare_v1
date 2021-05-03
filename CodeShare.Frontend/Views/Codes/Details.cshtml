@@ -117,7 +117,7 @@
                             @Html.Raw(Model.code_setting)
                         </p>
                     </div>
-                    <div class="col-lg-12 mt-3">
+                    <div class="col-lg-12 mt-3"  id="pay">
                         <h3>Thông số code</h3>
                         <p style="color: #7e592a">
                             @if (Model.code_disk == null)
@@ -130,7 +130,7 @@
                             }
                         </p>
                     </div>
-                    <div class="col-lg-12 mt-3" id="pay">
+                    <div class="col-lg-12 mt-3">
                         <div style="padding: 20px">
                             <div class="row border">
                                 <div class="col-lg-6">
@@ -156,9 +156,9 @@
                                                 else
                                                 {
 
-                                                    if (oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id).Count() != 0)
+                                                    if (oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id && n.cate_orders == 1).Count() != 0)
                                                     {
-                                                        foreach (var item in oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id))
+                                                        foreach (var item in oder.Where(n => n.user_id == id.user_id && n.code_id == Model.code_id && n.cate_orders == 1))
                                                         {
                                                             <button onclick="window.location.href = '/Codes/DetailsCodeSell?id=@item.oder_id'" data-toggle="modal" data-target="#coin" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>THÔNG TIN CODE</button>
                                                         }

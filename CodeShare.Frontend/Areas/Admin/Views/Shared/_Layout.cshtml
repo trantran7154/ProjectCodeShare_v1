@@ -26,6 +26,9 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
     <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+
+    
+
     <!-- waves.css -->
     <link rel="stylesheet" href="~/Content/LayoutAdmin/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- Required Fremwork -->
@@ -108,12 +111,12 @@
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
             <!-- Header -->
-            @Html.Action("Header","ViewAdmin")
+            @Html.Action("Header", "ViewAdmin")
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                    @Html.Action("Menu","ViewAdmin")
+                    @Html.Action("Menu", "ViewAdmin", new { key = ViewBag.Title })
                     <div class="pcoded-content">
-                       @Html.Action("SayHi","ViewAdmin")
+                        @Html.Action("SayHi", "ViewAdmin")
                         <!-- Page-header end -->
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
@@ -177,8 +180,10 @@
     </div>
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
-    @Html.Action("Index","Validation")
+    @Html.Action("Index", "Validation")
     <script type="text/javascript" src="~/Content/LayoutAdmin/js/jquery/jquery.min.js "></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
     <script type="text/javascript" src="~/Content/LayoutAdmin/js/jquery-ui/jquery-ui.min.js "></script>
     <script type="text/javascript" src="~/Content/LayoutAdmin/js/popper.js/popper.min.js"></script>
     <script type="text/javascript" src="~/Content/LayoutAdmin/js/bootstrap/js/bootstrap.min.js "></script>

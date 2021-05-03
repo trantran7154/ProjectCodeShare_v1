@@ -4,7 +4,7 @@
 @{
     DataShareCodeEntities db = new DataShareCodeEntities();
 
-    HttpCookie cookie = Request.Cookies["user_id"];
+    HttpCookie cookie = Request.Cookies["admin_id"];
 }
 
 @if (cookie != null)
@@ -41,70 +41,98 @@
                 </form>
             </div>
             <ul class="pcoded-item pcoded-left-item">
-                <li class="active">
+                <li class="@(ViewBag.Title == "Trang chủ" ? "active" : "")">
                     <a href="/Admin/HomeAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                         <span class="pcoded-mtext">Trang chủ</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li>
+                    <hr />
+                </li>
+                <li class="@(ViewBag.Title == "Quản lý code" || ViewBag.Title == "Sửa code" || ViewBag.Title == "Thông tin code" || ViewBag.Title == "Thùng rác Code"  ? "active" : "")">
                     <a href="/Admin/CodesAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-code"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Code</span>
+                        <span class="pcoded-mtext">Quản lý Code</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li class="@(ViewBag.Title == "Thêm code" ? "active" : "")">
+                    <a href="/Admin/CodesAdmin/Create" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-code-fork"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Thêm code</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li>
+                    <hr />
+                </li>
+                <li class="@(ViewBag.Title == "Quản lý người dùng" || ViewBag.Title == "Thêm người dùng" || ViewBag.Title == "Sửa thông tin người dùng" || ViewBag.Title == "Thông tin code" || ViewBag.Title == "Thùng rác Code"  ? "active" : "")">
                     <a href="/Admin/UsersAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-user"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Người dùng</span>
+                        <span class="pcoded-mtext">Quản lý người dùng</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li>
+                    <hr />
+                </li>
+                <li class="@(ViewBag.Title == "Quản lý hóa đơn" ? "active" : "")">
                     <a href="/Admin/BillsAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-paperclip"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Hóa đơn</span>
+                        <span class="pcoded-mtext">Quản lý hóa đơn</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li class="@(ViewBag.Title == "Quản lý rút tiền" ? "active" : "")">
                     <a href="/Admin/TakePricesAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-money"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Rút tiền</span>
+                        <span class="pcoded-mtext">Danh sách rút tiền</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+
+                <li class="@(ViewBag.Title == "Quản lý nạp xu" ? "active" : "")">
+                    <a href="/Admin/PakagesAdmin/Index" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="money bill alternate icon"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Cài đặt nạp xu</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="@(ViewBag.Title == "Thống kê doanh thu" ? "active" : "")">
+                    <a href="/Admin/ViewAdmin/StaticPrice" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-dollar"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Thống kê doanh thu</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li><hr /></li>
+                <li class="@(ViewBag.Title == "Quản lý danh mục" ? "active" : "")">
                     <a href="/Admin/CategoriesAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-list"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Danh mục</span>
+                        <span class="pcoded-mtext">Quản lý danh mục</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li @(ViewBag.Title == "Quản lý ngôn ngữ lập trình" ? "active" : "")>
                     <a href="/Admin/LanguagesAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-th-list"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Ngôn ngữ</span>
+                        <span class="pcoded-mtext">Quản lý ngôn ngữ</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
+                <li class="@(ViewBag.Title == "Quản lý Banners" ? "active" : "")">
                     <a href="/Admin/BannersAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-flag"></i><b>D</b></span>
                         <span class="pcoded-mtext">Banners</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="">
-                    <a href="/Admin/PakagesAdmin/Index" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="money bill alternate icon"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Nạp xu</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
+                <li>
+                    <hr />
                 </li>
-                <li class="">
+                <li class="@(ViewBag.Title == "Quản lý tin tức" ? "active" : "")">
                     <a href="/Admin/NewsAdmin/Index" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="newspaper icon"></i><b>D</b></span>
                         <span class="pcoded-mtext">Tin tức</span>

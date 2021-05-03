@@ -23,7 +23,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View(db.Users.ToList());
@@ -53,7 +53,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                 {
                     case 1:
                         var user = db.Users.FirstOrDefault(t => t.user_email == login.Email && t.user_pass == login.Password);
-                        HttpCookie cookie = new HttpCookie("user_id", user.user_id.ToString());
+                        HttpCookie cookie = new HttpCookie("admin_id", user.user_id.ToString());
                         cookie.Expires.AddDays(10);
                         Response.Cookies.Set(cookie);
                         return RedirectToAction("Index","HomeAdmin");
@@ -77,7 +77,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // SignOut
         public ActionResult LogOut()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             cookie.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Set(cookie);
 
@@ -87,7 +87,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -163,7 +163,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/UsersAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -329,7 +329,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
 
         public ActionResult Deleted()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 return View();
@@ -454,7 +454,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // Lịch sử nạp xu
         public ActionResult MoneyHistory(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 User users = db.Users.Find(id);
@@ -469,7 +469,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // Lịch sử bình luận
         public ActionResult CommetHistory(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 User users = db.Users.Find(id);

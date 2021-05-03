@@ -12,17 +12,13 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class History
     {
-        public int oder_id { get; set; }
+        public int his_id { get; set; }
         public Nullable<int> user_id { get; set; }
-        public Nullable<int> id_coder { get; set; }
-        public Nullable<System.DateTime> oder_datecreate { get; set; }
-        public Nullable<int> code_id { get; set; }
-        public Nullable<int> coin { get; set; }
-        public Nullable<int> cate_orders { get; set; }
+        public Nullable<System.DateTime> his_datecreate { get; set; }
+        public string his_content { get; set; }
     
-        public virtual Code Code { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -92,7 +92,11 @@ namespace CodeShare.Frontend.Controllers
                 };
                 usersDAO.Add(user);
 
-                return RedirectToAction("Login");
+                var user1 = db.Users.FirstOrDefault(t => t.user_email == register.Email && t.user_pass == register.Password);
+                HttpCookie cookie = new HttpCookie("user_id", user1.user_id.ToString());
+                cookie.Expires.AddDays(10);
+                Response.Cookies.Set(cookie);
+                return Redirect("/");
             }
             return View(register);
         }

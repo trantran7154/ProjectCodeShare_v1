@@ -17,7 +17,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 var takePrices = db.TakePrices.Include(t => t.User);
@@ -32,7 +32,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin/Details/5
         public ActionResult Details(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)
@@ -55,7 +55,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin/Create
         public ActionResult Create()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 ViewBag.user_id = new SelectList(db.Users, "user_id", "user_email");
@@ -88,7 +88,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/TakePricesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if (cookie != null)
             {
                 if (id == null)

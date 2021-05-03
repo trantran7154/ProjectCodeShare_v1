@@ -13,7 +13,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // GET: Admin/HomeAdmin
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["user_id"];
+            HttpCookie cookie = Request.Cookies["admin_id"];
             if(cookie != null)
             {
                 return View();
