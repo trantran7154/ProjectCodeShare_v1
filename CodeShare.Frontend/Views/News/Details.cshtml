@@ -15,6 +15,23 @@
     List<News> news = db.News.ToList();
     List<News> nc = db.News.Where(n => n.user_id == Model.user_id).ToList();
 }
+
+<style>
+    .fix-line-css {
+        display: block;
+        display: -webkit-box;
+        max-width: 400px;
+        height: 19px; /* Fallback for non-webkit */
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 1.3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
@@ -73,14 +90,14 @@
                 <div class="card">
                     <h4 class="card-header font-weight-bold"><i class="sort numeric down icon"></i> TOP BÀI VIẾT</h4>
                     <div class="card-body">
-                        @foreach (var item in news.OrderByDescending(n => n.news_view).Take(9))
+                        @foreach (var item in news.Where(n => n.news_id != Model.news_id).OrderByDescending(n => n.news_view).Take(9))
                         {
                             <div class="row mb-4 mt-1">
                                 <div class="col-lg-3">
                                     <img src="~/Images/News/@item.news_img" height="70" width="70" />
                                 </div>
                                 <div class="col-lg-9">
-                                    <a href="@Url.Action("Details","News", new { id = item.news_id })" class="font-weight-bold">@item.news_name</a>
+                                    <a href="@Url.Action("Details","News", new { id = item.news_id })" class="font-weight-bold fix-line-css">@item.news_name</a>
                                     @foreach (var item1 in groups.Where(n => n.news_id == item.news_id))
                                     {
                                         <div><i class="fa fa-bookmark text-warning"></i> @item1.Category.category_name</div>
