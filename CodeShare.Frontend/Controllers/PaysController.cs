@@ -122,7 +122,7 @@ namespace CodeShare.Frontend.Controllers
                     {
                         user_id = id.user_id,
                         his_datecreate = DateTime.Now,
-                        his_content = id.user_name + " đã nạp thành công " + pakage.pakage_coin + " vào tài khoản" 
+                        his_content = id.user_name + " đã nạp thành công " + pakage.pakage_coin + " xu vào tài khoản" 
                     };
                     db.Historys.Add(history);
 

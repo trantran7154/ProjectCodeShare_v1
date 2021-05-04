@@ -1,10 +1,12 @@
 ﻿@using CodeShare.Model.EF
 @using CodeShare.Frontend.Functions
 @{ 
-    var coo = new FunctionsController();
-    var user = coo.CookieID();  
+    DataShareCodeEntities db = new DataShareCodeEntities();
 
+    var coo = new FunctionsController();
+    var user = coo.CookieID();
 }
+
 <div style="padding: 10px" class="mt-2">
     <div class="row">
         <div class="col-lg-3">
@@ -15,9 +17,9 @@
             <h3 style="color: black" class="font-weight-bold">Chào bạn trở lại, <br /> <span class="text-danger">@user.user_name</span></h3>
             <hr />
             <b class="text-success">Xu hiện tại: </b> @user.user_coin &nbsp;
-            <b class="text-danger">Số xu đã nạp: </b> 0 &nbsp; <br />
-            <b class="text-secondary">Số xu nhận: </b> 0 &nbsp;
-            <b class="text-info">Số xu đã bán: </b> 0 &nbsp;
+            <b class="text-danger">Số xu đã nạp: </b> @db.Bills.Where(n => n.user_id == user.user_id).Sum(n => n.coin) &nbsp; <br />
+            <b class="text-secondary">Số xu nhận: </b> @db.TakePrices.Where(n => n.user_id == user.user_id).Sum(n => n.tp_coin) &nbsp;
+            <b class="text-info">Số xu đã bán: </b> @db.Orders.Where(n => n.user_id == user.user_id).Sum(n => n.coin) &nbsp;
         </div>
         <div class="col-lg-12">
             <hr />
@@ -42,15 +44,15 @@
 
             <p>Sau khi bật, mọi thành viên có thể liên hệ bạn qua chat,thông tin điễn thoại email.</p>
             <script>
-                                $('.ui.checkbox')
-                                    .checkbox()
-                                    ;
+                $('.ui.checkbox')
+                    .checkbox()
+                    ;
             </script>
             <hr />
         </div>
     </div>
 </div>
-<div>
+<div class="mb-4">
     <div class="row">
         <div class="col-lg-12">
             <ul class="list-group">
@@ -60,15 +62,11 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Code đã tải
-                    <span class="badge badge-primary badge-pill">2</span>
+                    <span class="badge badge-primary badge-pill">@db.Orders.Where(n => n.user_id == user.user_id).Count()</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Code đã bán được
-                    <span class="badge badge-primary badge-pill">1</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Code đã mua
-                    <span class="badge badge-primary badge-pill">1</span>
+                    <span class="badge badge-primary badge-pill">@db.Bills.Where(n => n.user_id == user.user_id).Count()</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Code đã thích

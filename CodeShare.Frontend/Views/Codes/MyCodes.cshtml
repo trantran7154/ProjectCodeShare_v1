@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách code đã đăng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="home" style=" height: 250px">
@@ -14,8 +14,8 @@
                 <div style="padding: 10px; font-size: 16px">
                     <h3 class="font-weight-bold text-success mt-2" style="color: black">QUẢN LÝ CODE CÁ NHÂN</h3>
                     <p class="text-dark font-weight-bold float-left">
-                        <b>Có tổng cộng {{count}} code</b> <br />
-                        Có <span class="text-danger">{{(list | filter: txtSearch).length}}</span> code được tìm thấy
+                        <b>Có tổng cộng <b class="text-danger">{{count}}</b> code</b> <br />
+                        Có <b class="text-danger">{{(list | filter: txtSearch).length}}</b> code được tìm thấy
                     </p>
                     <div class="ui float-right">
                         <div class="ui icon input">

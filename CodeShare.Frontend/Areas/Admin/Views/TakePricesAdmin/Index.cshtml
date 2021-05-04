@@ -94,17 +94,17 @@
                             <td>{{list.note}}</td>
                             <td>{{list.datecreate}}</td>
                             <td class="font-weight-bold">
-                                <div ng-show="list.active == 1" class="font-weight-bold text-success">
+                                <div ng-show="list.active == 2" class="font-weight-bold text-success">
                                     DUYỆT
                                 </div>
-                                <div ng-show="list.active == 2" class="font-weight-bold text-danger">
+                                <div ng-show="list.active == 1" class="font-weight-bold text-danger">
                                     CHƯA DUYỆT
                                 </div>
                             </td>
                             <td width="110">
-                                <a ng-show="list.active == 2" ng-click="active(list.id)"><i class="check square outline icon" style="font-size: 16px"></i>|</a>
+                                <a ng-show="list.active == 1" ng-click="active(list.id)"><i class="check square outline icon" style="font-size: 16px"></i>|</a>
                                 <a href="/Admin/TakePricesAdmin/Details?id={{list.id}}"><i class="fa fa-eye" style="font-size: 16px"></i></a>
-                                <a ng-show="list.active == 1" ng-click="bin(list.id)"> | <i class="fa fa-trash" style="font-size: 16px"></i></a>
+                                <a ng-show="list.active == 2" ng-click="bin(list.id)"> | <i class="fa fa-trash" style="font-size: 16px"></i></a>
                             </td>
                             <!-- Success modal -->
                             <td class="modal" tabindex="-1" id="check">

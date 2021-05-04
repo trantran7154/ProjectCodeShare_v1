@@ -1,7 +1,7 @@
 ﻿@model CodeShare.Model.EF.User
 
 @{
-    ViewBag.Title = "Info";
+    ViewBag.Title = "Thông tin cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="home" style=" height: 250px">
@@ -52,10 +52,12 @@
                                             <div class="modal-body">
                                                 <form action="@Url.Action("EditImages","Users")" enctype="multipart/form-data" method="post">
                                                     <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <img data-toggle="modal" data-target="#img" id="output_image" src="~/Images/Users/notimg.png" style="width: 100%; height: 200px;" class="hv" />
+                                                        <div class="col-lg-4">
+                                                            <center>
+                                                                <img data-toggle="modal" data-target="#img" id="output_image" src="~/Images/Users/@Model.user_img" height="100" width="100" class="hv" />
+                                                            </center>
                                                         </div>
-                                                        <div class="col-lg-6">
+                                                        <div class="col-lg-8">
                                                             <input name="IMG" accept="image/*" onchange="preview_image(event)" type="file" class="form-control shadow" style="height: 130px; border: 1px solid green" />
                                                             <p class="text-danger">Chọn hình ảnh cá nhân và bấm thay đổi ảnh.</p>
                                                         </div>

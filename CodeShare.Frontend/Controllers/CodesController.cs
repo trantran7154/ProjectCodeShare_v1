@@ -82,6 +82,17 @@ namespace CodeShare.Frontend.Controllers
                 codes.code_tag = tag;
                 codes.user_id = idus.user_id;
                 codes.code_img = images.UpLoadImages(img, null, "Codes");
+
+
+                History history = new History()
+                {
+                    user_id = idus.user_id,
+                    his_datecreate = DateTime.Now,
+                    his_content = idus.user_name + " đã thêm code " + codes.code_title + " thành công!"
+                };
+                db.Historys.Add(history);
+
+
                 codesDAO.Create(codes, language);
 
                 return RedirectToAction("MyCodes");

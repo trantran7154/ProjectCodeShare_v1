@@ -59,7 +59,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
                         return RedirectToAction("Index","HomeAdmin");
                     case -1:
                         TempData["noti_login"] = "Sai tài khoản hoặc mật khẩu!";
-                        break;
+                        break; 
                     case -2:
                         TempData["noti_login"] = "Tài khoản của bạn đã bị xóa!";
                         break;
