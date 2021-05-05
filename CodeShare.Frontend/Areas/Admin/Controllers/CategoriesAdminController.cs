@@ -71,7 +71,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update")] Category category, HttpPostedFileBase img)
+        public ActionResult Create([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update,category_view")] Category category, HttpPostedFileBase img)
         {
             Random random = new Random();
             Random r = new Random();
@@ -97,6 +97,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             category.category_active = true;
             category.category_del = false;
             category.category_datecreate = DateTime.Now;
+            category.category_view = 0;
 
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -130,7 +131,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update")] Category category, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "category_id,category_name,category_active,category_item,category_img,category_datecreate,category_del,category_update,category_view")] Category category, HttpPostedFileBase img)
         {
             Random random = new Random();
             ViewBag.random = random.Next(0, 1000);

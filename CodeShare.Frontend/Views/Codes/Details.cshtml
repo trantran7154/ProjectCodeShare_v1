@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
+                            <div class="row">   
                                 <div class="col-lg-8">
                                     <div>
                                         <b><i class="fa fa-th-list"></i> Danh mục: </b> @Model.Category.category_name
@@ -428,26 +428,33 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card shadow mt-3">
-                        <div style="padding: 10px">
-                            <h4 class="font-weight-bold"><i class="fa fa-user"></i> CODE CỦA BẠN</h4>
-                            <table>
-                                <tr>
-                                    <td width="20%">
-                                        <div style="padding: 10px">
-                                            <img src="~/Images/Users/@user.user_img" style="width: 100px; height: 100px" />
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <h5 class="font-weight-bold text-danger">@user.user_name</h5>
-                                        <hr />
-                                        <b>Code miển phí: </b> @db.Codes.Where(n => n.user_id == user.user_id && n.code_coin == 0).Count() <br />
-                                        <b>Code có phí: </b> @db.Codes.Where(n => n.user_id == user.user_id && n.code_coin > 0).Count() <br />
-                                    </td>
-                                </tr>
-                            </table>
+                    @if (user != null)
+                    {
+                        <div class="card shadow mt-3">
+                            <div style="padding: 10px">
+                                <h4 class="font-weight-bold"><i class="fa fa-user"></i> CODE CỦA BẠN</h4>
+                                <table>
+                                    <tr>
+                                        <td width="20%">
+                                            <div style="padding: 10px">
+                                                <img src="~/Images/Users/@user.user_img" style="width: 100px; height: 100px" />
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <h5 class="font-weight-bold text-danger">@user.user_name</h5>
+                                            <hr />
+                                            <b>Code miển phí: </b> @db.Codes.Where(n => n.user_id == user.user_id && n.code_coin == 0).Count() <br />
+                                            <b>Code có phí: </b> @db.Codes.Where(n => n.user_id == user.user_id && n.code_coin > 0).Count() <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    </div>  
+                    }
+                    else
+                    {
+                        <div class="mt-4"></div>
+                    }
                     <div class="card mt-3">
                         <h4 class="card-header font-weight-bold"><i class="fa fa-code font-weight-bold"></i> CODE MỚI NHẤT</h4>
                         <div class="card-body">

@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="field">
                                     <label><i class="fa fa-pencil"></i> Mô tả ngắn</label>
-                                    <input type="text" name="code_info" />
+                                    <input type="text" name="code_des" />
                                 </div>
                             </div>
                             <div class="two fields">
@@ -67,7 +67,7 @@
                                     <label><i class="fa fa-th-list"></i> Danh mục</label>
                                     <select class="ui fluid dropdown" name="category_id">
                                         <option value="">Danh mục</option>
-                                        @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                        @foreach (var item in db.Categorys.Where(t => t.category_active == true && t.category_item == 1))
                                         {
                                             <option value="@item.category_id">@item.category_name</option>
                                         }
@@ -100,7 +100,7 @@
                             </div>
                             <div class="field">
                                 <label><i class="fa fa-pencil-square"></i> Mô tả chi tiết</label>
-                                <textarea id="editor1" name="code_des"></textarea>
+                                <textarea id="editor1" name="code_info"></textarea>
                             </div>
                             <div class="field">
                                 <label><i class="fa fa-cog"></i> Hướng dẫn</label>

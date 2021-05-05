@@ -51,6 +51,7 @@ namespace CodeShare.Frontend.Controllers
         {
             var code = db.Codes.Find(id);
             code.code_view = code.code_view + 1;
+            code.Category.category_view = code.Category.category_view + 1;
             db.SaveChanges();
 
             return View(code);
@@ -70,7 +71,7 @@ namespace CodeShare.Frontend.Controllers
             var idus = coo.CookieID();
             if(id == null)
             {
-                return Redirect("/User/Login");
+                return Redirect("/Users/Login");
             }
             else
             {

@@ -19,7 +19,6 @@ namespace CodeShare.Model.EF
         {
             this.Codes = new HashSet<Code>();
             this.Groups = new HashSet<Group>();
-            this.Codes1 = new HashSet<Code>();
         }
     
         public int category_id { get; set; }
@@ -30,12 +29,11 @@ namespace CodeShare.Model.EF
         public Nullable<bool> category_del { get; set; }
         public Nullable<System.DateTime> category_datecreate { get; set; }
         public Nullable<System.DateTime> category_dateupdate { get; set; }
+        public Nullable<int> category_view { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Code> Codes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Code> Codes1 { get; set; }
     }
 }

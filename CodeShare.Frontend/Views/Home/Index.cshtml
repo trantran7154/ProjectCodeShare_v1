@@ -8,6 +8,7 @@
     List<Language> languages = db.Languages.ToList();
     List<Banner> banners = db.Banners.ToList();
     List<News> news = db.News.ToList();
+    List<Group> groups = db.Groups.Where(n => n.group_item == 1).ToList();
 }
 
 <link href="~/Content/Layout/Codes/CSS/cards.css" rel="stylesheet" />
@@ -98,12 +99,12 @@
                 <!-- Search Tabs -->
                 <div class="search_tabs_container">
                     <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                        <div onclick="window.location.href='#gameAn'" class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/android.png" height="30" width="30" alt="">Android</div>
-                        <div onclick="window.location.href='#gameIOS'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/apple.png" alt="">IOS</div>
-                        <div onclick="window.location.href='#codeKnowledge'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/game-console.png" alt=""><span>Game</span></div>
-                        <div onclick="window.location.href='#codeWeb'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/http.png" height="45" width="45" alt="">Website</div>
-                        <div onclick="window.location.href='#codeApp'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/application.png" height="35" width="35" alt="">Ứng Dụng</div>
-                        <div onclick="window.location.href='#codeNews'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/news.png" height="38" width="38" alt="">Tin Tức</div>
+                        <div onclick="window.location.href='#Android'" class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/android.png" height="30" width="30" alt="">Android</div>
+                        <div onclick="window.location.href='#IOS'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/apple.png" alt="">IOS</div>
+                        <div onclick="window.location.href='#Game'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/game-console.png" alt=""><span>Game</span></div>
+                        <div onclick="window.location.href='#Website'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/http.png" height="45" width="45" alt="">Website</div>
+                        <div onclick="window.location.href='#Application'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/application.png" height="35" width="35" alt="">Ứng Dụng</div>
+                        <div onclick="window.location.href='#New'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/news.png" height="38" width="38" alt="">Tin Tức</div>
                     </div>
                 </div>
                 <!-- Search Panel -->
@@ -152,7 +153,6 @@
             </div>
         </div>
         <div class="row trending_container">
-
             <!-- Trending Item -->
             @foreach (var item in languages.Where(n => n.language_active == 1).OrderByDescending(n => n.language_view).Take(12))
             {
@@ -161,8 +161,8 @@
                         <div class="trending_image"><img style="height: 80px; width: 100%; border-radius: 50%" src="~/Images/Languages/@item.language_img" alt=""></div>
                         <div class="trending_content">
                             <div class="trending_title"><a href="#">@item.language_name</a></div>
-                            <div class="trending_price">100 Code</div>
-                            <div class="trending_location">Xem ngay</div>
+                            <div class="trending_price">@db.Groups.Where(n => n.language_id == item.language_id && n.group_item == 1 && n.Code.code_active == 1 && n.Code.code_del == false && n.Code.code_option == true).Count() Code</div>
+                            <a href="@Url.Action("Index", "Codes", new { key = item.language_name})" class="trending_location">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
                 <h2 class="section_title">TÌM KIẾM PHỔ BIẾN</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row trending_container">
             @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_view).Take(16))
             {
                 <div class="col-md-3 mt-3">
@@ -357,7 +357,7 @@
                 <h2 class="section_title">Code Chất Lượng</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row trending_container">
             @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin > 100).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
@@ -403,8 +403,8 @@
                 <h2 class="section_title">Code Tham Khảo</h2>
             </div>
         </div>
-        <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin > 50).OrderByDescending(n => n.code_datecreate).Take(16))
+        <div class="row trending_container">
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin < 100 && n.code_coin > 0).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -449,7 +449,7 @@
                 <h2 class="section_title">Code Miễn Phí</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row trending_container">
             @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.code_coin == 0).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
@@ -488,6 +488,7 @@
     </div>
 </div>
 <div class="trending">
+    <div class="test_border"></div>
     <div class="container">
         <div class="row">
             <div class="col text-center">
@@ -495,33 +496,7 @@
             </div>
         </div>
         <div class="row trending_container">
-            @*@foreach (var item in categories.Where(n => n.category_active == true && n.category_option == true && n.category_bin == false).OrderByDescending(n => n.category_datecreate))
-            {-->
-                <!-- Trending Item -->
-                <!--<div class="col-lg-3 col-sm-6">
-                    <div class="trending_item clearfix">
-                        <div class="trending_image"><img src="~/Content/Layout/images/trend_1.png" alt=""></div>
-                        <div class="trending_content">
-                            <div class="trending_title"><a href="#">grand hotel</a></div>
-                            <div class="trending_price">From $182</div>
-                            <div class="trending_location">madrid, spain</div>
-                        </div>
-                    </div>
-                </div>
-            }-->*@
-        </div>
-    </div>
-</div>
-<div class="testimonials" style="background-color: #f0f0f0" id="gameAn">
-    <div class="test_border"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h2 class="section_title">Top Game Android</h2>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.Category.category_view).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -558,16 +533,108 @@
         </div>
     </div>
 </div>
-<div class="testimonials" style="background-color: #f0f0f0" id="gameIOS">
+<div class="testimonials" style="background-color: #f0f0f0" id="Android">
     <div class="test_border"></div>
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <h2 class="section_title">Top Game IOS</h2>
+                <h2 class="section_title">Top Android</h2>
             </div>
         </div>
+        <div class="row trending_container">
+            @foreach (var item in groups.Where(n => n.Code.code_active == 1 && n.Code.code_del == false && n.Code.code_option == true && n.language_id == 1).OrderByDescending(n => n.Code.code_datecreate).Take(16))
+            {
+                <div class="col-md-3 mt-3">
+                    <figure class="snip1208">
+                        <img src="~/Images/Codes/@item.Code.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.Code.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.Code.code_title</h4>
+                            </div>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Code.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Code.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
+                    </figure>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0" id="IOS">
+    <div class="test_border"></div>
+    <div class="container">
         <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
+            <div class="col text-center">
+                <h2 class="section_title">Top IOS</h2>
+            </div>
+        </div>
+        <div class="row trending_container">
+            @foreach (var item in groups.Where(n => n.Code.code_active == 1 && n.Code.code_del == false && n.Code.code_option == true && n.language_id == 2).OrderByDescending(n => n.Code.code_datecreate).Take(16))
+            {
+                <div class="col-md-3 mt-3">
+                    <figure class="snip1208">
+                        <img src="~/Images/Codes/@item.Code.code_img" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.Code.code_view</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 60px">
+                                <h4 class="font-weight-bold fix-line-css">@item.Code.code_title</h4>
+                            </div>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
+                                @{
+                                    var count = item.Code.Groups.Count();
+                                    var countgr = 0;
+                                }
+                                @foreach (var lang in item.Code.Groups)
+                                {
+                                    countgr++;
+                                    if (count == countgr)
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
+                                    }
+                                }
+                            </div>
+                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
+                    </figure>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0" id="Game">
+    <div class="test_border"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="section_title">Top GAME</h2>
+            </div>
+        </div>
+        <div class="row trending_container">
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.category_id == 1).OrderByDescending(n => n.Category.category_view).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -604,7 +671,7 @@
         </div>
     </div>
 </div>
-<div class="testimonials" style="background-color: #f0f0f0" id="codeWeb">
+<div class="testimonials" style="background-color: #f0f0f0" id="Website">
     <div class="test_border"></div>
     <div class="container">
         <div class="row">
@@ -612,8 +679,8 @@
                 <h2 class="section_title">Website Phổ Biến</h2>
             </div>
         </div>
-        <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
+        <div class="row trending_container">
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.category_id == 2).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -650,16 +717,16 @@
         </div>
     </div>
 </div>
-<div class="testimonials" style="background-color: #f0f0f0" id="codeApp">
+<div class="testimonials" style="background-color: #f0f0f0" id="Application">
     <div class="test_border"></div>
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <h2 class="section_title">Code Ứng Dụng</h2>
+                <h2 class="section_title">Top Ứng Dụng</h2>
             </div>
         </div>
-        <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
+        <div class="row trending_container">
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.category_id == 3).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
@@ -696,53 +763,7 @@
         </div>
     </div>
 </div>
-@*<div class="testimonials" style="background-color: #f0f0f0" id="codeEvent" >
-    <div class="test_border"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h2 class="section_title">Sự Kiện</h2>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
-            {
-                <div class="col-md-3 mt-3">
-                    <figure class="snip1208">
-                        <img src="~/Images/Codes/@item.code_img" alt="sample6" height="170" style="width: 100%" />
-                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">@item.code_view</span></div><i class="fa fa-search hover text-white"> </i>
-                        <figcaption style="height: 213px">
-                            <div style="height: 60px">
-                                <h4 class="font-weight-bold fix-line-css">@item.code_title</h4>
-                            </div>
-                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
-                                <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
-                                @{
-                                    var count = item.Groups.Count();
-                                    var countgr = 0;
-                                }
-                                @foreach (var lang in item.Groups)
-                                {
-                                    countgr++;
-                                    if (count == countgr)
-                                    {
-                                        <a href="#" style="position: inherit">@lang.Language.language_name</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="#" style="position: inherit">@lang.Language.language_name |</a>
-                                    }
-                                }
-                            </div>
-                            <button class="mt-3 float-right mb-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
-                        </figcaption><a href="@Url.Action("Details", "Codes", new { id = item.code_id})"></a>
-                    </figure>
-                </div>
-            }
-        </div>
-    </div>
-</div>*@
-<div class="testimonials" style="background-color: #f0f0f0" id="codeNews">
+<div class="testimonials" style="background-color: #f0f0f0" id="New">
     <div class="test_border"></div>
     <div class="container">
         <div class="row">
@@ -750,7 +771,7 @@
                 <h2 class="section_title">Tin Tức</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row trending_container">
             @foreach (var item in news.Where(n => n.news_active == 1 && n.news_del == false && n.news_option == true).OrderByDescending(n => n.news_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">

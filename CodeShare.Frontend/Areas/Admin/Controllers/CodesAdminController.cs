@@ -93,7 +93,7 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             code.code_datecreate = DateTime.Now;
             code.code_view = 0;
             code.code_viewdown = 0;
-            code.code_active = 1;
+            code.code_active = 2;
             code.code_option = true;
             code.code_del = false;
             code.code_key = key;
