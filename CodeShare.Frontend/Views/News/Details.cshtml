@@ -47,14 +47,14 @@
                             <div class="col-lg-6">
                                 <div class="mt-3">
                                     <i class="fa fa-bookmark text-warning"></i> <b class="text-warning">Danh mục:</b>
-                                    @foreach (var item in groups.Where(n => n.news_id == Model.news_id && n.group_item == 3))
+                                    @foreach (var item in news.Where(n => n.news_active == 1 && n.news_del == false && n.news_option == true && n.news_id == Model.news_id).OrderByDescending(n => n.news_view).Take(9))
                                     {
                                         <span>
                                             @{
-                                                var count = item.News.Groups.Count();
+                                                var count = item.Groups.Count();
                                                 var countgr = 0;
                                             }
-                                            @foreach (var lang in item.News.Groups)
+                                            @foreach (var lang in item.Groups)
                                             {
                                                 countgr++;
                                                 if (count == countgr)
@@ -110,7 +110,7 @@
                 <div class="card">
                     <h4 class="card-header font-weight-bold"><i class="sort numeric down icon"></i> TOP BÀI VIẾT</h4>
                     <div class="card-body">
-                        @foreach (var item in news.Where(n => n.news_id != Model.news_id).OrderByDescending(n => n.news_view).Take(9))
+                        @foreach (var item in news.Where(n => n.news_active == 1 && n.news_del == false && n.news_option == true).OrderByDescending(n => n.news_view).Take(9))
                         {
                             <div class="row mb-4 mt-1">
                                 <div class="col-lg-3">
@@ -120,26 +120,21 @@
                                     <a href="@Url.Action("Details","News", new { id = item.news_id })" class="font-weight-bold fix-line-css">@item.news_name</a>
                                     <div>
                                         <i class="fa fa-bookmark text-warning"></i>
-                                        @foreach (var item1 in groups.Where(n => n.news_id == item.news_id && n.Category.category_item == 2))
+                                        @{
+                                            var count = item.Groups.Count();
+                                            var countgr = 0;
+                                        }
+                                        @foreach (var lang in item.Groups)
                                         {
-                                            <span >
-                                                @{
-                                                    var count = item1.News.Groups.Count();
-                                                    var countgr = 0;
-                                                }
-                                                @foreach (var lang in item1.News.Groups)
-                                                {
-                                                    countgr++;
-                                                    if (count == countgr)
-                                                    {
-                                                        <b style="position: inherit">@lang.Category.category_name</b>
-                                                    }
-                                                    else
-                                                    {
-                                                        <b style="position: inherit">@lang.Category.category_name |</b>
-                                                    }
-                                                }
-                                            </span>
+                                            countgr++;
+                                            if (count == countgr)
+                                            {
+                                                <b style="position: inherit">@lang.Category.category_name</b>
+                                            }
+                                            else
+                                            {
+                                                <b style="position: inherit">@lang.Category.category_name |</b>
+                                            }
                                         }
                                     </div>
                                     <div><i class="fa fa-calendar text-success"></i> @item.news_datecreate.Value.ToShortDateString()</div>
