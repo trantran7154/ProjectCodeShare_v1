@@ -377,6 +377,7 @@
     <Compile Include="ViewModels\ViewComment.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Layout\Chats\CSS\chats.css" />
     <Content Include="Content\Layout\images\android.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1071,6 +1072,8 @@
     <Content Include="Images\Events\notimg.png" />
     <Content Include="Images\Languages\notimg.png" />
     <Content Include="Images\Modal\checked.png" />
+    <Content Include="Images\News\bg-info.jpg" />
+    <Content Include="Images\News\bg-tab.png" />
     <Content Include="Images\News\notimg.png" />
     <Content Include="Images\PKs\1494e29f-6bc0-4c63-b3e5-6943e0ae2b4e142837-huong-dan-sao-chep-worpress-san- ten- mien-tren- cung-1- hosting.jpg" />
     <Content Include="Images\PKs\29a229c0-77f0-4bb8-ac1c-dc17384fba0a223424-Thiet-ke-website.png" />

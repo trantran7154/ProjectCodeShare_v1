@@ -18,11 +18,11 @@ namespace CodeShare.Frontend.Controllers
         DataShareCodeEntities db = new DataShareCodeEntities();
         FunctionsController functions = new FunctionsController();
         // GET: Tools
-        public ActionResult Chats(int ? id)
+        public ActionResult Chats(int? id)
         {
             return View(db.Users.Find(id));
         }
-        public JsonResult Create(int ? id, string content)
+        public JsonResult Create(int? id, string content)
         {
 
             var cookie = functions.CookieID();
@@ -72,7 +72,6 @@ namespace CodeShare.Frontend.Controllers
                     SqlDataReader reader = command.ExecuteReader();
 
                     List<Chat> Chat = db.Chats.Where(n => n.chat_key == key || n.chat_key == key2).OrderByDescending(n=>n.chat_datecreate).ToList();
-
                     return Json(new { listChat = Chat }, JsonRequestBehavior.AllowGet);
 
                 }

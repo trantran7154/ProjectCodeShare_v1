@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="DAO\BillsDao.cs" />
     <Compile Include="DAO\CategorysDao.cs" />
+    <Compile Include="DAO\ChatsDao.cs" />
     <Compile Include="DAO\CodesDao.cs" />
     <Compile Include="DAO\CommentDao.cs" />
     <Compile Include="DAO\ForgotPassword.cs" />
