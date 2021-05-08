@@ -193,7 +193,7 @@
                             <label>Danh mục: <b class="text-danger">*</b></label>
                             <select class="ui fluid dropdown" name="category_id">
                                 <option value="">Danh mục</option>
-                                @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                @foreach (var item in db.Categorys.Where(t => t.category_active == true && t.category_item == 1 && t.category_del == false))
                                 {
                                     <option value="@item.category_id">@item.category_name</option>
                                 }
@@ -259,10 +259,8 @@
                             <label>Tag: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="tags">
                                 <option value="">Tag</option>
-
                             </select>
                             @*<a href="#" id="sele">click</a>*@
-
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <style>

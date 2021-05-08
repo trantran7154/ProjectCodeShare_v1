@@ -7,6 +7,12 @@
     var user = coo.CookieID();
 }
 
+@{ 
+    List<Bill> bills = db.Bills.Where(n => n.user_id == user.user_id).ToList();
+    List<TakePrice> tp = db.TakePrices.Where(n => n.user_id == user.user_id).ToList();
+    List<Order> orders = db.Orders.Where(n => n.user_id == user.user_id).ToList();
+}
+
 <div style="padding: 10px" class="mt-2">
     <div class="row">
         <div class="col-lg-3">
@@ -17,9 +23,9 @@
             <h3 style="color: black" class="font-weight-bold">Chào bạn trở lại, <br /> <span class="text-danger">@user.user_name</span></h3>
             <hr />
             <b class="text-success">Xu hiện tại: </b> @user.user_coin &nbsp;
-            <b class="text-danger">Số xu đã nạp: </b> @db.Bills.Where(n => n.user_id == user.user_id).Sum(n => n.coin) &nbsp; <br />
-            <b class="text-secondary">Số xu nhận: </b> @db.TakePrices.Where(n => n.user_id == user.user_id).Sum(n => n.tp_coin) &nbsp;
-            <b class="text-info">Số xu đã bán: </b> @db.Orders.Where(n => n.user_id == user.user_id).Sum(n => n.coin) &nbsp;
+            <b class="text-danger">Số xu đã nạp: </b> @if(bills.Sum(n => n.coin) != 0){ <span>@bills.Sum(n => n.coin)&nbsp;</span> } else{ <span>0</span> }<br />
+            <b class="text-secondary">Số xu nhận: </b> @if(tp.Sum(n => n.tp_coin) != 0){ <span>@tp.Sum(n => n.tp_coin)&nbsp;</span> } else{ <span>0</span> }
+            <b class="text-info">Số xu đã bán: </b> @if(orders.Sum(n => n.coin) != 0){ <span>@orders.Sum(n => n.coin)&nbsp;</span> } else{ <span>0</span> }
         </div>
         <div class="col-lg-12">
             <hr />

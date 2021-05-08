@@ -5,7 +5,8 @@
     var idus = co.CookieID();
 
     DataShareCodeEntities db = new DataShareCodeEntities();
-    ViewBag.Title = "HistoryTakePrice";
+
+    ViewBag.Title = "Lịch sử rút tiền";
     List<TakePrice> TakePrice = db.TakePrices.ToList();
 }
 <div class="home" style=" height: 250px">
@@ -17,12 +18,12 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <h3 class="font-weight-bold text-success mt-2" style="color: black">QUẢN LÝ RÚT TIỀN</h3>
-                    <p class="text-dark font-weight-bold float-left">
-                        <b>Có tổng cộng @TakePrice.Where(n => n.user_id == idus.user_id).Count() </b> hóa đơn <br />
-                        Có <span class="text-danger">@TakePrice.Where(n => n.user_id == idus.user_id).Count()</span> code được tìm thấy
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black"><i class="fa fa-money"></i > QUẢN LÝ RÚT TIỀN</h3>
+                    <p class="text-dark font-weight-bold float-left mt-3">
+                        <b>Có tổng cộng <b style="color: red">@TakePrice.Where(n => n.user_id == idus.user_id).Count()</b> </b> hóa đơn <br />
+                        Có <b style="color: red">@TakePrice.Where(n => n.user_id == idus.user_id).Count()</b> code được tìm thấy
                     </p>
-                    <div class="ui float-right">
+                    <div class="ui float-right mt-3">
                         <div class="ui icon input">
                             <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
                             <i class="search icon text-white"></i>
@@ -33,7 +34,7 @@
                     <br />
                     <br />
                     <table class="table table-bordered text-center table-hover">
-                        <tr class="bg-danger text-white font-weight-bold">
+                        <tr class="bg-dark text-white font-weight-bold text-capitalize">
                             <td>Mã Code</td>
                             <td>Số tiền rút</td>
                             <td>Số xu rút</td>
@@ -46,7 +47,7 @@
                         @if (TakePrice.Where(n => n.user_id == idus.user_id).Count() == 0)
                         {
                             <tr>
-                                <td colspan="7">
+                                <td colspan="8">
                                     <h4 class="font-weight-bold"><i class="fa fa-ban" style="color: red"></i> KHÔNG TÌM THẤY KẾT QUẢ</h4>
                                 </td>
                             </tr>
@@ -55,9 +56,10 @@
                         {
                             foreach (var item in TakePrice.Where(n => n.user_id == idus.user_id).OrderByDescending(n=>n.tp_datecreate))
                             {
+                                var coin = item.tp_coin * 1000;
                                 <tr>
                                     <td>#HDRT-@item.tp_id</td>
-                                    <td class="font-weight-bold">@(item.tp_coin * 1000) VNĐ</td>
+                                    <td class="font-weight-bold">@coin.Value.ToString("#,##0") VNĐ</td>
                                     <td>@item.tp_coin xu</td>
                                     <td>
                                         @if (item.tp_momo != null)
@@ -93,11 +95,11 @@
                                     <td>
                                         @if (item.tp_active == 2)
                                         {
-                                            <b class="text-success">Đang duyệt</b>
+                                            <b class="text-success">Đang Duyệt</b>
                                         }
                                         else
                                         {
-                                            <b class="text-danger">Đã duyệt</b>
+                                            <b class="text-danger">Đã Duyệt</b>
                                         }
                                     </td>
                                     <td class="font-weight-bold">

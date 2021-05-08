@@ -173,16 +173,15 @@ namespace CodeShare.Frontend.Controllers
             {
                 return RedirectToAction("Login");
             }
-            if (ModelState.IsValid)
+            else
             {
-                if(cookie.user_pass == resetPasword.OldPassword)
+                if (cookie.user_pass == resetPasword.OldPassword)
                 {
                     usersDAO.ResetPassword(cookie.user_id, resetPasword.NewPassword);
-                    return Redirect("/");
+                    ViewBag.Check = "Mật khẩu đã được cập nhật!";
                 }
+                return View(resetPasword);
             }
-            TempData["noti_resetpass"] = "Mật khẩu không đúng!";
-            return View(resetPasword);
         }
 
         //Sửa ảnh

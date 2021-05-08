@@ -30,7 +30,8 @@ namespace CodeShare.Frontend.Controllers
                             birth = item.user_birth.ToString(),
                             name = item.user_name,
                             sex = item.user_sex,
-                            phone = item.user_phone
+                            phone = item.user_phone,
+                            email = item.user_email
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
         }

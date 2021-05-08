@@ -93,7 +93,6 @@ namespace CodeShare.Frontend.Controllers
                 };
                 db.Historys.Add(history);
 
-
                 codesDAO.Create(codes, language);
 
                 return RedirectToAction("MyCodes");

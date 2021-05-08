@@ -1,8 +1,9 @@
 ﻿@using CodeShare.Model.EF;
 @using CodeShare.Frontend.Functions;
 @{
-    ViewBag.Title = "TakePrice";
+    ViewBag.Title = "Rút tiền";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     var co = new FunctionsController();
     var id = co.CookieID();
     var coin = id.user_coin * 1000;

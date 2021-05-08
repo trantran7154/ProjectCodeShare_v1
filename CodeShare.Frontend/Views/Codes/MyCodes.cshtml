@@ -12,12 +12,12 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <h3 class="font-weight-bold text-success mt-2" style="color: black">QUẢN LÝ CODE CÁ NHÂN</h3>
-                    <p class="text-dark font-weight-bold float-left">
-                        <b>Có tổng cộng <b class="text-danger">{{count}}</b> code</b> <br />
-                        Có <b class="text-danger">{{(list | filter: txtSearch).length}}</b> code được tìm thấy
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black"><i class="fa fa-code font-weight-bold"></i> QUẢN LÝ CODE CÁ NHÂN</h3>
+                    <p class="text-dark font-weight-bold float-left mt-3">
+                        <b>Có tổng cộng <b style="color: red">{{count}}</b> code</b> <br />
+                        Có <b style="color: red">{{(list | filter: txtSearch).length}}</b> code được tìm thấy
                     </p>
-                    <div class="ui float-right">
+                    <div class="ui float-right mt-3">
                         <div class="ui icon input">
                             <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
                             <i class="search icon text-white"></i>
@@ -28,12 +28,12 @@
                     <br />
                     <br />
                     <table class="table table-bordered text-center table-hover">
-                        <tr class="bg-danger text-white font-weight-bold">
+                        <tr class="bg-dark text-white font-weight-bold">
                             <td>Mã Code</td>
                             <td>Ảnh</td>
                             <td>Tiêu Đề</td>
                             <td width="90">Lượt Xem</td>
-                            <td width="90">Số Xu</td>
+                            <td width="90">Giá Bán</td>
                             <td width="150">Số Tiền</td>
                             <td width="100">Tùy Chọn</td>
                         </tr>
@@ -47,7 +47,8 @@
                             <td><img src="~/Images/Codes/{{list.img}}" height="40" width="60" /></td>
                             <td class="font-weight-bold">{{list.title}}</td>
                             <td>{{list.view}}</td>
-                            <td>{{list.coin}} Xu</td>
+                            <td ng-show="list.coin != 0">{{list.coin}} Xu</td>
+                            <td ng-show="list.coin 0= 0" class="font-weight-bold">MIỄN PHÍ</td>
                             <td>{{list.coin * 1000 | currency:"":0}} VNĐ</td>
                             <td class="font-weight-bold">
                                 <a class="text-primary" href="/Codes/Details?id={{list.id}}" target="_blank"><i class="fa fa-eye"></i></a> |

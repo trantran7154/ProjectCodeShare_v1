@@ -18,6 +18,8 @@ namespace CodeShare.Model.DAO
         public bool Create(Code codes, string[] tags)
         {
             Random r = new Random();
+            var key = Guid.NewGuid().ToString();
+
             try
             {
                 // add code
@@ -28,7 +30,9 @@ namespace CodeShare.Model.DAO
                 codes.code_view = 0;
                 codes.code_viewdown = 0;
                 codes.code_option = true;
-                if(codes.code_coin == null)
+                codes.code_key = key;
+
+                if (codes.code_coin == null)
                 {
                     codes.code_coin = 0;
                 }
@@ -38,19 +42,18 @@ namespace CodeShare.Model.DAO
                 db.SaveChanges();
 
                 // get code id
-                var codeid = db.Codes.FirstOrDefault(t => t.code_title == codes.code_title && t.user_id == codes.user_id && t.code_active == 2).code_id;
+                Code codeid = db.Codes.SingleOrDefault(n => n.code_key == key);
                 // add tags
                 foreach (var item in tags)
                 {
                     // add multiple tag for code
                     Group group = new Group()
                     {
-                        code_id = codeid,
+                        code_id = codeid.code_id,
                         language_id = int.Parse(item),
                         group_item = Common.Common.ITEM_LANGUAGE_CODE
                     };
                     groupDao.Create(group);
-
                 }
 
                 return true;

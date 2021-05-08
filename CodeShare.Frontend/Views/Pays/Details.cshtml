@@ -2,13 +2,14 @@
 @using CodeShare.Frontend.Functions;
 @model Pakage
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Xác nhận thanh toán";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var co = new FunctionsController();
     var id = co.CookieID();
 
     var sum = Model.pakage_coin * 1000;
+    var coin = id.user_coin * 1000;
 }
 <style>
     .checkout-button {
@@ -19,25 +20,25 @@
         border-radius: 5px
     }
 
-        .checkout-button img {
-            padding-left: 10px;
-            height: 50px;
-            width: 50px;
-        }
+    .checkout-button img {
+        padding-left: 10px;
+        height: 50px;
+        width: 59px;
+    }
 
     .content {
         padding-left: 15px;
     }
 
-        .content .checkout-title {
-            color: #000;
-            font-size: 13pt;
-            font-weight: 600;
-        }
+    .content .checkout-title {
+        color: #000;
+        font-size: 13pt;
+        font-weight: 600;
+    }
 
-        .content .description {
-            color: #666
-        }
+    .content .description {
+        color: #666
+    }
 
     input[type="radio"]:hover {
         cursor: pointer;
@@ -58,31 +59,30 @@
                             <i class="fa fa-user">&nbsp;</i> @id.user_name [Mã USER-@id.user_id] &nbsp;&nbsp;
                             <i class="fa fa-envelope">&nbsp;</i> @id.user_email &nbsp;&nbsp;
                             <i class="fa fa-bitcoin">&nbsp;</i> Tài khoản: @id.user_coin xu &nbsp;&nbsp;
-                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @(id.user_coin * 1000) VNĐ &nbsp;&nbsp;
+                            <i class="fa fa-bitcoin">&nbsp;</i> Số tiền từ xu: @coin.Value.ToString("#,##0") VNĐ &nbsp;&nbsp;
                         </center>
                     </div>
                     <nav class="mt-3">
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">VÍ ĐIỆN TỬ</a>
-                            <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Thanh toán chuyển khoản</a>
+                            <a class="nav-link active font-weight-bold" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">VÍ ĐIỆN TỬ</a>
+                            <a class="nav-link font-weight-bold text-uppercase" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Thanh toán chuyển khoản</a>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <p class="mt-3 text-danger font-weight-bold">
-                                <b><i class="fa fa-bell">&nbsp;</i>Xu là gì: </b> <b>Xu dùng để giao dịch mua code và có thể rút tiền lại khi buôn bán có xu thành công. Xu không lạm phát và tương ứng với mức 1000 vnđ 1 xu.</b>
+                            <p class="mt-3 text-dark font-weight-bold">
+                                <b><i class="fa fa-bell-o text-warning font-weight-bold">&nbsp;</i>Xu là gì? </b> <b>Xu dùng để giao dịch mua code và có thể rút tiền lại khi buôn bán có xu thành công. Xu không lạm phát và tương ứng với mức 1.000 VNĐ tương ứng với 1 Xu.</b>
                             </p>
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-6">
                                         <h3>Xác nhận thanh toán</h3>
                                         <hr />
-                                        <b>Nạp <span class="text-danger">@Model.pakage_coin xu</span> và tài khoản @id.user_email với giá @sum.Value.ToString("#,###") vnđ vào tài khoản.</b>
+                                        <b>Nạp <span class="text-danger">@Model.pakage_coin Xu</span> và tài khoản @id.user_email với giá @sum.Value.ToString("#,###") VNĐ vào tài khoản.</b>
                                         <br />
                                         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
                                         <div class="checkout-button mt-4" style="cursor: pointer" onclick="window.location.href = '@Url.Action("PayMoMo","Pays", new { id = Model.pakege_id })'">
-
-                                            <img class="logo" src="https://developers.momo.vn/images/logo.png" width="25" />
+                                            <img class="logo mt-2 mb-2" src="https://developers.momo.vn/images/logo.png" width="40" />
                                             <div class="content">
                                                 <div class="checkout-title">
                                                     Thanh toán bằng Ví MoMo

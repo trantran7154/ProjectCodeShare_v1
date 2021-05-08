@@ -60,8 +60,8 @@
                                 <div class="field">
                                     <label><i class="fa fa-user"></i> Người đăng</label>
                                     <select class="ui fluid dropdown" name="user_id">
-                                        <option value="">Chọn người đăng</option>
-                                        @foreach (var item in db.Users.Where(t => t.user_active == 1))
+                                        <option value="">Người đăng</option>
+                                        @foreach (var item in db.Users)
                                         {
                                             <option value="@item.user_id" @(item.user_id == Model.user_id ? "selected" : "")>@item.user_name</option>
                                         }
