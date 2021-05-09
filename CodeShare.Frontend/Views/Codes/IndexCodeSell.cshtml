@@ -27,29 +27,27 @@
                     <br />
                     <br />
                     <br />
-                    <table class="table table-striped table-bordered">
-                        <tr class="bg-danger text-white">
-                            <td>Mã code</td>
-                            <td>Ảnh</td>
+                    <table class="table table-bordered">
+                        <tr class="bg-dark text-white text-capitalize text-center font-weight-bold">
+                            <td width="100">Mã code</td>
+                            <td width="100">Ảnh</td>
                             <td>Tiêu đề</td>
                             <td>Người mua</td>
-                            <td>Số xu</td>
+                            <td width="80">Số xu</td>
                             <td>Số tiền</td>
-                            <td>Ngày mua</td>
-                            <td>Tùy chọn</td>
+                            <td>Ngày chat</td>
+                            <td width="100">Tùy chọn</td>
                         </tr>
                         <tr ng-show="(list | filter: txtSearch).length == 0">
-                            <td colspan="8">
-                                <h4>Không có kết quả?</h4>
-                            </td>
+                            <th colspan="9" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
                         </tr>
-                        <tr ng-repeat="list in list | filter: txtSearch">
+                        <tr ng-repeat="list in list | filter: txtSearch" class="text-center">
                             <td>CODE-{{list.id}}</td>
                             <td><img src="~/Images/Codes/{{list.img}}" style="width: 50px; height: 50px" /></td>
                             <td>{{list.title}}</td>
                             <td>{{list.buy}}</td>
                             <td ng-show="list.coin != 0">{{list.coin}} Xu</td>
-                            <td ng-show="list.coin 0= 0" class="font-weight-bold">MIỄN PHÍ</td>
+                            <td ng-show="list.coin == 0" class="font-weight-bold">MIỄN PHÍ</td>
                             <td>{{list.coin * 1000 | currency:"":0}} VNĐ</td>
                             <td>{{list.date}}</td>
                             <td>

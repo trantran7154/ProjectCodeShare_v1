@@ -119,7 +119,7 @@
                             <div>Ngôn ngữ</div>
                             <select name="lang" id="adults_1" class="dropdown_item_select search_input">
                                 <option value="">Chọn ngôn ngữ</option>
-                                @foreach (var item in db.Languages.OrderByDescending(n => n.language_name))
+                                @foreach (var item in db.Languages.Where(n => n.language_active == 1).OrderByDescending(n => n.language_name))
                                 {
                                     <option value="@item.language_name">@item.language_name</option>
                                 }
@@ -129,7 +129,7 @@
                             <div>Thể loại</div>
                             <select name="cate" id="children_1" class="dropdown_item_select search_input">
                                 <option value="">Chọn thể loại</option>
-                                @foreach (var item in db.Categorys.OrderByDescending(n => n.category_name))
+                                @foreach (var item in db.Categorys.Where(n => n.category_active == true && n.category_del == false).OrderByDescending(n => n.category_name))
                                 {
                                     <option value="@item.category_name">@item.category_name</option>
                                 }
