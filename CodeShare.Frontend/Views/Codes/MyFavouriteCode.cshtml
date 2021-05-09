@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Danh sách code đã đăng";
+    ViewBag.Title = "Danh sách code đã lưu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
@@ -12,7 +13,7 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <h3 class="font-weight-bold text-success mt-2" style="color: black"><i class="fa fa-code font-weight-bold"></i> QUẢN LÝ CODE CÁ NHÂN</h3>
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black"><i class="fa fa-code font-weight-bold"></i> DANH SÁCH CODE ĐÃ LU</h3>
                     <p class="text-dark font-weight-bold float-left mt-3">
                         <b>Có tổng cộng <b style="color: red">{{count}}</b> code</b> <br />
                         Có <b style="color: red">{{(list | filter: txtSearch).length}}</b> code được tìm thấy
@@ -43,7 +44,7 @@
                             </td>
                         </tr>
                         <tr ng-repeat="list in list | filter: txtSearch">
-                            <td>{{list.id}}</td>
+                            <td>{{list.idcode}}</td>
                             <td><img src="~/Images/Codes/{{list.img}}" height="40" width="60" /></td>
                             <td class="font-weight-bold">{{list.title}}</td>
                             <td>{{list.view}}</td>
@@ -51,9 +52,8 @@
                             <td ng-show="list.coin == 0" class="font-weight-bold">MIỄN PHÍ</td>
                             <td>{{list.coin * 1000 | currency:"":0}} VNĐ</td>
                             <td class="font-weight-bold">
-                                <a class="text-primary" href="/Codes/Details?id={{list.id}}" target="_blank"><i class="fa fa-eye"></i></a> |
-                                <i class="fa fa-trash text-danger"></i> |
-                                <a class="text-success" href="/Codes/Edit/{{list.id}}"><i class="fa fa-edit text-success"></i></a>
+                                <a class="text-primary" href="/Codes/Details?id={{list.idcode}}" target="_blank"><i class="fa fa-eye"></i></a> |
+                                <a ng-click="cancelfavourite(list.id)"><i class="fa fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                     </table>
@@ -70,10 +70,26 @@
     app.controller('myCtrl', function ($scope, $http) {
         $http({
             method: "GET",
-            url: "/Json/Codes"
+            url: "/Codes/JsonIndexFavourite"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
             $scope.count = $scope.list.length;
+
+            $scope.cancelfavourite = function (id) {
+                $http({
+                    method: "GET",
+                    url: "/Codes/CancelFavourite?id=" + id
+                }).then(function mySuccess(response) {
+                    $scope.fa = response.data;
+                    $scope.countfa = $scope.fa.length;
+
+                    window.location.href = "";
+
+                }, function myError(response) {
+                    $scope.fa = response.statusText;
+                });
+            }
+
         }, function myError(response) {
             $scope.list = response.statusText;
         });

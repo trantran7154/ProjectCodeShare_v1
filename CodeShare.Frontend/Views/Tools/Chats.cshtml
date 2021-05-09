@@ -12,10 +12,15 @@
 
     List<Chat> chats = db.Chats.Where(n => n.user_id == Model.user_id).ToList();
 }
-
+<style>
+    .cr{
+        overflow-y: auto;
+        height: 800px
+    }
+</style>
 <link href="~/Content/Layout/Chats/CSS/chats.css" rel="stylesheet" />
 
-<div class="home" style=" height: 250px">
+<div class="home" style=" height: 150px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
 <div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
@@ -25,17 +30,20 @@
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div class="banner-section spad container-fluid mt-4" ng-app="myApp">
                     <div class="container-fluid">
-                        <div class="body mt-3">
+                        <div class="body mt-3" style="height: 800px">
                             <section class="msger">
                                 <header class="msger-header">
                                     <h5 class="msger-header-title text-primary">
                                         <i class="fa fa-comments-o"></i> Chat với @Model.user_name
+                                        @Model.user_id
                                     </h5>
                                     <div class="msger-header-options">
                                         <span><i class="fa fa-cog"></i></span>
                                     </div>
                                 </header>
-                                <main class="msger-chat" id="tblChat" style="background-image: url('../../Images/News/bg-tab.png');">
+                                <main class="msger-chat" id="" style="background-image: url('../../Images/News/bg-tab.png');">
+                                    <div class="row  cr" id="tblChat">
+                                    </div>
                                 </main>
                                 <form class="msger-inputarea" ng-controller="myCtrl">
                                     <input id="content" name="content" type="text" class="msger-input" placeholder="Nhập tin nhắn của bạn...">
@@ -73,38 +81,19 @@
             success: function (data) {
                 $tbl.empty();
                 $.each(data.listChat, function (i, model) {
-                   if (model.user_id != @id.user_id) {
-                        $tbl.append
-                            (
-                                '<div class="msg left-msg">'+
-                                    '<div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">' + '</div>' +
-                                    '<div class="msg-bubble">' +
-                                        '<div class="msg-info">' +
-                                '<div class="msg-info-name">' + '@id.user_name' + '</div>' +
-                                        '</div>' +
-                                    '<div class="msg-text">' +
-                                            model.chat_content +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>'
-                            );
-                   }
-                   else {
-                        $tbl.append
-                            (
-                                '<div class="msg left-msg">'+
-                                    '<div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">' + '</div>' +
-                                    '<div class="msg-bubble">' +
-                                        '<div class="msg-info">' +
-                                '<div class="msg-info-name">' + '@id.user_name' + '</div>' +
-                                        '</div>' +
-                                    '<div class="msg-text">' +
-                                            model.chat_content +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>'
-                            );
-                    }
+                    $tbl.append
+                        (
+                            '<div class="col-lg-12 mt-1">' +
+                            '<div class="row">' +
+                            model.keycol1 +
+                            '<div class="col-lg-6">' +
+                            '<div class="card" style="'+model.color+'">' +
+                            '<div style="padding: 10px">' +
+                            '<img src="/Images/Users/' + model.img + '" style="height: 40px; width: 40px" />' +
+                            '<b>&nbsp;' + model.name+' (gửi lúc ' + model.date + ')</b>' +
+                            '<p> ' + model.content + ' </p>' +
+                            '</div></div></div>' + model.keycol2 +'</div></div>'
+                        );
                 });
             }
         });

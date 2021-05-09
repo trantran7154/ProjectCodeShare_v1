@@ -71,7 +71,21 @@ namespace CodeShare.Frontend.Controllers
 
                     SqlDataReader reader = command.ExecuteReader();
 
-                    List<Chat> Chat = db.Chats.Where(n => n.chat_key == key || n.chat_key == key2).OrderByDescending(n=>n.chat_datecreate).ToList();
+                    var Chat = db.Chats.Where(n => n.chat_key == key || n.chat_key == key2).OrderByDescending(n => n.chat_datecreate).Select(n=> new { 
+                    
+                        id = n.chat_id,
+                        content = n.chat_content,
+                        img = n.id_send == cookie.user_id ? idsend.user_img : idtake.user_img,
+                        keycol1 = n.id_send == cookie.user_id ? "<div class='col-lg-6'></div>" : "",
+                        keycol2 = n.id_send != cookie.user_id ? "<div class='col-lg-6'></div>" : "",
+                        name = n.id_send == cookie.user_id ? "Tôi" : db.Users.FirstOrDefault(t => t.user_id == n.id_send).user_name,
+                        date = n.chat_datecreate.Value.ToString(),
+                        idus = n.User.user_id,
+                        color = n.id_send == cookie.user_id ? "border: 1px solid blue; background-color: aliceblue" : "",
+                        idsend = db.Users.FirstOrDefault(t => t.user_id == n.id_send).user_id,
+                        sendimg = db.Users.FirstOrDefault(t=>t.user_id == n.id_send).user_img
+                    
+                    }).ToList();
                     return Json(new { listChat = Chat }, JsonRequestBehavior.AllowGet);
 
                 }
@@ -81,6 +95,11 @@ namespace CodeShare.Frontend.Controllers
         private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
         {
             ChatHub.Show();
+        }
+
+        public ActionResult History()
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,98 @@
+﻿@using CodeShare.Model.EF;
+@using Microsoft.Ajax.Utilities;
+@using CodeShare.Frontend.Functions;
+@{
+    var fu = new FunctionsController();
+    var idus = fu.CookieID();
+
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    ViewBag.Title = "Tin nhắn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="home" style=" height: 250px">
+    <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
+</div>
+<div class="testimonials" style="background-color: #f0f0f0; font-family: Roboto,Arial,sans-serif;padding-top: 22px;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" style="max-width: 1300px" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-8 bg-white border shadow text-dark">
+                <div style="padding: 10px; font-size: 16px">
+                    <h3 class="font-weight-bold text-success mt-2" style="color: black"><i class="fa fa-code font-weight-bold"></i> QUẢN LÝ CODE CÁ NHÂN</h3>
+                    <p class="text-dark font-weight-bold float-left mt-3">
+                        <b>Có tổng cộng <b style="color: red">{{count}}</b> code</b> <br />
+                        Có <b style="color: red">{{(list | filter: txtSearch).length}}</b> code được tìm thấy
+                    </p>
+                    <div class="ui float-right mt-3">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Nhập bất kỳ từ khóa..." ng-model="txtSearch">
+                            <i class="search icon text-white"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                    @foreach (var item in db.Chats.Where(n => n.id_send == idus.user_id).OrderByDescending(n => n.chat_datecreate))
+                    {
+                        <div class="card w-100 mt-2" onclick="window.location.href = '/Tools/Chats/@item.user_id'">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div style="padding: 10px">
+                                        <center>
+                                            <img src="~/Images/Users/@item.User.user_img" style="width: 40px; height: 40px" />
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div style="padding: 10px">
+                                        <b>@db.Users.FirstOrDefault(n => n.user_id == item.user_id).user_name</b> <br />
+                                        <p>
+                                            @item.chat_content
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div style="padding: 10px">
+                                        <b>Chưa xem</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4 bg-white border shadow">
+                @Html.Action("All", "View")
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Codes/JsonIndexFavourite"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+
+            $scope.cancelfavourite = function (id) {
+                $http({
+                    method: "GET",
+                    url: "/Codes/CancelFavourite?id=" + id
+                }).then(function mySuccess(response) {
+                    $scope.fa = response.data;
+                    $scope.countfa = $scope.fa.length;
+
+                    window.location.href = "";
+
+                }, function myError(response) {
+                    $scope.fa = response.statusText;
+                });
+            }
+
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+

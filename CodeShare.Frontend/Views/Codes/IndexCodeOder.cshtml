@@ -39,7 +39,7 @@
                             <td width="200">Tùy Chọn</td>
                         </tr>
                         <tr ng-show="(list | filter: txtSearch).length == 0">
-                            <th colspan="7" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
+                            <th colspan="8" class="text-center font-weight-bold"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</th>
                         </tr>
                         <tr ng-repeat="list in list | filter: txtSearch" class="text-center">
                             <td>CODE-{{list.id}}</td>

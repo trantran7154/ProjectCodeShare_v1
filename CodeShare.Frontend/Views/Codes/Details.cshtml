@@ -1,4 +1,5 @@
 ﻿@using CodeShare.Model.EF;
+@using CodeShare.Common;
 @using CodeShare.Frontend.Functions;
 @model Code
 
@@ -11,9 +12,8 @@
     var coo = new FunctionsController();
     var user = coo.CookieID();
 }
-}
 
-@{  
+@{
     List<Order> oder = db.Orders.ToList();
     List<Group> groups = db.Groups.ToList();
     List<Code> codes = db.Codes.ToList();
@@ -66,18 +66,26 @@
                                     }
                                 </div>
                                 <div class="col-lg-6">
-                                    <button class="btn btn-danger float-right"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                    @if (functions.Cookie() != null)
+                                    {
+                                        <button ng-show="countfa == 0" ng-click="favourite(@Model.code_id)" style="cursor:pointer !important" class="btn btn-default float-right"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                        <button ng-repeat="fa in fa" ng-show="countfa != 0" ng-click="cancelfavourite(fa.id)" style="cursor:pointer !important" class="btn btn-danger float-right"><i class="fa fa-heart">&nbsp;</i>Hủy yêu thích</button>
+                                    }
+                                    else
+                                    {
+                                        <button style="cursor:pointer !important" class="btn btn-default float-right"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                    }
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">   
+                            <div class="row">
                                 <div class="col-lg-8">
                                     <div>
                                         <b><i class="fa fa-th-list"></i> Danh mục: </b> @Model.Category.category_name
                                     </div>
                                     <div class="mt-2">
                                         <b><i class="fa fa-table"></i> Thể loại: </b>
-                                        @foreach (var item in groups.Where(n => n.code_id == Model.code_id))
+                                        @foreach (var item in groups.Where(n => n.code_id == Model.code_id && n.group_item == Common.ITEM_LANGUAGE_CODE))
                                         {
                                             <span style="border: 1px solid black; padding: 6px; border-radius: 3px" class="text-primary font-weight-bold"> @item.Language.language_name</span><span>&nbsp;</span>
                                         }
@@ -195,7 +203,14 @@
                                         <div class="mb-2">Pass giải nén (Nếu có): @(Model.code_coin > 0 ? "Mua code để có mật khẩu." : Model.code_pass) <br /></div>
                                         @if (Model.code_coin == 0)
                                         {
-                                            <button onclick="window.location.href = '@Model.code_linkdown'" class="btn btn-success float-right font-weight-bold" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                            if (functions.Cookie() != null)
+                                            {
+                                                <button onclick="window.location.href = '@Model.code_linkdown'" class="btn btn-success float-right font-weight-bold" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                            }
+                                            else
+                                            {
+                                                <button data-toggle="modal" data-target="#login" class="btn btn-success float-right font-weight-bold" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                            }
                                         }
                                         else
                                         {
@@ -205,7 +220,6 @@
                                                 if (id.user_id == Model.user_id)
                                                 {
                                                     <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold" style="font-size: 20px; height: 70px">Code của bạn</button>
-
                                                 }
                                                 else
                                                 {
@@ -227,8 +241,9 @@
                                             else
                                             {
 
-                                                <button data-toggle="modal" data-target="#coin" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
+                                                <button data-toggle="modal" data-target="#login" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download">&nbsp;</i>TẢI CODE NGAY</button>
                                             }
+
                                             if (functions.Cookie() != null)
                                             {
                                                 var id = functions.CookieID();
@@ -416,13 +431,23 @@
 
                                         @if (functions.Cookie() != null)
                                         {
-                                            <button onclick="window.location.href='/Tools/Chats/@Model.user_id'" class="btn btn-danger mt-2"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+                                            if (Model.user_id == functions.CookieID().user_id)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <button onclick="window.location.href='/Tools/Chats/@Model.user_id'" class="btn btn-danger mt-2"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+
+                                                <button class="btn btn-danger mt-2"><i class="fa fa-heart"></i>&nbsp;Follow</button>
+                                            }
                                         }
                                         else
                                         {
                                             <button onclick="" class="btn btn-danger mt-2"><i class="fa fa-comment"></i>&nbsp;Chat</button>
+
+                                            <button class="btn btn-danger mt-2"><i class="fa fa-heart"></i>&nbsp;Follow</button>
                                         }
-                                        <button class="btn btn-danger mt-2"><i class="fa fa-heart"></i>&nbsp;Follow</button>
                                     </td>
                                 </tr>
                             </table>
@@ -520,7 +545,7 @@
                 <b class="text-dark"><i class="fa fa-list"></i> THỂ LOẠI: </b>
                 <b class="text-success">
                     <br />
-                    @foreach (var item in groups.Where(n => n.code_id == Model.code_id))
+                    @foreach (var item in groups.Where(n => n.code_id == Model.code_id && n.group_item == Common.ITEM_LANGUAGE_CODE))
                     {
                         @item.Language.language_name<span>&nbsp;</span>
                     }
@@ -540,6 +565,56 @@
             url: "/Json/Codes"
         }).then(function mySuccess(response) {
             $scope.list = response.data;
+
+            $http({
+                method: "GET",
+                url: "/Codes/JsonFavourite?idcode=@Model.code_id"
+            }).then(function mySuccess(response) {
+                $scope.fa = response.data;
+                $scope.countfa = $scope.fa.length;
+
+                $scope.favourite = function (id) {
+                    $http({
+                        method: "GET",
+                        url: "/Codes/FavouriteCode?idcode=" + id
+                    }).then(function mySuccess(response) {
+                        $scope.fa = response.data;
+                        $scope.countfa = $scope.fa.length;
+
+                        $(document).ready(function () {
+                            $('#notesave').modal('show');
+                        })
+
+                    }, function myError(response) {
+                        $scope.fa = response.statusText;
+                    });
+                }
+
+                $scope.cancelfavourite = function (id) {
+                    $http({
+                        method: "GET",
+                        url: "/Codes/CancelFavourite?id=" + id
+                    }).then(function mySuccess(response) {
+                        $scope.fa = response.data;
+                        $scope.countfa = $scope.fa.length;
+
+                        $(document).ready(function () {
+                            $('#notecancel').modal('show');
+                        })
+
+                    }, function myError(response) {
+                        $scope.fa = response.statusText;
+                    });
+                }
+
+
+            }, function myError(response) {
+                $scope.fa = response.statusText;
+            });
+
+
+
+
         }, function myError(response) {
             $scope.list = response.statusText;
         });
@@ -571,5 +646,50 @@
         }, function myError(response) {
             $scope.com = response.statusText;
         });
+
+
+
+
     });
 </script>
+@if (functions.Cookie() != null)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="notesave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLabel">Lưu thành công</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn đã lưu code "@Model.code_title" thành công! <br /> Xem quản lý <a href="/Codes/MyFavouriteCode">tại đây</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="notecancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Hủy thành công</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn đã hủy code "@Model.code_title" thành công! <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

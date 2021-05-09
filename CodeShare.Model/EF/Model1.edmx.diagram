@@ -42,6 +42,8 @@
         <AssociationConnector Association="DataShareCodeModel.FK_Rep_Users" />
         <AssociationConnector Association="DataShareCodeModel.FK_TakePrices_Users" />
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" />
+        <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Chats_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

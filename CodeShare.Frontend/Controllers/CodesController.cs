@@ -75,12 +75,12 @@ namespace CodeShare.Frontend.Controllers
             }
             else
             {
-                var tag = "";
-                foreach (var item in tags)
-                {
-                    tag += item + ";";
-                }
-                codes.code_tag = tag;
+                //var tag = "";
+                //foreach (var item in tags)
+                //{
+                //    tag += item + ";";
+                //}
+                //codes.code_tag = tag;
                 codes.user_id = idus.user_id;
                 codes.code_img = images.UpLoadImages(img, null, "Codes");
 
@@ -309,6 +309,96 @@ namespace CodeShare.Frontend.Controllers
 
                        };
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        //Yêu thích
+        public JsonResult FavouriteCode(int? idcode)
+        {
+            var cookie = new FunctionsController();
+            var idus = cookie.CookieID();
+
+            Group group = new Group()
+            {
+                code_id = idcode,
+                user_id = idus.user_id,
+                group_datecreate = DateTime.Now,
+                group_item = Common.Common.ITEM_CODE_USER
+            };
+            db.Groups.Add(group);
+            db.SaveChanges();
+
+            var fa = db.Groups.Where(n => n.group_item == Common.Common.ITEM_CODE_USER && n.user_id == idus.user_id && n.code_id == idcode).OrderByDescending(n => n.group_datecreate).Select(n => new
+            {
+                id = n.group_id
+
+            }).ToList();
+
+            return Json(fa, JsonRequestBehavior.AllowGet);
+        }
+        //Danh sách yêu thích theo người dùng và code
+        public JsonResult JsonFavourite(int ? idcode)
+        {
+            var cookie = new FunctionsController();
+            var idus = cookie.CookieID();
+            var fa = db.Groups.Where(n => n.group_item == Common.Common.ITEM_CODE_USER && n.user_id == idus.user_id && n.code_id == idcode).OrderByDescending(n => n.group_datecreate).Select(n => new
+            {
+                id = n.group_id
+
+            }).ToList();
+            return Json(fa,JsonRequestBehavior.AllowGet);
+        }
+        //Huy yeu thich
+        public JsonResult CancelFavourite(int? id)
+        {
+            var cookie = new FunctionsController();
+            var idus = cookie.CookieID();
+
+            Group group = db.Groups.Find(id);
+            var idcode = group.code_id;
+            db.Groups.Remove(group);
+            db.SaveChanges();
+
+            var fa = db.Groups.Where(n => n.group_item == Common.Common.ITEM_CODE_USER && n.user_id == idus.user_id && n.code_id == idcode).OrderByDescending(n => n.group_datecreate).Select(n => new
+            {
+                id = n.group_id
+
+            }).ToList();
+            return Json(fa, JsonRequestBehavior.AllowGet);
+        }
+        //Quản lý code
+        public ActionResult MyFavouriteCode()
+        {
+            return View();
+        }
+        //Danh sách chi tiết yêu thích code
+        public JsonResult JsonIndexFavourite()
+        {
+            var cookie = new FunctionsController();
+            var idus = cookie.CookieID();
+            var fa = db.Groups.Where(n => n.group_item == Common.Common.ITEM_CODE_USER && n.user_id == idus.user_id).OrderByDescending(n => n.group_datecreate).Select(n => new
+            {
+                id = n.group_id,
+                idcode = n.Code.code_id,
+                title = n.Code.code_title,
+                view = n.Code.code_view,
+                coin = n.Code.code_coin,
+                price = n.Code.code_coin * 1000,
+                img = n.Code.code_img
+
+            }).ToList();
+            return Json(fa, JsonRequestBehavior.AllowGet);
+        }
+        //Tìm kiếm code
+        public ActionResult SearchCode(string k, string c, string l)
+        {
+            ViewBag.Key = k;
+            ViewBag.Cate = c;
+            ViewBag.Lang = l;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PostSearchCode(string key, string cate, string lang)
+        {
+            return RedirectToAction("SearchCode", new { k = key, c = cate, l = lang });
         }
     }
 }

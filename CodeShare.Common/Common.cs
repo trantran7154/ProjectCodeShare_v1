@@ -23,5 +23,6 @@ namespace CodeShare.Common
         public static int ITEM_LANGUAGE_CODE = 1;
         public static int ITEM_LANGUAGE_USER = 2;
         public static int ITEM_CATEGORY_CODE = 3;
+        public static int ITEM_CODE_USER = 4;
     }
 }

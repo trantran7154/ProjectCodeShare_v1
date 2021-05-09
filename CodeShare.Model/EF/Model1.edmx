@@ -42,6 +42,17 @@
           <Property Name="category_dateupdate" Type="datetime" />
           <Property Name="category_view" Type="int" />
         </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="chat_content" Type="nvarchar(max)" />
+          <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="id_send" Type="int" />
+          <Property Name="chat_key" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Codes">
           <Key>
             <PropertyRef Name="code_id" />
@@ -82,17 +93,6 @@
           <Property Name="news_id" Type="int" />
           <Property Name="comment_dateupdate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Chats">
-          <Key>
-            <PropertyRef Name="chat_id" />
-          </Key>
-          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="chat_content" Type="nvarchar(max)" />
-          <Property Name="chat_datecreate" Type="datetime" />
-          <Property Name="id_send" Type="int" />
-          <Property Name="chat_key" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="group_id" />
@@ -104,6 +104,7 @@
           <Property Name="language_id" Type="int" />
           <Property Name="group_item" Type="int" />
           <Property Name="news_id" Type="int" />
+          <Property Name="group_datecreate" Type="datetime" />
         </EntityType>
         <EntityType Name="Historys">
           <Key>
@@ -173,6 +174,16 @@
           <Property Name="rep_content" Type="nvarchar(max)" />
           <Property Name="rep_datecreate" Type="datetime" />
           <Property Name="rep_dateupdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TakePrices">
           <Key>
@@ -245,6 +256,18 @@
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="Bills">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chats_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Chats" Type="Self.Chats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Chats">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -481,9 +504,9 @@
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Codes" EntityType="Self.Codes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Historys" EntityType="Self.Historys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
@@ -491,6 +514,7 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rep" EntityType="Self.Rep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TakePrices" EntityType="Self.TakePrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -501,6 +525,10 @@
           <AssociationSet Name="FK_Bills_Users" Association="Self.FK_Bills_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chats_Users" Association="Self.FK_Chats_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Chats" EntitySet="Chats" />
           </AssociationSet>
           <AssociationSet Name="FK_Codes_Categorys" Association="Self.FK_Codes_Categorys">
             <End Role="Categorys" EntitySet="Categorys" />
@@ -684,6 +712,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Tool" EntitySet="Tools" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="DataShareCodeModel.sysdiagram" />
+          <AssociationSet Name="FK_Chats_Users" Association="DataShareCodeModel.FK_Chats_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Chat" EntitySet="Chats" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Banner">
           <Key>
@@ -786,6 +819,7 @@
           <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
           <Property Name="id_send" Type="Int32" />
           <Property Name="chat_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Chats_Users" FromRole="Chat" ToRole="User" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -803,6 +837,7 @@
           <NavigationProperty Name="Language" Relationship="DataShareCodeModel.FK_Groups_Languages" FromRole="Group" ToRole="Language" />
           <NavigationProperty Name="News" Relationship="DataShareCodeModel.FK_Groups_News" FromRole="Group" ToRole="News" />
           <NavigationProperty Name="User" Relationship="DataShareCodeModel.FK_Groups_Users" FromRole="Group" ToRole="User" />
+          <Property Name="group_datecreate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -946,6 +981,7 @@
           <NavigationProperty Name="Reps" Relationship="DataShareCodeModel.FK_Rep_Users" FromRole="User" ToRole="Rep" />
           <NavigationProperty Name="TakePrices" Relationship="DataShareCodeModel.FK_TakePrices_Users" FromRole="User" ToRole="TakePrice" />
           <NavigationProperty Name="Tools" Relationship="DataShareCodeModel.FK_Tools_Users" FromRole="User" ToRole="Tool" />
+          <NavigationProperty Name="Chats" Relationship="DataShareCodeModel.FK_Chats_Users" FromRole="User" ToRole="Chat" />
         </EntityType>
         <Association Name="FK_Bills_Pakeges">
           <End Type="DataShareCodeModel.Pakage" Role="Pakage" Multiplicity="0..1" />
@@ -1199,6 +1235,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Chats_Users">
+          <End Type="DataShareCodeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataShareCodeModel.Chat" Role="Chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1302,6 +1360,7 @@
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="DataShareCodeModel.Group">
               <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="group_datecreate" ColumnName="group_datecreate" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="group_item" ColumnName="group_item" />
                 <ScalarProperty Name="language_id" ColumnName="language_id" />
@@ -1438,6 +1497,17 @@
                 <ScalarProperty Name="user_phone" ColumnName="user_phone" />
                 <ScalarProperty Name="user_email" ColumnName="user_email" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataShareCodeModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

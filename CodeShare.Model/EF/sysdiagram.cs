@@ -12,15 +12,12 @@ namespace CodeShare.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Chat
+    public partial class sysdiagram
     {
-        public int chat_id { get; set; }
-        public Nullable<int> user_id { get; set; }
-        public string chat_content { get; set; }
-        public Nullable<System.DateTime> chat_datecreate { get; set; }
-        public Nullable<int> id_send { get; set; }
-        public string chat_key { get; set; }
-    
-        public virtual User User { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

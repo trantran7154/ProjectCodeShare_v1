@@ -1333,6 +1333,9 @@
     <Content Include="Views\Users\ForgotPassword.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\Codes\MyFavouriteCode.cshtml" />
+    <Content Include="Views\Tools\History.cshtml" />
+    <Content Include="Views\Codes\SearchCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

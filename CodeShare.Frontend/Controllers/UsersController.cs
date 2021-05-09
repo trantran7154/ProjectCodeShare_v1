@@ -67,6 +67,40 @@ namespace CodeShare.Frontend.Controllers
             }
             return View(login);
         }
+        [HttpPost]
+        public ActionResult LoginModal(ViewLogin login)
+        {
+            if (function.CookieID() != null)
+            {
+                return Redirect("/");
+            }
+            if (ModelState.IsValid)
+            {
+                int status = usersDAO.Login(login.Email, login.Password);
+                switch (status)
+                {
+                    case 1:
+                        var user = db.Users.FirstOrDefault(t => t.user_email == login.Email && t.user_pass == login.Password);
+                        HttpCookie cookie = new HttpCookie("user_id", user.user_id.ToString());
+                        cookie.Expires.AddDays(10);
+                        Response.Cookies.Set(cookie);
+                        return Redirect(Request.UrlReferrer.ToString());
+                    case -1:
+                        TempData["noti_login"] = "Sai tài khoản hoặc mật khẩu!";
+                        break;
+                    case -2:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị xóa!";
+                        break;
+                    case -3:
+                        TempData["noti_login"] = "Tài khoản của bạn đã bị khóa!";
+                        break;
+                    default:
+                        TempData["noti_login"] = "Tài khoản của bạn không tồn tại!";
+                        break;
+                }
+            }
+            return View(login);
+        }
 
         // SignUp
         public ActionResult SignUp()
@@ -97,7 +131,7 @@ namespace CodeShare.Frontend.Controllers
                 HttpCookie cookie = new HttpCookie("user_id", user1.user_id.ToString());
                 cookie.Expires.AddDays(10);
                 Response.Cookies.Set(cookie);
-                return Redirect("/");
+                return RedirectToAction("Info");
             }
             return View(register);
         }
