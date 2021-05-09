@@ -30,16 +30,17 @@ namespace CodeShare.Frontend.Controllers
         // Login
         public ActionResult Login()
         {
+            if (function.CookieID() != null)
+            {
+                return Redirect("/");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(ViewLogin login)
         {
-            if (function.CookieID() != null)
-            {
-                return Redirect("/");
-            }
+
             if (ModelState.IsValid)
             {
                 int status = usersDAO.Login(login.Email, login.Password);
@@ -105,6 +106,10 @@ namespace CodeShare.Frontend.Controllers
         // SignUp
         public ActionResult SignUp()
         {
+            if (function.CookieID() != null)
+            {
+                return Redirect("/");
+            }
             return View();
         }
 
