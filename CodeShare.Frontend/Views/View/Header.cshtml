@@ -31,7 +31,7 @@
                     <div class="user_box ml-auto mt-2">
                         <div class="dropdown text-white">
                             <div style="cursor: pointer" class="dropdown-toggle user_box_link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @users.user_name &nbsp;<img src="~/Images/Users/notimg.png" style="border-radius: 50%; height: 25px; width: 25px" />
+                                @users.user_name &nbsp;<img src="~/Images/Users/@users.user_img" style="border-radius: 50%; height: 25px; width: 25px" />
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-size: 18px">
                                 <a class="dropdown-item" href="@Url.Action("Info","Users")"><i class="fa fa-user"></i> Thông tin cá nhân</a>
