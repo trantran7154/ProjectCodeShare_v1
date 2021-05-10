@@ -1336,6 +1336,7 @@
     <Content Include="Views\Codes\MyFavouriteCode.cshtml" />
     <Content Include="Views\Tools\History.cshtml" />
     <Content Include="Views\Codes\SearchCode.cshtml" />
+    <Content Include="Views\View\Validation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

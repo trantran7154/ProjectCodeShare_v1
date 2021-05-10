@@ -128,6 +128,9 @@ namespace CodeShare.Frontend.Controllers
                     user_email = register.Email,
                     user_pass = register.Password,
                     user_name = register.DisplayName,
+                    user_birth = register.DateOfBirth,
+                    user_phone = register.Phone,
+                    user_sex = register.Sex,
                     user_img = "notimg.png"
                 };
                 usersDAO.Add(user);

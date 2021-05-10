@@ -1,0 +1,80 @@
+﻿<script>
+    $('.ui.form')
+        .form({
+            inline: true,
+            on: 'blur',
+            fields: {
+                Email: {
+                    identifier: 'Email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập email/gmail'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Sai định dạng email/gmail'
+                        }
+                    ]
+                },
+                Password: {
+                    identifier: 'Password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Mật khẩu phải ít nhất 6 ký tự'
+                        }
+                    ]
+                },
+                DisplayName: {
+                    identifier: 'DisplayName',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên đăng nhập'
+                        }
+                    ]
+                },
+                ConfirmPassword: {
+                    identifier: 'ConfirmPassword',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng xác nhận mật khẩu'
+                        },
+                        {
+                            type: 'match[Password]',
+                            prompt: 'Mật khẩu xác nhận chưa đúng'
+                        }
+                    ]
+                },
+                Phone: {
+                    identifier: 'Phone',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập số điện thoại'
+                        },
+                        {
+                            type: 'integer[10..12]',
+                            prompt: 'Số điện thoại chưa đúng'
+                        }
+                    ]
+                },
+                DateOfBirth: {
+                    identifier: 'DateOfBirth',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập ngày sinh'
+                        }
+                    ]
+                },
+            }
+        })
+        ;
+</script>

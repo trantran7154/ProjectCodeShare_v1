@@ -276,7 +276,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <script>
                             // Is a Built In Function Used To Return The Same Measured Value Of An Element Like (width, height, margin, padding)
                             var x = document.querySelector(".head");
@@ -313,47 +312,13 @@
                                 }
                             }
                         </script>
-                        <script>
-                            $('.ui.form')
-                                .form({
-                                    inline: true,
-                                    on: 'blur',
-                                    fields: {
-                                        Email: {
-                                            identifier: 'Email',
-                                            rules: [
-                                                {
-                                                    type: 'empty',
-                                                    prompt: 'Vui lòng nhập email/gmail'
-                                                },
-                                                {
-                                                    type: 'email',
-                                                    prompt: 'Sai định dạng email/gmail'
-                                                }
-                                            ]
-                                        },
-                                        Password: {
-                                            identifier: 'Password',
-                                            rules: [
-                                                {
-                                                    type: 'empty',
-                                                    prompt: 'Vui lòng nhập mật khẩu'
-                                                },
-                                                {
-                                                    type: 'minLength[6]',
-                                                    prompt: 'Mật khẩu phải ít nhất 6 ký tự'
-                                                }
-                                            ]
-                                        }
-                                    }
-                                })
-                                ;
-                        </script>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @Html.Action("Validation","View")
+
     <script src="~/Content/Layout/js/jquery-3.2.1.min.js"></script>
 
     <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
