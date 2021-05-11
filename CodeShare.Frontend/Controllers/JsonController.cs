@@ -183,6 +183,7 @@ namespace CodeShare.Frontend.Controllers
                            tag = c.code_tag,
                            title = c.code_title,
                            view = c.code_view,
+                           key = c.code_coin == 0 ? "mienphi" : c.code_coin < 100 ? "thamkhao" : "chatluong",
                            viewdown = c.code_viewdown,
                            img = c.code_img,
                            groupp = c.Groups.Select(t => t.Language.language_name)

@@ -17,24 +17,21 @@ namespace CodeShare.Frontend.Controllers
         public ActionResult Index(string key)
         {
 
-            if (key == "1")
+            if (key == "mienphi")
             {
-                ViewBag.key = "list.coin > 100";
-                ViewBag.name = "CODE CHẤT LƯỢNG";
+                ViewBag.key = "mienphi";
             }
-            else if (key == "2")
+            else if (key == "thamkhao")
             {
-                ViewBag.key = "list.coin > 0 && list.coin < 100";
-                ViewBag.name = "CODE THAM KHẢO";
+                ViewBag.key = "thamkhao";
             }
-            else if (key == "3")
+            else if (key == "chatluong")
             {
-                ViewBag.key = "list.coin == 0";
-                ViewBag.name = "CODE MIỄN PHÍ";
+                ViewBag.key = "chatluong";
             }
             else
             {
-                ViewBag.key = key;
+                ViewBag.key = "";
             }
             return View();
         }

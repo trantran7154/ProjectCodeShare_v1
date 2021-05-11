@@ -44,7 +44,7 @@
                                         </center>
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-7">
                                     <div style="padding: 10px">
                                         <b>@db.Users.FirstOrDefault(n => n.user_id == item.user_id).user_name</b> <br />
                                         <p>
@@ -52,9 +52,9 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-3">
                                     <div style="padding: 10px">
-                                        <b>Chưa Xem</b>
+                                        Đăng lúc: @item.chat_datecreate.Value.ToString("dd/MM/yyyy") lúc @item.chat_datecreate.Value.ToString("h:m")
                                     </div>
                                 </div>
                             </div>

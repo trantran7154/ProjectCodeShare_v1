@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="row" id="gird" style="display: none">
-                <div ng-repeat="list in list | filter: key | orderBy: searchSort | filter: searchFull" style="width: 97%">
+                <div ng-repeat="list in list | filter: key | orderBy: 'view'" style="width: 97%">
                     <div class="container-fluid mb-3">
                         <div class="d-flex justify-content-center row">
                             <div class="col-md-12 w-100">
@@ -198,9 +198,6 @@
             $scope.key = "@Html.Raw(ViewBag.key)";
             @*$scope.sortItem = "@Html.Raw(ViewBag.sortItem)";*@
             // Search
-            $scope.searchSort = "datecreate";
-            $scope.searchSort = "title";
-            $scope.searchSort = "searchText";
         }, function myError(response) {
             $scope.list = response.statusText;
         })
