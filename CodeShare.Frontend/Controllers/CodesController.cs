@@ -139,7 +139,6 @@ namespace CodeShare.Frontend.Controllers
             var coo = new FunctionsController();
             var idus = coo.CookieID();
 
-
             Code code = db.Codes.Find(id);
 
             int pt5 = 5;

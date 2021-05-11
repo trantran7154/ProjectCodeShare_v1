@@ -1,8 +1,10 @@
 ﻿@using CodeShare.Model.EF;
 @model Order
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chi tiết code vừa mua";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var coin = Model.Code.code_coin * 1000;
 }
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
@@ -13,8 +15,8 @@
         <div class="row">
             <div class="col-lg-8 bg-white border shadow text-dark">
                 <div style="padding: 10px; font-size: 16px">
-                    <h6 class="font-weight-bold text-success" style="color: black; font-size: 25px">Chi tiết code <span class="text-danger">@Model.Code.code_title</span></h6>
-                    <table class="table">
+                    <h6 class="font-weight-bold mt-2 text-success text-uppercase" style="color: black; font-size: 25px"><i class="fa fa-code font-weight-bold"></i> Chi tiết code <span class="text-dark">"@Model.Code.code_title"</span></h6>
+                    <table class="table mt-3">
                         <tr>
                             <td><b>Mật khẩu giải nén:</b> </td>
                             <td>
@@ -24,25 +26,25 @@
                         <tr>
                             <td><b>Link donwload:</b> </td>
                             <td>
-                                <a target="_blank" href="@Model.Code.code_linkdown">Tải ngay</a>
+                                <a target="_blank" href="@Model.Code.code_linkdown" class="font-weight-bold">Tải ngay</a>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Link demo:</b> </td>
                             <td>
-                                <a target="_blank" href="@Model.Code.code_linkdemo">Xem ngay</a>
+                                <a target="_blank" href="@Model.Code.code_linkdemo" class="font-weight-bold">Xem ngay</a>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Số xu mua:</b> </td>
                             <td>
-                                <b>@Model.Code.code_coin xu</b> <br />
+                                <b>@Model.Code.code_coin Xu</b> <br />
                             </td>
                         </tr>
                         <tr>
                             <td><b>Số tiền mua:</b> </td>
                             <td>
-                                <b>@(Model.Code.code_coin * 1000) VNĐ</b> <br />
+                                <b>@coin.Value.ToString("#,##0") VNĐ</b> <br />
                             </td>
                         </tr>
                         <tr>
@@ -72,7 +74,7 @@
                         <tr>
                             <td><b>Chi tiết code:</b> </td>
                             <td>
-                                <a href="/Codes/Details/@Model.code_id">Xem ngay</a>
+                                <a href="/Codes/Details/@Model.code_id" class="font-weight-bold">Xem ngay</a>
                             </td>
                         </tr>
                     </table>
