@@ -1,6 +1,8 @@
 ﻿@using CodeShare.Model.EF;
 @using Microsoft.Ajax.Utilities;
 @using CodeShare.Frontend.Functions;
+@model User 
+
 @{
     var fu = new FunctionsController();
     var idus = fu.CookieID();
@@ -9,6 +11,7 @@
     ViewBag.Title = "Tin nhắn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="home" style=" height: 250px">
     <div class="home_background parallax-window" data-parallax="scroll" style="background-image: url('../../Images/Codes/blue-dark-background-brightness-megaphone-set-windows-web-programming-language-codes-gears-vector-illustration-111990452.jpg');"></div>
 </div>
@@ -74,7 +77,6 @@
         }).then(function mySuccess(response) {
             $scope.list = response.data;
             $scope.count = $scope.list.length;
-
             $scope.cancelfavourite = function (id) {
                 $http({
                     method: "GET",
@@ -82,14 +84,11 @@
                 }).then(function mySuccess(response) {
                     $scope.fa = response.data;
                     $scope.countfa = $scope.fa.length;
-
                     window.location.href = "";
-
                 }, function myError(response) {
                     $scope.fa = response.statusText;
                 });
             }
-
         }, function myError(response) {
             $scope.list = response.statusText;
         });
