@@ -1,5 +1,5 @@
 ﻿@using CodeShare.Model.EF
-@model CodeShare.Model.EF.Code
+@model Code
 
 @{
     DataShareCodeEntities db = new DataShareCodeEntities();
@@ -140,8 +140,9 @@
                     <p>
                         ShareThis sẽ phải duyệt code của bạn trong thời gian sớm nhất. Tránh tình trạng đăng code lỗi, code độc.
                     </p>
-                    <form class="ui form" style="color: #5f6368; font-size: 18px" method="post" enctype="multipart/form-data" action="@Url.Action("Create","Codes")">
+                    <form class="ui form" style="color: #5f6368; font-size: 18px" method="post" enctype="multipart/form-data" action="">
                         @Html.AntiForgeryToken()
+                        <input type="hidden" name="code_id" value="@Model.code_id" />
                         <div class="two fields">
                             <div class="field">
                                 <label>Ảnh đại diện <b class="text-danger">*</b></label>
@@ -150,7 +151,7 @@
                                         border: 1px dashed green;
                                     }
                                 </style>
-                                <img data-toggle="modal" class="hv file-upload-image" data-target="#img" src="~/Images/Codes/notimg.png" style="width: 100%; height: 250px; cursor: pointer" />
+                                <img data-toggle="modal" class="hv file-upload-image" data-target="#img" src="~/Images/Codes/@Model.code_img" style="width: 100%; height: 250px; cursor: pointer" />
                             </div>
                             <div class="field">
                                 <br />
@@ -162,7 +163,7 @@
                         <div class="field">
                             <label>Tiêu đề chính: <b class="text-danger">*</b></label>
                             <p>Tiêu để để rõ nội dung của code, không được để chung chung. Một tiêu đề hay, tỷ lệ SEO sẽ càng cao. VD: Code game c#, Website wordpress bán điện thoại,...</p>
-                            <input type="text" name="code_title" placeholder="Tiêu để không quá 80 ký tự">
+                            <input value="@Model.code_title" type="text" name="code_title" placeholder="Tiêu để không quá 80 ký tự">
                             <p class="text-danger">Quyết định SEO 90%</p>
                         </div>
                         <div class="field">
@@ -176,52 +177,49 @@
                                 }
                             </style>
 
-                            <label>Phân loại code: <b class="text-danger">*</b></label>
-                            <select class="ui fluid search dropdown" multiple="" name="language">
-                                <option value="">Chọn phân loại code</option>
-                                @foreach (var item in db.Languages.Where(t => t.language_active == 1))
-                                {
-                                    <option value="@item.language_id">@item.language_name</option>
-                                }
-                            </select>
+                            <label>Phân loại code ( Không được sửa ): <b class="text-danger">*</b></label>
+                            @foreach (var item1 in db.Groups.Where(n => n.code_id == Model.code_id && n.group_item == 1))
+                            {
+                                <button type="button" class="btn btn-danger">@item1.Language.language_name</button>
+                            }
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <div class="field">
                             <label>Mô tả code: <b class="text-danger">*</b></label>
-                            <textarea name="code_info" class="form-control" placeholder="Mô tả ngắn về thông tin code"></textarea>
+                            <textarea name="code_info" class="form-control" placeholder="Mô tả ngắn về thông tin code">@Model.code_info</textarea>
                         </div>
                         <div class="field">
                             <label>Danh mục: <b class="text-danger">*</b></label>
                             <select class="ui fluid dropdown" name="category_id">
                                 <option value="">Danh mục</option>
-                                @foreach (var item in db.Categorys.Where(t => t.category_active == true))
+                                @foreach (var item in db.Categorys.Where(t => t.category_active == true && t.category_item == 1))
                                 {
-                                    <option value="@item.category_id">@item.category_name</option>
+                                    <option value="@item.category_id" @(Model.category_id == item.category_id ? "selected" : "")>@item.category_name</option>
                                 }
                             </select>
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
                         </div>
                         <div class="field">
                             <label>Link download: <b class="text-danger">*</b></label>
-                            <input type="text" name="code_linkdown" placeholder="Link dùng để thành viên khác download code">
+                            <input type="text" value="@Model.code_linkdown" name="code_linkdown" placeholder="Link dùng để thành viên khác download code">
                             <p class="text-danger">Khi code có phí, sau khi bán thành công thì mới hiển thị link code này</p>
                         </div>
                         <div class="field">
                             <label>Link Demo:</label>
-                            <input type="text" name="code_linkdemo" placeholder="Link demo nếu có">
+                            <input type="text" name="code_linkdemo" value="@Model.code_linkdemo" placeholder="Link demo nếu có">
                         </div>
                         <div class="field">
                             <label>Password giải nén:</label>
-                            <input type="text" name="code_pass" placeholder="Password giải nén nếu có">
+                            <input type="text" name="code_pass" placeholder="Password giải nén nếu có" value="@Model.code_pass">
                         </div>
                         <div class="field">
                             <label>Dung lượng file:</label>
-                            <input type="text" name="code_disk" placeholder="Dung lượng file">
+                            <input type="text" name="code_disk" placeholder="Dung lượng file" value="@Model.code_disk">
                             <p class="text-danger">Nếu để trống mặc định sẽ là không xác định</p>
                         </div>
                         <div class="field">
                             <label>Mô tả chi tiết: <b class="text-danger">*</b></label>
-                            <textarea name="code_des" class="form-control" id="mt"></textarea>
+                            <textarea name="code_des" class="form-control" id="mt">@Model.code_des</textarea>
                             <script>
                                 ClassicEditor
                                     .create(document.querySelector('#mt'))
@@ -232,7 +230,7 @@
                         </div>
                         <div class="field">
                             <label>Hướng dẫn cài đặt: <b class="text-danger">*</b></label>
-                            <textarea class="form-control" id="cd" name="code_setting"></textarea>
+                            <textarea class="form-control" id="cd" name="code_setting">@Model.code_setting</textarea>
                             <script>
                                 ClassicEditor
                                     .create(document.querySelector('#cd'))
@@ -252,11 +250,11 @@
                                 }
                             </style>
 
-                            <label>Tag: <b class="text-danger">*</b></label>
+                            @*<label>Tag: <b class="text-danger">*</b></label>
                             <select class="ui fluid search dropdown tag" multiple="" id="code_tag" name="tags">
                                 <option value="">Tag</option>
 
-                            </select>
+                            </select>*@
                             @*<a href="#" id="sele">click</a>*@
 
                             <p class="text-danger">Chọn tối đa 5 danh mục</p>
@@ -282,7 +280,7 @@
                                 <label class="font-weight-bold text-danger">Tôi đã đọc và đồng ý với các điều khoản của ShareThis</label>
                             </div>
                         </div>
-                        <button class="btn btn-danger">Tải lên ngay</button>
+                        <button class="btn btn-danger" type="submit">Lưu thay đổi</button>
 
                         <div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">

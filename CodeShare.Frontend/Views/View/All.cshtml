@@ -38,7 +38,7 @@
             <hr />
             <div class="ui form">
                 <div class="inline field">
-                    <div class="ui toggle checkbox">
+                    <div class="ui toggle checkbox" onclick="option(@user.user_id)">
                         <input type="checkbox" tabindex="0" class="hidden" @(user.user_option == true ? "checked" : "")>
                         <label class="text-danger" style="font-size: 20px">Trạng thái bật code</label>
                     </div>
@@ -93,3 +93,12 @@
         </div>
     </div>
 </div>
+<script>
+    function option(id) {
+        fetch("/Users/ChangeOption")
+            .then(response => response.json())
+            .then(data => (this.totalVuePackages = data.total));
+
+
+    }
+</script>

@@ -361,5 +361,16 @@ namespace CodeShare.Frontend.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public JsonResult ChangeOption()
+        {
+            var co = new FunctionsController();
+            var idus = co.CookieID();
+
+            User us = db.Users.Find(idus.user_id);
+            us.user_option = !us.user_option;
+            db.SaveChanges();
+            return Json("");
+        }
     }
 }

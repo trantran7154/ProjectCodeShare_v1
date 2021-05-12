@@ -116,20 +116,40 @@ namespace CodeShare.Frontend.Controllers
             }
             return View(code);
         }
-        public ActionResult Edit(Code codes, string[] language, string[] code_tag, HttpPostedFileBase img)
+        [HttpPost]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Code codes, string[] language, string[] tags, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+
+            Code codecheck = db.Codes.Find(codes.code_id);
+            if(img == null)
             {
-                var tag = "";
-                foreach (var item in code_tag)
-                {
-                    tag += item + ";";
-                }
-                codes.code_tag = tag;
-                codes.code_img = images.UpLoadImages(img, codes.code_img, "Codes");
-                codesDAO.Edit(codes, language);
+                codes.code_img = codecheck.code_img;
             }
-            return View();
+            else
+            {
+                codes.code_img = images.UpLoadImages(img, codes.code_img, "Codes");
+            }
+
+
+
+
+
+            codes.code_active = codecheck.code_active;
+            codes.code_option = codecheck.code_option;
+            codes.code_datecreate = codecheck.code_datecreate;
+            codes.code_dateupdate = DateTime.Now;
+            codes.code_del = codecheck.code_del;
+            codes.user_id = codecheck.user_id;
+            codes.code_view = codecheck.code_view;
+            codes.code_viewdown = codecheck.code_viewdown;
+            codes.code_code = codecheck.code_code;
+            codes.code_coin = codecheck.code_coin;
+           
+
+            codesDAO.Edit(codes, language);
+            return RedirectToAction("MyCodes");
         }
         public ActionResult PayCode(int ? coder, int? id)
         {
