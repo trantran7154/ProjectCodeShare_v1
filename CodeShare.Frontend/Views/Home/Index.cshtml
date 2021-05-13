@@ -204,7 +204,7 @@
             }
         </style>
         <div class="row" id="list">
-            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
+            @foreach (var item in codes.Where(n => n.code_active == 1 && n.code_del == false && n.code_option == true && n.User.user_option == true).OrderByDescending(n => n.code_datecreate).Take(16))
             {
                 <div class="col-md-3 mt-3">
                     <figure class="snip1208">
