@@ -41,20 +41,20 @@ namespace CodeShare.Model.DAO
                 db.Codes.Add(codes);
                 db.SaveChanges();
 
-                //// get code id
-                //Code codeid = db.Codes.SingleOrDefault(n => n.code_key == key);
-                //// add tags
-                //foreach (var item in tags)
-                //{
-                //    // add multiple tag for code
-                //    Group group = new Group()
-                //    {
-                //        code_id = codeid.code_id,
-                //        language_id = int.Parse(item),
-                //        group_item = Common.Common.ITEM_LANGUAGE_CODE
-                //    };
-                //    groupDao.Create(group);
-                //}
+                // get code id
+                Code codeid = db.Codes.SingleOrDefault(n => n.code_key == key);
+                // add tags
+                foreach (var item in tags)
+                {
+                    // add multiple tag for code
+                    Group group = new Group()
+                    {
+                        code_id = codeid.code_id,
+                        language_id = int.Parse(item),
+                        group_item = Common.Common.ITEM_LANGUAGE_CODE
+                    };
+                    groupDao.Create(group);
+                }
 
                 return true;
             }
