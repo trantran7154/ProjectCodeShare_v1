@@ -430,5 +430,9 @@ namespace CodeShare.Frontend.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         }
+        public ActionResult ToppCode()
+        {
+            return View();
+        }
     }
 }

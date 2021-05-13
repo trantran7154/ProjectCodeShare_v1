@@ -1,0 +1,191 @@
+﻿@using CodeShare.Model.EF
+@{
+    ViewBag.Title = "Top code";
+    DataShareCodeEntities db = new DataShareCodeEntities();
+    List<Code> codes = db.Codes.ToList();
+    List<Category> categories = db.Categorys.ToList();
+    List<Language> languages = db.Languages.ToList();
+    List<Banner> banners = db.Banners.ToList();
+}
+
+<link href="~/Content/Layout/Codes/CSS/cards.css" rel="stylesheet" />
+<link href="~/Content/Layout/Codes/CSS/girds.css" rel="stylesheet" />
+<link href="~/Content/Layout/Codes/CSS/card-girds.css" rel="stylesheet" />
+<style>
+    .fix-line-css {
+        display: block;
+        display: -webkit-box;
+        max-width: 400px;
+        height: 16px*1.3*3; /* Fallback for non-webkit */
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 1.3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<!-- Search -->
+<div class="search" id="search">
+    <!-- Search Contents -->
+    <div class="container fill_height">
+        <div class="row fill_height">
+            <div class="col fill_height">
+                <!-- Search Tabs -->
+                <div class="search_tabs_container">
+                    <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+                        <div onclick="window.location.href='#Android'" class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/bus.png" alt="">Android</div>
+                        <div onclick="window.location.href='#IOS'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/departure.png" alt="">IOS</div>
+                        <div onclick="window.location.href='#codeKnowledge'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/suitcase.png" alt=""><span>Game</span></div>
+                        <div onclick="window.location.href='#codeWeb'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/island.png" alt="">Website</div>
+                        <div onclick="window.location.href='#codeApp'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/cruise.png" alt="">Ứng Dụng</div>
+                        <div onclick="window.location.href='#codeNews'" class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/Layout/images/diving.png" alt="">Tin Tức</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials -->
+<div class="testimonials" style="background-image: url('../../Images/Codes/1.jpg'); background-repeat: no-repeat; background-size:  100% 100%;" ng-app="myApp">
+    <div class="test_border"></div>
+    <div class="container" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="section_title text-white">@ViewBag.name</h2>
+                <p class="mt-3">Source code cập nhật thường xuyên và được xét duyệt kỹ từ Admin</p>
+            </div>
+        </div>
+        <!-- Search Panel -->
+        <div class="search_panel active mt-5 mb-5">
+            <form action="#" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+                <div class="search_item">
+                    <div>Tên source</div>
+                    <input type="text" class="destination search_input" required="required" ng-model="searchText">
+                </div>
+                <div class="search_item">
+                    <div>Tình trạng</div>
+                    <select name="adults" id="adults_1" class="dropdown_item_select search_input" ng-model="searchFull.active">
+                        <option value="">Tất cả</option>
+                        <option value="1">Hoạt động</option>
+                        <option value="2">Không hoạt động</option>
+                    </select>
+                </div>
+                <div class="search_item w-25">
+                    <div>Sắp xếp theo</div>
+                    <select name="children" id="children_1" class="dropdown_item_select search_input" ng-model="searchSort">
+                        <option value="">Sắp xếp mặc định</option>
+                        <option value="searchText">Mặc định</option>
+                        <option value="title">Chữ cái</option>
+                        <option value="datecreate">Cũ nhất</option>
+                        <option value="searchText">Mới nhất</option>
+                    </select>
+                </div>
+                <button class="button search_button" ng-model="searchText">Tìm ngay<span></span><span></span><span></span></button>
+            </form>
+        </div>
+        <section id="content" class="mt-3">
+            <div class="container mt-2">
+                <div class="section-sort clearfix box">
+                    <ul class="tiles-swap clearfix block-sm">
+                        <li class="swap-block active" id="active1"> <a onclick="List()"><i class="fa fa-th"></i></a> </li>
+                        <li class="swap-list" id="active2"> <a onclick="Gird()"><i class="fa fa-list-ul"></i></a> </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div ng-show="(list | filter:searchText).length != 0">
+            <div class="row" id="list">
+                <div class="col-md-3 mt-3" ng-repeat="list in list | filter: key | filter: searchText | orderBy: searchSort | filter: searchFull">
+                    <figure class="snip1208">
+                        <img src="~/Images/Codes/{{list.img}}" alt="sample6" height="170" style="width: 100%" />
+                        <div class="date"><span class="day"><i class="fa fa-eye"></i></span><span class="month">{{list.view}}</span></div><i class="fa fa-search hover text-white"> </i>
+                        <figcaption style="height: 213px">
+                            <div style="height: 26px">
+                                <div class="font-weight-bold fix-line-css">{{list.title}}</div>
+                            </div>
+                            <div class="font-weight-bold text-dark mt-2" style="height: 77px">
+                                <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i>
+                                <a href="#" class="ml-4">{{list.groupp[0]}}</a>
+                            </div>
+                            <button class="mt-3 float-right mb-4 mt-4">Xem Thêm <i class="fa fa-long-arrow-right"></i></button>
+                        </figcaption><a href="/Codes/Details/{{list.id}}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="row" id="gird" style="display: none">
+                <div ng-repeat="list in list | filter: key | orderBy: view" style="width: 97%">
+                    <div class="container-fluid mb-3">
+                        <div class="d-flex justify-content-center row">
+                            <div class="col-md-12 w-100">
+                                <div class="row p-2 bg-white border rounded">
+                                    <div class="col-md-3 mt-1">
+                                        <img src="~/Images/Codes/{{list.img}}" alt="sample6" height="170" style="width: 100%" class="mt-3 mb-3" />
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <h4 class="fix-line-css text-dark font-weight-bold mt-1 ml-4">{{list.title}}</h4>
+                                        <div class="font-weight-bold text-dark mt-2 ml-4">
+                                            <i class="fa fa-bookmark-o font-weight-bold" style="color: #ffd800"></i>
+                                            <a href="#" class="ml-2">{{list.groupp[0]}}</a>
+                                        </div>
+                                    </div>
+                                    <center class="align-items-center align-content-center col-md-3 border-left mt-3">
+                                        <span class="mt-4 text-dark font-weight-bold"> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> (1)</span>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button class="btn btn-danger font-weight-bold" type="button" style="cursor: not-allowed"><i class="fa fa-eye"></i> {{list.view}}</button>
+                                            <a href="/Codes/Details/{{list.id}}" class="btn btn-outline-success mt-3 font-weight-bold" type="button">XEM THÊM <i class="fa fa-long-arrow-right"></i></a>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="(list | filter:searchText).length == 0">
+            <h4 class="text-center font-weight-bold mt-5"><i class="fa fa-ban" style="color: red"></i> CHƯA CÓ DỮ LIỆU</h4>
+        </div>
+        <script>
+            function List() {
+                document.getElementById("list").style = "margin-top: 1%";
+                document.getElementById("gird").style = "display: none !important";
+                document.getElementById("active1").classList = "swap-block active";
+                document.getElementById("active2").classList = "swap-list";
+            }
+            function Gird() {
+                document.getElementById("gird").style = "";
+                document.getElementById("list").style = "display: none !important;";
+                document.getElementById("active2").classList = "swap-block active";
+                document.getElementById("active1").classList = "swap-list";
+            }
+        </script>
+    </div>
+</div>
+
+<script>
+    $(".hover").mouseleave(
+        function () {
+            $(this).removeClass("hover");
+        }
+    );
+</script>
+
+<!-- angular -->
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Json/AllCodeTop"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        })
+    });
+
+</script>

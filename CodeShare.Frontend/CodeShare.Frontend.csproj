@@ -1339,6 +1339,7 @@
     <Content Include="Views\Tools\History.cshtml" />
     <Content Include="Views\Codes\SearchCode.cshtml" />
     <Content Include="Views\View\Validation.cshtml" />
+    <Content Include="Views\Codes\ToppCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
