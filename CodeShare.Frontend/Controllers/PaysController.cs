@@ -185,7 +185,7 @@ namespace CodeShare.Frontend.Controllers
             return View();
         }
 
-        // lich su rut tien
+        // Lịch sử rút tiền
         public ActionResult HistoryTakePrice()
         {
             return View();

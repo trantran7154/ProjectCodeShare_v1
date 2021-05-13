@@ -18,7 +18,7 @@ namespace CodeShare.Model.DAO
             {
                 //Mac dinh
                 takePrice.tp_datecreate = DateTime.Now;
-                takePrice.tp_active = 1;
+                takePrice.tp_active = 2;
 
                 db.TakePrices.Add(takePrice);
                 db.SaveChanges();

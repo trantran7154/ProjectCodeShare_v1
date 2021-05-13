@@ -74,6 +74,33 @@
                         }
                     ]
                 },
+                // Rút tiền
+                tp_momo: {
+                    identifier: 'tp_momo',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập số điện thoại!'
+                        },
+                        {
+                            type: 'integer[10..12]',
+                            prompt: 'Số điện thoại chưa đúng!'
+                        }
+                    ]
+                },
+                tp_coin: {
+                    identifier: 'tp_momo',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập số tiền cần rút!'
+                        },
+                        {
+                            type: 'integer[10..12]',
+                            prompt: 'Số tiền không phù hợp yêu cầu!'
+                        }
+                    ]
+                },
             }
         })
         ;
