@@ -353,9 +353,9 @@
                                                 var dm = db.Ratings.Where(n => n.code_id == Model.code_id).Sum(n => n.rating_dmrr);
                                                 var run = db.Ratings.Where(n => n.code_id == Model.code_id).Sum(n => n.rating_run);
                                                 var cc = db.Ratings.Where(n => n.code_id == Model.code_id).Count();
-                                                var scl = (int)(cl / cc);
-                                                var sdm = (int)(dm / cc);
-                                                var srun = (int)(sdm / cc);
+                                                var scl = cl / cc;
+                                                var sdm = dm / cc;
+                                                var srun = sdm / cc;
                                             }
                                             <tr>
                                                 <td>
@@ -391,13 +391,13 @@
                                                 @{ 
                                                     var like = db.Ratings.Where(n => n.code_id == Model.code_id && n.rating_like == true).Count();
                                                     var likenone = db.Ratings.Where(n => n.code_id == Model.code_id && n.rating_like == false).Count();
-                                                    var sl = (float)(like / cc);
+                                                   
                                                 }
                                                 <td>
                                                     Tỷ lệ yêu thích code này: 
                                                 </td>
                                                 <td>
-                                                    &nbsp;<b class="text-danger"> @(sl * 100) %</b> Có <b class="text-success"><i class="fa fa-arrow-circle-o-up"></i>@like</b> lượt thích và <b class="text-danger"><i class="fa fa-arrow-circle-down"></i>@likenone</b> Không thích
+                                                    Có <b class="text-success"><i class="fa fa-arrow-circle-o-up"></i>@like</b> lượt thích và <b class="text-danger"><i class="fa fa-arrow-circle-down"></i>@likenone</b> Không thích
                                                 </td>
                                             </tr>
                                         </table>
@@ -633,7 +633,7 @@
         @{ 
             var sum = db.Ratings.Where(n => n.code_id == Model.code_id).Sum(n => n.rating_sum);
             var c = db.Ratings.Where(n => n.code_id == Model.code_id).Count();
-            var sc = (int)(sum / c);
+            var sc = sum / c;
         }
         <center>
             <b class="text-danger">ĐÁNH GIÁ NGAY</b>
@@ -679,7 +679,16 @@
                 <b class="" style="font-size: 30px"><i class="fa fa-star"></i></b>
             }
             <br />
-            @sc/5 chất lượng
+            @if(sc == null)
+            {
+                <span>Chưa có</span>
+            }
+            else
+            {
+                <span>
+                    @sc/5 chất lượng
+                </span>
+            }
         </center>
     </div>
 </div>
