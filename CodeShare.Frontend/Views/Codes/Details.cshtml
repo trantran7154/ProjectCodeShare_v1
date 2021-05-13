@@ -117,15 +117,22 @@
                                         }
                                         else
                                         {
-                                            <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
-
+                                            if (Model.code_coin > 100)
+                                            {
+                                                <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download"></i> TẢI CODE NGAY</button>
+                                                <button class="btn btn-default float-right font-weight-bold mt-3 w-100" onclick="window.location.href='@Model.code_linkdemo'" style="font-size: 20px; height: 70px"><i class="fa fa-television"></i> DEMO</button>
+                                            }
+                                            else
+                                            {
+                                                <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download"></i> TẢI CODE NGAY</button>
+                                            }
                                         }
                                     }
                                     else
                                     {
-                                        <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px">TẢI CODE NGAY</button>
+                                        <button onclick="window.location.href='#pay'" class="btn btn-success float-right font-weight-bold w-100" style="font-size: 20px; height: 70px"><i class="fa fa-download"></i> TẢI CODE NGAY</button>
+                                        <button class="btn btn-default float-right font-weight-bold mt-3 w-100" onclick="window.location.href='@Model.code_linkdemo'" style="font-size: 20px; height: 70px"><i class="fa fa-television"></i> DEMO</button>
                                     }
-                                    <button class="btn btn-default float-right font-weight-bold mt-3 w-100" onclick="window.location.href='@Model.code_linkdemo'" style="font-size: 20px; height: 70px">DEMO</button>
                                 </div>
                             </div>
                         </div>
