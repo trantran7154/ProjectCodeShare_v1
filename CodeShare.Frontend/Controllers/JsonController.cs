@@ -60,7 +60,6 @@ namespace CodeShare.Frontend.Controllers
                 option = n.code_option,
                 pass = n.code_pass,
                 setting = n.code_setting,
-                tag = n.code_tag,
                 title = n.code_title,
                 view = (int)n.code_view,
                 viewdown = (int)n.code_viewdown,
