@@ -26,11 +26,9 @@
                 <div class="owl-item home_slider_item">
                     <div class="home_slider_background" style="background-image: url('../../Images/Codes/@item.banner_image'); background-size: cover"></div>
                     <div class="home_slider_content text-center">
-                        <marquee>
-                            <b class="text-white">Bảo trân</b> đã nạp <b class="text-white">20 xu</b> thành công &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b class="text-white">Bảo trân</b> đã nạp <b class="text-white">20 xu</b> thành công &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b class="text-white">Bảo trân</b> đã mua <b class="text-white">Code website</b> thành công
-                        </marquee>
+                        <div id="displayHistoryShow">
+                            
+                        </div>
                         <div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
                             <h1 style="font-size: 50px" class="mt-5">@item.banner_title</h1>
                             <div class="button home_slider_button"><div class="button_bcg"></div><a href="#search">Xem ngay<span></span><span></span><span></span></a></div>
@@ -736,11 +734,12 @@
                             <div class="font-weight-bold text-dark mt-2" style="height: 77px">
                                 <i class="fa fa-bookmark-o font-weight-bold text-warning"></i>&nbsp;
                                 @{
-                                    var count = item.Groups.Where(n => n.group_item == Common.ITEM_LANGUAGE_USER).Count();
+                                    var count = item.Groups.Where(n => n.group_item == Common.ITEM_LANGUAGE_CODE).Count();
                                     var countgr = 0;
                                 }
-                                @foreach (var lang in item.Groups.Where(n => n.group_item == Common.ITEM_LANGUAGE_USER))
+                                @foreach (var lang in item.Groups.Where(n => n.group_item == Common.ITEM_LANGUAGE_CODE))
                                 {
+                                    countgr++;
                                     if (count == countgr)
                                     {
                                         <a href="#" style="position: inherit">@lang.Language.language_name</a>
@@ -812,4 +811,35 @@
             $(this).removeClass("hover");
         }
     );
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        // Proxy created on the fly
+        var cus = $.connection.historyHub;
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayHistoryShow = function () {
+            getData();
+        };
+        // Start the connection
+        $.connection.hub.start();
+        getData();
+    });
+    function getData() {
+        var $tbl = $('#displayHistoryShow');
+        $.ajax({
+            url: '/View/GetHistory',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.list, function (i, model) {
+                    $tbl.append
+                        (
+                            '<marquee>' + '<b class="text-white">' + '</b>' + '<b class="text-white">' + model.content + '</b >' + '</marquee>' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'
+                        );
+                });
+            }
+        });
+    }
 </script>

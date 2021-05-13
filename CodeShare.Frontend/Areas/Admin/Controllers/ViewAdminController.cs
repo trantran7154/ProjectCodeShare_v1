@@ -45,10 +45,10 @@ namespace CodeShare.Frontend.Areas.Admin.Controllers
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(@"SELECT [his_id]
-      ,[user_id]
-      ,[his_datecreate]
-      ,[his_content]
-  FROM [dbo].[Historys]", connection))
+                      ,[user_id]
+                      ,[his_datecreate]
+                      ,[his_content]
+                  FROM [dbo].[Historys]", connection))
                 {
                     // Make sure the command object does not already have
                     // a notification object associated with it.
