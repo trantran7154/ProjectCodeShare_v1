@@ -105,7 +105,7 @@
                             Ngày Tạo
                         </th>
                         <th class="font-weight-bold" width="120">
-                            Hoạt Động
+                            Duyệt Code
                         </th>
                         <th class="font-weight-bold">
                             Tùy Chọn
@@ -197,6 +197,23 @@
                         </div>
                     </div>
                 </div>
+                <!-- Success modal -->
+                <div class="modal" tabindex="-1" id="active">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center font-18">
+                                <h3 class="mb-20">Duyệt Code Thành Công</h3>
+                                <div class="mb-30 text-center">
+                                    <img src="~/Images/Modal/checked.png" />
+                                </div>
+                                <h6 class="mt-2">Dữ liệu đã được hiển thị ở Trang Chủ!</h6>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <center>
                 <!-- Page List -->
@@ -240,6 +257,9 @@
             $http.get("/Admin/CodesAdmin/ActiveCode?id=" + id)
                 .then(function (response) {
                     $scope.list = response.data;
+                    $(document).ready(function () {
+                        $('#active').modal('show');
+                    })
                 });
         }
         // Option
