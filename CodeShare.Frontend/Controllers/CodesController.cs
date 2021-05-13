@@ -29,6 +29,10 @@ namespace CodeShare.Frontend.Controllers
             {
                 ViewBag.key = "chatluong";
             }
+            else if(key != null)
+            {
+                ViewBag.key = key;
+            }
             else
             {
                 ViewBag.key = "";
