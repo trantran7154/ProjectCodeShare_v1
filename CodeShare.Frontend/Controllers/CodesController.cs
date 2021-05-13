@@ -416,5 +416,19 @@ namespace CodeShare.Frontend.Controllers
         {
             return RedirectToAction("SearchCode", new { k = key, c = cate, l = lang });
         }
+
+        public ActionResult Rating(Rating rating)
+        {
+            var cookie = new FunctionsController();
+            var idus = cookie.CookieID();
+
+            rating.rating_datecreate = DateTime.Now;
+            rating.user_id = idus.user_id;
+
+            db.Ratings.Add(rating);
+            db.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
     }
 }

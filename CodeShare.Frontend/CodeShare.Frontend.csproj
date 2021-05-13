@@ -892,6 +892,7 @@
     <Content Include="Content\PageList\list.js" />
     <Content Include="Content\PageList\ui.css" />
     <Content Include="Content\PageList\ui.js" />
+    <Content Include="Content\Rating.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.min.css" />

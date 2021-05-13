@@ -115,6 +115,9 @@
     <Compile Include="EF\Pakage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Rating.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Rep.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

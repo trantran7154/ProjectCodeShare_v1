@@ -44,6 +44,9 @@
         <AssociationConnector Association="DataShareCodeModel.FK_Tools_Users" />
         <EntityTypeShape EntityType="DataShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" />
         <AssociationConnector Association="DataShareCodeModel.FK_Chats_Users" />
+        <EntityTypeShape EntityType="DataShareCodeModel.Rating" Width="1.5" PointX="8.25" PointY="11.125" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Raings_Codes" />
+        <AssociationConnector Association="DataShareCodeModel.FK_Raings_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

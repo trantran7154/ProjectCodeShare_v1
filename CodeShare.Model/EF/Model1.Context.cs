@@ -42,5 +42,6 @@ namespace CodeShare.Model.EF
         public virtual DbSet<Tool> Tools { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
     }
 }
